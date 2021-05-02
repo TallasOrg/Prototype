@@ -4,7 +4,7 @@ from loguru import logger
 
 def import_data():
     guide_strands = []
-    with open('data/HueskenRNA_original.csv', 'r') as f:
+    with open('data/HueskenRNA_retry.csv', 'r') as f:
         reader = csv.reader(f)
         next(reader)
         for row in reader:
@@ -43,5 +43,5 @@ if __name__ == '__main__':
             huesken_success.append(huseken_original_data[i])
         else:
             huesken_retry.append(huseken_original_data[i])
-    write_huesken_data('data/HueskenRNA_success.csv', huesken_success)
-    write_huesken_data('data/HueskenRNA_retry.csv', huesken_retry)
+    write_huesken_data('data/HueskenRNA_success2.csv', huesken_success)
+    write_huesken_data('data/HueskenRNA_retry2.csv', huesken_retry)
