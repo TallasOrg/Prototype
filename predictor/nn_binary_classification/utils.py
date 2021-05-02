@@ -18,7 +18,8 @@ def to_feature(guide_strand, free_energy):
 
 def load_huesken_data(datafile, n_samples=None):
     xy = np.genfromtxt(datafile, delimiter=',', dtype=None, names=True, encoding='utf-8')
-    y = xy['norm_inhibitory_activity']
+    y = np.zeros((xy.size, 1), dtype=int)
+    y[:,0] = np.rint(xy['norm_inhibitory_activity'])
     guide_strand = xy['guide_strand']
     free_energy = xy['free_energy']
     x = np.zeros((len(free_energy), 85))
