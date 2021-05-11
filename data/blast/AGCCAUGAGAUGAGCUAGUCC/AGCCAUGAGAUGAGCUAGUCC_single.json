@@ -1,263 +1,3340 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="jig" content="ncbitoggler"/>
-<meta name="ncbitoggler" content="animation:'none'"/>
-<title>NCBI Blast:</title>
-<script type="text/javascript" src="/core/jig/1.14.8/js/jig.min.js             "></script>
-<script type="text/javascript">    jQuery.getScript("/core/alerts/alerts.js", function() {
-        galert(['div#header', 'body > *:nth-child(1)'])
-    });</script>
-<meta http-equiv="Pragma" content="no-cache">
-<link rel="stylesheet" type="text/css" href="css/uswds.min.css" media="screen" />
-<link rel="stylesheet"  type="text/css" href="https://www.ncbi.nlm.nih.gov/style-guide/static/nwds/css/nwds.css"/>
-<link rel="stylesheet" href="css/headerNew.css"/>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous"> <!-- Font Awesome icons -->
-<link rel="stylesheet" type="text/css" href="css/footerNew.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="css/main.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="css/blastRes.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="css/print.css" media="print" />
-<!--[if lte IE 6]>
-<link rel="stylesheet" type="text/css" href="css/ie6_or_less.css" />
-<![endif]-->
-<script type="text/javascript" src="js/utils.js"></script>
-<script type="text/javascript" src="js/results.js"></script>
-</head>
-
-<body id="type-a" class="noToggleCheck" >
-<div id="wrap">
-		    	
-<header class="ncbi-header" role="banner" data-section="Header">
-<ul class="skip_nav">
-    <li><a accesskey="1" title="NCBI Homepage" href="https://www.ncbi.nlm.nih.gov/">NCBI Home</a></li>
-    <li><a accesskey="2" title="MyNCBI" href="https://www.ncbi.nlm.nih.gov/myncbi">Sign in to NCBI</a></li>
-    <li><a accesskey="3" title="Skip to main content" href="#mainCont">Skip to Main Content</a></li>
-    <li><a accesskey="4" title="Skip to navigation" href="#navcontent">Skip to Navigation</a></li>
-    <li><a accesskey="0" title="About NCBI Accesskeys" href="https://www.ncbi.nlm.nih.gov/guide/browsers/#accesskeys">About NCBI Accesskeys</a></li>
-</ul>
-<div class="usa-grid">
-    <div class="usa-width-one-whole">
-        <div class="agencies">
-            <div class="nih"><span class="usa-sr-only">National Institutes of Health</span></div>
-            <div class="nlm">U.S. National Library of Medicine</div>
-            <div class="ncbi">National Center for Biotechnology Information</div>
-            <a href="https://www.ncbi.nlm.nih.gov/" class="homepage"><span class="usa-sr-only" id="header_ncbi">NCBI homepage</span></a>
-        </div>
-
-        <div class="account">
-            <a id="account_login" href="https://www.ncbi.nlm.nih.gov/account/?back_url=https%3A%2F%2Fblast%2Encbi%2Enlm%2Enih%2Egov%2Fblast%2FBlast%2Ecgi%3FCMD%3DGet%26FORMAT%5FOBJECT%3DAlignment%26FORMAT%5FTYPE%3DJSON2%5FS%26RESULTS%5FFILE%3Don%26RID%3D6RXH9DBR01R" class="usa-button header-button">Log in</a>
-            <button id="account_info" class="header-button" aria-controls="account_popup">
-                <span class="fa fa-user" aria-hidden="true"></span>
-                <span class="username desktop-only" aria-hidden="true" id="uname_short"></span>
-                <span class="sr-only">Show account info</span>
-            </button>
-        </div>
-
-        <div class="ncbi-popup-anchor">
-            <div class="ncbi-popup account-popup" id="account_popup" aria-hidden="true" role="dialog" aria-labelledby="account-popup-header">
-                <div class="ncbi-popup-head">
-                    <button class="ncbi-close-button"><span class="fa fa-window-close"></span><span class="usa-sr-only">Close</span></button>
-                    <h4>Account</h4>
-                </div>
-                <div class="account-user-info">
-                    Logged in as:<br>
-                    <b><span class="username" id="uname_long">username</span></b>
-                </div>
-                <div class="account-links">
-                    <ul class="usa-unstyled-list">
-                        <li><a id="account_myncbi" href="https://www.ncbi.nlm.nih.gov/myncbi/">Dashboard</a> <span class="ncbi-text-small-light">(My NCBI)</span></li>
-                        <li><a id="account_pubs" href="https://www.ncbi.nlm.nih.gov/myncbi/collections/bibliography/">Publications</a> <span class="ncbi-text-small-light">(My Bibliography)</span></li>
-                        <li><a id="account_settings" href="https://www.ncbi.nlm.nih.gov/account/settings/">Account settings</a></li>
-                        <li><a id="account_logout" href="https://www.ncbi.nlm.nih.gov/account/signout/?back_url=https%3A%2F%2Fblast%2Encbi%2Enlm%2Enih%2Egov%2Fblast%2FBlast%2Ecgi%3FCMD%3DGet%26FORMAT%5FOBJECT%3DAlignment%26FORMAT%5FTYPE%3DJSON2%5FS%26RESULTS%5FFILE%3Don%26RID%3D6RXH9DBR01R">Log out</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
-</header>
-<nav class="ncbi-topnav" id="navcontent">
-    <div class="usa-grid">
-        <a class="ncbi-topnav-root" href="Blast.cgi">BLAST <sup>&reg;</sup></a> <span id="brc"><span class="brcrmbsign">&raquo;</span> <a href="Blast.cgi?PAGE=Nucleotides&amp;PROGRAM=blastn&amp;PAGE_TYPE=BlastSearch&amp;BLAST_SPEC=">blastn suite</a> <span class="brcrmbsign">&raquo;</span> RID-6RXH9DBR01R</span>
-        <ul class="rf ncbi-topnav-list" id="topnav-list">
-            <li class="first "><a href="Blast.cgi?CMD=Web&amp;PAGE_TYPE=BlastHome" title="BLAST Home">Home</a></li>
-            <li class="recent "><a href="Blast.cgi?CMD=GetSaved&amp;RECENT_RESULTS=on" title="Unexpired BLAST jobs">Recent Results</a></li>                
-            <li class="saved "><a href="Blast.cgi?CMD=GetSaved" title="Saved sets of BLAST search parameters">Saved Strategies</a></li>
-            <li  class= "last documentation "> <a href="Blast.cgi?CMD=Web&amp;PAGE_TYPE=BlastDocs" title="BLAST documentation">Help</a></li>                            
-        </ul>
-    </div>
-</nav>
-
-
-
-        <div id="content-wrap">
-
-                <div class="pageTitle">                            
-                   Format Request Status                   
-                </div>
-		<div class="inlineDiv resHeader">				   
-				   <a  id="frmPage"  class="UNKNOWN" href="#" submitForm="reformat">[Formatting options] </a>                   
-                </div>
-                <h2 id="jtitle" >Job Title: </h2>
-								
-                <div id="content">                
-                <!--<ul id="msg" class="msg"><li class="error"><p class=""></p><p class=""></p><p class=""></p></ul> -->
-                <ul id="msg" class="msg"><li class="error"><p class="error">Error: Results for RID 6RXH9DBR01R not found</p></li></ul>
-                <p><!--
-                QBlastInfoBegin
-	                Status=UNKNOWN
-                QBlastInfoEnd
-                --></p> 
-                               
-                <SCRIPT LANGUAGE="JavaScript"><!--
-                    var tm = "";
-                    if (tm != "") {                    
-                        setTimeout('document.forms[0].submit();',tm);
-                    }
-                //--></SCRIPT>                                
-                <table id="statInfo" class="UNKNOWN">
-                <tr><td>Request ID</td><td> <b>6RXH9DBR01R</b></td></tr>
-                <tr class="odd"><td>Status</td><td>Searching</td></tr>
-                <tr><td>Submitted at</td><td></td></tr>
-                <tr class="odd"><td>Current time</td><td></td></tr>
-                <tr><td>Time since submission</td><td></td></tr>
-                </table>
-                <p class="UNKNOWN">This page will be automatically updated in <b></b> seconds</p>       
-                <form action="Blast.cgi" enctype="application/x-www-form-urlencoded" method="POST" id="results">
-                <input name="FORMAT_OBJECT" type="hidden" value="Alignment"><input name="FORMAT_TYPE" type="hidden" value="JSON2_S"><input name="RESULTS_FILE" type="hidden" value="on"><input name="RID" type="hidden" value="6RXH9DBR01R"><input name="SEARCH_DB_STATUS" type="hidden" value="0"><input name="USER_TYPE" type="hidden" value="2"><input name="_PGR" type="hidden" value="0">                
-                <input name="_PGR" type="hidden" value="0" >
-                <input name="CMD" type="hidden" value="Get">
-               
-                </form>
-                                
-				</div><!-- /#content -->
-				<form action="Blast.cgi" enctype="application/x-www-form-urlencoded"  method="post" name="reformat" id="reformat">				
-				   <input name="QUERY_INFO" type="hidden" value="" />    				
-				   <input name="ENTREZ_QUERY" type="hidden" value="" />
-                   <input name="CDD_RID" type="hidden" value="" />
-                   <input name="CDD_SEARCH_STATE" type="hidden" value="" />
-                   <input name="RID" type="hidden" value="6RXH9DBR01R" />
-				   <input name="STEP_NUMBER" type="hidden" value="" />
-				   <input name="CMD" type="hidden" value="Web"/>				
-				   <input NAME="PAGE_TYPE" type="hidden"  value="BlastFormatting"/>
-				
-				   <!-- TO DO: test all of those changes -->				   	
-				   <!-- Psi blast params  PSI_BLAST_PARAMS - commented- using forms[0] from fromatter> -->
-				   <!-- Current Formatting options FORMATTING_OPTIONS- commented- using forms[0] from fromatter> -->
-				   <!-- Current Search options CURR_SAVED_OPTIONS - commented- using forms[0] from fromatter> -->
-                 </form>				
-        </div><!-- /#content-wrap -->
-
-         <footer id="ncbi-footer" class="usa-footer usa-footer-medium usa-sans ncbi-footer" role="contentinfo" data-section="Footer">
-  <div class="icon-section">
-    <div class="usa-grid">
-		<div class="usa-width-one-whole">
-		<h3 class="usa-sr-only">Connect</h3>
-		<ul class="ncbi-inline-list icon-list">
-			<li><a id="footer_twitter" href="https://twitter.com/ncbi">Twitter</a></li>
-			<li><a id="footer_facebook" href="https://www.facebook.com/ncbi.nlm">Facebook</a></li>
-			<li><a id="footer_youtube" href="https://www.youtube.com/user/NCBINLM">YouTube</a></li>
-			<li><a id="footer_linkedin" href="https://www.linkedin.com/company/national-center-for-biotechnology-information-ncbi-">LinkedIn</a></li>
-			<li><a id="footer_github" href="https://github.com/ncbi">GitHub</a></li>
-		</ul>
-		<ul class="ncbi-inline-list icon-list icon-list-elastic">	
-			<li class="li-blog"><a id="footer_blog" href="https://ncbiinsights.ncbi.nlm.nih.gov/">Blog</a></li>
-			<li class="li-support"><a id="footer_support" href="https://support.ncbi.nlm.nih.gov/">Support Center</a></li>
-		</ul>
-		</div>
-		</div>
-  </div>
-  <div class="usa-footer-secondary_section ncbi-section">
-    <div class="usa-grid">
-      <div class="usa-width-one-half ncbi">
-        <h3 class="ncbi-full-name">National Center for Biotechnology Information</h3>
-		<address>
-        <a id="google_maps" href="https://www.google.com/maps/place/8600+Rockville+Pike,+Bethesda,+MD+20894/@38.9959508,-77.101021,17z/data=!3m1!4b1!4m5!3m4!1s0x89b7c95e25765ddb:0x19156f88b27635b8!8m2!3d38.9959508!4d-77.0988323">
-        <span class="h-adr"> <span class="p-street-address break">8600 Rockville Pike</span>
-        <span class="p-locality">Bethesda</span> <span class="p-region"> MD</span>, <span class="p-postal-code">20894</span> <span class="p-country-name">USA</span> </span>
-		</a>
-		</address>
-        <ul class="ncbi-inline-list">
-			<li><a id="footer_about" href="https://www.ncbi.nlm.nih.gov/home/about/">About us</a></li>
-          <li><a id="footer_contact" href="https://www.ncbi.nlm.nih.gov/home/about/contact.shtml">Contact us</a></li>
-          <li><a id="footer_policies" href="https://www.ncbi.nlm.nih.gov/home/about/policies.shtml">Policies</a></li>
-          <li><a id="footer_foia" href="https://www.nih.gov/institutes-nih/nih-office-director/office-communications-public-liaison/freedom-information-act-office">FOIA</a></li>
-        </ul>
-      </div>
-      <div class="usa-width-one-half">
-      <div class="usa-grid-full">
-		<div class="usa-width-one-third">
-		<h4>Popular</h4>
-
-        <ul class="ncbi-unstyled-list">
-				<li><a id="footer_pubmed" href="https://www.ncbi.nlm.nih.gov/pubmed/">PubMed</a></li>
-				<li><a id="footer_pmc" href="https://www.ncbi.nlm.nih.gov/pmc/">PubMed Central</a></li>
-				<li><a id="footer_bookshelf" href="https://www.ncbi.nlm.nih.gov/books/">Bookshelf</a></li>
-				<li><a id="footer_pubchem" href="https://pubchem.ncbi.nlm.nih.gov">PubChem</a></li>
-				<li><a id="footer_gene" href="https://www.ncbi.nlm.nih.gov/gene/">Gene</a></li>
-				<li><a id="footer_blast" href="https://blast.ncbi.nlm.nih.gov">BLAST</a></li>
-				<li><a id="footer_nucleotide" href="https://www.ncbi.nlm.nih.gov/nucleotide/">Nucleotide</a></li>
-				<li><a id="footer_protein" href="https://www.ncbi.nlm.nih.gov/protein/">Protein</a></li>
-				<li><a id="footer_geo" href="https://www.ncbi.nlm.nih.gov/geo/">GEO</a></li>
-        </ul>
-
-			</div>
-		<div class="usa-width-one-third">
-			<h4>Resources</h4>
-			<ul class="ncbi-unstyled-list ncbi-undecorated-links">
-				  <li><a id="footer_literature" href="https://www.ncbi.nlm.nih.gov/home/literature/">Literature</a></li>
-				  <li><a id="footer_health" href="https://www.ncbi.nlm.nih.gov/home/health/">Health</a></li>
-				  <li><a id="footer_genomes" href="https://www.ncbi.nlm.nih.gov/home/genomes/">Genomes</a></li>
-				  <li><a id="footer_genes" href="https://www.ncbi.nlm.nih.gov/home/genes/">Genes</a></li>
-				  <li><a id="footer_proteins" href="https://www.ncbi.nlm.nih.gov/home/proteins/">Proteins</a></li>
-				  <li><a id="footer_chemicals" href="https://www.ncbi.nlm.nih.gov/home/chemicals/">Chemicals</a></li>
-			</ul>
-		</div>
-		<div class="usa-width-one-third">
-   <h4>Actions</h4>
-   <ul class="ncbi-unstyled-list">
-              <li><a id="footer_submit" href="https://www.ncbi.nlm.nih.gov/home/submit/">Submit</a></li>
-              <li><a id="footer_download" href="https://www.ncbi.nlm.nih.gov/home/download/">Download</a></li>
-              <li><a id="footer_learn" href="https://www.ncbi.nlm.nih.gov/home/learn/">Learn</a></li>
-              <li><a id="footer_develop" href="https://www.ncbi.nlm.nih.gov/home/develop/">Develop</a></li>
-              <li><a id="footer_analyze" href="https://www.ncbi.nlm.nih.gov/home/analyze/">Analyze</a></li>
-              <li><a id="footer_research" href="https://www.ncbi.nlm.nih.gov/research/">Research</a></li>
-   </ul>
-		  </div>
-		  </div>
-		  </div>
-    </div>
-	</div>
-     <div class="usa-footer-secondary_section gov-agencies"> 
-    <div class="usa-grid">
-    <div class="usa-width-one-whole">
-		<p>
-			<a id="footer_nlm" href="https://www.nlm.nih.gov/">NLM</a>
-			&ensp;|&ensp;
-			<a id="footer_nih" href="https://www.nih.gov/">NIH</a>
-			&ensp;|&ensp;
-			<a id="footer_hhs" href="https://www.hhs.gov/">HHS</a>
-			&ensp;|&ensp;
-			<a id="footer_usagov" href="https://www.usa.gov/">USA.gov</a>
-		</p>
-	 </div>
-	 </div>
-	</div>
-
- </footer>
-<script type="text/javascript" src="js/nwds.js"></script>
-<script type="text/javascript" src="js/ncbipopup.js"></script>
-<script type="text/javascript" src="js/headerNew.js"></script>
-<script src="js/uswds.min.js"></script>
-        <script type="text/javascript" src="/portal/portal3rc.fcgi/rlib/js/InstrumentOmnitureBaseJS/InstrumentNCBIBaseJS/InstrumentPageStarterJS.js"></script>
-<!--
-<script type="text/javascript" src="://www.ncbi.nlm.nih.gov/portal/portal3rc.fcgi/supportedbrowsers/js/nonportalbc_min.js"></script>
-<script type="text/javascript">$("#browsers_ajax").browserCheck();</script>
--->
-   </div><!--/#wrap-->
-</body>
-
-</html>
+{
+"BlastOutput2": [
+{
+    "report": {
+      "program": "blastn",
+      "version": "BLASTN 2.11.0+",
+      "reference": "Stephen F. Altschul, Thomas L. Madden, Alejandro A. Sch&auml;ffer, Jinghui Zhang, Zheng Zhang, Webb Miller, and David J. Lipman (1997), \"Gapped BLAST and PSI-BLAST: a new generation of protein database search programs\", Nucleic Acids Res. 25:3389-3402.",
+      "search_target": {
+        "db": "nt"
+      },
+      "params": {
+        "expect": 10,
+        "sc_match": 2,
+        "sc_mismatch": -3,
+        "gap_open": 5,
+        "gap_extend": 2,
+        "filter": "L;m;"
+      },
+      "results": {
+        "search": {
+          "query_id": "Query_60263",
+          "query_len": 21,
+          "hits": [
+            {
+              "num": 1,
+              "description": [
+                {
+                  "id": "gi|1848994840|ref|XM_003811844.2|",
+                  "accession": "XM_003811844",
+                  "title": "PREDICTED: Pan paniscus ubiquitin-fold modifier conjugating enzyme 1 (UFC1), mRNA",
+                  "taxid": 9597,
+                  "sciname": "Pan paniscus"
+                }
+              ],
+              "len": 1065,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 614,
+                  "hit_to": 594,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 2,
+              "description": [
+                {
+                  "id": "gi|1848010749|dbj|AP023168.1|",
+                  "accession": "AP023168",
+                  "title": "Felis catus Senzu DNA, chromosome: F1, American Shorthair breed",
+                  "taxid": 9685,
+                  "sciname": "Felis catus"
+                }
+              ],
+              "len": 74990155,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 69094319,
+                  "hit_to": 69094339,
+                  "hit_strand": "Plus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 3,
+              "description": [
+                {
+                  "id": "gi|1835158523|ref|XM_004321799.3|",
+                  "accession": "XM_004321799",
+                  "title": "PREDICTED: Tursiops truncatus ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X1, mRNA",
+                  "taxid": 9739,
+                  "sciname": "Tursiops truncatus"
+                }
+              ],
+              "len": 1842,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1391,
+                  "hit_to": 1371,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 4,
+              "description": [
+                {
+                  "id": "gi|1831702795|ref|XM_033414281.1|",
+                  "accession": "XM_033414281",
+                  "title": "PREDICTED: Orcinus orca ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X3, mRNA",
+                  "taxid": 9733,
+                  "sciname": "Orcinus orca"
+                }
+              ],
+              "len": 1057,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 606,
+                  "hit_to": 586,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 5,
+              "description": [
+                {
+                  "id": "gi|1831702794|ref|XM_012538494.2|",
+                  "accession": "XM_012538494",
+                  "title": "PREDICTED: Orcinus orca ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X2, mRNA",
+                  "taxid": 9733,
+                  "sciname": "Orcinus orca"
+                }
+              ],
+              "len": 1719,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1268,
+                  "hit_to": 1248,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 6,
+              "description": [
+                {
+                  "id": "gi|1831702793|ref|XM_004284404.3|",
+                  "accession": "XM_004284404",
+                  "title": "PREDICTED: Orcinus orca ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X1, mRNA",
+                  "taxid": 9733,
+                  "sciname": "Orcinus orca"
+                }
+              ],
+              "len": 902,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 451,
+                  "hit_to": 431,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 7,
+              "description": [
+                {
+                  "id": "gi|1825936494|ref|XM_033196559.1|",
+                  "accession": "XM_033196559",
+                  "title": "PREDICTED: Trachypithecus francoisi ubiquitin-fold modifier conjugating enzyme 1 (UFC1), mRNA",
+                  "taxid": 54180,
+                  "sciname": "Trachypithecus francoisi"
+                }
+              ],
+              "len": 1003,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 739,
+                  "hit_to": 719,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 8,
+              "description": [
+                {
+                  "id": "gi|1823896364|ref|XM_033093355.1|",
+                  "accession": "XM_033093355",
+                  "title": "PREDICTED: Rhinolophus ferrumequinum ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X3, mRNA",
+                  "taxid": 59479,
+                  "sciname": "Rhinolophus ferrumequinum"
+                }
+              ],
+              "len": 1504,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1036,
+                  "hit_to": 1016,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 9,
+              "description": [
+                {
+                  "id": "gi|1823896362|ref|XM_033093354.1|",
+                  "accession": "XM_033093354",
+                  "title": "PREDICTED: Rhinolophus ferrumequinum ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X2, mRNA",
+                  "taxid": 59479,
+                  "sciname": "Rhinolophus ferrumequinum"
+                }
+              ],
+              "len": 1507,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1039,
+                  "hit_to": 1019,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 10,
+              "description": [
+                {
+                  "id": "gi|1823896360|ref|XM_033093353.1|",
+                  "accession": "XM_033093353",
+                  "title": "PREDICTED: Rhinolophus ferrumequinum ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X1, mRNA",
+                  "taxid": 59479,
+                  "sciname": "Rhinolophus ferrumequinum"
+                }
+              ],
+              "len": 1868,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1400,
+                  "hit_to": 1380,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 11,
+              "description": [
+                {
+                  "id": "gi|1814674917|ref|XM_032642803.1|",
+                  "accession": "XM_032642803",
+                  "title": "PREDICTED: Phocoena sinus ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X3, mRNA",
+                  "taxid": 42100,
+                  "sciname": "Phocoena sinus"
+                }
+              ],
+              "len": 1057,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 606,
+                  "hit_to": 586,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 12,
+              "description": [
+                {
+                  "id": "gi|1814674913|ref|XM_032642793.1|",
+                  "accession": "XM_032642793",
+                  "title": "PREDICTED: Phocoena sinus ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X2, mRNA",
+                  "taxid": 42100,
+                  "sciname": "Phocoena sinus"
+                }
+              ],
+              "len": 985,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 534,
+                  "hit_to": 514,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 13,
+              "description": [
+                {
+                  "id": "gi|1814674909|ref|XM_032642785.1|",
+                  "accession": "XM_032642785",
+                  "title": "PREDICTED: Phocoena sinus ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X1, mRNA",
+                  "taxid": 42100,
+                  "sciname": "Phocoena sinus"
+                }
+              ],
+              "len": 1130,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 679,
+                  "hit_to": 659,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 14,
+              "description": [
+                {
+                  "id": "gi|1813023877|ref|XM_030302021.2|",
+                  "accession": "XM_030302021",
+                  "title": "PREDICTED: Lynx canadensis ubiquitin-fold modifier conjugating enzyme 1 (UFC1), mRNA",
+                  "taxid": 61383,
+                  "sciname": "Lynx canadensis"
+                }
+              ],
+              "len": 1357,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 903,
+                  "hit_to": 883,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 15,
+              "description": [
+                {
+                  "id": "gi|1811023784|ref|XM_006173963.3|",
+                  "accession": "XM_006173963",
+                  "title": "PREDICTED: Camelus ferus ubiquitin-fold modifier conjugating enzyme 1 (UFC1), mRNA",
+                  "taxid": 419612,
+                  "sciname": "Camelus ferus"
+                }
+              ],
+              "len": 1003,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 576,
+                  "hit_to": 556,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 16,
+              "description": [
+                {
+                  "id": "gi|1804450326|ref|XM_032260946.1|",
+                  "accession": "XM_032260946",
+                  "title": "PREDICTED: Sapajus apella ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X2, mRNA",
+                  "taxid": 9515,
+                  "sciname": "Sapajus apella"
+                }
+              ],
+              "len": 1015,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 571,
+                  "hit_to": 551,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 17,
+              "description": [
+                {
+                  "id": "gi|1804450324|ref|XM_032260945.1|",
+                  "accession": "XM_032260945",
+                  "title": "PREDICTED: Sapajus apella ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X1, mRNA",
+                  "taxid": 9515,
+                  "sciname": "Sapajus apella"
+                }
+              ],
+              "len": 1091,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 647,
+                  "hit_to": 627,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 18,
+              "description": [
+                {
+                  "id": "gi|1804437570|ref|XR_004261757.1|",
+                  "accession": "XR_004261757",
+                  "title": "PREDICTED: Sapajus apella ubiquitin-fold modifier-conjugating enzyme 1 pseudogene (LOC116534497), misc_RNA",
+                  "taxid": 9515,
+                  "sciname": "Sapajus apella"
+                }
+              ],
+              "len": 1003,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 615,
+                  "hit_to": 595,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 19,
+              "description": [
+                {
+                  "id": "gi|1804416827|ref|XR_004258816.1|",
+                  "accession": "XR_004258816",
+                  "title": "PREDICTED: Sapajus apella ubiquitin-fold modifier-conjugating enzyme 1 pseudogene (LOC116528015), misc_RNA",
+                  "taxid": 9515,
+                  "sciname": "Sapajus apella"
+                }
+              ],
+              "len": 995,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 543,
+                  "hit_to": 523,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 20,
+              "description": [
+                {
+                  "id": "gi|1799991677|ref|XM_032161224.1|",
+                  "accession": "XM_032161224",
+                  "title": "PREDICTED: Hylobates moloch ubiquitin-fold modifier conjugating enzyme 1 (UFC1), mRNA",
+                  "taxid": 81572,
+                  "sciname": "Hylobates moloch"
+                }
+              ],
+              "len": 1207,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 755,
+                  "hit_to": 735,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 21,
+              "description": [
+                {
+                  "id": "gi|1788671133|ref|XM_023214308.2|",
+                  "accession": "XM_023214308",
+                  "title": "PREDICTED: Piliocolobus tephrosceles ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X2, mRNA",
+                  "taxid": 591936,
+                  "sciname": "Piliocolobus tephrosceles"
+                }
+              ],
+              "len": 1152,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 706,
+                  "hit_to": 686,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 22,
+              "description": [
+                {
+                  "id": "gi|1777503528|ref|XM_006215678.3|",
+                  "accession": "XM_006215678",
+                  "title": "PREDICTED: Vicugna pacos ubiquitin-fold modifier conjugating enzyme 1 (UFC1), mRNA",
+                  "taxid": 30538,
+                  "sciname": "Vicugna pacos"
+                }
+              ],
+              "len": 1054,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 627,
+                  "hit_to": 607,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 23,
+              "description": [
+                {
+                  "id": "gi|1777334921|ref|XR_004184786.1|",
+                  "accession": "XR_004184786",
+                  "title": "PREDICTED: Papio anubis ubiquitin-fold modifier-conjugating enzyme 1 pseudogene (LOC101019310), misc_RNA",
+                  "taxid": 9555,
+                  "sciname": "Papio anubis"
+                }
+              ],
+              "len": 883,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 438,
+                  "hit_to": 418,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 24,
+              "description": [
+                {
+                  "id": "gi|1777247477|ref|XM_031654823.1|",
+                  "accession": "XM_031654823",
+                  "title": "PREDICTED: Papio anubis ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X2, mRNA",
+                  "taxid": 9555,
+                  "sciname": "Papio anubis"
+                }
+              ],
+              "len": 1042,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 596,
+                  "hit_to": 576,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 25,
+              "description": [
+                {
+                  "id": "gi|1777247475|ref|XM_031654814.1|",
+                  "accession": "XM_031654814",
+                  "title": "PREDICTED: Papio anubis ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X1, mRNA",
+                  "taxid": 9555,
+                  "sciname": "Papio anubis"
+                }
+              ],
+              "len": 1135,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 689,
+                  "hit_to": 669,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 26,
+              "description": [
+                {
+                  "id": "gi|1768727865|ref|XM_010993054.2|",
+                  "accession": "XM_010993054",
+                  "title": "PREDICTED: Camelus dromedarius ubiquitin-fold modifier conjugating enzyme 1 (UFC1), mRNA",
+                  "taxid": 9838,
+                  "sciname": "Camelus dromedarius"
+                }
+              ],
+              "len": 996,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 570,
+                  "hit_to": 550,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 27,
+              "description": [
+                {
+                  "id": "gi|1767954978|ref|XM_031389331.1|",
+                  "accession": "XM_031389331",
+                  "title": "PREDICTED: Mastomys coucha ubiquitin-fold modifier conjugating enzyme 1 (Ufc1), mRNA",
+                  "taxid": 35658,
+                  "sciname": "Mastomys coucha"
+                }
+              ],
+              "len": 1026,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 555,
+                  "hit_to": 535,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 28,
+              "description": [
+                {
+                  "id": "gi|1753023947|ref|XM_031011621.1|",
+                  "accession": "XM_031011621",
+                  "title": "PREDICTED: Gorilla gorilla gorilla ubiquitin-fold modifier conjugating enzyme 1 (UFC1), mRNA",
+                  "taxid": 9595,
+                  "sciname": "Gorilla gorilla gorilla"
+                }
+              ],
+              "len": 1182,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 730,
+                  "hit_to": 710,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 29,
+              "description": [
+                {
+                  "id": "gi|1751291325|ref|XM_010367119.2|",
+                  "accession": "XM_010367119",
+                  "title": "PREDICTED: Rhinopithecus roxellana ubiquitin-fold modifier conjugating enzyme 1 (UFC1), mRNA",
+                  "taxid": 61622,
+                  "sciname": "Rhinopithecus roxellana"
+                }
+              ],
+              "len": 1288,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 842,
+                  "hit_to": 822,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 30,
+              "description": [
+                {
+                  "id": "gi|1751210128|ref|XR_749097.2|",
+                  "accession": "XR_749097",
+                  "title": "PREDICTED: Rhinopithecus roxellana ubiquitin-fold modifier-conjugating enzyme 1 pseudogene (LOC104670111), misc_RNA",
+                  "taxid": 61622,
+                  "sciname": "Rhinopithecus roxellana"
+                }
+              ],
+              "len": 870,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 417,
+                  "hit_to": 397,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 31,
+              "description": [
+                {
+                  "id": "gi|1751193935|ref|XR_750211.2|",
+                  "accession": "XR_750211",
+                  "title": "PREDICTED: Rhinopithecus roxellana ubiquitin-fold modifier-conjugating enzyme 1 pseudogene (LOC104678600), misc_RNA",
+                  "taxid": 61622,
+                  "sciname": "Rhinopithecus roxellana"
+                }
+              ],
+              "len": 879,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 431,
+                  "hit_to": 411,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 32,
+              "description": [
+                {
+                  "id": "gi|1746254951|ref|XM_030842149.1|",
+                  "accession": "XM_030842149",
+                  "title": "PREDICTED: Globicephala melas ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X3, mRNA",
+                  "taxid": 9731,
+                  "sciname": "Globicephala melas"
+                }
+              ],
+              "len": 1057,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 606,
+                  "hit_to": 586,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 33,
+              "description": [
+                {
+                  "id": "gi|1746254949|ref|XM_030842148.1|",
+                  "accession": "XM_030842148",
+                  "title": "PREDICTED: Globicephala melas ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X2, mRNA",
+                  "taxid": 9731,
+                  "sciname": "Globicephala melas"
+                }
+              ],
+              "len": 887,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 436,
+                  "hit_to": 416,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 34,
+              "description": [
+                {
+                  "id": "gi|1746254947|ref|XM_030842146.1|",
+                  "accession": "XM_030842146",
+                  "title": "PREDICTED: Globicephala melas ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X1, mRNA",
+                  "taxid": 9731,
+                  "sciname": "Globicephala melas"
+                }
+              ],
+              "len": 902,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 451,
+                  "hit_to": 431,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 35,
+              "description": [
+                {
+                  "id": "gi|1743150919|ref|XM_030824091.1|",
+                  "accession": "XM_030824091",
+                  "title": "PREDICTED: Nomascus leucogenys ubiquitin-fold modifier conjugating enzyme 1 (UFC1), mRNA",
+                  "taxid": 61853,
+                  "sciname": "Nomascus leucogenys"
+                }
+              ],
+              "len": 1202,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 750,
+                  "hit_to": 730,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 36,
+              "description": [
+                {
+                  "id": "gi|1741498136|ref|XM_022559255.2|",
+                  "accession": "XM_022559255",
+                  "title": "PREDICTED: Delphinapterus leucas ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X2, mRNA",
+                  "taxid": 9749,
+                  "sciname": "Delphinapterus leucas"
+                }
+              ],
+              "len": 883,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 432,
+                  "hit_to": 412,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 37,
+              "description": [
+                {
+                  "id": "gi|1741498135|ref|XM_022559254.2|",
+                  "accession": "XM_022559254",
+                  "title": "PREDICTED: Delphinapterus leucas ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X1, mRNA",
+                  "taxid": 9749,
+                  "sciname": "Delphinapterus leucas"
+                }
+              ],
+              "len": 1013,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 562,
+                  "hit_to": 542,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 38,
+              "description": [
+                {
+                  "id": "gi|1655689818|ref|XM_029227821.1|",
+                  "accession": "XM_029227821",
+                  "title": "PREDICTED: Monodon monoceros ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X3, mRNA",
+                  "taxid": 40151,
+                  "sciname": "Monodon monoceros"
+                }
+              ],
+              "len": 1302,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 857,
+                  "hit_to": 837,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 39,
+              "description": [
+                {
+                  "id": "gi|1655689816|ref|XM_029227820.1|",
+                  "accession": "XM_029227820",
+                  "title": "PREDICTED: Monodon monoceros ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X2, mRNA",
+                  "taxid": 40151,
+                  "sciname": "Monodon monoceros"
+                }
+              ],
+              "len": 1465,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1014,
+                  "hit_to": 994,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 40,
+              "description": [
+                {
+                  "id": "gi|1655689814|ref|XM_029227819.1|",
+                  "accession": "XM_029227819",
+                  "title": "PREDICTED: Monodon monoceros ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X1, mRNA",
+                  "taxid": 40151,
+                  "sciname": "Monodon monoceros"
+                }
+              ],
+              "len": 1479,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1034,
+                  "hit_to": 1014,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 41,
+              "description": [
+                {
+                  "id": "gi|1622951765|ref|XR_012770.4|",
+                  "accession": "XR_012770",
+                  "title": "PREDICTED: Macaca mulatta ubiquitin-fold modifier-conjugating enzyme 1 pseudogene (LOC704680), misc_RNA",
+                  "taxid": 9544,
+                  "sciname": "Macaca mulatta"
+                }
+              ],
+              "len": 812,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 419,
+                  "hit_to": 399,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 42,
+              "description": [
+                {
+                  "id": "gi|1622829361|ref|XM_028826846.1|",
+                  "accession": "XM_028826846",
+                  "title": "PREDICTED: Macaca mulatta ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X5, mRNA",
+                  "taxid": 9544,
+                  "sciname": "Macaca mulatta"
+                }
+              ],
+              "len": 1096,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 650,
+                  "hit_to": 630,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 43,
+              "description": [
+                {
+                  "id": "gi|1622829360|ref|XM_015113807.2|",
+                  "accession": "XM_015113807",
+                  "title": "PREDICTED: Macaca mulatta ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X4, mRNA",
+                  "taxid": 9544,
+                  "sciname": "Macaca mulatta"
+                }
+              ],
+              "len": 1062,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 616,
+                  "hit_to": 596,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 44,
+              "description": [
+                {
+                  "id": "gi|1622829359|ref|XM_015113815.2|",
+                  "accession": "XM_015113815",
+                  "title": "PREDICTED: Macaca mulatta ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X3, mRNA",
+                  "taxid": 9544,
+                  "sciname": "Macaca mulatta"
+                }
+              ],
+              "len": 1016,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 570,
+                  "hit_to": 550,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 45,
+              "description": [
+                {
+                  "id": "gi|1595759553|ref|XM_028488730.1|",
+                  "accession": "XM_028488730",
+                  "title": "PREDICTED: Physeter catodon ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X2, mRNA",
+                  "taxid": 9755,
+                  "sciname": "Physeter catodon"
+                }
+              ],
+              "len": 1091,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 640,
+                  "hit_to": 620,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 46,
+              "description": [
+                {
+                  "id": "gi|1595759552|ref|XM_007112289.3|",
+                  "accession": "XM_007112289",
+                  "title": "PREDICTED: Physeter catodon ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X1, mRNA",
+                  "taxid": 9755,
+                  "sciname": "Physeter catodon"
+                }
+              ],
+              "len": 1182,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 731,
+                  "hit_to": 711,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 47,
+              "description": [
+                {
+                  "id": "gi|1519243768|ref|NM_016406.4|",
+                  "accession": "NM_016406",
+                  "title": "Homo sapiens ubiquitin-fold modifier conjugating enzyme 1 (UFC1), mRNA",
+                  "taxid": 9606,
+                  "sciname": "Homo sapiens"
+                }
+              ],
+              "len": 888,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 437,
+                  "hit_to": 417,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 48,
+              "description": [
+                {
+                  "id": "gi|1516182263|ref|XM_027095249.1|",
+                  "accession": "XM_027095249",
+                  "title": "PREDICTED: Lagenorhynchus obliquidens ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X3, mRNA",
+                  "taxid": 90247,
+                  "sciname": "Lagenorhynchus obliquidens"
+                }
+              ],
+              "len": 1057,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 606,
+                  "hit_to": 586,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 49,
+              "description": [
+                {
+                  "id": "gi|1516182261|ref|XM_027095248.1|",
+                  "accession": "XM_027095248",
+                  "title": "PREDICTED: Lagenorhynchus obliquidens ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X2, mRNA",
+                  "taxid": 90247,
+                  "sciname": "Lagenorhynchus obliquidens"
+                }
+              ],
+              "len": 884,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 433,
+                  "hit_to": 413,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 50,
+              "description": [
+                {
+                  "id": "gi|1516182259|ref|XM_027095247.1|",
+                  "accession": "XM_027095247",
+                  "title": "PREDICTED: Lagenorhynchus obliquidens ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X1, mRNA",
+                  "taxid": 90247,
+                  "sciname": "Lagenorhynchus obliquidens"
+                }
+              ],
+              "len": 902,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 451,
+                  "hit_to": 431,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 51,
+              "description": [
+                {
+                  "id": "gi|1512073734|ref|XM_015076224.2|",
+                  "accession": "XM_015076224",
+                  "title": "PREDICTED: Acinonyx jubatus ubiquitin-fold modifier conjugating enzyme 1 (UFC1), mRNA",
+                  "taxid": 32536,
+                  "sciname": "Acinonyx jubatus"
+                }
+              ],
+              "len": 1465,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1018,
+                  "hit_to": 998,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 52,
+              "description": [
+                {
+                  "id": "gi|1482631970|ref|XM_023185092.2|",
+                  "accession": "XM_023185092",
+                  "title": "PREDICTED: Piliocolobus tephrosceles ubiquitin-fold modifier-conjugating enzyme 1 (LOC111521601), mRNA",
+                  "taxid": 591936,
+                  "sciname": "Piliocolobus tephrosceles"
+                }
+              ],
+              "len": 897,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 447,
+                  "hit_to": 427,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 53,
+              "description": [
+                {
+                  "id": "gi|1571880967|ref|XM_028163881.1|",
+                  "accession": "XM_028163881",
+                  "title": "PREDICTED: Balaenoptera acutorostrata scammoni ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X3, mRNA",
+                  "taxid": 310752,
+                  "sciname": "Balaenoptera acutorostrata scammoni"
+                }
+              ],
+              "len": 1058,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 606,
+                  "hit_to": 586,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 54,
+              "description": [
+                {
+                  "id": "gi|1571880966|ref|XM_007171720.2|",
+                  "accession": "XM_007171720",
+                  "title": "PREDICTED: Balaenoptera acutorostrata scammoni ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X2, mRNA",
+                  "taxid": 310752,
+                  "sciname": "Balaenoptera acutorostrata scammoni"
+                }
+              ],
+              "len": 966,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 514,
+                  "hit_to": 494,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 55,
+              "description": [
+                {
+                  "id": "gi|1571880965|ref|XM_007171719.2|",
+                  "accession": "XM_007171719",
+                  "title": "PREDICTED: Balaenoptera acutorostrata scammoni ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X1, mRNA",
+                  "taxid": 310752,
+                  "sciname": "Balaenoptera acutorostrata scammoni"
+                }
+              ],
+              "len": 1013,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 561,
+                  "hit_to": 541,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 56,
+              "description": [
+                {
+                  "id": "gi|1567495780|ref|XM_012184828.3|",
+                  "accession": "XM_012184828",
+                  "title": "PREDICTED: Ovis aries ubiquitin-fold modifier conjugating enzyme 1 (UFC1), mRNA",
+                  "taxid": 9940,
+                  "sciname": "Ovis aries"
+                }
+              ],
+              "len": 1092,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 650,
+                  "hit_to": 630,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 57,
+              "description": [
+                {
+                  "id": "gi|1561664740|ref|XM_014581955.2|",
+                  "accession": "XM_014581955",
+                  "title": "PREDICTED: Tupaia chinensis ubiquitin-fold modifier conjugating enzyme 1 (UFC1), mRNA",
+                  "taxid": 246437,
+                  "sciname": "Tupaia chinensis"
+                }
+              ],
+              "len": 1109,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 685,
+                  "hit_to": 665,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 58,
+              "description": [
+                {
+                  "id": "gi|1542938526|ref|XM_027528146.1|",
+                  "accession": "XM_027528146",
+                  "title": "PREDICTED: Bos indicus x Bos taurus ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X5, mRNA",
+                  "taxid": 30522,
+                  "sciname": "Bos indicus x Bos taurus"
+                }
+              ],
+              "len": 1006,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 480,
+                  "hit_to": 460,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 59,
+              "description": [
+                {
+                  "id": "gi|1542938524|ref|XM_027528137.1|",
+                  "accession": "XM_027528137",
+                  "title": "PREDICTED: Bos indicus x Bos taurus ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X4, mRNA",
+                  "taxid": 30522,
+                  "sciname": "Bos indicus x Bos taurus"
+                }
+              ],
+              "len": 876,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 434,
+                  "hit_to": 414,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 60,
+              "description": [
+                {
+                  "id": "gi|1542938522|ref|XM_027528129.1|",
+                  "accession": "XM_027528129",
+                  "title": "PREDICTED: Bos indicus x Bos taurus ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X3, mRNA",
+                  "taxid": 30522,
+                  "sciname": "Bos indicus x Bos taurus"
+                }
+              ],
+              "len": 876,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 434,
+                  "hit_to": 414,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 61,
+              "description": [
+                {
+                  "id": "gi|1542938520|ref|XM_027528121.1|",
+                  "accession": "XM_027528121",
+                  "title": "PREDICTED: Bos indicus x Bos taurus ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X2, mRNA",
+                  "taxid": 30522,
+                  "sciname": "Bos indicus x Bos taurus"
+                }
+              ],
+              "len": 981,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 539,
+                  "hit_to": 519,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 62,
+              "description": [
+                {
+                  "id": "gi|1542938518|ref|XM_027528111.1|",
+                  "accession": "XM_027528111",
+                  "title": "PREDICTED: Bos indicus x Bos taurus ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X1, mRNA",
+                  "taxid": 30522,
+                  "sciname": "Bos indicus x Bos taurus"
+                }
+              ],
+              "len": 877,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 435,
+                  "hit_to": 415,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 63,
+              "description": [
+                {
+                  "id": "gi|1435009720|ref|XM_025915228.1|",
+                  "accession": "XM_025915228",
+                  "title": "PREDICTED: Puma concolor ubiquitin-fold modifier conjugating enzyme 1 (UFC1), mRNA",
+                  "taxid": 9696,
+                  "sciname": "Puma concolor"
+                }
+              ],
+              "len": 688,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 435,
+                  "hit_to": 415,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 64,
+              "description": [
+                {
+                  "id": "gi|1411169759|ref|XR_003120460.1|",
+                  "accession": "XR_003120460",
+                  "title": "PREDICTED: Theropithecus gelada ubiquitin-fold modifier-conjugating enzyme 1 pseudogene (LOC112628671), misc_RNA",
+                  "taxid": 9565,
+                  "sciname": "Theropithecus gelada"
+                }
+              ],
+              "len": 863,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 418,
+                  "hit_to": 398,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 65,
+              "description": [
+                {
+                  "id": "gi|1411074783|ref|XM_025359394.1|",
+                  "accession": "XM_025359394",
+                  "title": "PREDICTED: Theropithecus gelada ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X2, mRNA",
+                  "taxid": 9565,
+                  "sciname": "Theropithecus gelada"
+                }
+              ],
+              "len": 1517,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 556,
+                  "hit_to": 536,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 66,
+              "description": [
+                {
+                  "id": "gi|1411074781|ref|XM_025359307.1|",
+                  "accession": "XM_025359307",
+                  "title": "PREDICTED: Theropithecus gelada ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X1, mRNA",
+                  "taxid": 9565,
+                  "sciname": "Theropithecus gelada"
+                }
+              ],
+              "len": 1693,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 732,
+                  "hit_to": 712,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 67,
+              "description": [
+                {
+                  "id": "gi|2027143333|ref|XM_041003356.1|",
+                  "accession": "XM_041003356",
+                  "title": "PREDICTED: Ochotona curzoniae ubiquitin-fold modifier conjugating enzyme 1 (UFC1), mRNA",
+                  "taxid": 130825,
+                  "sciname": "Ochotona curzoniae"
+                }
+              ],
+              "len": 949,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 496,
+                  "hit_to": 476,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 68,
+              "description": [
+                {
+                  "id": "gi|2020825615|ref|XM_040452393.1|",
+                  "accession": "XM_040452393",
+                  "title": "PREDICTED: Puma yagouaroundi ubiquitin-fold modifier conjugating enzyme 1 (UFC1), mRNA",
+                  "taxid": 1608482,
+                  "sciname": "Puma yagouaroundi"
+                }
+              ],
+              "len": 1464,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1017,
+                  "hit_to": 997,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 69,
+              "description": [
+                {
+                  "id": "gi|2009592985|ref|XM_040230059.1|",
+                  "accession": "XM_040230059",
+                  "title": "PREDICTED: Oryx dammah ubiquitin-fold modifier conjugating enzyme 1 (UFC1), mRNA",
+                  "taxid": 59534,
+                  "sciname": "Oryx dammah"
+                }
+              ],
+              "len": 1113,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 670,
+                  "hit_to": 650,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 70,
+              "description": [
+                {
+                  "id": "gi|1984087555|ref|XM_039480650.1|",
+                  "accession": "XM_039480650",
+                  "title": "PREDICTED: Saimiri boliviensis boliviensis ubiquitin-fold modifier conjugating enzyme 1 (UFC1), mRNA",
+                  "taxid": 39432,
+                  "sciname": "Saimiri boliviensis boliviensis"
+                }
+              ],
+              "len": 1177,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 731,
+                  "hit_to": 711,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 71,
+              "description": [
+                {
+                  "id": "gi|1984069676|ref|XR_005581184.1|",
+                  "accession": "XR_005581184",
+                  "title": "PREDICTED: Saimiri boliviensis boliviensis ubiquitin-fold modifier-conjugating enzyme 1-like (LOC101048097), misc_RNA",
+                  "taxid": 39432,
+                  "sciname": "Saimiri boliviensis boliviensis"
+                }
+              ],
+              "len": 649,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 420,
+                  "hit_to": 400,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 72,
+              "description": [
+                {
+                  "id": "gi|1965517206|ref|XM_039246452.1|",
+                  "accession": "XM_039246452",
+                  "title": "PREDICTED: Hyaena hyaena ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X2, mRNA",
+                  "taxid": 95912,
+                  "sciname": "Hyaena hyaena"
+                }
+              ],
+              "len": 889,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 444,
+                  "hit_to": 424,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 73,
+              "description": [
+                {
+                  "id": "gi|1965517202|ref|XM_039246451.1|",
+                  "accession": "XM_039246451",
+                  "title": "PREDICTED: Hyaena hyaena ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X1, mRNA",
+                  "taxid": 95912,
+                  "sciname": "Hyaena hyaena"
+                }
+              ],
+              "len": 944,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 499,
+                  "hit_to": 479,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 74,
+              "description": [
+                {
+                  "id": "gi|1938894682|ref|XM_037984472.1|",
+                  "accession": "XM_037984472",
+                  "title": "PREDICTED: Chlorocebus sabaeus ubiquitin-fold modifier-conjugating enzyme 1-like (LOC103229653), mRNA",
+                  "taxid": 60711,
+                  "sciname": "Chlorocebus sabaeus"
+                }
+              ],
+              "len": 894,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 417,
+                  "hit_to": 397,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 75,
+              "description": [
+                {
+                  "id": "gi|1938823391|ref|XM_007976437.2|",
+                  "accession": "XM_007976437",
+                  "title": "PREDICTED: Chlorocebus sabaeus ubiquitin-fold modifier conjugating enzyme 1 (UFC1), mRNA",
+                  "taxid": 60711,
+                  "sciname": "Chlorocebus sabaeus"
+                }
+              ],
+              "len": 1070,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 624,
+                  "hit_to": 604,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 76,
+              "description": [
+                {
+                  "id": "gi|1934701528|ref|XM_037813376.1|",
+                  "accession": "XM_037813376",
+                  "title": "PREDICTED: Choloepus didactylus ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X3, mRNA",
+                  "taxid": 27675,
+                  "sciname": "Choloepus didactylus"
+                }
+              ],
+              "len": 1613,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1166,
+                  "hit_to": 1146,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 77,
+              "description": [
+                {
+                  "id": "gi|1934701525|ref|XM_037813372.1|",
+                  "accession": "XM_037813372",
+                  "title": "PREDICTED: Choloepus didactylus ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X2, mRNA",
+                  "taxid": 27675,
+                  "sciname": "Choloepus didactylus"
+                }
+              ],
+              "len": 792,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 345,
+                  "hit_to": 325,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 78,
+              "description": [
+                {
+                  "id": "gi|1934701522|ref|XM_037813365.1|",
+                  "accession": "XM_037813365",
+                  "title": "PREDICTED: Choloepus didactylus ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X1, mRNA",
+                  "taxid": 27675,
+                  "sciname": "Choloepus didactylus"
+                }
+              ],
+              "len": 1056,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 609,
+                  "hit_to": 589,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 79,
+              "description": [
+                {
+                  "id": "gi|1934012681|ref|XM_017515076.2|",
+                  "accession": "XM_017515076",
+                  "title": "PREDICTED: Cebus imitator ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X3, mRNA",
+                  "taxid": 2715852,
+                  "sciname": "Cebus imitator"
+                }
+              ],
+              "len": 1012,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 571,
+                  "hit_to": 551,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 80,
+              "description": [
+                {
+                  "id": "gi|1934012679|ref|XM_037733647.1|",
+                  "accession": "XM_037733647",
+                  "title": "PREDICTED: Cebus imitator ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X2, mRNA",
+                  "taxid": 2715852,
+                  "sciname": "Cebus imitator"
+                }
+              ],
+              "len": 1096,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 655,
+                  "hit_to": 635,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 81,
+              "description": [
+                {
+                  "id": "gi|1934012678|ref|XM_017515075.2|",
+                  "accession": "XM_017515075",
+                  "title": "PREDICTED: Cebus imitator ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X1, mRNA",
+                  "taxid": 2715852,
+                  "sciname": "Cebus imitator"
+                }
+              ],
+              "len": 1165,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 724,
+                  "hit_to": 704,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 82,
+              "description": [
+                {
+                  "id": "gi|1927302348|ref|XM_037150062.1|",
+                  "accession": "XM_037150062",
+                  "title": "PREDICTED: Artibeus jamaicensis ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X2, mRNA",
+                  "taxid": 9417,
+                  "sciname": "Artibeus jamaicensis"
+                }
+              ],
+              "len": 1004,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 584,
+                  "hit_to": 564,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 83,
+              "description": [
+                {
+                  "id": "gi|1927302346|ref|XM_037150054.1|",
+                  "accession": "XM_037150054",
+                  "title": "PREDICTED: Artibeus jamaicensis ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X1, mRNA",
+                  "taxid": 9417,
+                  "sciname": "Artibeus jamaicensis"
+                }
+              ],
+              "len": 1057,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 637,
+                  "hit_to": 617,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 84,
+              "description": [
+                {
+                  "id": "gi|1926996976|ref|XM_037035026.1|",
+                  "accession": "XM_037035026",
+                  "title": "PREDICTED: Sturnira hondurensis ubiquitin-fold modifier conjugating enzyme 1 (UFC1), mRNA",
+                  "taxid": 192404,
+                  "sciname": "Sturnira hondurensis"
+                }
+              ],
+              "len": 1091,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 669,
+                  "hit_to": 649,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 85,
+              "description": [
+                {
+                  "id": "gi|1926220912|ref|XM_017656200.2|",
+                  "accession": "XM_017656200",
+                  "title": "PREDICTED: Manis javanica ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X2, mRNA",
+                  "taxid": 9974,
+                  "sciname": "Manis javanica"
+                }
+              ],
+              "len": 911,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 459,
+                  "hit_to": 439,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 86,
+              "description": [
+                {
+                  "id": "gi|1926220906|ref|XM_017656199.2|",
+                  "accession": "XM_017656199",
+                  "title": "PREDICTED: Manis javanica ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X1, mRNA",
+                  "taxid": 9974,
+                  "sciname": "Manis javanica"
+                }
+              ],
+              "len": 1034,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 582,
+                  "hit_to": 562,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 87,
+              "description": [
+                {
+                  "id": "gi|1920360221|ref|XM_036922785.1|",
+                  "accession": "XM_036922785",
+                  "title": "PREDICTED: Manis pentadactyla ubiquitin-fold modifier conjugating enzyme 1 (UFC1), mRNA",
+                  "taxid": 143292,
+                  "sciname": "Manis pentadactyla"
+                }
+              ],
+              "len": 911,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 462,
+                  "hit_to": 442,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 88,
+              "description": [
+                {
+                  "id": "gi|1920175894|ref|XM_036861589.1|",
+                  "accession": "XM_036861589",
+                  "title": "PREDICTED: Balaenoptera musculus ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X5, mRNA",
+                  "taxid": 9771,
+                  "sciname": "Balaenoptera musculus"
+                }
+              ],
+              "len": 887,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 436,
+                  "hit_to": 416,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 89,
+              "description": [
+                {
+                  "id": "gi|1920175892|ref|XM_036861580.1|",
+                  "accession": "XM_036861580",
+                  "title": "PREDICTED: Balaenoptera musculus ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X4, mRNA",
+                  "taxid": 9771,
+                  "sciname": "Balaenoptera musculus"
+                }
+              ],
+              "len": 887,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 436,
+                  "hit_to": 416,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 90,
+              "description": [
+                {
+                  "id": "gi|1920175890|ref|XM_036861569.1|",
+                  "accession": "XM_036861569",
+                  "title": "PREDICTED: Balaenoptera musculus ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X3, mRNA",
+                  "taxid": 9771,
+                  "sciname": "Balaenoptera musculus"
+                }
+              ],
+              "len": 1057,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 606,
+                  "hit_to": 586,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 91,
+              "description": [
+                {
+                  "id": "gi|1920175888|ref|XM_036861560.1|",
+                  "accession": "XM_036861560",
+                  "title": "PREDICTED: Balaenoptera musculus ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X2, mRNA",
+                  "taxid": 9771,
+                  "sciname": "Balaenoptera musculus"
+                }
+              ],
+              "len": 1014,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 563,
+                  "hit_to": 543,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 92,
+              "description": [
+                {
+                  "id": "gi|1920175886|ref|XM_036861549.1|",
+                  "accession": "XM_036861549",
+                  "title": "PREDICTED: Balaenoptera musculus ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X1, mRNA",
+                  "taxid": 9771,
+                  "sciname": "Balaenoptera musculus"
+                }
+              ],
+              "len": 887,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 436,
+                  "hit_to": 416,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 93,
+              "description": [
+                {
+                  "id": "gi|1915446709|ref|XM_004589102.3|",
+                  "accession": "XM_004589102",
+                  "title": "PREDICTED: Ochotona princeps ubiquitin-fold modifier conjugating enzyme 1 (UFC1), mRNA",
+                  "taxid": 9978,
+                  "sciname": "Ochotona princeps"
+                }
+              ],
+              "len": 953,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 503,
+                  "hit_to": 483,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 94,
+              "description": [
+                {
+                  "id": "gi|1910885479|ref|XM_036273390.1|",
+                  "accession": "XM_036273390",
+                  "title": "PREDICTED: Molossus molossus ubiquitin-fold modifier conjugating enzyme 1 (UFC1), mRNA",
+                  "taxid": 27622,
+                  "sciname": "Molossus molossus"
+                }
+              ],
+              "len": 1080,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 675,
+                  "hit_to": 655,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 95,
+              "description": [
+                {
+                  "id": "gi|1899638360|ref|XM_028503352.2|",
+                  "accession": "XM_028503352",
+                  "title": "PREDICTED: Phyllostomus discolor ubiquitin-fold modifier conjugating enzyme 1 (UFC1), mRNA",
+                  "taxid": 89673,
+                  "sciname": "Phyllostomus discolor"
+                }
+              ],
+              "len": 924,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 693,
+                  "hit_to": 673,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 96,
+              "description": [
+                {
+                  "id": "gi|1864443930|ref|XM_035279447.1|",
+                  "accession": "XM_035279447",
+                  "title": "PREDICTED: Callithrix jacchus ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X6, mRNA",
+                  "taxid": 9483,
+                  "sciname": "Callithrix jacchus"
+                }
+              ],
+              "len": 1230,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 790,
+                  "hit_to": 770,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 97,
+              "description": [
+                {
+                  "id": "gi|1864443928|ref|XM_035279446.1|",
+                  "accession": "XM_035279446",
+                  "title": "PREDICTED: Callithrix jacchus ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X5, mRNA",
+                  "taxid": 9483,
+                  "sciname": "Callithrix jacchus"
+                }
+              ],
+              "len": 1187,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 747,
+                  "hit_to": 727,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 98,
+              "description": [
+                {
+                  "id": "gi|1863992266|ref|XM_002760186.4|",
+                  "accession": "XM_002760186",
+                  "title": "PREDICTED: Callithrix jacchus ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X4, mRNA",
+                  "taxid": 9483,
+                  "sciname": "Callithrix jacchus"
+                }
+              ],
+              "len": 1074,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 634,
+                  "hit_to": 614,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 99,
+              "description": [
+                {
+                  "id": "gi|1864443926|ref|XM_035279445.1|",
+                  "accession": "XM_035279445",
+                  "title": "PREDICTED: Callithrix jacchus ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X3, mRNA",
+                  "taxid": 9483,
+                  "sciname": "Callithrix jacchus"
+                }
+              ],
+              "len": 1222,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 782,
+                  "hit_to": 762,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 100,
+              "description": [
+                {
+                  "id": "gi|1864443924|ref|XM_035279443.1|",
+                  "accession": "XM_035279443",
+                  "title": "PREDICTED: Callithrix jacchus ubiquitin-fold modifier conjugating enzyme 1 (UFC1), transcript variant X2, mRNA",
+                  "taxid": 9483,
+                  "sciname": "Callithrix jacchus"
+                }
+              ],
+              "len": 1168,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 728,
+                  "hit_to": 708,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCATGAGATGAGCTAGTCC",
+                  "hseq": "AGCCATGAGATGAGCTAGTCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            }
+          ],
+          "stat": {
+            "db_num": 69782627,
+            "db_len": 433578483295,
+            "hsp_len": 18,
+            "eff_space": 1296967188027,
+            "kappa": 0.41,
+            "lambda": 0.625,
+            "entropy": 0.78
+          }
+        }
+      }
+    }
+  }
+]
+}
 

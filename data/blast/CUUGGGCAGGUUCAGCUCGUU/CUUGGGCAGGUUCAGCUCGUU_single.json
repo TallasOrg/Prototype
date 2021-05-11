@@ -1,263 +1,3383 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="jig" content="ncbitoggler"/>
-<meta name="ncbitoggler" content="animation:'none'"/>
-<title>NCBI Blast:</title>
-<script type="text/javascript" src="/core/jig/1.14.8/js/jig.min.js             "></script>
-<script type="text/javascript">    jQuery.getScript("/core/alerts/alerts.js", function() {
-        galert(['div#header', 'body > *:nth-child(1)'])
-    });</script>
-<meta http-equiv="Pragma" content="no-cache">
-<link rel="stylesheet" type="text/css" href="css/uswds.min.css" media="screen" />
-<link rel="stylesheet"  type="text/css" href="https://www.ncbi.nlm.nih.gov/style-guide/static/nwds/css/nwds.css"/>
-<link rel="stylesheet" href="css/headerNew.css"/>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous"> <!-- Font Awesome icons -->
-<link rel="stylesheet" type="text/css" href="css/footerNew.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="css/main.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="css/blastRes.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="css/print.css" media="print" />
-<!--[if lte IE 6]>
-<link rel="stylesheet" type="text/css" href="css/ie6_or_less.css" />
-<![endif]-->
-<script type="text/javascript" src="js/utils.js"></script>
-<script type="text/javascript" src="js/results.js"></script>
-</head>
-
-<body id="type-a" class="noToggleCheck" >
-<div id="wrap">
-		    	
-<header class="ncbi-header" role="banner" data-section="Header">
-<ul class="skip_nav">
-    <li><a accesskey="1" title="NCBI Homepage" href="https://www.ncbi.nlm.nih.gov/">NCBI Home</a></li>
-    <li><a accesskey="2" title="MyNCBI" href="https://www.ncbi.nlm.nih.gov/myncbi">Sign in to NCBI</a></li>
-    <li><a accesskey="3" title="Skip to main content" href="#mainCont">Skip to Main Content</a></li>
-    <li><a accesskey="4" title="Skip to navigation" href="#navcontent">Skip to Navigation</a></li>
-    <li><a accesskey="0" title="About NCBI Accesskeys" href="https://www.ncbi.nlm.nih.gov/guide/browsers/#accesskeys">About NCBI Accesskeys</a></li>
-</ul>
-<div class="usa-grid">
-    <div class="usa-width-one-whole">
-        <div class="agencies">
-            <div class="nih"><span class="usa-sr-only">National Institutes of Health</span></div>
-            <div class="nlm">U.S. National Library of Medicine</div>
-            <div class="ncbi">National Center for Biotechnology Information</div>
-            <a href="https://www.ncbi.nlm.nih.gov/" class="homepage"><span class="usa-sr-only" id="header_ncbi">NCBI homepage</span></a>
-        </div>
-
-        <div class="account">
-            <a id="account_login" href="https://www.ncbi.nlm.nih.gov/account/?back_url=https%3A%2F%2Fblast%2Encbi%2Enlm%2Enih%2Egov%2Fblast%2FBlast%2Ecgi%3FCMD%3DGet%26FORMAT%5FOBJECT%3DAlignment%26FORMAT%5FTYPE%3DJSON2%5FS%26RESULTS%5FFILE%3Don%26RID%3D7J7AU84V016" class="usa-button header-button">Log in</a>
-            <button id="account_info" class="header-button" aria-controls="account_popup">
-                <span class="fa fa-user" aria-hidden="true"></span>
-                <span class="username desktop-only" aria-hidden="true" id="uname_short"></span>
-                <span class="sr-only">Show account info</span>
-            </button>
-        </div>
-
-        <div class="ncbi-popup-anchor">
-            <div class="ncbi-popup account-popup" id="account_popup" aria-hidden="true" role="dialog" aria-labelledby="account-popup-header">
-                <div class="ncbi-popup-head">
-                    <button class="ncbi-close-button"><span class="fa fa-window-close"></span><span class="usa-sr-only">Close</span></button>
-                    <h4>Account</h4>
-                </div>
-                <div class="account-user-info">
-                    Logged in as:<br>
-                    <b><span class="username" id="uname_long">username</span></b>
-                </div>
-                <div class="account-links">
-                    <ul class="usa-unstyled-list">
-                        <li><a id="account_myncbi" href="https://www.ncbi.nlm.nih.gov/myncbi/">Dashboard</a> <span class="ncbi-text-small-light">(My NCBI)</span></li>
-                        <li><a id="account_pubs" href="https://www.ncbi.nlm.nih.gov/myncbi/collections/bibliography/">Publications</a> <span class="ncbi-text-small-light">(My Bibliography)</span></li>
-                        <li><a id="account_settings" href="https://www.ncbi.nlm.nih.gov/account/settings/">Account settings</a></li>
-                        <li><a id="account_logout" href="https://www.ncbi.nlm.nih.gov/account/signout/?back_url=https%3A%2F%2Fblast%2Encbi%2Enlm%2Enih%2Egov%2Fblast%2FBlast%2Ecgi%3FCMD%3DGet%26FORMAT%5FOBJECT%3DAlignment%26FORMAT%5FTYPE%3DJSON2%5FS%26RESULTS%5FFILE%3Don%26RID%3D7J7AU84V016">Log out</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
-</header>
-<nav class="ncbi-topnav" id="navcontent">
-    <div class="usa-grid">
-        <a class="ncbi-topnav-root" href="Blast.cgi">BLAST <sup>&reg;</sup></a> <span id="brc"><span class="brcrmbsign">&raquo;</span> <a href="Blast.cgi?PAGE=Nucleotides&amp;PROGRAM=blastn&amp;PAGE_TYPE=BlastSearch&amp;BLAST_SPEC=">blastn suite</a> <span class="brcrmbsign">&raquo;</span> RID-7J7AU84V016</span>
-        <ul class="rf ncbi-topnav-list" id="topnav-list">
-            <li class="first "><a href="Blast.cgi?CMD=Web&amp;PAGE_TYPE=BlastHome" title="BLAST Home">Home</a></li>
-            <li class="recent "><a href="Blast.cgi?CMD=GetSaved&amp;RECENT_RESULTS=on" title="Unexpired BLAST jobs">Recent Results</a></li>                
-            <li class="saved "><a href="Blast.cgi?CMD=GetSaved" title="Saved sets of BLAST search parameters">Saved Strategies</a></li>
-            <li  class= "last documentation "> <a href="Blast.cgi?CMD=Web&amp;PAGE_TYPE=BlastDocs" title="BLAST documentation">Help</a></li>                            
-        </ul>
-    </div>
-</nav>
-
-
-
-        <div id="content-wrap">
-
-                <div class="pageTitle">                            
-                   Format Request Status                   
-                </div>
-		<div class="inlineDiv resHeader">				   
-				   <a  id="frmPage"  class="UNKNOWN" href="#" submitForm="reformat">[Formatting options] </a>                   
-                </div>
-                <h2 id="jtitle" >Job Title: </h2>
-								
-                <div id="content">                
-                <!--<ul id="msg" class="msg"><li class="error"><p class=""></p><p class=""></p><p class=""></p></ul> -->
-                <ul id="msg" class="msg"><li class="error"><p class="error">Error: Results for RID 7J7AU84V016 not found</p></li></ul>
-                <p><!--
-                QBlastInfoBegin
-	                Status=UNKNOWN
-                QBlastInfoEnd
-                --></p> 
-                               
-                <SCRIPT LANGUAGE="JavaScript"><!--
-                    var tm = "";
-                    if (tm != "") {                    
-                        setTimeout('document.forms[0].submit();',tm);
-                    }
-                //--></SCRIPT>                                
-                <table id="statInfo" class="UNKNOWN">
-                <tr><td>Request ID</td><td> <b>7J7AU84V016</b></td></tr>
-                <tr class="odd"><td>Status</td><td>Searching</td></tr>
-                <tr><td>Submitted at</td><td></td></tr>
-                <tr class="odd"><td>Current time</td><td></td></tr>
-                <tr><td>Time since submission</td><td></td></tr>
-                </table>
-                <p class="UNKNOWN">This page will be automatically updated in <b></b> seconds</p>       
-                <form action="Blast.cgi" enctype="application/x-www-form-urlencoded" method="POST" id="results">
-                <input name="FORMAT_OBJECT" type="hidden" value="Alignment"><input name="FORMAT_TYPE" type="hidden" value="JSON2_S"><input name="RESULTS_FILE" type="hidden" value="on"><input name="RID" type="hidden" value="7J7AU84V016"><input name="SEARCH_DB_STATUS" type="hidden" value="0"><input name="USER_TYPE" type="hidden" value="2"><input name="_PGR" type="hidden" value="0">                
-                <input name="_PGR" type="hidden" value="0" >
-                <input name="CMD" type="hidden" value="Get">
-               
-                </form>
-                                
-				</div><!-- /#content -->
-				<form action="Blast.cgi" enctype="application/x-www-form-urlencoded"  method="post" name="reformat" id="reformat">				
-				   <input name="QUERY_INFO" type="hidden" value="" />    				
-				   <input name="ENTREZ_QUERY" type="hidden" value="" />
-                   <input name="CDD_RID" type="hidden" value="" />
-                   <input name="CDD_SEARCH_STATE" type="hidden" value="" />
-                   <input name="RID" type="hidden" value="7J7AU84V016" />
-				   <input name="STEP_NUMBER" type="hidden" value="" />
-				   <input name="CMD" type="hidden" value="Web"/>				
-				   <input NAME="PAGE_TYPE" type="hidden"  value="BlastFormatting"/>
-				
-				   <!-- TO DO: test all of those changes -->				   	
-				   <!-- Psi blast params  PSI_BLAST_PARAMS - commented- using forms[0] from fromatter> -->
-				   <!-- Current Formatting options FORMATTING_OPTIONS- commented- using forms[0] from fromatter> -->
-				   <!-- Current Search options CURR_SAVED_OPTIONS - commented- using forms[0] from fromatter> -->
-                 </form>				
-        </div><!-- /#content-wrap -->
-
-         <footer id="ncbi-footer" class="usa-footer usa-footer-medium usa-sans ncbi-footer" role="contentinfo" data-section="Footer">
-  <div class="icon-section">
-    <div class="usa-grid">
-		<div class="usa-width-one-whole">
-		<h3 class="usa-sr-only">Connect</h3>
-		<ul class="ncbi-inline-list icon-list">
-			<li><a id="footer_twitter" href="https://twitter.com/ncbi">Twitter</a></li>
-			<li><a id="footer_facebook" href="https://www.facebook.com/ncbi.nlm">Facebook</a></li>
-			<li><a id="footer_youtube" href="https://www.youtube.com/user/NCBINLM">YouTube</a></li>
-			<li><a id="footer_linkedin" href="https://www.linkedin.com/company/national-center-for-biotechnology-information-ncbi-">LinkedIn</a></li>
-			<li><a id="footer_github" href="https://github.com/ncbi">GitHub</a></li>
-		</ul>
-		<ul class="ncbi-inline-list icon-list icon-list-elastic">	
-			<li class="li-blog"><a id="footer_blog" href="https://ncbiinsights.ncbi.nlm.nih.gov/">Blog</a></li>
-			<li class="li-support"><a id="footer_support" href="https://support.ncbi.nlm.nih.gov/">Support Center</a></li>
-		</ul>
-		</div>
-		</div>
-  </div>
-  <div class="usa-footer-secondary_section ncbi-section">
-    <div class="usa-grid">
-      <div class="usa-width-one-half ncbi">
-        <h3 class="ncbi-full-name">National Center for Biotechnology Information</h3>
-		<address>
-        <a id="google_maps" href="https://www.google.com/maps/place/8600+Rockville+Pike,+Bethesda,+MD+20894/@38.9959508,-77.101021,17z/data=!3m1!4b1!4m5!3m4!1s0x89b7c95e25765ddb:0x19156f88b27635b8!8m2!3d38.9959508!4d-77.0988323">
-        <span class="h-adr"> <span class="p-street-address break">8600 Rockville Pike</span>
-        <span class="p-locality">Bethesda</span> <span class="p-region"> MD</span>, <span class="p-postal-code">20894</span> <span class="p-country-name">USA</span> </span>
-		</a>
-		</address>
-        <ul class="ncbi-inline-list">
-			<li><a id="footer_about" href="https://www.ncbi.nlm.nih.gov/home/about/">About us</a></li>
-          <li><a id="footer_contact" href="https://www.ncbi.nlm.nih.gov/home/about/contact.shtml">Contact us</a></li>
-          <li><a id="footer_policies" href="https://www.ncbi.nlm.nih.gov/home/about/policies.shtml">Policies</a></li>
-          <li><a id="footer_foia" href="https://www.nih.gov/institutes-nih/nih-office-director/office-communications-public-liaison/freedom-information-act-office">FOIA</a></li>
-        </ul>
-      </div>
-      <div class="usa-width-one-half">
-      <div class="usa-grid-full">
-		<div class="usa-width-one-third">
-		<h4>Popular</h4>
-
-        <ul class="ncbi-unstyled-list">
-				<li><a id="footer_pubmed" href="https://www.ncbi.nlm.nih.gov/pubmed/">PubMed</a></li>
-				<li><a id="footer_pmc" href="https://www.ncbi.nlm.nih.gov/pmc/">PubMed Central</a></li>
-				<li><a id="footer_bookshelf" href="https://www.ncbi.nlm.nih.gov/books/">Bookshelf</a></li>
-				<li><a id="footer_pubchem" href="https://pubchem.ncbi.nlm.nih.gov">PubChem</a></li>
-				<li><a id="footer_gene" href="https://www.ncbi.nlm.nih.gov/gene/">Gene</a></li>
-				<li><a id="footer_blast" href="https://blast.ncbi.nlm.nih.gov">BLAST</a></li>
-				<li><a id="footer_nucleotide" href="https://www.ncbi.nlm.nih.gov/nucleotide/">Nucleotide</a></li>
-				<li><a id="footer_protein" href="https://www.ncbi.nlm.nih.gov/protein/">Protein</a></li>
-				<li><a id="footer_geo" href="https://www.ncbi.nlm.nih.gov/geo/">GEO</a></li>
-        </ul>
-
-			</div>
-		<div class="usa-width-one-third">
-			<h4>Resources</h4>
-			<ul class="ncbi-unstyled-list ncbi-undecorated-links">
-				  <li><a id="footer_literature" href="https://www.ncbi.nlm.nih.gov/home/literature/">Literature</a></li>
-				  <li><a id="footer_health" href="https://www.ncbi.nlm.nih.gov/home/health/">Health</a></li>
-				  <li><a id="footer_genomes" href="https://www.ncbi.nlm.nih.gov/home/genomes/">Genomes</a></li>
-				  <li><a id="footer_genes" href="https://www.ncbi.nlm.nih.gov/home/genes/">Genes</a></li>
-				  <li><a id="footer_proteins" href="https://www.ncbi.nlm.nih.gov/home/proteins/">Proteins</a></li>
-				  <li><a id="footer_chemicals" href="https://www.ncbi.nlm.nih.gov/home/chemicals/">Chemicals</a></li>
-			</ul>
-		</div>
-		<div class="usa-width-one-third">
-   <h4>Actions</h4>
-   <ul class="ncbi-unstyled-list">
-              <li><a id="footer_submit" href="https://www.ncbi.nlm.nih.gov/home/submit/">Submit</a></li>
-              <li><a id="footer_download" href="https://www.ncbi.nlm.nih.gov/home/download/">Download</a></li>
-              <li><a id="footer_learn" href="https://www.ncbi.nlm.nih.gov/home/learn/">Learn</a></li>
-              <li><a id="footer_develop" href="https://www.ncbi.nlm.nih.gov/home/develop/">Develop</a></li>
-              <li><a id="footer_analyze" href="https://www.ncbi.nlm.nih.gov/home/analyze/">Analyze</a></li>
-              <li><a id="footer_research" href="https://www.ncbi.nlm.nih.gov/research/">Research</a></li>
-   </ul>
-		  </div>
-		  </div>
-		  </div>
-    </div>
-	</div>
-     <div class="usa-footer-secondary_section gov-agencies"> 
-    <div class="usa-grid">
-    <div class="usa-width-one-whole">
-		<p>
-			<a id="footer_nlm" href="https://www.nlm.nih.gov/">NLM</a>
-			&ensp;|&ensp;
-			<a id="footer_nih" href="https://www.nih.gov/">NIH</a>
-			&ensp;|&ensp;
-			<a id="footer_hhs" href="https://www.hhs.gov/">HHS</a>
-			&ensp;|&ensp;
-			<a id="footer_usagov" href="https://www.usa.gov/">USA.gov</a>
-		</p>
-	 </div>
-	 </div>
-	</div>
-
- </footer>
-<script type="text/javascript" src="js/nwds.js"></script>
-<script type="text/javascript" src="js/ncbipopup.js"></script>
-<script type="text/javascript" src="js/headerNew.js"></script>
-<script src="js/uswds.min.js"></script>
-        <script type="text/javascript" src="/portal/portal3rc.fcgi/rlib/js/InstrumentOmnitureBaseJS/InstrumentNCBIBaseJS/InstrumentPageStarterJS.js"></script>
-<!--
-<script type="text/javascript" src="://www.ncbi.nlm.nih.gov/portal/portal3rc.fcgi/supportedbrowsers/js/nonportalbc_min.js"></script>
-<script type="text/javascript">$("#browsers_ajax").browserCheck();</script>
--->
-   </div><!--/#wrap-->
-</body>
-
-</html>
+{
+"BlastOutput2": [
+{
+    "report": {
+      "program": "blastn",
+      "version": "BLASTN 2.11.0+",
+      "reference": "Stephen F. Altschul, Thomas L. Madden, Alejandro A. Sch&auml;ffer, Jinghui Zhang, Zheng Zhang, Webb Miller, and David J. Lipman (1997), \"Gapped BLAST and PSI-BLAST: a new generation of protein database search programs\", Nucleic Acids Res. 25:3389-3402.",
+      "search_target": {
+        "db": "nt"
+      },
+      "params": {
+        "expect": 10,
+        "sc_match": 2,
+        "sc_mismatch": -3,
+        "gap_open": 5,
+        "gap_extend": 2,
+        "filter": "L;m;"
+      },
+      "results": {
+        "search": {
+          "query_id": "Query_61987",
+          "query_len": 21,
+          "hits": [
+            {
+              "num": 1,
+              "description": [
+                {
+                  "id": "gi|1851938760|ref|XM_034986442.1|",
+                  "accession": "XM_034986442",
+                  "title": "PREDICTED: Mirounga leonina ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 9715,
+                  "sciname": "Mirounga leonina"
+                }
+              ],
+              "len": 1234,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 439,
+                  "hit_to": 419,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 2,
+              "description": [
+                {
+                  "id": "gi|1849062427|ref|XM_034945734.1|",
+                  "accession": "XM_034945734",
+                  "title": "PREDICTED: Pan paniscus ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 9597,
+                  "sciname": "Pan paniscus"
+                }
+              ],
+              "len": 1155,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 362,
+                  "hit_to": 342,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 3,
+              "description": [
+                {
+                  "id": "gi|1848010747|dbj|AP023166.1|",
+                  "accession": "AP023166",
+                  "title": "Felis catus Senzu DNA, chromosome: E2, American Shorthair breed",
+                  "taxid": 9685,
+                  "sciname": "Felis catus"
+                }
+              ],
+              "len": 64410938,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 5448804,
+                  "hit_to": 5448824,
+                  "hit_strand": "Plus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 4,
+              "description": [
+                {
+                  "id": "gi|1845341737|ref|XM_011234637.3|",
+                  "accession": "XM_011234637",
+                  "title": "PREDICTED: Ailuropoda melanoleuca ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 9646,
+                  "sciname": "Ailuropoda melanoleuca"
+                }
+              ],
+              "len": 884,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 90,
+                  "hit_to": 70,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 5,
+              "description": [
+                {
+                  "id": "gi|1842141052|ref|XM_034492571.1|",
+                  "accession": "XM_034492571",
+                  "title": "PREDICTED: Arvicanthis niloticus ubiquitin conjugating enzyme E2 M (Ube2m), mRNA",
+                  "taxid": 61156,
+                  "sciname": "Arvicanthis niloticus"
+                }
+              ],
+              "len": 1448,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 653,
+                  "hit_to": 633,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 6,
+              "description": [
+                {
+                  "id": "gi|1838319233|ref|XM_034072388.1|",
+                  "accession": "XM_034072388",
+                  "title": "PREDICTED: Melopsittacus undulatus ubiquitin conjugating enzyme E2 M (LOC117437766), mRNA",
+                  "taxid": 13146,
+                  "sciname": "Melopsittacus undulatus"
+                }
+              ],
+              "len": 769,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 312,
+                  "hit_to": 292,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 7,
+              "description": [
+                {
+                  "id": "gi|1825863574|ref|XM_033224775.1|",
+                  "accession": "XM_033224775",
+                  "title": "PREDICTED: Trachypithecus francoisi ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 54180,
+                  "sciname": "Trachypithecus francoisi"
+                }
+              ],
+              "len": 1513,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 707,
+                  "hit_to": 687,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 8,
+              "description": [
+                {
+                  "id": "gi|1823433555|ref|XM_033084067.1|",
+                  "accession": "XM_033084067",
+                  "title": "PREDICTED: Catharus ustulatus ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 91951,
+                  "sciname": "Catharus ustulatus"
+                }
+              ],
+              "len": 838,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 242,
+                  "hit_to": 222,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 9,
+              "description": [
+                {
+                  "id": "gi|1820969812|ref|XM_032894453.1|",
+                  "accession": "XM_032894453",
+                  "title": "PREDICTED: Rattus rattus ubiquitin conjugating enzyme E2 M (Ube2m), mRNA",
+                  "taxid": 10117,
+                  "sciname": "Rattus rattus"
+                }
+              ],
+              "len": 1497,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 707,
+                  "hit_to": 687,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 10,
+              "description": [
+                {
+                  "id": "gi|1820928052|ref|XM_032847714.1|",
+                  "accession": "XM_032847714",
+                  "title": "PREDICTED: Lontra canadensis ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 76717,
+                  "sciname": "Lontra canadensis"
+                }
+              ],
+              "len": 975,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 185,
+                  "hit_to": 165,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 11,
+              "description": [
+                {
+                  "id": "gi|1820565576|ref|XM_032745995.1|",
+                  "accession": "XM_032745995",
+                  "title": "PREDICTED: Taeniopygia guttata ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 59729,
+                  "sciname": "Taeniopygia guttata"
+                }
+              ],
+              "len": 837,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 298,
+                  "hit_to": 278,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 12,
+              "description": [
+                {
+                  "id": "gi|1815655920|ref|XM_032677447.1|",
+                  "accession": "XM_032677447",
+                  "title": "PREDICTED: Chiroxiphia lanceolata ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 296741,
+                  "sciname": "Chiroxiphia lanceolata"
+                }
+              ],
+              "len": 1774,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 662,
+                  "hit_to": 642,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 13,
+              "description": [
+                {
+                  "id": "gi|1807999731|ref|XM_032388640.1|",
+                  "accession": "XM_032388640",
+                  "title": "PREDICTED: Phoca vitulina ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 9720,
+                  "sciname": "Phoca vitulina"
+                }
+              ],
+              "len": 1576,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 780,
+                  "hit_to": 760,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 14,
+              "description": [
+                {
+                  "id": "gi|1804817616|ref|XM_032324808.1|",
+                  "accession": "XM_032324808",
+                  "title": "PREDICTED: Mustela erminea ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 36723,
+                  "sciname": "Mustela erminea"
+                }
+              ],
+              "len": 1381,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 591,
+                  "hit_to": 571,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 15,
+              "description": [
+                {
+                  "id": "gi|1804455162|ref|XM_032263313.1|",
+                  "accession": "XM_032263313",
+                  "title": "PREDICTED: Sapajus apella ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 9515,
+                  "sciname": "Sapajus apella"
+                }
+              ],
+              "len": 1507,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 696,
+                  "hit_to": 676,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 16,
+              "description": [
+                {
+                  "id": "gi|1802859887|ref|XM_032205079.1|",
+                  "accession": "XM_032205079",
+                  "title": "PREDICTED: Aythya fuligula ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 219594,
+                  "sciname": "Aythya fuligula"
+                }
+              ],
+              "len": 925,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 464,
+                  "hit_to": 444,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 17,
+              "description": [
+                {
+                  "id": "gi|1800012557|ref|XM_032171460.1|",
+                  "accession": "XM_032171460",
+                  "title": "PREDICTED: Hylobates moloch ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 81572,
+                  "sciname": "Hylobates moloch"
+                }
+              ],
+              "len": 1220,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 422,
+                  "hit_to": 402,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 18,
+              "description": [
+                {
+                  "id": "gi|1799935529|ref|XM_032094784.1|",
+                  "accession": "XM_032094784",
+                  "title": "PREDICTED: Corvus moneduloides ubiquitin conjugating enzyme E2 M (UBE2M), transcript variant X2, mRNA",
+                  "taxid": 1196302,
+                  "sciname": "Corvus moneduloides"
+                }
+              ],
+              "len": 612,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 216,
+                  "hit_to": 196,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 19,
+              "description": [
+                {
+                  "id": "gi|1799935527|ref|XM_032094783.1|",
+                  "accession": "XM_032094783",
+                  "title": "PREDICTED: Corvus moneduloides ubiquitin conjugating enzyme E2 M (UBE2M), transcript variant X1, mRNA",
+                  "taxid": 1196302,
+                  "sciname": "Corvus moneduloides"
+                }
+              ],
+              "len": 1064,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 303,
+                  "hit_to": 283,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 20,
+              "description": [
+                {
+                  "id": "gi|1795661396|emb|LR738419.1|",
+                  "accession": "LR738419",
+                  "title": "Lutra lutra genome assembly, chromosome: 17",
+                  "taxid": 9657,
+                  "sciname": "Lutra lutra"
+                }
+              ],
+              "len": 60348511,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 60207205,
+                  "hit_to": 60207225,
+                  "hit_strand": "Plus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 21,
+              "description": [
+                {
+                  "id": "gi|1788688230|ref|XM_023197562.3|",
+                  "accession": "XM_023197562",
+                  "title": "PREDICTED: Piliocolobus tephrosceles ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 591936,
+                  "sciname": "Piliocolobus tephrosceles"
+                }
+              ],
+              "len": 1503,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 703,
+                  "hit_to": 683,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 22,
+              "description": [
+                {
+                  "id": "gi|1785914768|ref|NM_001194143.2|",
+                  "accession": "NM_001194143",
+                  "title": "Macaca mulatta ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 9544,
+                  "sciname": "Macaca mulatta"
+                }
+              ],
+              "len": 1484,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 785,
+                  "hit_to": 765,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 23,
+              "description": [
+                {
+                  "id": "gi|1777376694|emb|LR738628.1|",
+                  "accession": "LR738628",
+                  "title": "Sciurus vulgaris genome assembly, chromosome: 17",
+                  "taxid": 55149,
+                  "sciname": "Sciurus vulgaris"
+                }
+              ],
+              "len": 75034025,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 74931790,
+                  "hit_to": 74931810,
+                  "hit_strand": "Plus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 24,
+              "description": [
+                {
+                  "id": "gi|1777376559|emb|LR738606.1|",
+                  "accession": "LR738606",
+                  "title": "Sciurus carolinensis genome assembly, chromosome: 16",
+                  "taxid": 30640,
+                  "sciname": "Sciurus carolinensis"
+                }
+              ],
+              "len": 68567161,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 66406167,
+                  "hit_to": 66406147,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 25,
+              "description": [
+                {
+                  "id": "gi|1777306689|ref|XM_031659367.1|",
+                  "accession": "XM_031659367",
+                  "title": "PREDICTED: Papio anubis ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 9555,
+                  "sciname": "Papio anubis"
+                }
+              ],
+              "len": 1575,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 776,
+                  "hit_to": 756,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 26,
+              "description": [
+                {
+                  "id": "gi|1768006959|ref|XM_031385385.1|",
+                  "accession": "XM_031385385",
+                  "title": "PREDICTED: Mastomys coucha ubiquitin conjugating enzyme E2 M (Ube2m), transcript variant X2, mRNA",
+                  "taxid": 35658,
+                  "sciname": "Mastomys coucha"
+                }
+              ],
+              "len": 1098,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 306,
+                  "hit_to": 286,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 27,
+              "description": [
+                {
+                  "id": "gi|1768006957|ref|XM_031385384.1|",
+                  "accession": "XM_031385384",
+                  "title": "PREDICTED: Mastomys coucha ubiquitin conjugating enzyme E2 M (Ube2m), transcript variant X1, mRNA",
+                  "taxid": 35658,
+                  "sciname": "Mastomys coucha"
+                }
+              ],
+              "len": 1408,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 616,
+                  "hit_to": 596,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 28,
+              "description": [
+                {
+                  "id": "gi|1753155991|ref|XM_006747778.2|",
+                  "accession": "XM_006747778",
+                  "title": "PREDICTED: Leptonychotes weddellii ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 9713,
+                  "sciname": "Leptonychotes weddellii"
+                }
+              ],
+              "len": 1475,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 680,
+                  "hit_to": 660,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 29,
+              "description": [
+                {
+                  "id": "gi|1753051187|ref|XM_004061618.3|",
+                  "accession": "XM_004061618",
+                  "title": "PREDICTED: Gorilla gorilla gorilla ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 9595,
+                  "sciname": "Gorilla gorilla gorilla"
+                }
+              ],
+              "len": 1507,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 714,
+                  "hit_to": 694,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 30,
+              "description": [
+                {
+                  "id": "gi|1753046429|ref|XR_002003000.2|",
+                  "accession": "XR_002003000",
+                  "title": "PREDICTED: Gorilla gorilla gorilla NEDD8-conjugating enzyme Ubc12 pseudogene (LOC101130608), misc_RNA",
+                  "taxid": 9595,
+                  "sciname": "Gorilla gorilla gorilla"
+                }
+              ],
+              "len": 1103,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 298,
+                  "hit_to": 278,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 31,
+              "description": [
+                {
+                  "id": "gi|1751541283|ref|XM_030970249.1|",
+                  "accession": "XM_030970249",
+                  "title": "PREDICTED: Camarhynchus parvulus ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 87175,
+                  "sciname": "Camarhynchus parvulus"
+                }
+              ],
+              "len": 1292,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 737,
+                  "hit_to": 717,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 32,
+              "description": [
+                {
+                  "id": "gi|1751206231|ref|XM_010361181.2|",
+                  "accession": "XM_010361181",
+                  "title": "PREDICTED: Rhinopithecus roxellana ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 61622,
+                  "sciname": "Rhinopithecus roxellana"
+                }
+              ],
+              "len": 1496,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 681,
+                  "hit_to": 661,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 33,
+              "description": [
+                {
+                  "id": "gi|1746290751|ref|XM_030886391.1|",
+                  "accession": "XM_030886391",
+                  "title": "PREDICTED: Echinops telfairi ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 9371,
+                  "sciname": "Echinops telfairi"
+                }
+              ],
+              "len": 513,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 96,
+                  "hit_to": 76,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 34,
+              "description": [
+                {
+                  "id": "gi|1743138891|ref|XM_030819428.1|",
+                  "accession": "XM_030819428",
+                  "title": "PREDICTED: Nomascus leucogenys ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 61853,
+                  "sciname": "Nomascus leucogenys"
+                }
+              ],
+              "len": 1813,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1010,
+                  "hit_to": 990,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 35,
+              "description": [
+                {
+                  "id": "gi|1729001585|ref|XM_030510889.1|",
+                  "accession": "XM_030510889",
+                  "title": "PREDICTED: Strigops habroptila ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 2489341,
+                  "sciname": "Strigops habroptila"
+                }
+              ],
+              "len": 1344,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 905,
+                  "hit_to": 885,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 36,
+              "description": [
+                {
+                  "id": "gi|1720848565|ref|XM_030297580.1|",
+                  "accession": "XM_030297580",
+                  "title": "PREDICTED: Lynx canadensis ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 61383,
+                  "sciname": "Lynx canadensis"
+                }
+              ],
+              "len": 990,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 197,
+                  "hit_to": 177,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 37,
+              "description": [
+                {
+                  "id": "gi|1708846908|ref|XM_030006226.1|",
+                  "accession": "XM_030006226",
+                  "title": "PREDICTED: Aquila chrysaetos chrysaetos ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 223781,
+                  "sciname": "Aquila chrysaetos chrysaetos"
+                }
+              ],
+              "len": 1395,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 781,
+                  "hit_to": 761,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 38,
+              "description": [
+                {
+                  "id": "gi|1702062126|ref|XM_029926448.1|",
+                  "accession": "XM_029926448",
+                  "title": "PREDICTED: Suricata suricatta ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 37032,
+                  "sciname": "Suricata suricatta"
+                }
+              ],
+              "len": 969,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 175,
+                  "hit_to": 155,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 39,
+              "description": [
+                {
+                  "id": "gi|1686390968|ref|XM_021219106.2|",
+                  "accession": "XM_021219106",
+                  "title": "PREDICTED: Mus pahari ubiquitin conjugating enzyme E2 M (Ube2m), mRNA",
+                  "taxid": 10093,
+                  "sciname": "Mus pahari"
+                }
+              ],
+              "len": 1176,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 379,
+                  "hit_to": 359,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 40,
+              "description": [
+                {
+                  "id": "gi|1679854310|ref|XM_021165994.2|",
+                  "accession": "XM_021165994",
+                  "title": "PREDICTED: Mus caroli ubiquitin conjugating enzyme E2 M (Ube2m), mRNA",
+                  "taxid": 10089,
+                  "sciname": "Mus caroli"
+                }
+              ],
+              "len": 1176,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 383,
+                  "hit_to": 363,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 41,
+              "description": [
+                {
+                  "id": "gi|1653961237|ref|NM_003969.4|",
+                  "accession": "NM_003969",
+                  "title": "Homo sapiens ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 9606,
+                  "sciname": "Homo sapiens"
+                }
+              ],
+              "len": 1159,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 365,
+                  "hit_to": 345,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 42,
+              "description": [
+                {
+                  "id": "gi|1621877916|ref|XM_028781890.1|",
+                  "accession": "XM_028781890",
+                  "title": "PREDICTED: Grammomys surdaster ubiquitin conjugating enzyme E2 M (Ube2m), mRNA",
+                  "taxid": 491861,
+                  "sciname": "Grammomys surdaster"
+                }
+              ],
+              "len": 1496,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 707,
+                  "hit_to": 687,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 43,
+              "description": [
+                {
+                  "id": "gi|1603830973|gb|AC279043.1|",
+                  "accession": "AC279043",
+                  "title": "Pan troglodytes chromosome 16 clone CH251-13L08, complete sequence",
+                  "taxid": 9598,
+                  "sciname": "Pan troglodytes"
+                }
+              ],
+              "len": 203839,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 33513,
+                  "hit_to": 33533,
+                  "hit_strand": "Plus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 44,
+              "description": [
+                {
+                  "id": "gi|1603830952|gb|AC279022.1|",
+                  "accession": "AC279022",
+                  "title": "Pan troglodytes chromosome 16 clone CH251-7J20, complete sequence",
+                  "taxid": 9598,
+                  "sciname": "Pan troglodytes"
+                }
+              ],
+              "len": 122157,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 49991,
+                  "hit_to": 50011,
+                  "hit_strand": "Plus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 45,
+              "description": [
+                {
+                  "id": "gi|1512037336|ref|XM_027037588.1|",
+                  "accession": "XM_027037588",
+                  "title": "PREDICTED: Acinonyx jubatus ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 32536,
+                  "sciname": "Acinonyx jubatus"
+                }
+              ],
+              "len": 1019,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 225,
+                  "hit_to": 205,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 46,
+              "description": [
+                {
+                  "id": "gi|1483830352|ref|XM_026489448.1|",
+                  "accession": "XM_026489448",
+                  "title": "PREDICTED: Ursus arctos horribilis ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 116960,
+                  "sciname": "Ursus arctos horribilis"
+                }
+              ],
+              "len": 988,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 192,
+                  "hit_to": 172,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 47,
+              "description": [
+                {
+                  "id": "gi|1570552237|ref|XM_028093366.1|",
+                  "accession": "XM_028093366",
+                  "title": "PREDICTED: Eumetopias jubatus ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 34886,
+                  "sciname": "Eumetopias jubatus"
+                }
+              ],
+              "len": 1188,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 394,
+                  "hit_to": 374,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 48,
+              "description": [
+                {
+                  "id": "gi|1561843074|ref|XM_027910530.1|",
+                  "accession": "XM_027910530",
+                  "title": "PREDICTED: Empidonax traillii ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 164674,
+                  "sciname": "Empidonax traillii"
+                }
+              ],
+              "len": 792,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 327,
+                  "hit_to": 307,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 49,
+              "description": [
+                {
+                  "id": "gi|1561691035|ref|XM_006166716.3|",
+                  "accession": "XM_006166716",
+                  "title": "PREDICTED: Tupaia chinensis ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 246437,
+                  "sciname": "Tupaia chinensis"
+                }
+              ],
+              "len": 824,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 35,
+                  "hit_to": 15,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 50,
+              "description": [
+                {
+                  "id": "gi|1552673406|ref|XM_027633565.1|",
+                  "accession": "XM_027633565",
+                  "title": "PREDICTED: Corapipo altera ubiquitin conjugating enzyme E2 M (UBE2M), partial mRNA",
+                  "taxid": 415028,
+                  "sciname": "Corapipo altera"
+                }
+              ],
+              "len": 398,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 24,
+                  "hit_to": 4,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 51,
+              "description": [
+                {
+                  "id": "gi|1549097453|gb|CP034522.1|",
+                  "accession": "CP034522",
+                  "title": "Eukaryotic synthetic construct chromosome 19",
+                  "taxid": 111789,
+                  "sciname": "eukaryotic synthetic construct"
+                }
+              ],
+              "len": 64242768,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 59008499,
+                  "hit_to": 59008519,
+                  "hit_strand": "Plus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 52,
+              "description": [
+                {
+                  "id": "gi|1548994293|gb|CP034497.1|",
+                  "accession": "CP034497",
+                  "title": "Eukaryotic synthetic construct chromosome 19",
+                  "taxid": 111789,
+                  "sciname": "eukaryotic synthetic construct"
+                }
+              ],
+              "len": 64242768,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 59008499,
+                  "hit_to": 59008519,
+                  "hit_strand": "Plus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 53,
+              "description": [
+                {
+                  "id": "gi|1548994290|gb|CP034494.1|",
+                  "accession": "CP034494",
+                  "title": "Eukaryotic synthetic construct chromosome 16",
+                  "taxid": 111789,
+                  "sciname": "eukaryotic synthetic construct"
+                },
+                {
+                  "id": "gi|1549096691|gb|CP034519.1|",
+                  "accession": "CP034519",
+                  "title": "Eukaryotic synthetic construct chromosome 16",
+                  "taxid": 111789,
+                  "sciname": "eukaryotic synthetic construct"
+                }
+              ],
+              "len": 98200793,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 34344479,
+                  "hit_to": 34344499,
+                  "hit_strand": "Plus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 54,
+              "description": [
+                {
+                  "id": "gi|1543755236|ref|XM_027619724.1|",
+                  "accession": "XM_027619724",
+                  "title": "PREDICTED: Zalophus californianus ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 9704,
+                  "sciname": "Zalophus californianus"
+                }
+              ],
+              "len": 1188,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 394,
+                  "hit_to": 374,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 55,
+              "description": [
+                {
+                  "id": "gi|1444784372|ref|XM_026121220.1|",
+                  "accession": "XM_026121220",
+                  "title": "PREDICTED: Dromaius novaehollandiae ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 8790,
+                  "sciname": "Dromaius novaehollandiae"
+                }
+              ],
+              "len": 730,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 135,
+                  "hit_to": 115,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 56,
+              "description": [
+                {
+                  "id": "gi|1444481077|ref|XM_026060824.1|",
+                  "accession": "XM_026060824",
+                  "title": "PREDICTED: Apteryx rowi ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 308060,
+                  "sciname": "Apteryx rowi"
+                }
+              ],
+              "len": 1707,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1205,
+                  "hit_to": 1185,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 57,
+              "description": [
+                {
+                  "id": "gi|1432326228|ref|XM_025849383.1|",
+                  "accession": "XM_025849383",
+                  "title": "PREDICTED: Callorhinus ursinus NEDD8-conjugating enzyme Ubc12 (LOC112806878), mRNA",
+                  "taxid": 34884,
+                  "sciname": "Callorhinus ursinus"
+                }
+              ],
+              "len": 1189,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 394,
+                  "hit_to": 374,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 58,
+              "description": [
+                {
+                  "id": "gi|1432324931|ref|XM_025848705.1|",
+                  "accession": "XM_025848705",
+                  "title": "PREDICTED: Callorhinus ursinus NEDD8-conjugating enzyme Ubc12 (LOC112806426), mRNA",
+                  "taxid": 34884,
+                  "sciname": "Callorhinus ursinus"
+                }
+              ],
+              "len": 1189,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 394,
+                  "hit_to": 374,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 59,
+              "description": [
+                {
+                  "id": "gi|1411128310|ref|XM_025367066.1|",
+                  "accession": "XM_025367066",
+                  "title": "PREDICTED: Theropithecus gelada ubiquitin conjugating enzyme E2 M (UBE2M), transcript variant X2, mRNA",
+                  "taxid": 9565,
+                  "sciname": "Theropithecus gelada"
+                }
+              ],
+              "len": 1780,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 977,
+                  "hit_to": 957,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 60,
+              "description": [
+                {
+                  "id": "gi|1411128308|ref|XM_025367065.1|",
+                  "accession": "XM_025367065",
+                  "title": "PREDICTED: Theropithecus gelada ubiquitin conjugating enzyme E2 M (UBE2M), transcript variant X1, mRNA",
+                  "taxid": 9565,
+                  "sciname": "Theropithecus gelada"
+                }
+              ],
+              "len": 1865,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 977,
+                  "hit_to": 957,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 61,
+              "description": [
+                {
+                  "id": "gi|1381441738|ref|XM_011751675.2|",
+                  "accession": "XM_011751675",
+                  "title": "PREDICTED: Macaca nemestrina ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 9545,
+                  "sciname": "Macaca nemestrina"
+                }
+              ],
+              "len": 1590,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 786,
+                  "hit_to": 766,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 62,
+              "description": [
+                {
+                  "id": "gi|1374994660|ref|XM_024570231.1|",
+                  "accession": "XM_024570231",
+                  "title": "PREDICTED: Desmodus rotundus ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 9430,
+                  "sciname": "Desmodus rotundus"
+                }
+              ],
+              "len": 984,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 180,
+                  "hit_to": 160,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 63,
+              "description": [
+                {
+                  "id": "gi|1367226977|ref|XM_016937020.2|",
+                  "accession": "XM_016937020",
+                  "title": "PREDICTED: Pan troglodytes ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 9598,
+                  "sciname": "Pan troglodytes"
+                }
+              ],
+              "len": 1613,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 820,
+                  "hit_to": 800,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 64,
+              "description": [
+                {
+                  "id": "gi|1367191817|ref|XR_024683.6|",
+                  "accession": "XR_024683",
+                  "title": "PREDICTED: Pan troglodytes NEDD8-conjugating enzyme Ubc12 pseudogene (LOC473270), misc_RNA",
+                  "taxid": 9598,
+                  "sciname": "Pan troglodytes"
+                }
+              ],
+              "len": 1127,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 324,
+                  "hit_to": 304,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 65,
+              "description": [
+                {
+                  "id": "gi|1351472752|ref|XM_024237018.1|",
+                  "accession": "XM_024237018",
+                  "title": "PREDICTED: Pongo abelii ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 9601,
+                  "sciname": "Pongo abelii"
+                }
+              ],
+              "len": 1527,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 730,
+                  "hit_to": 710,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 66,
+              "description": [
+                {
+                  "id": "gi|2027095455|ref|XM_040978181.1|",
+                  "accession": "XM_040978181",
+                  "title": "PREDICTED: Ochotona curzoniae ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 130825,
+                  "sciname": "Ochotona curzoniae"
+                }
+              ],
+              "len": 1178,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 390,
+                  "hit_to": 370,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 67,
+              "description": [
+                {
+                  "id": "gi|2025800302|ref|XM_005087951.4|",
+                  "accession": "XM_005087951",
+                  "title": "PREDICTED: Mesocricetus auratus ubiquitin conjugating enzyme E2 M (Ube2m), mRNA",
+                  "taxid": 10036,
+                  "sciname": "Mesocricetus auratus"
+                }
+              ],
+              "len": 1027,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 236,
+                  "hit_to": 216,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 68,
+              "description": [
+                {
+                  "id": "gi|2024494253|ref|XM_040693417.1|",
+                  "accession": "XM_040693417",
+                  "title": "PREDICTED: Gallus gallus ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 9031,
+                  "sciname": "Gallus gallus"
+                }
+              ],
+              "len": 1120,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 451,
+                  "hit_to": 431,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 69,
+              "description": [
+                {
+                  "id": "gi|2024398875|ref|XM_015273062.3|",
+                  "accession": "XM_015273062",
+                  "title": "PREDICTED: Gallus gallus ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 9031,
+                  "sciname": "Gallus gallus"
+                }
+              ],
+              "len": 1114,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 451,
+                  "hit_to": 431,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 70,
+              "description": [
+                {
+                  "id": "gi|2023526938|ref|XM_040632897.1|",
+                  "accession": "XM_040632897",
+                  "title": "PREDICTED: Ursus maritimus ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 29073,
+                  "sciname": "Ursus maritimus"
+                }
+              ],
+              "len": 979,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 185,
+                  "hit_to": 165,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 71,
+              "description": [
+                {
+                  "id": "gi|2020852369|ref|XM_040465311.1|",
+                  "accession": "XM_040465311",
+                  "title": "PREDICTED: Puma yagouaroundi ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 1608482,
+                  "sciname": "Puma yagouaroundi"
+                }
+              ],
+              "len": 1011,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 218,
+                  "hit_to": 198,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 72,
+              "description": [
+                {
+                  "id": "gi|1996029791|ref|XM_039868785.1|",
+                  "accession": "XM_039868785",
+                  "title": "PREDICTED: Pteropus giganteus ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 143291,
+                  "sciname": "Pteropus giganteus"
+                }
+              ],
+              "len": 1485,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 695,
+                  "hit_to": 675,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 73,
+              "description": [
+                {
+                  "id": "gi|1993833329|ref|XM_039715759.1|",
+                  "accession": "XM_039715759",
+                  "title": "PREDICTED: Passer montanus ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 9160,
+                  "sciname": "Passer montanus"
+                }
+              ],
+              "len": 1344,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1014,
+                  "hit_to": 994,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 74,
+              "description": [
+                {
+                  "id": "gi|1987643794|ref|XM_039572655.1|",
+                  "accession": "XM_039572655",
+                  "title": "PREDICTED: Corvus cornix cornix ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 932674,
+                  "sciname": "Corvus cornix cornix"
+                }
+              ],
+              "len": 1060,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 303,
+                  "hit_to": 283,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 75,
+              "description": [
+                {
+                  "id": "gi|1984108711|ref|XM_039466383.1|",
+                  "accession": "XM_039466383",
+                  "title": "PREDICTED: Saimiri boliviensis boliviensis ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 39432,
+                  "sciname": "Saimiri boliviensis boliviensis"
+                }
+              ],
+              "len": 1765,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 972,
+                  "hit_to": 952,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 76,
+              "description": [
+                {
+                  "id": "gi|1982499310|ref|XM_027730087.2|",
+                  "accession": "XM_027730087",
+                  "title": "PREDICTED: Pipra filicauda NEDD8-conjugating enzyme Ubc12 (LOC113992609), mRNA",
+                  "taxid": 649802,
+                  "sciname": "Pipra filicauda"
+                }
+              ],
+              "len": 1195,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 612,
+                  "hit_to": 592,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 77,
+              "description": [
+                {
+                  "id": "gi|1982497102|ref|XM_039390812.1|",
+                  "accession": "XM_039390812",
+                  "title": "PREDICTED: Pipra filicauda NEDD8-conjugating enzyme Ubc12 (LOC120325180), mRNA",
+                  "taxid": 649802,
+                  "sciname": "Pipra filicauda"
+                }
+              ],
+              "len": 1400,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 612,
+                  "hit_to": 592,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 78,
+              "description": [
+                {
+                  "id": "gi|1965596920|ref|XM_039225255.1|",
+                  "accession": "XM_039225255",
+                  "title": "PREDICTED: Hyaena hyaena ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 95912,
+                  "sciname": "Hyaena hyaena"
+                }
+              ],
+              "len": 1486,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 685,
+                  "hit_to": 665,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 79,
+              "description": [
+                {
+                  "id": "gi|1959392270|gb|CP068262.1|",
+                  "accession": "CP068262",
+                  "title": "Homo sapiens isolate CHM13 chromosome 16",
+                  "taxid": 9606,
+                  "sciname": "Homo sapiens"
+                }
+              ],
+              "len": 96330493,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 38958854,
+                  "hit_to": 38958834,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 80,
+              "description": [
+                {
+                  "id": "gi|1959392264|gb|CP068259.1|",
+                  "accession": "CP068259",
+                  "title": "Homo sapiens isolate CHM13 chromosome 19",
+                  "taxid": 9606,
+                  "sciname": "Homo sapiens"
+                }
+              ],
+              "len": 61707359,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 61654806,
+                  "hit_to": 61654826,
+                  "hit_strand": "Plus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 81,
+              "description": [
+                {
+                  "id": "gi|1942922366|ref|XM_038126432.1|",
+                  "accession": "XM_038126432",
+                  "title": "PREDICTED: Motacilla alba alba ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 1094192,
+                  "sciname": "Motacilla alba alba"
+                }
+              ],
+              "len": 697,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 64,
+                  "hit_to": 44,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 82,
+              "description": [
+                {
+                  "id": "gi|1942922141|ref|XM_038126303.1|",
+                  "accession": "XM_038126303",
+                  "title": "PREDICTED: Motacilla alba alba proto-oncogene vav-like (LOC119696559), mRNA",
+                  "taxid": 1094192,
+                  "sciname": "Motacilla alba alba"
+                }
+              ],
+              "len": 1794,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1668,
+                  "hit_to": 1648,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                },
+                {
+                  "num": 2,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1698,
+                  "hit_to": 1678,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                },
+                {
+                  "num": 3,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1728,
+                  "hit_to": 1708,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 83,
+              "description": [
+                {
+                  "id": "gi|1938869714|ref|XM_007998466.2|",
+                  "accession": "XM_007998466",
+                  "title": "PREDICTED: Chlorocebus sabaeus ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 60711,
+                  "sciname": "Chlorocebus sabaeus"
+                }
+              ],
+              "len": 1690,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 889,
+                  "hit_to": 869,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 84,
+              "description": [
+                {
+                  "id": "gi|1934002486|ref|XM_017509655.2|",
+                  "accession": "XM_017509655",
+                  "title": "PREDICTED: Cebus imitator ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 2715852,
+                  "sciname": "Cebus imitator"
+                }
+              ],
+              "len": 1430,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 627,
+                  "hit_to": 607,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 85,
+              "description": [
+                {
+                  "id": "gi|1931286796|ref|XM_037517301.1|",
+                  "accession": "XM_037517301",
+                  "title": "PREDICTED: Talpa occidentalis ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 50954,
+                  "sciname": "Talpa occidentalis"
+                }
+              ],
+              "len": 1030,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 237,
+                  "hit_to": 217,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 86,
+              "description": [
+                {
+                  "id": "gi|1929227715|ref|XM_028884903.2|",
+                  "accession": "XM_028884903",
+                  "title": "PREDICTED: Peromyscus leucopus ubiquitin conjugating enzyme E2 M (Ube2m), mRNA",
+                  "taxid": 10041,
+                  "sciname": "Peromyscus leucopus"
+                }
+              ],
+              "len": 1177,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 384,
+                  "hit_to": 364,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 87,
+              "description": [
+                {
+                  "id": "gi|1920306335|ref|XM_036901378.1|",
+                  "accession": "XM_036901378",
+                  "title": "PREDICTED: Manis pentadactyla ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 143292,
+                  "sciname": "Manis pentadactyla"
+                }
+              ],
+              "len": 1974,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1175,
+                  "hit_to": 1155,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 88,
+              "description": [
+                {
+                  "id": "gi|1910886496|ref|XM_036273895.1|",
+                  "accession": "XM_036273895",
+                  "title": "PREDICTED: Molossus molossus ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 27622,
+                  "sciname": "Molossus molossus"
+                }
+              ],
+              "len": 1130,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 343,
+                  "hit_to": 323,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 89,
+              "description": [
+                {
+                  "id": "gi|1910359376|ref|XM_016125757.2|",
+                  "accession": "XM_016125757",
+                  "title": "PREDICTED: Rousettus aegyptiacus ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 9407,
+                  "sciname": "Rousettus aegyptiacus"
+                }
+              ],
+              "len": 1162,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 370,
+                  "hit_to": 350,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 90,
+              "description": [
+                {
+                  "id": "gi|1909942468|dbj|AP023487.1|",
+                  "accession": "AP023487",
+                  "title": "Homo sapiens DNA, sequence_id: unplaced_0002",
+                  "taxid": 9606,
+                  "sciname": "Homo sapiens"
+                }
+              ],
+              "len": 1363445,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 319062,
+                  "hit_to": 319082,
+                  "hit_strand": "Plus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 91,
+              "description": [
+                {
+                  "id": "gi|1909942460|dbj|AP023479.1|",
+                  "accession": "AP023479",
+                  "title": "Homo sapiens DNA, chromosome 19, nearly complete genome",
+                  "taxid": 9606,
+                  "sciname": "Homo sapiens"
+                }
+              ],
+              "len": 59105444,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 59039939,
+                  "hit_to": 59039959,
+                  "hit_strand": "Plus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 92,
+              "description": [
+                {
+                  "id": "gi|1908015080|ref|XM_036168406.1|",
+                  "accession": "XM_036168406",
+                  "title": "PREDICTED: Onychomys torridus ubiquitin conjugating enzyme E2 M (Ube2m), mRNA",
+                  "taxid": 38674,
+                  "sciname": "Onychomys torridus"
+                }
+              ],
+              "len": 1202,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 409,
+                  "hit_to": 389,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 93,
+              "description": [
+                {
+                  "id": "gi|1899961506|ref|XM_036079788.1|",
+                  "accession": "XM_036079788",
+                  "title": "PREDICTED: Halichoerus grypus ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 9711,
+                  "sciname": "Halichoerus grypus"
+                }
+              ],
+              "len": 1190,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 394,
+                  "hit_to": 374,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 94,
+              "description": [
+                {
+                  "id": "gi|1899636323|ref|XM_028530497.2|",
+                  "accession": "XM_028530497",
+                  "title": "PREDICTED: Phyllostomus discolor ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 89673,
+                  "sciname": "Phyllostomus discolor"
+                }
+              ],
+              "len": 1081,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 277,
+                  "hit_to": 257,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 95,
+              "description": [
+                {
+                  "id": "gi|1894914085|emb|LR877230.1|",
+                  "accession": "LR877230",
+                  "title": "Acomys russatus genome assembly, chromosome: 19",
+                  "taxid": 60746,
+                  "sciname": "Acomys russatus"
+                }
+              ],
+              "len": 66025038,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 10538883,
+                  "hit_to": 10538863,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 96,
+              "description": [
+                {
+                  "id": "gi|1880404703|gb|AC280253.1|",
+                  "accession": "AC280253",
+                  "title": "Pan troglodytes chromosome unknown clone CH251-36I22, complete sequence",
+                  "taxid": 9598,
+                  "sciname": "Pan troglodytes"
+                }
+              ],
+              "len": 202176,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 158194,
+                  "hit_to": 158214,
+                  "hit_strand": "Plus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 97,
+              "description": [
+                {
+                  "id": "gi|1868364449|ref|XM_035449239.1|",
+                  "accession": "XM_035449239",
+                  "title": "PREDICTED: Cricetulus griseus ubiquitin conjugating enzyme E2 M (Ube2m), transcript variant X3, mRNA",
+                  "taxid": 10029,
+                  "sciname": "Cricetulus griseus"
+                }
+              ],
+              "len": 863,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 72,
+                  "hit_to": 52,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 98,
+              "description": [
+                {
+                  "id": "gi|1868364448|ref|XM_027431227.2|",
+                  "accession": "XM_027431227",
+                  "title": "PREDICTED: Cricetulus griseus ubiquitin conjugating enzyme E2 M (Ube2m), transcript variant X2, mRNA",
+                  "taxid": 10029,
+                  "sciname": "Cricetulus griseus"
+                }
+              ],
+              "len": 989,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 198,
+                  "hit_to": 178,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 99,
+              "description": [
+                {
+                  "id": "gi|1864024818|ref|XR_001908768.2|",
+                  "accession": "XR_001908768",
+                  "title": "PREDICTED: Callithrix jacchus uncharacterized LOC108589537 (LOC108589537), ncRNA",
+                  "taxid": 9483,
+                  "sciname": "Callithrix jacchus"
+                }
+              ],
+              "len": 365,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 257,
+                  "hit_to": 277,
+                  "hit_strand": "Plus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 100,
+              "description": [
+                {
+                  "id": "gi|1864024817|ref|XM_017967523.2|",
+                  "accession": "XM_017967523",
+                  "title": "PREDICTED: Callithrix jacchus ubiquitin conjugating enzyme E2 M (UBE2M), mRNA",
+                  "taxid": 9483,
+                  "sciname": "Callithrix jacchus"
+                }
+              ],
+              "len": 1763,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.11584,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 968,
+                  "hit_to": 948,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "hseq": "CTTGGGCAGGTTCAGCTCGTT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            }
+          ],
+          "stat": {
+            "db_num": 69782627,
+            "db_len": 433578483295,
+            "hsp_len": 18,
+            "eff_space": 1296967188027,
+            "kappa": 0.41,
+            "lambda": 0.625,
+            "entropy": 0.78
+          }
+        }
+      }
+    }
+  }
+]
+}
 

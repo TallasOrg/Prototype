@@ -1,263 +1,1448 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="jig" content="ncbitoggler"/>
-<meta name="ncbitoggler" content="animation:'none'"/>
-<title>NCBI Blast:</title>
-<script type="text/javascript" src="/core/jig/1.14.8/js/jig.min.js             "></script>
-<script type="text/javascript">    jQuery.getScript("/core/alerts/alerts.js", function() {
-        galert(['div#header', 'body > *:nth-child(1)'])
-    });</script>
-<meta http-equiv="Pragma" content="no-cache">
-<link rel="stylesheet" type="text/css" href="css/uswds.min.css" media="screen" />
-<link rel="stylesheet"  type="text/css" href="https://www.ncbi.nlm.nih.gov/style-guide/static/nwds/css/nwds.css"/>
-<link rel="stylesheet" href="css/headerNew.css"/>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous"> <!-- Font Awesome icons -->
-<link rel="stylesheet" type="text/css" href="css/footerNew.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="css/main.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="css/blastRes.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="css/print.css" media="print" />
-<!--[if lte IE 6]>
-<link rel="stylesheet" type="text/css" href="css/ie6_or_less.css" />
-<![endif]-->
-<script type="text/javascript" src="js/utils.js"></script>
-<script type="text/javascript" src="js/results.js"></script>
-</head>
-
-<body id="type-a" class="noToggleCheck" >
-<div id="wrap">
-		    	
-<header class="ncbi-header" role="banner" data-section="Header">
-<ul class="skip_nav">
-    <li><a accesskey="1" title="NCBI Homepage" href="https://www.ncbi.nlm.nih.gov/">NCBI Home</a></li>
-    <li><a accesskey="2" title="MyNCBI" href="https://www.ncbi.nlm.nih.gov/myncbi">Sign in to NCBI</a></li>
-    <li><a accesskey="3" title="Skip to main content" href="#mainCont">Skip to Main Content</a></li>
-    <li><a accesskey="4" title="Skip to navigation" href="#navcontent">Skip to Navigation</a></li>
-    <li><a accesskey="0" title="About NCBI Accesskeys" href="https://www.ncbi.nlm.nih.gov/guide/browsers/#accesskeys">About NCBI Accesskeys</a></li>
-</ul>
-<div class="usa-grid">
-    <div class="usa-width-one-whole">
-        <div class="agencies">
-            <div class="nih"><span class="usa-sr-only">National Institutes of Health</span></div>
-            <div class="nlm">U.S. National Library of Medicine</div>
-            <div class="ncbi">National Center for Biotechnology Information</div>
-            <a href="https://www.ncbi.nlm.nih.gov/" class="homepage"><span class="usa-sr-only" id="header_ncbi">NCBI homepage</span></a>
-        </div>
-
-        <div class="account">
-            <a id="account_login" href="https://www.ncbi.nlm.nih.gov/account/?back_url=https%3A%2F%2Fblast%2Encbi%2Enlm%2Enih%2Egov%2Fblast%2FBlast%2Ecgi%3FCMD%3DGet%26FORMAT%5FOBJECT%3DAlignment%26FORMAT%5FTYPE%3DXML2%5FS%26RESULTS%5FFILE%3Don%26RID%3D6ZNCK18V013" class="usa-button header-button">Log in</a>
-            <button id="account_info" class="header-button" aria-controls="account_popup">
-                <span class="fa fa-user" aria-hidden="true"></span>
-                <span class="username desktop-only" aria-hidden="true" id="uname_short"></span>
-                <span class="sr-only">Show account info</span>
-            </button>
-        </div>
-
-        <div class="ncbi-popup-anchor">
-            <div class="ncbi-popup account-popup" id="account_popup" aria-hidden="true" role="dialog" aria-labelledby="account-popup-header">
-                <div class="ncbi-popup-head">
-                    <button class="ncbi-close-button"><span class="fa fa-window-close"></span><span class="usa-sr-only">Close</span></button>
-                    <h4>Account</h4>
-                </div>
-                <div class="account-user-info">
-                    Logged in as:<br>
-                    <b><span class="username" id="uname_long">username</span></b>
-                </div>
-                <div class="account-links">
-                    <ul class="usa-unstyled-list">
-                        <li><a id="account_myncbi" href="https://www.ncbi.nlm.nih.gov/myncbi/">Dashboard</a> <span class="ncbi-text-small-light">(My NCBI)</span></li>
-                        <li><a id="account_pubs" href="https://www.ncbi.nlm.nih.gov/myncbi/collections/bibliography/">Publications</a> <span class="ncbi-text-small-light">(My Bibliography)</span></li>
-                        <li><a id="account_settings" href="https://www.ncbi.nlm.nih.gov/account/settings/">Account settings</a></li>
-                        <li><a id="account_logout" href="https://www.ncbi.nlm.nih.gov/account/signout/?back_url=https%3A%2F%2Fblast%2Encbi%2Enlm%2Enih%2Egov%2Fblast%2FBlast%2Ecgi%3FCMD%3DGet%26FORMAT%5FOBJECT%3DAlignment%26FORMAT%5FTYPE%3DXML2%5FS%26RESULTS%5FFILE%3Don%26RID%3D6ZNCK18V013">Log out</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
-</header>
-<nav class="ncbi-topnav" id="navcontent">
-    <div class="usa-grid">
-        <a class="ncbi-topnav-root" href="Blast.cgi">BLAST <sup>&reg;</sup></a> <span id="brc"><span class="brcrmbsign">&raquo;</span> <a href="Blast.cgi?PAGE=Nucleotides&amp;PROGRAM=blastn&amp;PAGE_TYPE=BlastSearch&amp;BLAST_SPEC=">blastn suite</a> <span class="brcrmbsign">&raquo;</span> RID-6ZNCK18V013</span>
-        <ul class="rf ncbi-topnav-list" id="topnav-list">
-            <li class="first "><a href="Blast.cgi?CMD=Web&amp;PAGE_TYPE=BlastHome" title="BLAST Home">Home</a></li>
-            <li class="recent "><a href="Blast.cgi?CMD=GetSaved&amp;RECENT_RESULTS=on" title="Unexpired BLAST jobs">Recent Results</a></li>                
-            <li class="saved "><a href="Blast.cgi?CMD=GetSaved" title="Saved sets of BLAST search parameters">Saved Strategies</a></li>
-            <li  class= "last documentation "> <a href="Blast.cgi?CMD=Web&amp;PAGE_TYPE=BlastDocs" title="BLAST documentation">Help</a></li>                            
-        </ul>
-    </div>
-</nav>
-
-
-
-        <div id="content-wrap">
-
-                <div class="pageTitle">                            
-                   Format Request Status                   
-                </div>
-		<div class="inlineDiv resHeader">				   
-				   <a  id="frmPage"  class="UNKNOWN" href="#" submitForm="reformat">[Formatting options] </a>                   
-                </div>
-                <h2 id="jtitle" >Job Title: </h2>
-								
-                <div id="content">                
-                <!--<ul id="msg" class="msg"><li class="error"><p class=""></p><p class=""></p><p class=""></p></ul> -->
-                <ul id="msg" class="msg"><li class="error"><p class="error">Error: Results for RID 6ZNCK18V013 not found</p></li></ul>
-                <p><!--
-                QBlastInfoBegin
-	                Status=UNKNOWN
-                QBlastInfoEnd
-                --></p> 
-                               
-                <SCRIPT LANGUAGE="JavaScript"><!--
-                    var tm = "";
-                    if (tm != "") {                    
-                        setTimeout('document.forms[0].submit();',tm);
-                    }
-                //--></SCRIPT>                                
-                <table id="statInfo" class="UNKNOWN">
-                <tr><td>Request ID</td><td> <b>6ZNCK18V013</b></td></tr>
-                <tr class="odd"><td>Status</td><td>Searching</td></tr>
-                <tr><td>Submitted at</td><td></td></tr>
-                <tr class="odd"><td>Current time</td><td></td></tr>
-                <tr><td>Time since submission</td><td></td></tr>
-                </table>
-                <p class="UNKNOWN">This page will be automatically updated in <b></b> seconds</p>       
-                <form action="Blast.cgi" enctype="application/x-www-form-urlencoded" method="POST" id="results">
-                <input name="FORMAT_OBJECT" type="hidden" value="Alignment"><input name="FORMAT_TYPE" type="hidden" value="XML2_S"><input name="RESULTS_FILE" type="hidden" value="on"><input name="RID" type="hidden" value="6ZNCK18V013"><input name="SEARCH_DB_STATUS" type="hidden" value="0"><input name="USER_TYPE" type="hidden" value="2"><input name="_PGR" type="hidden" value="0">                
-                <input name="_PGR" type="hidden" value="0" >
-                <input name="CMD" type="hidden" value="Get">
-               
-                </form>
-                                
-				</div><!-- /#content -->
-				<form action="Blast.cgi" enctype="application/x-www-form-urlencoded"  method="post" name="reformat" id="reformat">				
-				   <input name="QUERY_INFO" type="hidden" value="" />    				
-				   <input name="ENTREZ_QUERY" type="hidden" value="" />
-                   <input name="CDD_RID" type="hidden" value="" />
-                   <input name="CDD_SEARCH_STATE" type="hidden" value="" />
-                   <input name="RID" type="hidden" value="6ZNCK18V013" />
-				   <input name="STEP_NUMBER" type="hidden" value="" />
-				   <input name="CMD" type="hidden" value="Web"/>				
-				   <input NAME="PAGE_TYPE" type="hidden"  value="BlastFormatting"/>
-				
-				   <!-- TO DO: test all of those changes -->				   	
-				   <!-- Psi blast params  PSI_BLAST_PARAMS - commented- using forms[0] from fromatter> -->
-				   <!-- Current Formatting options FORMATTING_OPTIONS- commented- using forms[0] from fromatter> -->
-				   <!-- Current Search options CURR_SAVED_OPTIONS - commented- using forms[0] from fromatter> -->
-                 </form>				
-        </div><!-- /#content-wrap -->
-
-         <footer id="ncbi-footer" class="usa-footer usa-footer-medium usa-sans ncbi-footer" role="contentinfo" data-section="Footer">
-  <div class="icon-section">
-    <div class="usa-grid">
-		<div class="usa-width-one-whole">
-		<h3 class="usa-sr-only">Connect</h3>
-		<ul class="ncbi-inline-list icon-list">
-			<li><a id="footer_twitter" href="https://twitter.com/ncbi">Twitter</a></li>
-			<li><a id="footer_facebook" href="https://www.facebook.com/ncbi.nlm">Facebook</a></li>
-			<li><a id="footer_youtube" href="https://www.youtube.com/user/NCBINLM">YouTube</a></li>
-			<li><a id="footer_linkedin" href="https://www.linkedin.com/company/national-center-for-biotechnology-information-ncbi-">LinkedIn</a></li>
-			<li><a id="footer_github" href="https://github.com/ncbi">GitHub</a></li>
-		</ul>
-		<ul class="ncbi-inline-list icon-list icon-list-elastic">	
-			<li class="li-blog"><a id="footer_blog" href="https://ncbiinsights.ncbi.nlm.nih.gov/">Blog</a></li>
-			<li class="li-support"><a id="footer_support" href="https://support.ncbi.nlm.nih.gov/">Support Center</a></li>
-		</ul>
-		</div>
-		</div>
-  </div>
-  <div class="usa-footer-secondary_section ncbi-section">
-    <div class="usa-grid">
-      <div class="usa-width-one-half ncbi">
-        <h3 class="ncbi-full-name">National Center for Biotechnology Information</h3>
-		<address>
-        <a id="google_maps" href="https://www.google.com/maps/place/8600+Rockville+Pike,+Bethesda,+MD+20894/@38.9959508,-77.101021,17z/data=!3m1!4b1!4m5!3m4!1s0x89b7c95e25765ddb:0x19156f88b27635b8!8m2!3d38.9959508!4d-77.0988323">
-        <span class="h-adr"> <span class="p-street-address break">8600 Rockville Pike</span>
-        <span class="p-locality">Bethesda</span> <span class="p-region"> MD</span>, <span class="p-postal-code">20894</span> <span class="p-country-name">USA</span> </span>
-		</a>
-		</address>
-        <ul class="ncbi-inline-list">
-			<li><a id="footer_about" href="https://www.ncbi.nlm.nih.gov/home/about/">About us</a></li>
-          <li><a id="footer_contact" href="https://www.ncbi.nlm.nih.gov/home/about/contact.shtml">Contact us</a></li>
-          <li><a id="footer_policies" href="https://www.ncbi.nlm.nih.gov/home/about/policies.shtml">Policies</a></li>
-          <li><a id="footer_foia" href="https://www.nih.gov/institutes-nih/nih-office-director/office-communications-public-liaison/freedom-information-act-office">FOIA</a></li>
-        </ul>
-      </div>
-      <div class="usa-width-one-half">
-      <div class="usa-grid-full">
-		<div class="usa-width-one-third">
-		<h4>Popular</h4>
-
-        <ul class="ncbi-unstyled-list">
-				<li><a id="footer_pubmed" href="https://www.ncbi.nlm.nih.gov/pubmed/">PubMed</a></li>
-				<li><a id="footer_pmc" href="https://www.ncbi.nlm.nih.gov/pmc/">PubMed Central</a></li>
-				<li><a id="footer_bookshelf" href="https://www.ncbi.nlm.nih.gov/books/">Bookshelf</a></li>
-				<li><a id="footer_pubchem" href="https://pubchem.ncbi.nlm.nih.gov">PubChem</a></li>
-				<li><a id="footer_gene" href="https://www.ncbi.nlm.nih.gov/gene/">Gene</a></li>
-				<li><a id="footer_blast" href="https://blast.ncbi.nlm.nih.gov">BLAST</a></li>
-				<li><a id="footer_nucleotide" href="https://www.ncbi.nlm.nih.gov/nucleotide/">Nucleotide</a></li>
-				<li><a id="footer_protein" href="https://www.ncbi.nlm.nih.gov/protein/">Protein</a></li>
-				<li><a id="footer_geo" href="https://www.ncbi.nlm.nih.gov/geo/">GEO</a></li>
-        </ul>
-
-			</div>
-		<div class="usa-width-one-third">
-			<h4>Resources</h4>
-			<ul class="ncbi-unstyled-list ncbi-undecorated-links">
-				  <li><a id="footer_literature" href="https://www.ncbi.nlm.nih.gov/home/literature/">Literature</a></li>
-				  <li><a id="footer_health" href="https://www.ncbi.nlm.nih.gov/home/health/">Health</a></li>
-				  <li><a id="footer_genomes" href="https://www.ncbi.nlm.nih.gov/home/genomes/">Genomes</a></li>
-				  <li><a id="footer_genes" href="https://www.ncbi.nlm.nih.gov/home/genes/">Genes</a></li>
-				  <li><a id="footer_proteins" href="https://www.ncbi.nlm.nih.gov/home/proteins/">Proteins</a></li>
-				  <li><a id="footer_chemicals" href="https://www.ncbi.nlm.nih.gov/home/chemicals/">Chemicals</a></li>
-			</ul>
-		</div>
-		<div class="usa-width-one-third">
-   <h4>Actions</h4>
-   <ul class="ncbi-unstyled-list">
-              <li><a id="footer_submit" href="https://www.ncbi.nlm.nih.gov/home/submit/">Submit</a></li>
-              <li><a id="footer_download" href="https://www.ncbi.nlm.nih.gov/home/download/">Download</a></li>
-              <li><a id="footer_learn" href="https://www.ncbi.nlm.nih.gov/home/learn/">Learn</a></li>
-              <li><a id="footer_develop" href="https://www.ncbi.nlm.nih.gov/home/develop/">Develop</a></li>
-              <li><a id="footer_analyze" href="https://www.ncbi.nlm.nih.gov/home/analyze/">Analyze</a></li>
-              <li><a id="footer_research" href="https://www.ncbi.nlm.nih.gov/research/">Research</a></li>
-   </ul>
-		  </div>
-		  </div>
-		  </div>
-    </div>
-	</div>
-     <div class="usa-footer-secondary_section gov-agencies"> 
-    <div class="usa-grid">
-    <div class="usa-width-one-whole">
-		<p>
-			<a id="footer_nlm" href="https://www.nlm.nih.gov/">NLM</a>
-			&ensp;|&ensp;
-			<a id="footer_nih" href="https://www.nih.gov/">NIH</a>
-			&ensp;|&ensp;
-			<a id="footer_hhs" href="https://www.hhs.gov/">HHS</a>
-			&ensp;|&ensp;
-			<a id="footer_usagov" href="https://www.usa.gov/">USA.gov</a>
-		</p>
-	 </div>
-	 </div>
-	</div>
-
- </footer>
-<script type="text/javascript" src="js/nwds.js"></script>
-<script type="text/javascript" src="js/ncbipopup.js"></script>
-<script type="text/javascript" src="js/headerNew.js"></script>
-<script src="js/uswds.min.js"></script>
-        <script type="text/javascript" src="/portal/portal3rc.fcgi/rlib/js/InstrumentOmnitureBaseJS/InstrumentNCBIBaseJS/InstrumentPageStarterJS.js"></script>
-<!--
-<script type="text/javascript" src="://www.ncbi.nlm.nih.gov/portal/portal3rc.fcgi/supportedbrowsers/js/nonportalbc_min.js"></script>
-<script type="text/javascript">$("#browsers_ajax").browserCheck();</script>
--->
-   </div><!--/#wrap-->
-</body>
-
-</html>
+<?xml version="1.0"?>
+<BlastXML2
+    xmlns="http://www.ncbi.nlm.nih.gov"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"
+    xs:schemaLocation="http://www.ncbi.nlm.nih.gov http://www.ncbi.nlm.nih.gov/data_specs/schema_alt/NCBI_BlastOutput2.xsd"
+>
+<BlastOutput2>
+  <report>
+    <Report>
+      <program>blastn</program>
+      <version>BLASTN 2.11.0+</version>
+      <reference>Stephen F. Altschul, Thomas L. Madden, Alejandro A. Sch&amp;auml;ffer, Jinghui Zhang, Zheng Zhang, Webb Miller, and David J. Lipman (1997), &quot;Gapped BLAST and PSI-BLAST: a new generation of protein database search programs&quot;, Nucleic Acids Res. 25:3389-3402.</reference>
+      <search-target>
+        <Target>
+          <db>nt</db>
+        </Target>
+      </search-target>
+      <params>
+        <Parameters>
+          <expect>10</expect>
+          <sc-match>2</sc-match>
+          <sc-mismatch>-3</sc-mismatch>
+          <gap-open>5</gap-open>
+          <gap-extend>2</gap-extend>
+          <filter>L;m;</filter>
+        </Parameters>
+      </params>
+      <results>
+        <Results>
+          <search>
+            <Search>
+              <query-id>Query_9885</query-id>
+              <query-len>21</query-len>
+              <hits>
+                <Hit>
+                  <num>1</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1820946639|ref|XM_032915907.1|</id>
+                      <accession>XM_032915907</accession>
+                      <title>PREDICTED: Rattus rattus MORF4 family-associated protein 1 (LOC116912018), partial mRNA</title>
+                      <taxid>10117</taxid>
+                      <sciname>Rattus rattus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1599</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.11584</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>824</hit-from>
+                      <hit-to>804</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTCCAAATCAAAGTTATTTTC</qseq>
+                      <hseq>TTCCAAATCAAAGTTATTTTC</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>2</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1922903522|gb|CP062018.1|</id>
+                      <accession>CP062018</accession>
+                      <title>Macrobrachium nipponense isolate FS-2020 chromosome 17</title>
+                      <taxid>159736</taxid>
+                      <sciname>Macrobrachium nipponense</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>89928525</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.11584</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>43287680</hit-from>
+                      <hit-to>43287700</hit-to>
+                      <hit-strand>Plus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTCCAAATCAAAGTTATTTTC</qseq>
+                      <hseq>TTCCAAATCAAAGTTATTTTC</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>3</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|298912313|emb|FQ213111.1|</id>
+                      <accession>FQ213111</accession>
+                      <title>Rattus norvegicus TL0AAA49YK06 mRNA sequence</title>
+                      <taxid>10116</taxid>
+                      <sciname>Rattus norvegicus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1566</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.11584</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>785</hit-from>
+                      <hit-to>765</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTCCAAATCAAAGTTATTTTC</qseq>
+                      <hseq>TTCCAAATCAAAGTTATTTTC</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>4</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|298908397|emb|FQ228750.1|</id>
+                      <accession>FQ228750</accession>
+                      <title>Rattus norvegicus TL0ADA52YC18 mRNA sequence</title>
+                      <taxid>10116</taxid>
+                      <sciname>Rattus norvegicus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1571</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.11584</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>784</hit-from>
+                      <hit-to>764</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTCCAAATCAAAGTTATTTTC</qseq>
+                      <hseq>TTCCAAATCAAAGTTATTTTC</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>5</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|298905819|emb|FQ213948.1|</id>
+                      <accession>FQ213948</accession>
+                      <title>Rattus norvegicus TL0AAA44YK07 mRNA sequence</title>
+                      <taxid>10116</taxid>
+                      <sciname>Rattus norvegicus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1265</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.11584</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>472</hit-from>
+                      <hit-to>452</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTCCAAATCAAAGTTATTTTC</qseq>
+                      <hseq>TTCCAAATCAAAGTTATTTTC</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>6</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|57863781|ref|NM_001009264.1|</id>
+                      <accession>NM_001009264</accession>
+                      <title>Rattus norvegicus Morf4 family associated protein 1 (Mrfap1), mRNA</title>
+                      <taxid>10116</taxid>
+                      <sciname>Rattus norvegicus</sciname>
+                    </HitDescr>
+                    <HitDescr>
+                      <id>gi|56789915|gb|BC088308.1|</id>
+                      <accession>BC088308</accession>
+                      <title>Rattus norvegicus Mof4 family associated protein 1, mRNA (cDNA clone MGC:109522 IMAGE:7324285), complete cds</title>
+                      <taxid>10116</taxid>
+                      <sciname>Rattus norvegicus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1556</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.11584</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>764</hit-from>
+                      <hit-to>744</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTCCAAATCAAAGTTATTTTC</qseq>
+                      <hseq>TTCCAAATCAAAGTTATTTTC</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>7</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1843758360|gb|CP053421.1|</id>
+                      <accession>CP053421</accession>
+                      <title>Pediococcus acidilactici strain PMC65 chromosome, complete genome</title>
+                      <taxid>1254</taxid>
+                      <sciname>Pediococcus acidilactici</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2044083</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>37.3537</bit-score>
+                      <score>40</score>
+                      <evalue>7.38501</evalue>
+                      <identity>20</identity>
+                      <query-from>2</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>1565330</hit-from>
+                      <hit-to>1565349</hit-to>
+                      <hit-strand>Plus</hit-strand>
+                      <align-len>20</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TCCAAATCAAAGTTATTTTC</qseq>
+                      <hseq>TCCAAATCAAAGTTATTTTC</hseq>
+                      <midline>||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>8</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1823056681|gb|CP050079.1|</id>
+                      <accession>CP050079</accession>
+                      <title>Pediococcus acidilactici strain PMC48 chromosome, complete genome</title>
+                      <taxid>1254</taxid>
+                      <sciname>Pediococcus acidilactici</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2043929</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>37.3537</bit-score>
+                      <score>40</score>
+                      <evalue>7.38501</evalue>
+                      <identity>20</identity>
+                      <query-from>2</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>1565198</hit-from>
+                      <hit-to>1565217</hit-to>
+                      <hit-strand>Plus</hit-strand>
+                      <align-len>20</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TCCAAATCAAAGTTATTTTC</qseq>
+                      <hseq>TCCAAATCAAAGTTATTTTC</hseq>
+                      <midline>||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>9</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1811248724|dbj|AP022678.1|</id>
+                      <accession>AP022678</accession>
+                      <title>Epinephelus fuscoguttatus DNA, LG4, complete sequence</title>
+                      <taxid>293821</taxid>
+                      <sciname>Epinephelus fuscoguttatus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>47419940</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>37.3537</bit-score>
+                      <score>40</score>
+                      <evalue>7.38501</evalue>
+                      <identity>20</identity>
+                      <query-from>1</query-from>
+                      <query-to>20</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>19713487</hit-from>
+                      <hit-to>19713468</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>20</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTCCAAATCAAAGTTATTTT</qseq>
+                      <hseq>TTCCAAATCAAAGTTATTTT</hseq>
+                      <midline>||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>10</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1804085238|gb|CP048019.1|</id>
+                      <accession>CP048019</accession>
+                      <title>Pediococcus acidilactici strain CACC 537 chromosome, complete genome</title>
+                      <taxid>1254</taxid>
+                      <sciname>Pediococcus acidilactici</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2035984</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>37.3537</bit-score>
+                      <score>40</score>
+                      <evalue>7.38501</evalue>
+                      <identity>20</identity>
+                      <query-from>2</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>1228588</hit-from>
+                      <hit-to>1228569</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>20</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TCCAAATCAAAGTTATTTTC</qseq>
+                      <hseq>TCCAAATCAAAGTTATTTTC</hseq>
+                      <midline>||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>11</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1799527326|gb|CP028249.1|</id>
+                      <accession>CP028249</accession>
+                      <title>Pediococcus acidilactici strain SRCM102732 chromosome, complete genome</title>
+                      <taxid>1254</taxid>
+                      <sciname>Pediococcus acidilactici</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2018117</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>37.3537</bit-score>
+                      <score>40</score>
+                      <evalue>7.38501</evalue>
+                      <identity>20</identity>
+                      <query-from>2</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>1949495</hit-from>
+                      <hit-to>1949514</hit-to>
+                      <hit-strand>Plus</hit-strand>
+                      <align-len>20</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TCCAAATCAAAGTTATTTTC</qseq>
+                      <hseq>TCCAAATCAAAGTTATTTTC</hseq>
+                      <midline>||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>12</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1799525345|gb|CP028247.1|</id>
+                      <accession>CP028247</accession>
+                      <title>Pediococcus acidilactici strain SRCM102731 chromosome, complete genome</title>
+                      <taxid>1254</taxid>
+                      <sciname>Pediococcus acidilactici</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2015015</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>37.3537</bit-score>
+                      <score>40</score>
+                      <evalue>7.38501</evalue>
+                      <identity>20</identity>
+                      <query-from>2</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>1196961</hit-from>
+                      <hit-to>1196942</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>20</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TCCAAATCAAAGTTATTTTC</qseq>
+                      <hseq>TCCAAATCAAAGTTATTTTC</hseq>
+                      <midline>||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>13</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1699914691|gb|CP023654.1|</id>
+                      <accession>CP023654</accession>
+                      <title>Pediococcus acidilactici strain JQII-5 chromosome, complete genome</title>
+                      <taxid>1254</taxid>
+                      <sciname>Pediococcus acidilactici</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2085679</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>37.3537</bit-score>
+                      <score>40</score>
+                      <evalue>7.38501</evalue>
+                      <identity>20</identity>
+                      <query-from>2</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>1613756</hit-from>
+                      <hit-to>1613775</hit-to>
+                      <hit-strand>Plus</hit-strand>
+                      <align-len>20</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TCCAAATCAAAGTTATTTTC</qseq>
+                      <hseq>TCCAAATCAAAGTTATTTTC</hseq>
+                      <midline>||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>14</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1695378357|emb|LR597559.1|</id>
+                      <accession>LR597559</accession>
+                      <title>Myripristis murdjan genome assembly, chromosome: 10</title>
+                      <taxid>586833</taxid>
+                      <sciname>Myripristis murdjan</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>34950760</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>37.3537</bit-score>
+                      <score>40</score>
+                      <evalue>7.38501</evalue>
+                      <identity>20</identity>
+                      <query-from>1</query-from>
+                      <query-to>20</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>8544340</hit-from>
+                      <hit-to>8544321</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>20</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTCCAAATCAAAGTTATTTT</qseq>
+                      <hseq>TTCCAAATCAAAGTTATTTT</hseq>
+                      <midline>||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>15</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1594516149|gb|CP033438.1|</id>
+                      <accession>CP033438</accession>
+                      <title>Pediococcus acidilactici strain ATCC 8042 chromosome, complete genome</title>
+                      <taxid>1254</taxid>
+                      <sciname>Pediococcus acidilactici</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2009598</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>37.3537</bit-score>
+                      <score>40</score>
+                      <evalue>7.38501</evalue>
+                      <identity>20</identity>
+                      <query-from>2</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>579099</hit-from>
+                      <hit-to>579080</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>20</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TCCAAATCAAAGTTATTTTC</qseq>
+                      <hseq>TCCAAATCAAAGTTATTTTC</hseq>
+                      <midline>||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>16</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1561265638|gb|CP035266.1|</id>
+                      <accession>CP035266</accession>
+                      <title>Pediococcus acidilactici strain SRCM103444 chromosome, complete genome</title>
+                      <taxid>1254</taxid>
+                      <sciname>Pediococcus acidilactici</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1970727</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>37.3537</bit-score>
+                      <score>40</score>
+                      <evalue>7.38501</evalue>
+                      <identity>20</identity>
+                      <query-from>2</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>461319</hit-from>
+                      <hit-to>461300</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>20</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TCCAAATCAAAGTTATTTTC</qseq>
+                      <hseq>TCCAAATCAAAGTTATTTTC</hseq>
+                      <midline>||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>17</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1560937668|gb|CP035151.1|</id>
+                      <accession>CP035151</accession>
+                      <title>Pediococcus acidilactici strain SRCM103367 chromosome, complete genome</title>
+                      <taxid>1254</taxid>
+                      <sciname>Pediococcus acidilactici</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1852892</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>37.3537</bit-score>
+                      <score>40</score>
+                      <evalue>7.38501</evalue>
+                      <identity>20</identity>
+                      <query-from>2</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>1393248</hit-from>
+                      <hit-to>1393267</hit-to>
+                      <hit-strand>Plus</hit-strand>
+                      <align-len>20</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TCCAAATCAAAGTTATTTTC</qseq>
+                      <hseq>TCCAAATCAAAGTTATTTTC</hseq>
+                      <midline>||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>18</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1560667142|gb|CP035154.1|</id>
+                      <accession>CP035154</accession>
+                      <title>Pediococcus acidilactici strain SRCM103387 chromosome, complete genome</title>
+                      <taxid>1254</taxid>
+                      <sciname>Pediococcus acidilactici</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2001079</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>37.3537</bit-score>
+                      <score>40</score>
+                      <evalue>7.38501</evalue>
+                      <identity>20</identity>
+                      <query-from>2</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>1512315</hit-from>
+                      <hit-to>1512334</hit-to>
+                      <hit-strand>Plus</hit-strand>
+                      <align-len>20</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TCCAAATCAAAGTTATTTTC</qseq>
+                      <hseq>TCCAAATCAAAGTTATTTTC</hseq>
+                      <midline>||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>19</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1540331814|gb|CP025471.1|</id>
+                      <accession>CP025471</accession>
+                      <title>Pediococcus acidilactici strain PB22 chromosome, complete genome</title>
+                      <taxid>1254</taxid>
+                      <sciname>Pediococcus acidilactici</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1955616</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>37.3537</bit-score>
+                      <score>40</score>
+                      <evalue>7.38501</evalue>
+                      <identity>20</identity>
+                      <query-from>2</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>1487059</hit-from>
+                      <hit-to>1487078</hit-to>
+                      <hit-strand>Plus</hit-strand>
+                      <align-len>20</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TCCAAATCAAAGTTATTTTC</qseq>
+                      <hseq>TCCAAATCAAAGTTATTTTC</hseq>
+                      <midline>||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>20</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1201078187|gb|CP021529.1|</id>
+                      <accession>CP021529</accession>
+                      <title>Pediococcus acidilactici strain SRCM101189, complete genome</title>
+                      <taxid>1254</taxid>
+                      <sciname>Pediococcus acidilactici</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2025732</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>37.3537</bit-score>
+                      <score>40</score>
+                      <evalue>7.38501</evalue>
+                      <identity>20</identity>
+                      <query-from>2</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>1550173</hit-from>
+                      <hit-to>1550192</hit-to>
+                      <hit-strand>Plus</hit-strand>
+                      <align-len>20</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TCCAAATCAAAGTTATTTTC</qseq>
+                      <hseq>TCCAAATCAAAGTTATTTTC</hseq>
+                      <midline>||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>21</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1200937296|gb|CP021487.1|</id>
+                      <accession>CP021487</accession>
+                      <title>Pediococcus acidilactici strain SRCM100313, complete genome</title>
+                      <taxid>1254</taxid>
+                      <sciname>Pediococcus acidilactici</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2025575</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>37.3537</bit-score>
+                      <score>40</score>
+                      <evalue>7.38501</evalue>
+                      <identity>20</identity>
+                      <query-from>2</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>1550044</hit-from>
+                      <hit-to>1550063</hit-to>
+                      <hit-strand>Plus</hit-strand>
+                      <align-len>20</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TCCAAATCAAAGTTATTTTC</qseq>
+                      <hseq>TCCAAATCAAAGTTATTTTC</hseq>
+                      <midline>||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>22</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1200935294|gb|CP021484.1|</id>
+                      <accession>CP021484</accession>
+                      <title>Pediococcus acidilactici strain SRCM100424, complete genome</title>
+                      <taxid>1254</taxid>
+                      <sciname>Pediococcus acidilactici</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2025714</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>37.3537</bit-score>
+                      <score>40</score>
+                      <evalue>7.38501</evalue>
+                      <identity>20</identity>
+                      <query-from>2</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>1550164</hit-from>
+                      <hit-to>1550183</hit-to>
+                      <hit-strand>Plus</hit-strand>
+                      <align-len>20</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TCCAAATCAAAGTTATTTTC</qseq>
+                      <hseq>TCCAAATCAAAGTTATTTTC</hseq>
+                      <midline>||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>23</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1125905817|gb|CP018763.1|</id>
+                      <accession>CP018763</accession>
+                      <title>Pediococcus acidilactici strain BCC1, complete genome</title>
+                      <taxid>1254</taxid>
+                      <sciname>Pediococcus acidilactici</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2096059</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>37.3537</bit-score>
+                      <score>40</score>
+                      <evalue>7.38501</evalue>
+                      <identity>20</identity>
+                      <query-from>2</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>1622437</hit-from>
+                      <hit-to>1622456</hit-to>
+                      <hit-strand>Plus</hit-strand>
+                      <align-len>20</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TCCAAATCAAAGTTATTTTC</qseq>
+                      <hseq>TCCAAATCAAAGTTATTTTC</hseq>
+                      <midline>||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>24</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1082252815|gb|CP015206.1|</id>
+                      <accession>CP015206</accession>
+                      <title>Pediococcus acidilactici strain ZPA017, complete genome</title>
+                      <taxid>1254</taxid>
+                      <sciname>Pediococcus acidilactici</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2131361</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>37.3537</bit-score>
+                      <score>40</score>
+                      <evalue>7.38501</evalue>
+                      <identity>20</identity>
+                      <query-from>2</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>915888</hit-from>
+                      <hit-to>915907</hit-to>
+                      <hit-strand>Plus</hit-strand>
+                      <align-len>20</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TCCAAATCAAAGTTATTTTC</qseq>
+                      <hseq>TCCAAATCAAAGTTATTTTC</hseq>
+                      <midline>||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>25</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|850491151|gb|CP011902.1|</id>
+                      <accession>CP011902</accession>
+                      <title>Ovis canadensis canadensis isolate 43U chromosome 17 sequence</title>
+                      <taxid>112262</taxid>
+                      <sciname>Ovis canadensis canadensis</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>72372754</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>37.3537</bit-score>
+                      <score>40</score>
+                      <evalue>7.38501</evalue>
+                      <identity>20</identity>
+                      <query-from>2</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>34649348</hit-from>
+                      <hit-to>34649367</hit-to>
+                      <hit-strand>Plus</hit-strand>
+                      <align-len>20</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TCCAAATCAAAGTTATTTTC</qseq>
+                      <hseq>TCCAAATCAAAGTTATTTTC</hseq>
+                      <midline>||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>26</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|840012306|emb|LK064672.1|</id>
+                      <accession>LK064672</accession>
+                      <title>Apteryx australis mantelli genome assembly AptMant0, scaffold scaffold57</title>
+                      <taxid>202946</taxid>
+                      <sciname>Apteryx mantelli mantelli</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>12253807</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>37.3537</bit-score>
+                      <score>40</score>
+                      <evalue>7.38501</evalue>
+                      <identity>20</identity>
+                      <query-from>1</query-from>
+                      <query-to>20</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>648867</hit-from>
+                      <hit-to>648848</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>20</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTCCAAATCAAAGTTATTTT</qseq>
+                      <hseq>TTCCAAATCAAAGTTATTTT</hseq>
+                      <midline>||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>27</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|2022773329|emb|FR997756.1|</id>
+                      <accession>FR997756</accession>
+                      <title>Chrysoperla carnea genome assembly, chromosome: 3</title>
+                      <taxid>189513</taxid>
+                      <sciname>Chrysoperla carnea</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>94407144</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>37.3537</bit-score>
+                      <score>40</score>
+                      <evalue>7.38501</evalue>
+                      <identity>20</identity>
+                      <query-from>1</query-from>
+                      <query-to>20</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>35703448</hit-from>
+                      <hit-to>35703467</hit-to>
+                      <hit-strand>Plus</hit-strand>
+                      <align-len>20</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTCCAAATCAAAGTTATTTT</qseq>
+                      <hseq>TTCCAAATCAAAGTTATTTT</hseq>
+                      <midline>||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>28</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|2020514940|emb|FR990153.1|</id>
+                      <accession>FR990153</accession>
+                      <title>Leptidea sinapis genome assembly, chromosome: Z</title>
+                      <taxid>189913</taxid>
+                      <sciname>Leptidea sinapis</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>36552532</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>37.3537</bit-score>
+                      <score>40</score>
+                      <evalue>7.38501</evalue>
+                      <identity>20</identity>
+                      <query-from>1</query-from>
+                      <query-to>20</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>12409504</hit-from>
+                      <hit-to>12409485</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>20</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTCCAAATCAAAGTTATTTT</qseq>
+                      <hseq>TTCCAAATCAAAGTTATTTT</hseq>
+                      <midline>||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>29</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|2020514819|emb|FR990027.1|</id>
+                      <accession>FR990027</accession>
+                      <title>Hesperia comma genome assembly, chromosome: 14</title>
+                      <taxid>291688</taxid>
+                      <sciname>Hesperia comma</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>17321846</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>37.3537</bit-score>
+                      <score>40</score>
+                      <evalue>7.38501</evalue>
+                      <identity>20</identity>
+                      <query-from>1</query-from>
+                      <query-to>20</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>8528335</hit-from>
+                      <hit-to>8528316</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>20</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTCCAAATCAAAGTTATTTT</qseq>
+                      <hseq>TTCCAAATCAAAGTTATTTT</hseq>
+                      <midline>||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>30</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|2002734341|emb|HG995298.1|</id>
+                      <accession>HG995298</accession>
+                      <title>Hecatera dysodea genome assembly, chromosome: 12</title>
+                      <taxid>988125</taxid>
+                      <sciname>Hecatera dysodea</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>21999099</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>37.3537</bit-score>
+                      <score>40</score>
+                      <evalue>7.38501</evalue>
+                      <identity>20</identity>
+                      <query-from>1</query-from>
+                      <query-to>20</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>17611231</hit-from>
+                      <hit-to>17611212</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>20</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTCCAAATCAAAGTTATTTT</qseq>
+                      <hseq>TTCCAAATCAAAGTTATTTT</hseq>
+                      <midline>||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>31</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|2002733324|emb|HG995292.1|</id>
+                      <accession>HG995292</accession>
+                      <title>Hecatera dysodea genome assembly, chromosome: 6</title>
+                      <taxid>988125</taxid>
+                      <sciname>Hecatera dysodea</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>23293987</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>37.3537</bit-score>
+                      <score>40</score>
+                      <evalue>7.38501</evalue>
+                      <identity>20</identity>
+                      <query-from>1</query-from>
+                      <query-to>20</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>7409159</hit-from>
+                      <hit-to>7409140</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>20</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTCCAAATCAAAGTTATTTT</qseq>
+                      <hseq>TTCCAAATCAAAGTTATTTT</hseq>
+                      <midline>||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>32</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|2002732556|emb|HG995288.1|</id>
+                      <accession>HG995288</accession>
+                      <title>Hecatera dysodea genome assembly, chromosome: 2</title>
+                      <taxid>988125</taxid>
+                      <sciname>Hecatera dysodea</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>23963529</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>37.3537</bit-score>
+                      <score>40</score>
+                      <evalue>7.38501</evalue>
+                      <identity>20</identity>
+                      <query-from>1</query-from>
+                      <query-to>20</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>7914422</hit-from>
+                      <hit-to>7914441</hit-to>
+                      <hit-strand>Plus</hit-strand>
+                      <align-len>20</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTCCAAATCAAAGTTATTTT</qseq>
+                      <hseq>TTCCAAATCAAAGTTATTTT</hseq>
+                      <midline>||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>33</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1987721422|emb|HG992278.1|</id>
+                      <accession>HG992278</accession>
+                      <title>Spilosoma lubricipeda genome assembly, chromosome: 4</title>
+                      <taxid>875880</taxid>
+                      <sciname>Spilosoma lubricipeda</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>23967137</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>37.3537</bit-score>
+                      <score>40</score>
+                      <evalue>7.38501</evalue>
+                      <identity>20</identity>
+                      <query-from>1</query-from>
+                      <query-to>20</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>23192632</hit-from>
+                      <hit-to>23192613</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>20</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTCCAAATCAAAGTTATTTT</qseq>
+                      <hseq>TTCCAAATCAAAGTTATTTT</hseq>
+                      <midline>||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>34</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1963968900|emb|LR991027.1|</id>
+                      <accession>LR991027</accession>
+                      <title>Cosmia trapezina genome assembly, chromosome: 8</title>
+                      <taxid>116126</taxid>
+                      <sciname>Cosmia trapezina</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>29619998</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>37.3537</bit-score>
+                      <score>40</score>
+                      <evalue>7.38501</evalue>
+                      <identity>20</identity>
+                      <query-from>1</query-from>
+                      <query-to>20</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>17421807</hit-from>
+                      <hit-to>17421826</hit-to>
+                      <hit-strand>Plus</hit-strand>
+                      <align-len>20</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTCCAAATCAAAGTTATTTT</qseq>
+                      <hseq>TTCCAAATCAAAGTTATTTT</hseq>
+                      <midline>||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>35</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1963964306|emb|LR990992.1|</id>
+                      <accession>LR990992</accession>
+                      <title>Mamestra brassicae genome assembly, chromosome: 5</title>
+                      <taxid>55057</taxid>
+                      <sciname>Mamestra brassicae</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>20946682</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>37.3537</bit-score>
+                      <score>40</score>
+                      <evalue>7.38501</evalue>
+                      <identity>20</identity>
+                      <query-from>1</query-from>
+                      <query-to>20</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>10031926</hit-from>
+                      <hit-to>10031907</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>20</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTCCAAATCAAAGTTATTTT</qseq>
+                      <hseq>TTCCAAATCAAAGTTATTTT</hseq>
+                      <midline>||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>36</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1963963979|emb|LR990989.1|</id>
+                      <accession>LR990989</accession>
+                      <title>Mamestra brassicae genome assembly, chromosome: 2</title>
+                      <taxid>55057</taxid>
+                      <sciname>Mamestra brassicae</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>22875184</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>37.3537</bit-score>
+                      <score>40</score>
+                      <evalue>7.38501</evalue>
+                      <identity>20</identity>
+                      <query-from>1</query-from>
+                      <query-to>20</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>21373357</hit-from>
+                      <hit-to>21373338</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>20</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTCCAAATCAAAGTTATTTT</qseq>
+                      <hseq>TTCCAAATCAAAGTTATTTT</hseq>
+                      <midline>||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>37</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1958286073|gb|CP068106.1|</id>
+                      <accession>CP068106</accession>
+                      <title>Pediococcus acidilactici strain FDAARGOS_1133 chromosome, complete genome</title>
+                      <taxid>1254</taxid>
+                      <sciname>Pediococcus acidilactici</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1953377</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>37.3537</bit-score>
+                      <score>40</score>
+                      <evalue>7.38501</evalue>
+                      <identity>20</identity>
+                      <query-from>2</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>762636</hit-from>
+                      <hit-to>762655</hit-to>
+                      <hit-strand>Plus</hit-strand>
+                      <align-len>20</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TCCAAATCAAAGTTATTTTC</qseq>
+                      <hseq>TCCAAATCAAAGTTATTTTC</hseq>
+                      <midline>||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>38</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1957369132|gb|CP067392.1|</id>
+                      <accession>CP067392</accession>
+                      <title>Pediococcus acidilactici strain pll chromosome, complete genome</title>
+                      <taxid>1254</taxid>
+                      <sciname>Pediococcus acidilactici</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1941154</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>37.3537</bit-score>
+                      <score>40</score>
+                      <evalue>7.38501</evalue>
+                      <identity>20</identity>
+                      <query-from>2</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>1473423</hit-from>
+                      <hit-to>1473442</hit-to>
+                      <hit-strand>Plus</hit-strand>
+                      <align-len>20</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TCCAAATCAAAGTTATTTTC</qseq>
+                      <hseq>TCCAAATCAAAGTTATTTTC</hseq>
+                      <midline>||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>39</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1948704683|gb|CP066066.1|</id>
+                      <accession>CP066066</accession>
+                      <title>Pediococcus acidilactici strain FDAARGOS_1008 chromosome, complete genome</title>
+                      <taxid>1254</taxid>
+                      <sciname>Pediococcus acidilactici</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2009583</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>37.3537</bit-score>
+                      <score>40</score>
+                      <evalue>7.38501</evalue>
+                      <identity>20</identity>
+                      <query-from>2</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>559996</hit-from>
+                      <hit-to>559977</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>20</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TCCAAATCAAAGTTATTTTC</qseq>
+                      <hseq>TCCAAATCAAAGTTATTTTC</hseq>
+                      <midline>||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>40</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1948642534|gb|CP066046.1|</id>
+                      <accession>CP066046</accession>
+                      <title>Pediococcus acidilactici strain FDAARGOS_1007 chromosome, complete genome</title>
+                      <taxid>1254</taxid>
+                      <sciname>Pediococcus acidilactici</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2068296</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>37.3537</bit-score>
+                      <score>40</score>
+                      <evalue>7.38501</evalue>
+                      <identity>20</identity>
+                      <query-from>2</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>243592</hit-from>
+                      <hit-to>243573</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>20</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TCCAAATCAAAGTTATTTTC</qseq>
+                      <hseq>TCCAAATCAAAGTTATTTTC</hseq>
+                      <midline>||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>41</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1918104149|gb|CP061715.1|</id>
+                      <accession>CP061715</accession>
+                      <title>Pediococcus acidilactici strain HN9 chromosome, complete genome</title>
+                      <taxid>1254</taxid>
+                      <sciname>Pediococcus acidilactici</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2034522</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>37.3537</bit-score>
+                      <score>40</score>
+                      <evalue>7.38501</evalue>
+                      <identity>20</identity>
+                      <query-from>2</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>1562499</hit-from>
+                      <hit-to>1562518</hit-to>
+                      <hit-strand>Plus</hit-strand>
+                      <align-len>20</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TCCAAATCAAAGTTATTTTC</qseq>
+                      <hseq>TCCAAATCAAAGTTATTTTC</hseq>
+                      <midline>||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>42</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1863571419|gb|CP016180.1|</id>
+                      <accession>CP016180</accession>
+                      <title>Pasteurella skyensis strain 95A1 chromosome, complete genome</title>
+                      <taxid>97481</taxid>
+                      <sciname>Pasteurella skyensis</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2245511</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>37.3537</bit-score>
+                      <score>40</score>
+                      <evalue>7.38501</evalue>
+                      <identity>20</identity>
+                      <query-from>2</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>1309062</hit-from>
+                      <hit-to>1309043</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>20</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TCCAAATCAAAGTTATTTTC</qseq>
+                      <hseq>TCCAAATCAAAGTTATTTTC</hseq>
+                      <midline>||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+              </hits>
+              <stat>
+                <Statistics>
+                  <db-num>69782627</db-num>
+                  <db-len>433578483295</db-len>
+                  <hsp-len>18</hsp-len>
+                  <eff-space>1296967188027</eff-space>
+                  <kappa>0.41</kappa>
+                  <lambda>0.625</lambda>
+                  <entropy>0.78</entropy>
+                </Statistics>
+              </stat>
+            </Search>
+          </search>
+        </Results>
+      </results>
+    </Report>
+  </report>
+</BlastOutput2>
+</BlastXML2>
 
