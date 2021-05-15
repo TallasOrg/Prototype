@@ -1,263 +1,1558 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="jig" content="ncbitoggler"/>
-<meta name="ncbitoggler" content="animation:'none'"/>
-<title>NCBI Blast:</title>
-<script type="text/javascript" src="/core/jig/1.14.8/js/jig.min.js             "></script>
-<script type="text/javascript">    jQuery.getScript("/core/alerts/alerts.js", function() {
-        galert(['div#header', 'body > *:nth-child(1)'])
-    });</script>
-<meta http-equiv="Pragma" content="no-cache">
-<link rel="stylesheet" type="text/css" href="css/uswds.min.css" media="screen" />
-<link rel="stylesheet"  type="text/css" href="https://www.ncbi.nlm.nih.gov/style-guide/static/nwds/css/nwds.css"/>
-<link rel="stylesheet" href="css/headerNew.css"/>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous"> <!-- Font Awesome icons -->
-<link rel="stylesheet" type="text/css" href="css/footerNew.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="css/main.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="css/blastRes.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="css/print.css" media="print" />
-<!--[if lte IE 6]>
-<link rel="stylesheet" type="text/css" href="css/ie6_or_less.css" />
-<![endif]-->
-<script type="text/javascript" src="js/utils.js"></script>
-<script type="text/javascript" src="js/results.js"></script>
-</head>
-
-<body id="type-a" class="noToggleCheck" >
-<div id="wrap">
-		    	
-<header class="ncbi-header" role="banner" data-section="Header">
-<ul class="skip_nav">
-    <li><a accesskey="1" title="NCBI Homepage" href="https://www.ncbi.nlm.nih.gov/">NCBI Home</a></li>
-    <li><a accesskey="2" title="MyNCBI" href="https://www.ncbi.nlm.nih.gov/myncbi">Sign in to NCBI</a></li>
-    <li><a accesskey="3" title="Skip to main content" href="#mainCont">Skip to Main Content</a></li>
-    <li><a accesskey="4" title="Skip to navigation" href="#navcontent">Skip to Navigation</a></li>
-    <li><a accesskey="0" title="About NCBI Accesskeys" href="https://www.ncbi.nlm.nih.gov/guide/browsers/#accesskeys">About NCBI Accesskeys</a></li>
-</ul>
-<div class="usa-grid">
-    <div class="usa-width-one-whole">
-        <div class="agencies">
-            <div class="nih"><span class="usa-sr-only">National Institutes of Health</span></div>
-            <div class="nlm">U.S. National Library of Medicine</div>
-            <div class="ncbi">National Center for Biotechnology Information</div>
-            <a href="https://www.ncbi.nlm.nih.gov/" class="homepage"><span class="usa-sr-only" id="header_ncbi">NCBI homepage</span></a>
-        </div>
-
-        <div class="account">
-            <a id="account_login" href="https://www.ncbi.nlm.nih.gov/account/?back_url=https%3A%2F%2Fblast%2Encbi%2Enlm%2Enih%2Egov%2Fblast%2FBlast%2Ecgi%3FCMD%3DGet%26FORMAT%5FOBJECT%3DAlignment%26FORMAT%5FTYPE%3DJSON2%5FS%26RESULTS%5FFILE%3Don%26RID%3D8YYK99TP013" class="usa-button header-button">Log in</a>
-            <button id="account_info" class="header-button" aria-controls="account_popup">
-                <span class="fa fa-user" aria-hidden="true"></span>
-                <span class="username desktop-only" aria-hidden="true" id="uname_short"></span>
-                <span class="sr-only">Show account info</span>
-            </button>
-        </div>
-
-        <div class="ncbi-popup-anchor">
-            <div class="ncbi-popup account-popup" id="account_popup" aria-hidden="true" role="dialog" aria-labelledby="account-popup-header">
-                <div class="ncbi-popup-head">
-                    <button class="ncbi-close-button"><span class="fa fa-window-close"></span><span class="usa-sr-only">Close</span></button>
-                    <h4>Account</h4>
-                </div>
-                <div class="account-user-info">
-                    Logged in as:<br>
-                    <b><span class="username" id="uname_long">username</span></b>
-                </div>
-                <div class="account-links">
-                    <ul class="usa-unstyled-list">
-                        <li><a id="account_myncbi" href="https://www.ncbi.nlm.nih.gov/myncbi/">Dashboard</a> <span class="ncbi-text-small-light">(My NCBI)</span></li>
-                        <li><a id="account_pubs" href="https://www.ncbi.nlm.nih.gov/myncbi/collections/bibliography/">Publications</a> <span class="ncbi-text-small-light">(My Bibliography)</span></li>
-                        <li><a id="account_settings" href="https://www.ncbi.nlm.nih.gov/account/settings/">Account settings</a></li>
-                        <li><a id="account_logout" href="https://www.ncbi.nlm.nih.gov/account/signout/?back_url=https%3A%2F%2Fblast%2Encbi%2Enlm%2Enih%2Egov%2Fblast%2FBlast%2Ecgi%3FCMD%3DGet%26FORMAT%5FOBJECT%3DAlignment%26FORMAT%5FTYPE%3DJSON2%5FS%26RESULTS%5FFILE%3Don%26RID%3D8YYK99TP013">Log out</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
-</header>
-<nav class="ncbi-topnav" id="navcontent">
-    <div class="usa-grid">
-        <a class="ncbi-topnav-root" href="Blast.cgi">BLAST <sup>&reg;</sup></a> <span id="brc"><span class="brcrmbsign">&raquo;</span> <a href="Blast.cgi?PAGE=Nucleotides&amp;PROGRAM=blastn&amp;PAGE_TYPE=BlastSearch&amp;BLAST_SPEC=">blastn suite</a> <span class="brcrmbsign">&raquo;</span> RID-8YYK99TP013</span>
-        <ul class="rf ncbi-topnav-list" id="topnav-list">
-            <li class="first "><a href="Blast.cgi?CMD=Web&amp;PAGE_TYPE=BlastHome" title="BLAST Home">Home</a></li>
-            <li class="recent "><a href="Blast.cgi?CMD=GetSaved&amp;RECENT_RESULTS=on" title="Unexpired BLAST jobs">Recent Results</a></li>                
-            <li class="saved "><a href="Blast.cgi?CMD=GetSaved" title="Saved sets of BLAST search parameters">Saved Strategies</a></li>
-            <li  class= "last documentation "> <a href="Blast.cgi?CMD=Web&amp;PAGE_TYPE=BlastDocs" title="BLAST documentation">Help</a></li>                            
-        </ul>
-    </div>
-</nav>
-
-
-
-        <div id="content-wrap">
-
-                <div class="pageTitle">                            
-                   Format Request Status                   
-                </div>
-		<div class="inlineDiv resHeader">				   
-				   <a  id="frmPage"  class="UNKNOWN" href="#" submitForm="reformat">[Formatting options] </a>                   
-                </div>
-                <h2 id="jtitle" >Job Title: </h2>
-								
-                <div id="content">                
-                <!--<ul id="msg" class="msg"><li class="error"><p class=""></p><p class=""></p><p class=""></p></ul> -->
-                <ul id="msg" class="msg"><li class="error"><p class="error">Error: Results for RID 8YYK99TP013 not found</p></li></ul>
-                <p><!--
-                QBlastInfoBegin
-	                Status=UNKNOWN
-                QBlastInfoEnd
-                --></p> 
-                               
-                <SCRIPT LANGUAGE="JavaScript"><!--
-                    var tm = "";
-                    if (tm != "") {                    
-                        setTimeout('document.forms[0].submit();',tm);
-                    }
-                //--></SCRIPT>                                
-                <table id="statInfo" class="UNKNOWN">
-                <tr><td>Request ID</td><td> <b>8YYK99TP013</b></td></tr>
-                <tr class="odd"><td>Status</td><td>Searching</td></tr>
-                <tr><td>Submitted at</td><td></td></tr>
-                <tr class="odd"><td>Current time</td><td></td></tr>
-                <tr><td>Time since submission</td><td></td></tr>
-                </table>
-                <p class="UNKNOWN">This page will be automatically updated in <b></b> seconds</p>       
-                <form action="Blast.cgi" enctype="application/x-www-form-urlencoded" method="POST" id="results">
-                <input name="FORMAT_OBJECT" type="hidden" value="Alignment"><input name="FORMAT_TYPE" type="hidden" value="JSON2_S"><input name="RESULTS_FILE" type="hidden" value="on"><input name="RID" type="hidden" value="8YYK99TP013"><input name="SEARCH_DB_STATUS" type="hidden" value="0"><input name="USER_TYPE" type="hidden" value="2"><input name="_PGR" type="hidden" value="0">                
-                <input name="_PGR" type="hidden" value="0" >
-                <input name="CMD" type="hidden" value="Get">
-               
-                </form>
-                                
-				</div><!-- /#content -->
-				<form action="Blast.cgi" enctype="application/x-www-form-urlencoded"  method="post" name="reformat" id="reformat">				
-				   <input name="QUERY_INFO" type="hidden" value="" />    				
-				   <input name="ENTREZ_QUERY" type="hidden" value="" />
-                   <input name="CDD_RID" type="hidden" value="" />
-                   <input name="CDD_SEARCH_STATE" type="hidden" value="" />
-                   <input name="RID" type="hidden" value="8YYK99TP013" />
-				   <input name="STEP_NUMBER" type="hidden" value="" />
-				   <input name="CMD" type="hidden" value="Web"/>				
-				   <input NAME="PAGE_TYPE" type="hidden"  value="BlastFormatting"/>
-				
-				   <!-- TO DO: test all of those changes -->				   	
-				   <!-- Psi blast params  PSI_BLAST_PARAMS - commented- using forms[0] from fromatter> -->
-				   <!-- Current Formatting options FORMATTING_OPTIONS- commented- using forms[0] from fromatter> -->
-				   <!-- Current Search options CURR_SAVED_OPTIONS - commented- using forms[0] from fromatter> -->
-                 </form>				
-        </div><!-- /#content-wrap -->
-
-         <footer id="ncbi-footer" class="usa-footer usa-footer-medium usa-sans ncbi-footer" role="contentinfo" data-section="Footer">
-  <div class="icon-section">
-    <div class="usa-grid">
-		<div class="usa-width-one-whole">
-		<h3 class="usa-sr-only">Connect</h3>
-		<ul class="ncbi-inline-list icon-list">
-			<li><a id="footer_twitter" href="https://twitter.com/ncbi">Twitter</a></li>
-			<li><a id="footer_facebook" href="https://www.facebook.com/ncbi.nlm">Facebook</a></li>
-			<li><a id="footer_youtube" href="https://www.youtube.com/user/NCBINLM">YouTube</a></li>
-			<li><a id="footer_linkedin" href="https://www.linkedin.com/company/national-center-for-biotechnology-information-ncbi-">LinkedIn</a></li>
-			<li><a id="footer_github" href="https://github.com/ncbi">GitHub</a></li>
-		</ul>
-		<ul class="ncbi-inline-list icon-list icon-list-elastic">	
-			<li class="li-blog"><a id="footer_blog" href="https://ncbiinsights.ncbi.nlm.nih.gov/">Blog</a></li>
-			<li class="li-support"><a id="footer_support" href="https://support.ncbi.nlm.nih.gov/">Support Center</a></li>
-		</ul>
-		</div>
-		</div>
-  </div>
-  <div class="usa-footer-secondary_section ncbi-section">
-    <div class="usa-grid">
-      <div class="usa-width-one-half ncbi">
-        <h3 class="ncbi-full-name">National Center for Biotechnology Information</h3>
-		<address>
-        <a id="google_maps" href="https://www.google.com/maps/place/8600+Rockville+Pike,+Bethesda,+MD+20894/@38.9959508,-77.101021,17z/data=!3m1!4b1!4m5!3m4!1s0x89b7c95e25765ddb:0x19156f88b27635b8!8m2!3d38.9959508!4d-77.0988323">
-        <span class="h-adr"> <span class="p-street-address break">8600 Rockville Pike</span>
-        <span class="p-locality">Bethesda</span> <span class="p-region"> MD</span>, <span class="p-postal-code">20894</span> <span class="p-country-name">USA</span> </span>
-		</a>
-		</address>
-        <ul class="ncbi-inline-list">
-			<li><a id="footer_about" href="https://www.ncbi.nlm.nih.gov/home/about/">About us</a></li>
-          <li><a id="footer_contact" href="https://www.ncbi.nlm.nih.gov/home/about/contact.shtml">Contact us</a></li>
-          <li><a id="footer_policies" href="https://www.ncbi.nlm.nih.gov/home/about/policies.shtml">Policies</a></li>
-          <li><a id="footer_foia" href="https://www.nih.gov/institutes-nih/nih-office-director/office-communications-public-liaison/freedom-information-act-office">FOIA</a></li>
-        </ul>
-      </div>
-      <div class="usa-width-one-half">
-      <div class="usa-grid-full">
-		<div class="usa-width-one-third">
-		<h4>Popular</h4>
-
-        <ul class="ncbi-unstyled-list">
-				<li><a id="footer_pubmed" href="https://www.ncbi.nlm.nih.gov/pubmed/">PubMed</a></li>
-				<li><a id="footer_pmc" href="https://www.ncbi.nlm.nih.gov/pmc/">PubMed Central</a></li>
-				<li><a id="footer_bookshelf" href="https://www.ncbi.nlm.nih.gov/books/">Bookshelf</a></li>
-				<li><a id="footer_pubchem" href="https://pubchem.ncbi.nlm.nih.gov">PubChem</a></li>
-				<li><a id="footer_gene" href="https://www.ncbi.nlm.nih.gov/gene/">Gene</a></li>
-				<li><a id="footer_blast" href="https://blast.ncbi.nlm.nih.gov">BLAST</a></li>
-				<li><a id="footer_nucleotide" href="https://www.ncbi.nlm.nih.gov/nucleotide/">Nucleotide</a></li>
-				<li><a id="footer_protein" href="https://www.ncbi.nlm.nih.gov/protein/">Protein</a></li>
-				<li><a id="footer_geo" href="https://www.ncbi.nlm.nih.gov/geo/">GEO</a></li>
-        </ul>
-
-			</div>
-		<div class="usa-width-one-third">
-			<h4>Resources</h4>
-			<ul class="ncbi-unstyled-list ncbi-undecorated-links">
-				  <li><a id="footer_literature" href="https://www.ncbi.nlm.nih.gov/home/literature/">Literature</a></li>
-				  <li><a id="footer_health" href="https://www.ncbi.nlm.nih.gov/home/health/">Health</a></li>
-				  <li><a id="footer_genomes" href="https://www.ncbi.nlm.nih.gov/home/genomes/">Genomes</a></li>
-				  <li><a id="footer_genes" href="https://www.ncbi.nlm.nih.gov/home/genes/">Genes</a></li>
-				  <li><a id="footer_proteins" href="https://www.ncbi.nlm.nih.gov/home/proteins/">Proteins</a></li>
-				  <li><a id="footer_chemicals" href="https://www.ncbi.nlm.nih.gov/home/chemicals/">Chemicals</a></li>
-			</ul>
-		</div>
-		<div class="usa-width-one-third">
-   <h4>Actions</h4>
-   <ul class="ncbi-unstyled-list">
-              <li><a id="footer_submit" href="https://www.ncbi.nlm.nih.gov/home/submit/">Submit</a></li>
-              <li><a id="footer_download" href="https://www.ncbi.nlm.nih.gov/home/download/">Download</a></li>
-              <li><a id="footer_learn" href="https://www.ncbi.nlm.nih.gov/home/learn/">Learn</a></li>
-              <li><a id="footer_develop" href="https://www.ncbi.nlm.nih.gov/home/develop/">Develop</a></li>
-              <li><a id="footer_analyze" href="https://www.ncbi.nlm.nih.gov/home/analyze/">Analyze</a></li>
-              <li><a id="footer_research" href="https://www.ncbi.nlm.nih.gov/research/">Research</a></li>
-   </ul>
-		  </div>
-		  </div>
-		  </div>
-    </div>
-	</div>
-     <div class="usa-footer-secondary_section gov-agencies"> 
-    <div class="usa-grid">
-    <div class="usa-width-one-whole">
-		<p>
-			<a id="footer_nlm" href="https://www.nlm.nih.gov/">NLM</a>
-			&ensp;|&ensp;
-			<a id="footer_nih" href="https://www.nih.gov/">NIH</a>
-			&ensp;|&ensp;
-			<a id="footer_hhs" href="https://www.hhs.gov/">HHS</a>
-			&ensp;|&ensp;
-			<a id="footer_usagov" href="https://www.usa.gov/">USA.gov</a>
-		</p>
-	 </div>
-	 </div>
-	</div>
-
- </footer>
-<script type="text/javascript" src="js/nwds.js"></script>
-<script type="text/javascript" src="js/ncbipopup.js"></script>
-<script type="text/javascript" src="js/headerNew.js"></script>
-<script src="js/uswds.min.js"></script>
-        <script type="text/javascript" src="/portal/portal3rc.fcgi/rlib/js/InstrumentOmnitureBaseJS/InstrumentNCBIBaseJS/InstrumentPageStarterJS.js"></script>
-<!--
-<script type="text/javascript" src="://www.ncbi.nlm.nih.gov/portal/portal3rc.fcgi/supportedbrowsers/js/nonportalbc_min.js"></script>
-<script type="text/javascript">$("#browsers_ajax").browserCheck();</script>
--->
-   </div><!--/#wrap-->
-</body>
-
-</html>
+{
+"BlastOutput2": [
+{
+    "report": {
+      "program": "blastn",
+      "version": "BLASTN 2.11.0+",
+      "reference": "Stephen F. Altschul, Thomas L. Madden, Alejandro A. Sch&auml;ffer, Jinghui Zhang, Zheng Zhang, Webb Miller, and David J. Lipman (1997), \"Gapped BLAST and PSI-BLAST: a new generation of protein database search programs\", Nucleic Acids Res. 25:3389-3402.",
+      "search_target": {
+        "db": "nt"
+      },
+      "params": {
+        "expect": 10,
+        "sc_match": 2,
+        "sc_mismatch": -3,
+        "gap_open": 5,
+        "gap_extend": 2,
+        "filter": "L;m;"
+      },
+      "results": {
+        "search": {
+          "query_id": "Query_450883",
+          "query_len": 21,
+          "hits": [
+            {
+              "num": 1,
+              "description": [
+                {
+                  "id": "gi|1842134841|ref|XM_034489573.1|",
+                  "accession": "XM_034489573",
+                  "title": "PREDICTED: Arvicanthis niloticus purinergic receptor P2X 2 (P2rx2), transcript variant X4, mRNA",
+                  "taxid": 61156,
+                  "sciname": "Arvicanthis niloticus"
+                }
+              ],
+              "len": 1831,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 982,
+                  "hit_to": 962,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 2,
+              "description": [
+                {
+                  "id": "gi|1842134839|ref|XM_034489572.1|",
+                  "accession": "XM_034489572",
+                  "title": "PREDICTED: Arvicanthis niloticus purinergic receptor P2X 2 (P2rx2), transcript variant X3, mRNA",
+                  "taxid": 61156,
+                  "sciname": "Arvicanthis niloticus"
+                }
+              ],
+              "len": 1894,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 982,
+                  "hit_to": 962,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 3,
+              "description": [
+                {
+                  "id": "gi|1842134837|ref|XM_034489571.1|",
+                  "accession": "XM_034489571",
+                  "title": "PREDICTED: Arvicanthis niloticus purinergic receptor P2X 2 (P2rx2), transcript variant X2, mRNA",
+                  "taxid": 61156,
+                  "sciname": "Arvicanthis niloticus"
+                }
+              ],
+              "len": 1734,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 982,
+                  "hit_to": 962,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 4,
+              "description": [
+                {
+                  "id": "gi|1842134835|ref|XM_034489570.1|",
+                  "accession": "XM_034489570",
+                  "title": "PREDICTED: Arvicanthis niloticus purinergic receptor P2X 2 (P2rx2), transcript variant X1, mRNA",
+                  "taxid": 61156,
+                  "sciname": "Arvicanthis niloticus"
+                }
+              ],
+              "len": 1573,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 821,
+                  "hit_to": 801,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 5,
+              "description": [
+                {
+                  "id": "gi|1820959211|ref|XM_032887115.1|",
+                  "accession": "XM_032887115",
+                  "title": "PREDICTED: Rattus rattus purinergic receptor P2X 2 (P2rx2), transcript variant X5, mRNA",
+                  "taxid": 10117,
+                  "sciname": "Rattus rattus"
+                }
+              ],
+              "len": 1656,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 529,
+                  "hit_to": 509,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 6,
+              "description": [
+                {
+                  "id": "gi|1820959209|ref|XM_032887114.1|",
+                  "accession": "XM_032887114",
+                  "title": "PREDICTED: Rattus rattus purinergic receptor P2X 2 (P2rx2), transcript variant X4, mRNA",
+                  "taxid": 10117,
+                  "sciname": "Rattus rattus"
+                }
+              ],
+              "len": 1908,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 781,
+                  "hit_to": 761,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 7,
+              "description": [
+                {
+                  "id": "gi|1820959207|ref|XM_032887113.1|",
+                  "accession": "XM_032887113",
+                  "title": "PREDICTED: Rattus rattus purinergic receptor P2X 2 (P2rx2), transcript variant X3, mRNA",
+                  "taxid": 10117,
+                  "sciname": "Rattus rattus"
+                }
+              ],
+              "len": 1602,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 745,
+                  "hit_to": 725,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 8,
+              "description": [
+                {
+                  "id": "gi|1820959205|ref|XM_032887111.1|",
+                  "accession": "XM_032887111",
+                  "title": "PREDICTED: Rattus rattus purinergic receptor P2X 2 (P2rx2), transcript variant X2, mRNA",
+                  "taxid": 10117,
+                  "sciname": "Rattus rattus"
+                }
+              ],
+              "len": 1665,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 745,
+                  "hit_to": 725,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 9,
+              "description": [
+                {
+                  "id": "gi|1820959203|ref|XM_032887110.1|",
+                  "accession": "XM_032887110",
+                  "title": "PREDICTED: Rattus rattus purinergic receptor P2X 2 (P2rx2), transcript variant X1, mRNA",
+                  "taxid": 10117,
+                  "sciname": "Rattus rattus"
+                }
+              ],
+              "len": 1872,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 745,
+                  "hit_to": 725,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 10,
+              "description": [
+                {
+                  "id": "gi|1768019358|ref|XM_031337322.1|",
+                  "accession": "XM_031337322",
+                  "title": "PREDICTED: Mastomys coucha purinergic receptor P2X 2 (P2rx2), transcript variant X5, mRNA",
+                  "taxid": 35658,
+                  "sciname": "Mastomys coucha"
+                }
+              ],
+              "len": 1771,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 639,
+                  "hit_to": 619,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 11,
+              "description": [
+                {
+                  "id": "gi|1768019356|ref|XM_031337320.1|",
+                  "accession": "XM_031337320",
+                  "title": "PREDICTED: Mastomys coucha purinergic receptor P2X 2 (P2rx2), transcript variant X4, mRNA",
+                  "taxid": 35658,
+                  "sciname": "Mastomys coucha"
+                }
+              ],
+              "len": 1872,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 740,
+                  "hit_to": 720,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 12,
+              "description": [
+                {
+                  "id": "gi|1768019354|ref|XM_031337319.1|",
+                  "accession": "XM_031337319",
+                  "title": "PREDICTED: Mastomys coucha purinergic receptor P2X 2 (P2rx2), transcript variant X3, mRNA",
+                  "taxid": 35658,
+                  "sciname": "Mastomys coucha"
+                }
+              ],
+              "len": 1710,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 785,
+                  "hit_to": 765,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 13,
+              "description": [
+                {
+                  "id": "gi|1768019352|ref|XM_031337318.1|",
+                  "accession": "XM_031337318",
+                  "title": "PREDICTED: Mastomys coucha purinergic receptor P2X 2 (P2rx2), transcript variant X2, mRNA",
+                  "taxid": 35658,
+                  "sciname": "Mastomys coucha"
+                }
+              ],
+              "len": 1803,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 671,
+                  "hit_to": 651,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 14,
+              "description": [
+                {
+                  "id": "gi|1768019350|ref|XM_031337317.1|",
+                  "accession": "XM_031337317",
+                  "title": "PREDICTED: Mastomys coucha purinergic receptor P2X 2 (P2rx2), transcript variant X1, mRNA",
+                  "taxid": 35658,
+                  "sciname": "Mastomys coucha"
+                }
+              ],
+              "len": 2077,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 945,
+                  "hit_to": 925,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 15,
+              "description": [
+                {
+                  "id": "gi|1621869225|ref|XM_028777391.1|",
+                  "accession": "XM_028777391",
+                  "title": "PREDICTED: Grammomys surdaster purinergic receptor P2X 2 (P2rx2), transcript variant X4, mRNA",
+                  "taxid": 491861,
+                  "sciname": "Grammomys surdaster"
+                }
+              ],
+              "len": 1649,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 785,
+                  "hit_to": 765,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 16,
+              "description": [
+                {
+                  "id": "gi|1621869223|ref|XM_028777390.1|",
+                  "accession": "XM_028777390",
+                  "title": "PREDICTED: Grammomys surdaster purinergic receptor P2X 2 (P2rx2), transcript variant X3, mRNA",
+                  "taxid": 491861,
+                  "sciname": "Grammomys surdaster"
+                }
+              ],
+              "len": 1712,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 785,
+                  "hit_to": 765,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 17,
+              "description": [
+                {
+                  "id": "gi|1621869221|ref|XM_028777389.1|",
+                  "accession": "XM_028777389",
+                  "title": "PREDICTED: Grammomys surdaster purinergic receptor P2X 2 (P2rx2), transcript variant X2, mRNA",
+                  "taxid": 491861,
+                  "sciname": "Grammomys surdaster"
+                }
+              ],
+              "len": 1919,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 785,
+                  "hit_to": 765,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 18,
+              "description": [
+                {
+                  "id": "gi|1621869219|ref|XM_028777387.1|",
+                  "accession": "XM_028777387",
+                  "title": "PREDICTED: Grammomys surdaster purinergic receptor P2X 2 (P2rx2), transcript variant X1, mRNA",
+                  "taxid": 491861,
+                  "sciname": "Grammomys surdaster"
+                }
+              ],
+              "len": 1955,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 821,
+                  "hit_to": 801,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 19,
+              "description": [
+                {
+                  "id": "gi|1008769769|ref|XM_016002596.1|",
+                  "accession": "XM_016002596",
+                  "title": "PREDICTED: Peromyscus maniculatus bairdii purinergic receptor P2X 2 (P2rx2), transcript variant X3, mRNA",
+                  "taxid": 230844,
+                  "sciname": "Peromyscus maniculatus bairdii"
+                }
+              ],
+              "len": 1839,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 742,
+                  "hit_to": 722,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 20,
+              "description": [
+                {
+                  "id": "gi|1008769768|ref|XM_006984095.2|",
+                  "accession": "XM_006984095",
+                  "title": "PREDICTED: Peromyscus maniculatus bairdii purinergic receptor P2X 2 (P2rx2), transcript variant X2, mRNA",
+                  "taxid": 230844,
+                  "sciname": "Peromyscus maniculatus bairdii"
+                }
+              ],
+              "len": 1596,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 706,
+                  "hit_to": 686,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 21,
+              "description": [
+                {
+                  "id": "gi|1008769767|ref|XM_006984094.2|",
+                  "accession": "XM_006984094",
+                  "title": "PREDICTED: Peromyscus maniculatus bairdii purinergic receptor P2X 2 (P2rx2), transcript variant X1, mRNA",
+                  "taxid": 230844,
+                  "sciname": "Peromyscus maniculatus bairdii"
+                }
+              ],
+              "len": 1803,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 706,
+                  "hit_to": 686,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 22,
+              "description": [
+                {
+                  "id": "gi|1958667699|ref|XR_005491585.1|",
+                  "accession": "XR_005491585",
+                  "title": "PREDICTED: Rattus norvegicus purinergic receptor P2X 2 (P2rx2), transcript variant X13, misc_RNA",
+                  "taxid": 10116,
+                  "sciname": "Rattus norvegicus"
+                }
+              ],
+              "len": 2174,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1044,
+                  "hit_to": 1024,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 23,
+              "description": [
+                {
+                  "id": "gi|1958667697|ref|XM_039089009.1|",
+                  "accession": "XM_039089009",
+                  "title": "PREDICTED: Rattus norvegicus purinergic receptor P2X 2 (P2rx2), transcript variant X12, mRNA",
+                  "taxid": 10116,
+                  "sciname": "Rattus norvegicus"
+                }
+              ],
+              "len": 1703,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 573,
+                  "hit_to": 553,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 24,
+              "description": [
+                {
+                  "id": "gi|1958667695|ref|XM_039089008.1|",
+                  "accession": "XM_039089008",
+                  "title": "PREDICTED: Rattus norvegicus purinergic receptor P2X 2 (P2rx2), transcript variant X11, mRNA",
+                  "taxid": 10116,
+                  "sciname": "Rattus norvegicus"
+                }
+              ],
+              "len": 1840,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 710,
+                  "hit_to": 690,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 25,
+              "description": [
+                {
+                  "id": "gi|1958667693|ref|XM_039089007.1|",
+                  "accession": "XM_039089007",
+                  "title": "PREDICTED: Rattus norvegicus purinergic receptor P2X 2 (P2rx2), transcript variant X10, mRNA",
+                  "taxid": 10116,
+                  "sciname": "Rattus norvegicus"
+                }
+              ],
+              "len": 1819,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 689,
+                  "hit_to": 669,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 26,
+              "description": [
+                {
+                  "id": "gi|1958667692|ref|XM_008769306.3|",
+                  "accession": "XM_008769306",
+                  "title": "PREDICTED: Rattus norvegicus purinergic receptor P2X 2 (P2rx2), transcript variant X9, mRNA",
+                  "taxid": 10116,
+                  "sciname": "Rattus norvegicus"
+                }
+              ],
+              "len": 1784,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 654,
+                  "hit_to": 634,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 27,
+              "description": [
+                {
+                  "id": "gi|1958667691|ref|XM_017598236.2|",
+                  "accession": "XM_017598236",
+                  "title": "PREDICTED: Rattus norvegicus purinergic receptor P2X 2 (P2rx2), transcript variant X8, mRNA",
+                  "taxid": 10116,
+                  "sciname": "Rattus norvegicus"
+                }
+              ],
+              "len": 1854,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 931,
+                  "hit_to": 911,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 28,
+              "description": [
+                {
+                  "id": "gi|1958667690|ref|XM_006249517.4|",
+                  "accession": "XM_006249517",
+                  "title": "PREDICTED: Rattus norvegicus purinergic receptor P2X 2 (P2rx2), transcript variant X7, mRNA",
+                  "taxid": 10116,
+                  "sciname": "Rattus norvegicus"
+                }
+              ],
+              "len": 1899,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 976,
+                  "hit_to": 956,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 29,
+              "description": [
+                {
+                  "id": "gi|1958667689|ref|XM_006249516.4|",
+                  "accession": "XM_006249516",
+                  "title": "PREDICTED: Rattus norvegicus purinergic receptor P2X 2 (P2rx2), transcript variant X6, mRNA",
+                  "taxid": 10116,
+                  "sciname": "Rattus norvegicus"
+                }
+              ],
+              "len": 1935,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1012,
+                  "hit_to": 992,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 30,
+              "description": [
+                {
+                  "id": "gi|1958667686|ref|XM_017598235.2|",
+                  "accession": "XM_017598235",
+                  "title": "PREDICTED: Rattus norvegicus purinergic receptor P2X 2 (P2rx2), transcript variant X4, mRNA",
+                  "taxid": 10116,
+                  "sciname": "Rattus norvegicus"
+                }
+              ],
+              "len": 2010,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 880,
+                  "hit_to": 860,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 31,
+              "description": [
+                {
+                  "id": "gi|1958667685|ref|XM_008769305.3|",
+                  "accession": "XM_008769305",
+                  "title": "PREDICTED: Rattus norvegicus purinergic receptor P2X 2 (P2rx2), transcript variant X3, mRNA",
+                  "taxid": 10116,
+                  "sciname": "Rattus norvegicus"
+                }
+              ],
+              "len": 2025,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 895,
+                  "hit_to": 875,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 32,
+              "description": [
+                {
+                  "id": "gi|1958667684|ref|XM_017598234.2|",
+                  "accession": "XM_017598234",
+                  "title": "PREDICTED: Rattus norvegicus purinergic receptor P2X 2 (P2rx2), transcript variant X2, mRNA",
+                  "taxid": 10116,
+                  "sciname": "Rattus norvegicus"
+                }
+              ],
+              "len": 2061,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 931,
+                  "hit_to": 911,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 33,
+              "description": [
+                {
+                  "id": "gi|1958667683|ref|XM_006249515.4|",
+                  "accession": "XM_006249515",
+                  "title": "PREDICTED: Rattus norvegicus purinergic receptor P2X 2 (P2rx2), transcript variant X1, mRNA",
+                  "taxid": 10116,
+                  "sciname": "Rattus norvegicus"
+                }
+              ],
+              "len": 2142,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1012,
+                  "hit_to": 992,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 34,
+              "description": [
+                {
+                  "id": "gi|1937923787|ref|NM_053656.3|",
+                  "accession": "NM_053656",
+                  "title": "Rattus norvegicus purinergic receptor P2X 2 (P2rx2), mRNA",
+                  "taxid": 10116,
+                  "sciname": "Rattus norvegicus"
+                }
+              ],
+              "len": 1833,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 703,
+                  "hit_to": 683,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 35,
+              "description": [
+                {
+                  "id": "gi|1929264988|ref|XM_028857030.2|",
+                  "accession": "XM_028857030",
+                  "title": "PREDICTED: Peromyscus leucopus purinergic receptor P2X 2 (P2rx2), transcript variant X2, mRNA",
+                  "taxid": 10041,
+                  "sciname": "Peromyscus leucopus"
+                }
+              ],
+              "len": 1957,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 773,
+                  "hit_to": 753,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 36,
+              "description": [
+                {
+                  "id": "gi|1929264986|ref|XM_037198543.1|",
+                  "accession": "XM_037198543",
+                  "title": "PREDICTED: Peromyscus leucopus purinergic receptor P2X 2 (P2rx2), transcript variant X1, mRNA",
+                  "taxid": 10041,
+                  "sciname": "Peromyscus leucopus"
+                }
+              ],
+              "len": 1921,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 737,
+                  "hit_to": 717,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 37,
+              "description": [
+                {
+                  "id": "gi|3142693|gb|AF064549.1|AF064549",
+                  "accession": "AF064549",
+                  "title": "Rattus norvegicus P2X2 receptor mRNA, partial cds",
+                  "taxid": 10116,
+                  "sciname": "Rattus norvegicus"
+                }
+              ],
+              "len": 1528,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 740,
+                  "hit_to": 720,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 38,
+              "description": [
+                {
+                  "id": "gi|2738922|gb|AF020759.1|AF020759",
+                  "accession": "AF020759",
+                  "title": "Rattus norvegicus P2X2-6 receptor (P2X2) mRNA, complete cds",
+                  "taxid": 10116,
+                  "sciname": "Rattus norvegicus"
+                }
+              ],
+              "len": 1541,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 665,
+                  "hit_to": 645,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 39,
+              "description": [
+                {
+                  "id": "gi|2738920|gb|AF020758.1|AF020758",
+                  "accession": "AF020758",
+                  "title": "Rattus norvegicus P2X2-5 receptor (P2X2) mRNA, complete cds",
+                  "taxid": 10116,
+                  "sciname": "Rattus norvegicus"
+                }
+              ],
+              "len": 1704,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 743,
+                  "hit_to": 723,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 40,
+              "description": [
+                {
+                  "id": "gi|2738918|gb|AF020757.1|AF020757",
+                  "accession": "AF020757",
+                  "title": "Rattus norvegicus P2X2-4 receptor (P2X2) mRNA, complete cds",
+                  "taxid": 10116,
+                  "sciname": "Rattus norvegicus"
+                }
+              ],
+              "len": 1318,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 649,
+                  "hit_to": 629,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 41,
+              "description": [
+                {
+                  "id": "gi|2738916|gb|AF020756.1|AF020756",
+                  "accession": "AF020756",
+                  "title": "Rattus norvegicus P2X2-3 receptor (P2X2) mRNA, complete cds",
+                  "taxid": 10116,
+                  "sciname": "Rattus norvegicus"
+                }
+              ],
+              "len": 1479,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 603,
+                  "hit_to": 583,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 42,
+              "description": [
+                {
+                  "id": "gi|2266752|emb|Y10475.1|",
+                  "accession": "Y10475",
+                  "title": "R.norvegicus mRNA for P2X2 receptor, splice variant P2X2d",
+                  "taxid": 10116,
+                  "sciname": "Rattus norvegicus"
+                }
+              ],
+              "len": 1868,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 739,
+                  "hit_to": 719,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 43,
+              "description": [
+                {
+                  "id": "gi|2266750|emb|Y10474.1|",
+                  "accession": "Y10474",
+                  "title": "R.norvegicus mRNA for P2X2 receptor, splice variant P2X2c",
+                  "taxid": 10116,
+                  "sciname": "Rattus norvegicus"
+                }
+              ],
+              "len": 1814,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 685,
+                  "hit_to": 665,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 44,
+              "description": [
+                {
+                  "id": "gi|2266748|emb|Y10473.1|",
+                  "accession": "Y10473",
+                  "title": "R.norvegicus mRNA for P2X2 receptor, splice variant P2X2b",
+                  "taxid": 10116,
+                  "sciname": "Rattus norvegicus"
+                }
+              ],
+              "len": 1625,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 703,
+                  "hit_to": 683,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 45,
+              "description": [
+                {
+                  "id": "gi|1835197|emb|Y09910.1|",
+                  "accession": "Y09910",
+                  "title": "R.norvegicus P2X2 gene",
+                  "taxid": 10116,
+                  "sciname": "Rattus norvegicus"
+                }
+              ],
+              "len": 2830,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1310,
+                  "hit_to": 1290,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 46,
+              "description": [
+                {
+                  "id": "gi|558830|gb|U14414.1|RNU14414",
+                  "accession": "U14414",
+                  "title": "Rattus norvegicus P2x receptor mRNA, complete cds",
+                  "taxid": 10116,
+                  "sciname": "Rattus norvegicus"
+                }
+              ],
+              "len": 1831,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 703,
+                  "hit_to": 683,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "hseq": "ATGGGTCAGAGTCCTGATCAA",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            }
+          ],
+          "stat": {
+            "db_num": 70351925,
+            "db_len": 1380435113,
+            "hsp_len": 18,
+            "eff_space": 1314602293965,
+            "kappa": 0.41,
+            "lambda": 0.625,
+            "entropy": 0.78
+          }
+        }
+      }
+    }
+  }
+]
+}
 

@@ -1,263 +1,3340 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="jig" content="ncbitoggler"/>
-<meta name="ncbitoggler" content="animation:'none'"/>
-<title>NCBI Blast:</title>
-<script type="text/javascript" src="/core/jig/1.14.8/js/jig.min.js             "></script>
-<script type="text/javascript">    jQuery.getScript("/core/alerts/alerts.js", function() {
-        galert(['div#header', 'body > *:nth-child(1)'])
-    });</script>
-<meta http-equiv="Pragma" content="no-cache">
-<link rel="stylesheet" type="text/css" href="css/uswds.min.css" media="screen" />
-<link rel="stylesheet"  type="text/css" href="https://www.ncbi.nlm.nih.gov/style-guide/static/nwds/css/nwds.css"/>
-<link rel="stylesheet" href="css/headerNew.css"/>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous"> <!-- Font Awesome icons -->
-<link rel="stylesheet" type="text/css" href="css/footerNew.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="css/main.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="css/blastRes.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="css/print.css" media="print" />
-<!--[if lte IE 6]>
-<link rel="stylesheet" type="text/css" href="css/ie6_or_less.css" />
-<![endif]-->
-<script type="text/javascript" src="js/utils.js"></script>
-<script type="text/javascript" src="js/results.js"></script>
-</head>
-
-<body id="type-a" class="noToggleCheck" >
-<div id="wrap">
-		    	
-<header class="ncbi-header" role="banner" data-section="Header">
-<ul class="skip_nav">
-    <li><a accesskey="1" title="NCBI Homepage" href="https://www.ncbi.nlm.nih.gov/">NCBI Home</a></li>
-    <li><a accesskey="2" title="MyNCBI" href="https://www.ncbi.nlm.nih.gov/myncbi">Sign in to NCBI</a></li>
-    <li><a accesskey="3" title="Skip to main content" href="#mainCont">Skip to Main Content</a></li>
-    <li><a accesskey="4" title="Skip to navigation" href="#navcontent">Skip to Navigation</a></li>
-    <li><a accesskey="0" title="About NCBI Accesskeys" href="https://www.ncbi.nlm.nih.gov/guide/browsers/#accesskeys">About NCBI Accesskeys</a></li>
-</ul>
-<div class="usa-grid">
-    <div class="usa-width-one-whole">
-        <div class="agencies">
-            <div class="nih"><span class="usa-sr-only">National Institutes of Health</span></div>
-            <div class="nlm">U.S. National Library of Medicine</div>
-            <div class="ncbi">National Center for Biotechnology Information</div>
-            <a href="https://www.ncbi.nlm.nih.gov/" class="homepage"><span class="usa-sr-only" id="header_ncbi">NCBI homepage</span></a>
-        </div>
-
-        <div class="account">
-            <a id="account_login" href="https://www.ncbi.nlm.nih.gov/account/?back_url=https%3A%2F%2Fblast%2Encbi%2Enlm%2Enih%2Egov%2Fblast%2FBlast%2Ecgi%3FCMD%3DGet%26FORMAT%5FOBJECT%3DAlignment%26FORMAT%5FTYPE%3DJSON2%5FS%26RESULTS%5FFILE%3Don%26RID%3D8YG5B4FX016" class="usa-button header-button">Log in</a>
-            <button id="account_info" class="header-button" aria-controls="account_popup">
-                <span class="fa fa-user" aria-hidden="true"></span>
-                <span class="username desktop-only" aria-hidden="true" id="uname_short"></span>
-                <span class="sr-only">Show account info</span>
-            </button>
-        </div>
-
-        <div class="ncbi-popup-anchor">
-            <div class="ncbi-popup account-popup" id="account_popup" aria-hidden="true" role="dialog" aria-labelledby="account-popup-header">
-                <div class="ncbi-popup-head">
-                    <button class="ncbi-close-button"><span class="fa fa-window-close"></span><span class="usa-sr-only">Close</span></button>
-                    <h4>Account</h4>
-                </div>
-                <div class="account-user-info">
-                    Logged in as:<br>
-                    <b><span class="username" id="uname_long">username</span></b>
-                </div>
-                <div class="account-links">
-                    <ul class="usa-unstyled-list">
-                        <li><a id="account_myncbi" href="https://www.ncbi.nlm.nih.gov/myncbi/">Dashboard</a> <span class="ncbi-text-small-light">(My NCBI)</span></li>
-                        <li><a id="account_pubs" href="https://www.ncbi.nlm.nih.gov/myncbi/collections/bibliography/">Publications</a> <span class="ncbi-text-small-light">(My Bibliography)</span></li>
-                        <li><a id="account_settings" href="https://www.ncbi.nlm.nih.gov/account/settings/">Account settings</a></li>
-                        <li><a id="account_logout" href="https://www.ncbi.nlm.nih.gov/account/signout/?back_url=https%3A%2F%2Fblast%2Encbi%2Enlm%2Enih%2Egov%2Fblast%2FBlast%2Ecgi%3FCMD%3DGet%26FORMAT%5FOBJECT%3DAlignment%26FORMAT%5FTYPE%3DJSON2%5FS%26RESULTS%5FFILE%3Don%26RID%3D8YG5B4FX016">Log out</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
-</header>
-<nav class="ncbi-topnav" id="navcontent">
-    <div class="usa-grid">
-        <a class="ncbi-topnav-root" href="Blast.cgi">BLAST <sup>&reg;</sup></a> <span id="brc"><span class="brcrmbsign">&raquo;</span> <a href="Blast.cgi?PAGE=Nucleotides&amp;PROGRAM=blastn&amp;PAGE_TYPE=BlastSearch&amp;BLAST_SPEC=">blastn suite</a> <span class="brcrmbsign">&raquo;</span> RID-8YG5B4FX016</span>
-        <ul class="rf ncbi-topnav-list" id="topnav-list">
-            <li class="first "><a href="Blast.cgi?CMD=Web&amp;PAGE_TYPE=BlastHome" title="BLAST Home">Home</a></li>
-            <li class="recent "><a href="Blast.cgi?CMD=GetSaved&amp;RECENT_RESULTS=on" title="Unexpired BLAST jobs">Recent Results</a></li>                
-            <li class="saved "><a href="Blast.cgi?CMD=GetSaved" title="Saved sets of BLAST search parameters">Saved Strategies</a></li>
-            <li  class= "last documentation "> <a href="Blast.cgi?CMD=Web&amp;PAGE_TYPE=BlastDocs" title="BLAST documentation">Help</a></li>                            
-        </ul>
-    </div>
-</nav>
-
-
-
-        <div id="content-wrap">
-
-                <div class="pageTitle">                            
-                   Format Request Status                   
-                </div>
-		<div class="inlineDiv resHeader">				   
-				   <a  id="frmPage"  class="UNKNOWN" href="#" submitForm="reformat">[Formatting options] </a>                   
-                </div>
-                <h2 id="jtitle" >Job Title: </h2>
-								
-                <div id="content">                
-                <!--<ul id="msg" class="msg"><li class="error"><p class=""></p><p class=""></p><p class=""></p></ul> -->
-                <ul id="msg" class="msg"><li class="error"><p class="error">Error: Results for RID 8YG5B4FX016 not found</p></li></ul>
-                <p><!--
-                QBlastInfoBegin
-	                Status=UNKNOWN
-                QBlastInfoEnd
-                --></p> 
-                               
-                <SCRIPT LANGUAGE="JavaScript"><!--
-                    var tm = "";
-                    if (tm != "") {                    
-                        setTimeout('document.forms[0].submit();',tm);
-                    }
-                //--></SCRIPT>                                
-                <table id="statInfo" class="UNKNOWN">
-                <tr><td>Request ID</td><td> <b>8YG5B4FX016</b></td></tr>
-                <tr class="odd"><td>Status</td><td>Searching</td></tr>
-                <tr><td>Submitted at</td><td></td></tr>
-                <tr class="odd"><td>Current time</td><td></td></tr>
-                <tr><td>Time since submission</td><td></td></tr>
-                </table>
-                <p class="UNKNOWN">This page will be automatically updated in <b></b> seconds</p>       
-                <form action="Blast.cgi" enctype="application/x-www-form-urlencoded" method="POST" id="results">
-                <input name="FORMAT_OBJECT" type="hidden" value="Alignment"><input name="FORMAT_TYPE" type="hidden" value="JSON2_S"><input name="RESULTS_FILE" type="hidden" value="on"><input name="RID" type="hidden" value="8YG5B4FX016"><input name="SEARCH_DB_STATUS" type="hidden" value="0"><input name="USER_TYPE" type="hidden" value="2"><input name="_PGR" type="hidden" value="0">                
-                <input name="_PGR" type="hidden" value="0" >
-                <input name="CMD" type="hidden" value="Get">
-               
-                </form>
-                                
-				</div><!-- /#content -->
-				<form action="Blast.cgi" enctype="application/x-www-form-urlencoded"  method="post" name="reformat" id="reformat">				
-				   <input name="QUERY_INFO" type="hidden" value="" />    				
-				   <input name="ENTREZ_QUERY" type="hidden" value="" />
-                   <input name="CDD_RID" type="hidden" value="" />
-                   <input name="CDD_SEARCH_STATE" type="hidden" value="" />
-                   <input name="RID" type="hidden" value="8YG5B4FX016" />
-				   <input name="STEP_NUMBER" type="hidden" value="" />
-				   <input name="CMD" type="hidden" value="Web"/>				
-				   <input NAME="PAGE_TYPE" type="hidden"  value="BlastFormatting"/>
-				
-				   <!-- TO DO: test all of those changes -->				   	
-				   <!-- Psi blast params  PSI_BLAST_PARAMS - commented- using forms[0] from fromatter> -->
-				   <!-- Current Formatting options FORMATTING_OPTIONS- commented- using forms[0] from fromatter> -->
-				   <!-- Current Search options CURR_SAVED_OPTIONS - commented- using forms[0] from fromatter> -->
-                 </form>				
-        </div><!-- /#content-wrap -->
-
-         <footer id="ncbi-footer" class="usa-footer usa-footer-medium usa-sans ncbi-footer" role="contentinfo" data-section="Footer">
-  <div class="icon-section">
-    <div class="usa-grid">
-		<div class="usa-width-one-whole">
-		<h3 class="usa-sr-only">Connect</h3>
-		<ul class="ncbi-inline-list icon-list">
-			<li><a id="footer_twitter" href="https://twitter.com/ncbi">Twitter</a></li>
-			<li><a id="footer_facebook" href="https://www.facebook.com/ncbi.nlm">Facebook</a></li>
-			<li><a id="footer_youtube" href="https://www.youtube.com/user/NCBINLM">YouTube</a></li>
-			<li><a id="footer_linkedin" href="https://www.linkedin.com/company/national-center-for-biotechnology-information-ncbi-">LinkedIn</a></li>
-			<li><a id="footer_github" href="https://github.com/ncbi">GitHub</a></li>
-		</ul>
-		<ul class="ncbi-inline-list icon-list icon-list-elastic">	
-			<li class="li-blog"><a id="footer_blog" href="https://ncbiinsights.ncbi.nlm.nih.gov/">Blog</a></li>
-			<li class="li-support"><a id="footer_support" href="https://support.ncbi.nlm.nih.gov/">Support Center</a></li>
-		</ul>
-		</div>
-		</div>
-  </div>
-  <div class="usa-footer-secondary_section ncbi-section">
-    <div class="usa-grid">
-      <div class="usa-width-one-half ncbi">
-        <h3 class="ncbi-full-name">National Center for Biotechnology Information</h3>
-		<address>
-        <a id="google_maps" href="https://www.google.com/maps/place/8600+Rockville+Pike,+Bethesda,+MD+20894/@38.9959508,-77.101021,17z/data=!3m1!4b1!4m5!3m4!1s0x89b7c95e25765ddb:0x19156f88b27635b8!8m2!3d38.9959508!4d-77.0988323">
-        <span class="h-adr"> <span class="p-street-address break">8600 Rockville Pike</span>
-        <span class="p-locality">Bethesda</span> <span class="p-region"> MD</span>, <span class="p-postal-code">20894</span> <span class="p-country-name">USA</span> </span>
-		</a>
-		</address>
-        <ul class="ncbi-inline-list">
-			<li><a id="footer_about" href="https://www.ncbi.nlm.nih.gov/home/about/">About us</a></li>
-          <li><a id="footer_contact" href="https://www.ncbi.nlm.nih.gov/home/about/contact.shtml">Contact us</a></li>
-          <li><a id="footer_policies" href="https://www.ncbi.nlm.nih.gov/home/about/policies.shtml">Policies</a></li>
-          <li><a id="footer_foia" href="https://www.nih.gov/institutes-nih/nih-office-director/office-communications-public-liaison/freedom-information-act-office">FOIA</a></li>
-        </ul>
-      </div>
-      <div class="usa-width-one-half">
-      <div class="usa-grid-full">
-		<div class="usa-width-one-third">
-		<h4>Popular</h4>
-
-        <ul class="ncbi-unstyled-list">
-				<li><a id="footer_pubmed" href="https://www.ncbi.nlm.nih.gov/pubmed/">PubMed</a></li>
-				<li><a id="footer_pmc" href="https://www.ncbi.nlm.nih.gov/pmc/">PubMed Central</a></li>
-				<li><a id="footer_bookshelf" href="https://www.ncbi.nlm.nih.gov/books/">Bookshelf</a></li>
-				<li><a id="footer_pubchem" href="https://pubchem.ncbi.nlm.nih.gov">PubChem</a></li>
-				<li><a id="footer_gene" href="https://www.ncbi.nlm.nih.gov/gene/">Gene</a></li>
-				<li><a id="footer_blast" href="https://blast.ncbi.nlm.nih.gov">BLAST</a></li>
-				<li><a id="footer_nucleotide" href="https://www.ncbi.nlm.nih.gov/nucleotide/">Nucleotide</a></li>
-				<li><a id="footer_protein" href="https://www.ncbi.nlm.nih.gov/protein/">Protein</a></li>
-				<li><a id="footer_geo" href="https://www.ncbi.nlm.nih.gov/geo/">GEO</a></li>
-        </ul>
-
-			</div>
-		<div class="usa-width-one-third">
-			<h4>Resources</h4>
-			<ul class="ncbi-unstyled-list ncbi-undecorated-links">
-				  <li><a id="footer_literature" href="https://www.ncbi.nlm.nih.gov/home/literature/">Literature</a></li>
-				  <li><a id="footer_health" href="https://www.ncbi.nlm.nih.gov/home/health/">Health</a></li>
-				  <li><a id="footer_genomes" href="https://www.ncbi.nlm.nih.gov/home/genomes/">Genomes</a></li>
-				  <li><a id="footer_genes" href="https://www.ncbi.nlm.nih.gov/home/genes/">Genes</a></li>
-				  <li><a id="footer_proteins" href="https://www.ncbi.nlm.nih.gov/home/proteins/">Proteins</a></li>
-				  <li><a id="footer_chemicals" href="https://www.ncbi.nlm.nih.gov/home/chemicals/">Chemicals</a></li>
-			</ul>
-		</div>
-		<div class="usa-width-one-third">
-   <h4>Actions</h4>
-   <ul class="ncbi-unstyled-list">
-              <li><a id="footer_submit" href="https://www.ncbi.nlm.nih.gov/home/submit/">Submit</a></li>
-              <li><a id="footer_download" href="https://www.ncbi.nlm.nih.gov/home/download/">Download</a></li>
-              <li><a id="footer_learn" href="https://www.ncbi.nlm.nih.gov/home/learn/">Learn</a></li>
-              <li><a id="footer_develop" href="https://www.ncbi.nlm.nih.gov/home/develop/">Develop</a></li>
-              <li><a id="footer_analyze" href="https://www.ncbi.nlm.nih.gov/home/analyze/">Analyze</a></li>
-              <li><a id="footer_research" href="https://www.ncbi.nlm.nih.gov/research/">Research</a></li>
-   </ul>
-		  </div>
-		  </div>
-		  </div>
-    </div>
-	</div>
-     <div class="usa-footer-secondary_section gov-agencies"> 
-    <div class="usa-grid">
-    <div class="usa-width-one-whole">
-		<p>
-			<a id="footer_nlm" href="https://www.nlm.nih.gov/">NLM</a>
-			&ensp;|&ensp;
-			<a id="footer_nih" href="https://www.nih.gov/">NIH</a>
-			&ensp;|&ensp;
-			<a id="footer_hhs" href="https://www.hhs.gov/">HHS</a>
-			&ensp;|&ensp;
-			<a id="footer_usagov" href="https://www.usa.gov/">USA.gov</a>
-		</p>
-	 </div>
-	 </div>
-	</div>
-
- </footer>
-<script type="text/javascript" src="js/nwds.js"></script>
-<script type="text/javascript" src="js/ncbipopup.js"></script>
-<script type="text/javascript" src="js/headerNew.js"></script>
-<script src="js/uswds.min.js"></script>
-        <script type="text/javascript" src="/portal/portal3rc.fcgi/rlib/js/InstrumentOmnitureBaseJS/InstrumentNCBIBaseJS/InstrumentPageStarterJS.js"></script>
-<!--
-<script type="text/javascript" src="://www.ncbi.nlm.nih.gov/portal/portal3rc.fcgi/supportedbrowsers/js/nonportalbc_min.js"></script>
-<script type="text/javascript">$("#browsers_ajax").browserCheck();</script>
--->
-   </div><!--/#wrap-->
-</body>
-
-</html>
+{
+"BlastOutput2": [
+{
+    "report": {
+      "program": "blastn",
+      "version": "BLASTN 2.11.0+",
+      "reference": "Stephen F. Altschul, Thomas L. Madden, Alejandro A. Sch&auml;ffer, Jinghui Zhang, Zheng Zhang, Webb Miller, and David J. Lipman (1997), \"Gapped BLAST and PSI-BLAST: a new generation of protein database search programs\", Nucleic Acids Res. 25:3389-3402.",
+      "search_target": {
+        "db": "nt"
+      },
+      "params": {
+        "expect": 10,
+        "sc_match": 2,
+        "sc_mismatch": -3,
+        "gap_open": 5,
+        "gap_extend": 2,
+        "filter": "L;m;"
+      },
+      "results": {
+        "search": {
+          "query_id": "Query_36535",
+          "query_len": 21,
+          "hits": [
+            {
+              "num": 1,
+              "description": [
+                {
+                  "id": "gi|1842144497|ref|XM_034495208.1|",
+                  "accession": "XM_034495208",
+                  "title": "PREDICTED: Arvicanthis niloticus DENN domain containing 5A (Dennd5a), transcript variant X2, mRNA",
+                  "taxid": 61156,
+                  "sciname": "Arvicanthis niloticus"
+                }
+              ],
+              "len": 4938,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1743,
+                  "hit_to": 1723,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 2,
+              "description": [
+                {
+                  "id": "gi|1842144495|ref|XM_034495199.1|",
+                  "accession": "XM_034495199",
+                  "title": "PREDICTED: Arvicanthis niloticus DENN domain containing 5A (Dennd5a), transcript variant X1, mRNA",
+                  "taxid": 61156,
+                  "sciname": "Arvicanthis niloticus"
+                }
+              ],
+              "len": 4973,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1778,
+                  "hit_to": 1758,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 3,
+              "description": [
+                {
+                  "id": "gi|1825959384|ref|XM_033207624.1|",
+                  "accession": "XM_033207624",
+                  "title": "PREDICTED: Trachypithecus francoisi DENN domain containing 5A (DENND5A), transcript variant X5, mRNA",
+                  "taxid": 54180,
+                  "sciname": "Trachypithecus francoisi"
+                }
+              ],
+              "len": 2756,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1790,
+                  "hit_to": 1770,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 4,
+              "description": [
+                {
+                  "id": "gi|1825959382|ref|XM_033207623.1|",
+                  "accession": "XM_033207623",
+                  "title": "PREDICTED: Trachypithecus francoisi DENN domain containing 5A (DENND5A), transcript variant X4, mRNA",
+                  "taxid": 54180,
+                  "sciname": "Trachypithecus francoisi"
+                }
+              ],
+              "len": 4053,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1857,
+                  "hit_to": 1837,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 5,
+              "description": [
+                {
+                  "id": "gi|1825959381|ref|XR_004436191.1|",
+                  "accession": "XR_004436191",
+                  "title": "PREDICTED: Trachypithecus francoisi DENN domain containing 5A (DENND5A), transcript variant X3, misc_RNA",
+                  "taxid": 54180,
+                  "sciname": "Trachypithecus francoisi"
+                }
+              ],
+              "len": 3719,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1860,
+                  "hit_to": 1840,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 6,
+              "description": [
+                {
+                  "id": "gi|1825959380|ref|XR_004436190.1|",
+                  "accession": "XR_004436190",
+                  "title": "PREDICTED: Trachypithecus francoisi DENN domain containing 5A (DENND5A), transcript variant X2, misc_RNA",
+                  "taxid": 54180,
+                  "sciname": "Trachypithecus francoisi"
+                }
+              ],
+              "len": 4890,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1795,
+                  "hit_to": 1775,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 7,
+              "description": [
+                {
+                  "id": "gi|1825959378|ref|XM_033207622.1|",
+                  "accession": "XM_033207622",
+                  "title": "PREDICTED: Trachypithecus francoisi DENN domain containing 5A (DENND5A), transcript variant X1, mRNA",
+                  "taxid": 54180,
+                  "sciname": "Trachypithecus francoisi"
+                }
+              ],
+              "len": 5034,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1856,
+                  "hit_to": 1836,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 8,
+              "description": [
+                {
+                  "id": "gi|1823829826|ref|XM_033120108.1|",
+                  "accession": "XM_033120108",
+                  "title": "PREDICTED: Rhinolophus ferrumequinum DENN domain containing 5A (DENND5A), transcript variant X2, mRNA",
+                  "taxid": 59479,
+                  "sciname": "Rhinolophus ferrumequinum"
+                }
+              ],
+              "len": 4892,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1727,
+                  "hit_to": 1707,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 9,
+              "description": [
+                {
+                  "id": "gi|1823829824|ref|XM_033120107.1|",
+                  "accession": "XM_033120107",
+                  "title": "PREDICTED: Rhinolophus ferrumequinum DENN domain containing 5A (DENND5A), transcript variant X1, mRNA",
+                  "taxid": 59479,
+                  "sciname": "Rhinolophus ferrumequinum"
+                }
+              ],
+              "len": 4964,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1799,
+                  "hit_to": 1779,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 10,
+              "description": [
+                {
+                  "id": "gi|1820966956|ref|XM_032892923.1|",
+                  "accession": "XM_032892923",
+                  "title": "PREDICTED: Rattus rattus DENN domain containing 5A (Dennd5a), mRNA",
+                  "taxid": 10117,
+                  "sciname": "Rattus rattus"
+                }
+              ],
+              "len": 4692,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1530,
+                  "hit_to": 1510,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 11,
+              "description": [
+                {
+                  "id": "gi|1820554633|ref|XM_032166649.2|",
+                  "accession": "XM_032166649",
+                  "title": "PREDICTED: Hylobates moloch DENN domain containing 5A (DENND5A), transcript variant X1, mRNA",
+                  "taxid": 81572,
+                  "sciname": "Hylobates moloch"
+                }
+              ],
+              "len": 4645,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1474,
+                  "hit_to": 1454,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 12,
+              "description": [
+                {
+                  "id": "gi|1810975903|ref|XM_032489050.1|",
+                  "accession": "XM_032489050",
+                  "title": "PREDICTED: Camelus ferus DENN domain containing 5A (DENND5A), transcript variant X4, mRNA",
+                  "taxid": 419612,
+                  "sciname": "Camelus ferus"
+                }
+              ],
+              "len": 5030,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1863,
+                  "hit_to": 1843,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 13,
+              "description": [
+                {
+                  "id": "gi|1810975901|ref|XM_032489049.1|",
+                  "accession": "XM_032489049",
+                  "title": "PREDICTED: Camelus ferus DENN domain containing 5A (DENND5A), transcript variant X3, mRNA",
+                  "taxid": 419612,
+                  "sciname": "Camelus ferus"
+                }
+              ],
+              "len": 5079,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1912,
+                  "hit_to": 1892,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 14,
+              "description": [
+                {
+                  "id": "gi|1810975899|ref|XM_032489048.1|",
+                  "accession": "XM_032489048",
+                  "title": "PREDICTED: Camelus ferus DENN domain containing 5A (DENND5A), transcript variant X2, mRNA",
+                  "taxid": 419612,
+                  "sciname": "Camelus ferus"
+                }
+              ],
+              "len": 5063,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1862,
+                  "hit_to": 1842,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 15,
+              "description": [
+                {
+                  "id": "gi|1810975897|ref|XM_032489047.1|",
+                  "accession": "XM_032489047",
+                  "title": "PREDICTED: Camelus ferus DENN domain containing 5A (DENND5A), transcript variant X1, mRNA",
+                  "taxid": 419612,
+                  "sciname": "Camelus ferus"
+                }
+              ],
+              "len": 5112,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1911,
+                  "hit_to": 1891,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 16,
+              "description": [
+                {
+                  "id": "gi|1800002763|ref|XM_032166651.1|",
+                  "accession": "XM_032166651",
+                  "title": "PREDICTED: Hylobates moloch DENN domain containing 5A (DENND5A), transcript variant X3, mRNA",
+                  "taxid": 81572,
+                  "sciname": "Hylobates moloch"
+                }
+              ],
+              "len": 3637,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1441,
+                  "hit_to": 1421,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 17,
+              "description": [
+                {
+                  "id": "gi|1800002762|ref|XR_004250229.1|",
+                  "accession": "XR_004250229",
+                  "title": "PREDICTED: Hylobates moloch DENN domain containing 5A (DENND5A), transcript variant X2, misc_RNA",
+                  "taxid": 81572,
+                  "sciname": "Hylobates moloch"
+                }
+              ],
+              "len": 4503,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1415,
+                  "hit_to": 1395,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 18,
+              "description": [
+                {
+                  "id": "gi|1788677678|ref|XM_031933959.1|",
+                  "accession": "XM_031933959",
+                  "title": "PREDICTED: Piliocolobus tephrosceles DENN domain containing 5A (DENND5A), transcript variant X3, mRNA",
+                  "taxid": 591936,
+                  "sciname": "Piliocolobus tephrosceles"
+                }
+              ],
+              "len": 2773,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1807,
+                  "hit_to": 1787,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 19,
+              "description": [
+                {
+                  "id": "gi|1788677677|ref|XM_023189815.3|",
+                  "accession": "XM_023189815",
+                  "title": "PREDICTED: Piliocolobus tephrosceles DENN domain containing 5A (DENND5A), transcript variant X2, mRNA",
+                  "taxid": 591936,
+                  "sciname": "Piliocolobus tephrosceles"
+                }
+              ],
+              "len": 5018,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1874,
+                  "hit_to": 1854,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 20,
+              "description": [
+                {
+                  "id": "gi|1788677676|ref|XM_023189814.3|",
+                  "accession": "XM_023189814",
+                  "title": "PREDICTED: Piliocolobus tephrosceles DENN domain containing 5A (DENND5A), transcript variant X1, mRNA",
+                  "taxid": 591936,
+                  "sciname": "Piliocolobus tephrosceles"
+                }
+              ],
+              "len": 5051,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1873,
+                  "hit_to": 1853,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 21,
+              "description": [
+                {
+                  "id": "gi|1777478723|ref|XM_031681219.1|",
+                  "accession": "XM_031681219",
+                  "title": "PREDICTED: Vicugna pacos DENN domain containing 5A (DENND5A), mRNA",
+                  "taxid": 30538,
+                  "sciname": "Vicugna pacos"
+                }
+              ],
+              "len": 4680,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1488,
+                  "hit_to": 1468,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 22,
+              "description": [
+                {
+                  "id": "gi|1777264275|ref|XM_031653328.1|",
+                  "accession": "XM_031653328",
+                  "title": "PREDICTED: Papio anubis DENN domain containing 5A (DENND5A), transcript variant X7, mRNA",
+                  "taxid": 9555,
+                  "sciname": "Papio anubis"
+                }
+              ],
+              "len": 4057,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1861,
+                  "hit_to": 1841,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 23,
+              "description": [
+                {
+                  "id": "gi|1777264274|ref|XR_004177484.1|",
+                  "accession": "XR_004177484",
+                  "title": "PREDICTED: Papio anubis DENN domain containing 5A (DENND5A), transcript variant X6, misc_RNA",
+                  "taxid": 9555,
+                  "sciname": "Papio anubis"
+                }
+              ],
+              "len": 3720,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1861,
+                  "hit_to": 1841,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 24,
+              "description": [
+                {
+                  "id": "gi|1777264273|ref|XR_004177483.1|",
+                  "accession": "XR_004177483",
+                  "title": "PREDICTED: Papio anubis DENN domain containing 5A (DENND5A), transcript variant X5, misc_RNA",
+                  "taxid": 9555,
+                  "sciname": "Papio anubis"
+                }
+              ],
+              "len": 4647,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1861,
+                  "hit_to": 1841,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 25,
+              "description": [
+                {
+                  "id": "gi|1777264272|ref|XR_004177482.1|",
+                  "accession": "XR_004177482",
+                  "title": "PREDICTED: Papio anubis DENN domain containing 5A (DENND5A), transcript variant X4, misc_RNA",
+                  "taxid": 9555,
+                  "sciname": "Papio anubis"
+                }
+              ],
+              "len": 4895,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1803,
+                  "hit_to": 1783,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 26,
+              "description": [
+                {
+                  "id": "gi|2025695614|ref|XM_040756482.1|",
+                  "accession": "XM_040756482",
+                  "title": "PREDICTED: Mesocricetus auratus DENN domain containing 5A (Dennd5a), transcript variant X3, mRNA",
+                  "taxid": 10036,
+                  "sciname": "Mesocricetus auratus"
+                }
+              ],
+              "len": 3757,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1561,
+                  "hit_to": 1541,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 27,
+              "description": [
+                {
+                  "id": "gi|2025695612|ref|XM_040756471.1|",
+                  "accession": "XM_040756471",
+                  "title": "PREDICTED: Mesocricetus auratus DENN domain containing 5A (Dennd5a), transcript variant X2, mRNA",
+                  "taxid": 10036,
+                  "sciname": "Mesocricetus auratus"
+                }
+              ],
+              "len": 4693,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1489,
+                  "hit_to": 1469,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 28,
+              "description": [
+                {
+                  "id": "gi|2025695610|ref|XM_040756462.1|",
+                  "accession": "XM_040756462",
+                  "title": "PREDICTED: Mesocricetus auratus DENN domain containing 5A (Dennd5a), transcript variant X1, mRNA",
+                  "taxid": 10036,
+                  "sciname": "Mesocricetus auratus"
+                }
+              ],
+              "len": 4765,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1561,
+                  "hit_to": 1541,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 29,
+              "description": [
+                {
+                  "id": "gi|2009523013|ref|XM_040258410.1|",
+                  "accession": "XM_040258410",
+                  "title": "PREDICTED: Oryx dammah DENN domain containing 5A (DENND5A), mRNA",
+                  "taxid": 59534,
+                  "sciname": "Oryx dammah"
+                }
+              ],
+              "len": 4984,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1809,
+                  "hit_to": 1789,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 30,
+              "description": [
+                {
+                  "id": "gi|1996019376|ref|XM_039863542.1|",
+                  "accession": "XM_039863542",
+                  "title": "PREDICTED: Pteropus giganteus DENN domain containing 5A (DENND5A), mRNA",
+                  "taxid": 143291,
+                  "sciname": "Pteropus giganteus"
+                }
+              ],
+              "len": 4755,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1575,
+                  "hit_to": 1555,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 31,
+              "description": [
+                {
+                  "id": "gi|1984051950|ref|XM_039470498.1|",
+                  "accession": "XM_039470498",
+                  "title": "PREDICTED: Saimiri boliviensis boliviensis DENN domain containing 5A (DENND5A), transcript variant X4, mRNA",
+                  "taxid": 39432,
+                  "sciname": "Saimiri boliviensis boliviensis"
+                }
+              ],
+              "len": 2516,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1550,
+                  "hit_to": 1530,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 32,
+              "description": [
+                {
+                  "id": "gi|1984051948|ref|XM_039470497.1|",
+                  "accession": "XM_039470497",
+                  "title": "PREDICTED: Saimiri boliviensis boliviensis DENN domain containing 5A (DENND5A), transcript variant X3, mRNA",
+                  "taxid": 39432,
+                  "sciname": "Saimiri boliviensis boliviensis"
+                }
+              ],
+              "len": 4073,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1877,
+                  "hit_to": 1857,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 33,
+              "description": [
+                {
+                  "id": "gi|1984051945|ref|XM_039470496.1|",
+                  "accession": "XM_039470496",
+                  "title": "PREDICTED: Saimiri boliviensis boliviensis DENN domain containing 5A (DENND5A), transcript variant X2, mRNA",
+                  "taxid": 39432,
+                  "sciname": "Saimiri boliviensis boliviensis"
+                }
+              ],
+              "len": 4952,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1769,
+                  "hit_to": 1749,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 34,
+              "description": [
+                {
+                  "id": "gi|1984051943|ref|XM_039470495.1|",
+                  "accession": "XM_039470495",
+                  "title": "PREDICTED: Saimiri boliviensis boliviensis DENN domain containing 5A (DENND5A), transcript variant X1, mRNA",
+                  "taxid": 39432,
+                  "sciname": "Saimiri boliviensis boliviensis"
+                }
+              ],
+              "len": 5060,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1877,
+                  "hit_to": 1857,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 35,
+              "description": [
+                {
+                  "id": "gi|1958646036|ref|XM_039078190.1|",
+                  "accession": "XM_039078190",
+                  "title": "PREDICTED: Rattus norvegicus DENN domain containing 5A (Dennd5a), transcript variant X3, mRNA",
+                  "taxid": 10116,
+                  "sciname": "Rattus norvegicus"
+                }
+              ],
+              "len": 3571,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1819,
+                  "hit_to": 1799,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 36,
+              "description": [
+                {
+                  "id": "gi|1958646034|ref|XM_039078189.1|",
+                  "accession": "XM_039078189",
+                  "title": "PREDICTED: Rattus norvegicus DENN domain containing 5A (Dennd5a), transcript variant X2, mRNA",
+                  "taxid": 10116,
+                  "sciname": "Rattus norvegicus"
+                }
+              ],
+              "len": 4133,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 975,
+                  "hit_to": 955,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 37,
+              "description": [
+                {
+                  "id": "gi|1958646033|ref|XM_017589204.2|",
+                  "accession": "XM_017589204",
+                  "title": "PREDICTED: Rattus norvegicus DENN domain containing 5A (Dennd5a), transcript variant X1, mRNA",
+                  "taxid": 10116,
+                  "sciname": "Rattus norvegicus"
+                }
+              ],
+              "len": 4902,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1744,
+                  "hit_to": 1724,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 38,
+              "description": [
+                {
+                  "id": "gi|1949631452|ref|XM_038341029.1|",
+                  "accession": "XM_038341029",
+                  "title": "Arvicola amphibius DENN domain-containing protein 5A transcript variant X2 (Dennd5a), mRNA",
+                  "taxid": 1047088,
+                  "sciname": "Arvicola amphibius"
+                }
+              ],
+              "len": 4700,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1563,
+                  "hit_to": 1543,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 39,
+              "description": [
+                {
+                  "id": "gi|1949631450|ref|XM_038341024.1|",
+                  "accession": "XM_038341024",
+                  "title": "Arvicola amphibius DENN domain-containing protein 5A transcript variant X1 (Dennd5a), mRNA",
+                  "taxid": 1047088,
+                  "sciname": "Arvicola amphibius"
+                }
+              ],
+              "len": 4734,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1563,
+                  "hit_to": 1543,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 40,
+              "description": [
+                {
+                  "id": "gi|1938831470|ref|XM_037999738.1|",
+                  "accession": "XM_037999738",
+                  "title": "PREDICTED: Chlorocebus sabaeus DENN domain containing 5A (DENND5A), transcript variant X4, mRNA",
+                  "taxid": 60711,
+                  "sciname": "Chlorocebus sabaeus"
+                }
+              ],
+              "len": 2526,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1560,
+                  "hit_to": 1540,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 41,
+              "description": [
+                {
+                  "id": "gi|1938831467|ref|XM_037999737.1|",
+                  "accession": "XM_037999737",
+                  "title": "PREDICTED: Chlorocebus sabaeus DENN domain containing 5A (DENND5A), transcript variant X3, mRNA",
+                  "taxid": 60711,
+                  "sciname": "Chlorocebus sabaeus"
+                }
+              ],
+              "len": 4036,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1840,
+                  "hit_to": 1820,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 42,
+              "description": [
+                {
+                  "id": "gi|1938831463|ref|XM_037999736.1|",
+                  "accession": "XM_037999736",
+                  "title": "PREDICTED: Chlorocebus sabaeus DENN domain containing 5A (DENND5A), transcript variant X2, mRNA",
+                  "taxid": 60711,
+                  "sciname": "Chlorocebus sabaeus"
+                }
+              ],
+              "len": 4940,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1768,
+                  "hit_to": 1748,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 43,
+              "description": [
+                {
+                  "id": "gi|1938831459|ref|XM_008007293.2|",
+                  "accession": "XM_008007293",
+                  "title": "PREDICTED: Chlorocebus sabaeus DENN domain containing 5A (DENND5A), transcript variant X1, mRNA",
+                  "taxid": 60711,
+                  "sciname": "Chlorocebus sabaeus"
+                }
+              ],
+              "len": 5012,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1840,
+                  "hit_to": 1820,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 44,
+              "description": [
+                {
+                  "id": "gi|1934753758|ref|XM_037840027.1|",
+                  "accession": "XM_037840027",
+                  "title": "PREDICTED: Choloepus didactylus DENN domain containing 5A (DENND5A), transcript variant X2, mRNA",
+                  "taxid": 27675,
+                  "sciname": "Choloepus didactylus"
+                }
+              ],
+              "len": 3973,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1777,
+                  "hit_to": 1757,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 45,
+              "description": [
+                {
+                  "id": "gi|1934753756|ref|XM_037840026.1|",
+                  "accession": "XM_037840026",
+                  "title": "PREDICTED: Choloepus didactylus DENN domain containing 5A (DENND5A), transcript variant X1, mRNA",
+                  "taxid": 27675,
+                  "sciname": "Choloepus didactylus"
+                }
+              ],
+              "len": 4953,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1770,
+                  "hit_to": 1750,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 46,
+              "description": [
+                {
+                  "id": "gi|1933980441|ref|XM_017500309.2|",
+                  "accession": "XM_017500309",
+                  "title": "PREDICTED: Cebus imitator DENN domain containing 5A (DENND5A), transcript variant X3, mRNA",
+                  "taxid": 2715852,
+                  "sciname": "Cebus imitator"
+                }
+              ],
+              "len": 4702,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1547,
+                  "hit_to": 1527,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 47,
+              "description": [
+                {
+                  "id": "gi|1931299058|ref|XM_037522637.1|",
+                  "accession": "XM_037522637",
+                  "title": "PREDICTED: Talpa occidentalis DENN domain containing 5A (DENND5A), mRNA",
+                  "taxid": 50954,
+                  "sciname": "Talpa occidentalis"
+                }
+              ],
+              "len": 4965,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1804,
+                  "hit_to": 1784,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 48,
+              "description": [
+                {
+                  "id": "gi|1927363352|ref|XM_037133802.1|",
+                  "accession": "XM_037133802",
+                  "title": "PREDICTED: Artibeus jamaicensis DENN domain containing 5A (DENND5A), mRNA",
+                  "taxid": 9417,
+                  "sciname": "Artibeus jamaicensis"
+                }
+              ],
+              "len": 5064,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1867,
+                  "hit_to": 1847,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 49,
+              "description": [
+                {
+                  "id": "gi|1927026857|ref|XM_037050108.1|",
+                  "accession": "XM_037050108",
+                  "title": "PREDICTED: Sturnira hondurensis DENN domain containing 5A (DENND5A), transcript variant X3, mRNA",
+                  "taxid": 192404,
+                  "sciname": "Sturnira hondurensis"
+                }
+              ],
+              "len": 4228,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1022,
+                  "hit_to": 1002,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 50,
+              "description": [
+                {
+                  "id": "gi|1927026855|ref|XM_037050107.1|",
+                  "accession": "XM_037050107",
+                  "title": "PREDICTED: Sturnira hondurensis DENN domain containing 5A (DENND5A), transcript variant X2, mRNA",
+                  "taxid": 192404,
+                  "sciname": "Sturnira hondurensis"
+                }
+              ],
+              "len": 4996,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1790,
+                  "hit_to": 1770,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 51,
+              "description": [
+                {
+                  "id": "gi|1927026853|ref|XM_037050106.1|",
+                  "accession": "XM_037050106",
+                  "title": "PREDICTED: Sturnira hondurensis DENN domain containing 5A (DENND5A), transcript variant X1, mRNA",
+                  "taxid": 192404,
+                  "sciname": "Sturnira hondurensis"
+                }
+              ],
+              "len": 5068,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1862,
+                  "hit_to": 1842,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 52,
+              "description": [
+                {
+                  "id": "gi|1926240655|ref|XM_037026327.1|",
+                  "accession": "XM_037026327",
+                  "title": "PREDICTED: Manis javanica DENN domain containing 5A (DENND5A), transcript variant X2, mRNA",
+                  "taxid": 9974,
+                  "sciname": "Manis javanica"
+                }
+              ],
+              "len": 4661,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1493,
+                  "hit_to": 1473,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 53,
+              "description": [
+                {
+                  "id": "gi|1926240651|ref|XM_037026326.1|",
+                  "accession": "XM_037026326",
+                  "title": "PREDICTED: Manis javanica DENN domain containing 5A (DENND5A), transcript variant X1, mRNA",
+                  "taxid": 9974,
+                  "sciname": "Manis javanica"
+                }
+              ],
+              "len": 4733,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1565,
+                  "hit_to": 1545,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 54,
+              "description": [
+                {
+                  "id": "gi|1920380491|ref|XM_036930928.1|",
+                  "accession": "XM_036930928",
+                  "title": "PREDICTED: Manis pentadactyla DENN domain containing 5A (DENND5A), transcript variant X2, mRNA",
+                  "taxid": 143292,
+                  "sciname": "Manis pentadactyla"
+                }
+              ],
+              "len": 4703,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1534,
+                  "hit_to": 1514,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 55,
+              "description": [
+                {
+                  "id": "gi|1920380489|ref|XM_036930927.1|",
+                  "accession": "XM_036930927",
+                  "title": "PREDICTED: Manis pentadactyla DENN domain containing 5A (DENND5A), transcript variant X1, mRNA",
+                  "taxid": 143292,
+                  "sciname": "Manis pentadactyla"
+                }
+              ],
+              "len": 4775,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1606,
+                  "hit_to": 1586,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 56,
+              "description": [
+                {
+                  "id": "gi|1920255028|ref|XM_036860165.1|",
+                  "accession": "XM_036860165",
+                  "title": "PREDICTED: Balaenoptera musculus DENN domain containing 5A (DENND5A), transcript variant X2, mRNA",
+                  "taxid": 9771,
+                  "sciname": "Balaenoptera musculus"
+                }
+              ],
+              "len": 4011,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1510,
+                  "hit_to": 1490,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 57,
+              "description": [
+                {
+                  "id": "gi|1920255026|ref|XM_036860164.1|",
+                  "accession": "XM_036860164",
+                  "title": "PREDICTED: Balaenoptera musculus DENN domain containing 5A (DENND5A), transcript variant X1, mRNA",
+                  "taxid": 9771,
+                  "sciname": "Balaenoptera musculus"
+                }
+              ],
+              "len": 4083,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1582,
+                  "hit_to": 1562,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 58,
+              "description": [
+                {
+                  "id": "gi|1912807431|ref|XM_036428615.1|",
+                  "accession": "XM_036428615",
+                  "title": "PREDICTED: Pipistrellus kuhlii DENN domain containing 5A (DENND5A), transcript variant X11, mRNA",
+                  "taxid": 59472,
+                  "sciname": "Pipistrellus kuhlii"
+                }
+              ],
+              "len": 4952,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1824,
+                  "hit_to": 1804,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 59,
+              "description": [
+                {
+                  "id": "gi|1912807429|ref|XM_036428614.1|",
+                  "accession": "XM_036428614",
+                  "title": "PREDICTED: Pipistrellus kuhlii DENN domain containing 5A (DENND5A), transcript variant X10, mRNA",
+                  "taxid": 59472,
+                  "sciname": "Pipistrellus kuhlii"
+                }
+              ],
+              "len": 3711,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1813,
+                  "hit_to": 1793,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 60,
+              "description": [
+                {
+                  "id": "gi|1912807428|ref|XR_004986364.1|",
+                  "accession": "XR_004986364",
+                  "title": "PREDICTED: Pipistrellus kuhlii DENN domain containing 5A (DENND5A), transcript variant X9, misc_RNA",
+                  "taxid": 59472,
+                  "sciname": "Pipistrellus kuhlii"
+                }
+              ],
+              "len": 4889,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1810,
+                  "hit_to": 1790,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 61,
+              "description": [
+                {
+                  "id": "gi|1912807426|ref|XM_036428612.1|",
+                  "accession": "XM_036428612",
+                  "title": "PREDICTED: Pipistrellus kuhlii DENN domain containing 5A (DENND5A), transcript variant X8, mRNA",
+                  "taxid": 59472,
+                  "sciname": "Pipistrellus kuhlii"
+                }
+              ],
+              "len": 4588,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1822,
+                  "hit_to": 1802,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 62,
+              "description": [
+                {
+                  "id": "gi|1912807424|ref|XM_036428611.1|",
+                  "accession": "XM_036428611",
+                  "title": "PREDICTED: Pipistrellus kuhlii DENN domain containing 5A (DENND5A), transcript variant X7, mRNA",
+                  "taxid": 59472,
+                  "sciname": "Pipistrellus kuhlii"
+                }
+              ],
+              "len": 4645,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1483,
+                  "hit_to": 1463,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 63,
+              "description": [
+                {
+                  "id": "gi|1912807422|ref|XM_036428610.1|",
+                  "accession": "XM_036428610",
+                  "title": "PREDICTED: Pipistrellus kuhlii DENN domain containing 5A (DENND5A), transcript variant X6, mRNA",
+                  "taxid": 59472,
+                  "sciname": "Pipistrellus kuhlii"
+                }
+              ],
+              "len": 3914,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1810,
+                  "hit_to": 1790,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 64,
+              "description": [
+                {
+                  "id": "gi|1912807420|ref|XM_036428609.1|",
+                  "accession": "XM_036428609",
+                  "title": "PREDICTED: Pipistrellus kuhlii DENN domain containing 5A (DENND5A), transcript variant X5, mRNA",
+                  "taxid": 59472,
+                  "sciname": "Pipistrellus kuhlii"
+                }
+              ],
+              "len": 4843,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1805,
+                  "hit_to": 1785,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 65,
+              "description": [
+                {
+                  "id": "gi|1912807418|ref|XM_036428608.1|",
+                  "accession": "XM_036428608",
+                  "title": "PREDICTED: Pipistrellus kuhlii DENN domain containing 5A (DENND5A), transcript variant X4, mRNA",
+                  "taxid": 59472,
+                  "sciname": "Pipistrellus kuhlii"
+                }
+              ],
+              "len": 4759,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1804,
+                  "hit_to": 1784,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 66,
+              "description": [
+                {
+                  "id": "gi|1912807416|ref|XM_036428607.1|",
+                  "accession": "XM_036428607",
+                  "title": "PREDICTED: Pipistrellus kuhlii DENN domain containing 5A (DENND5A), transcript variant X3, mRNA",
+                  "taxid": 59472,
+                  "sciname": "Pipistrellus kuhlii"
+                }
+              ],
+              "len": 4914,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1752,
+                  "hit_to": 1732,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 67,
+              "description": [
+                {
+                  "id": "gi|1912807414|ref|XM_036428606.1|",
+                  "accession": "XM_036428606",
+                  "title": "PREDICTED: Pipistrellus kuhlii DENN domain containing 5A (DENND5A), transcript variant X2, mRNA",
+                  "taxid": 59472,
+                  "sciname": "Pipistrellus kuhlii"
+                }
+              ],
+              "len": 4965,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1815,
+                  "hit_to": 1795,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 68,
+              "description": [
+                {
+                  "id": "gi|1912807412|ref|XM_036428605.1|",
+                  "accession": "XM_036428605",
+                  "title": "PREDICTED: Pipistrellus kuhlii DENN domain containing 5A (DENND5A), transcript variant X1, mRNA",
+                  "taxid": 59472,
+                  "sciname": "Pipistrellus kuhlii"
+                }
+              ],
+              "len": 4986,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1824,
+                  "hit_to": 1804,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 69,
+              "description": [
+                {
+                  "id": "gi|1911125765|ref|XM_036325330.1|",
+                  "accession": "XM_036325330",
+                  "title": "PREDICTED: Myotis myotis DENN domain containing 5A (DENND5A), transcript variant X12, mRNA",
+                  "taxid": 51298,
+                  "sciname": "Myotis myotis"
+                }
+              ],
+              "len": 4928,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1795,
+                  "hit_to": 1775,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 70,
+              "description": [
+                {
+                  "id": "gi|1911125763|ref|XM_036325329.1|",
+                  "accession": "XM_036325329",
+                  "title": "PREDICTED: Myotis myotis DENN domain containing 5A (DENND5A), transcript variant X11, mRNA",
+                  "taxid": 51298,
+                  "sciname": "Myotis myotis"
+                }
+              ],
+              "len": 2606,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1799,
+                  "hit_to": 1779,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 71,
+              "description": [
+                {
+                  "id": "gi|1911125761|ref|XM_036325328.1|",
+                  "accession": "XM_036325328",
+                  "title": "PREDICTED: Myotis myotis DENN domain containing 5A (DENND5A), transcript variant X10, mRNA",
+                  "taxid": 51298,
+                  "sciname": "Myotis myotis"
+                }
+              ],
+              "len": 3191,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1799,
+                  "hit_to": 1779,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 72,
+              "description": [
+                {
+                  "id": "gi|1911125759|ref|XM_036325327.1|",
+                  "accession": "XM_036325327",
+                  "title": "PREDICTED: Myotis myotis DENN domain containing 5A (DENND5A), transcript variant X9, mRNA",
+                  "taxid": 51298,
+                  "sciname": "Myotis myotis"
+                }
+              ],
+              "len": 3685,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1797,
+                  "hit_to": 1777,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 73,
+              "description": [
+                {
+                  "id": "gi|1911125757|ref|XM_036325326.1|",
+                  "accession": "XM_036325326",
+                  "title": "PREDICTED: Myotis myotis DENN domain containing 5A (DENND5A), transcript variant X8, mRNA",
+                  "taxid": 51298,
+                  "sciname": "Myotis myotis"
+                }
+              ],
+              "len": 3837,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1798,
+                  "hit_to": 1778,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 74,
+              "description": [
+                {
+                  "id": "gi|1911125755|ref|XM_036325325.1|",
+                  "accession": "XM_036325325",
+                  "title": "PREDICTED: Myotis myotis DENN domain containing 5A (DENND5A), transcript variant X7, mRNA",
+                  "taxid": 51298,
+                  "sciname": "Myotis myotis"
+                }
+              ],
+              "len": 3845,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1797,
+                  "hit_to": 1777,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 75,
+              "description": [
+                {
+                  "id": "gi|1911125753|ref|XM_036325324.1|",
+                  "accession": "XM_036325324",
+                  "title": "PREDICTED: Myotis myotis DENN domain containing 5A (DENND5A), transcript variant X6, mRNA",
+                  "taxid": 51298,
+                  "sciname": "Myotis myotis"
+                }
+              ],
+              "len": 4220,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1797,
+                  "hit_to": 1777,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 76,
+              "description": [
+                {
+                  "id": "gi|1911125751|ref|XM_036325323.1|",
+                  "accession": "XM_036325323",
+                  "title": "PREDICTED: Myotis myotis DENN domain containing 5A (DENND5A), transcript variant X5, mRNA",
+                  "taxid": 51298,
+                  "sciname": "Myotis myotis"
+                }
+              ],
+              "len": 4667,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1500,
+                  "hit_to": 1480,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 77,
+              "description": [
+                {
+                  "id": "gi|1911125749|ref|XM_036325322.1|",
+                  "accession": "XM_036325322",
+                  "title": "PREDICTED: Myotis myotis DENN domain containing 5A (DENND5A), transcript variant X4, mRNA",
+                  "taxid": 51298,
+                  "sciname": "Myotis myotis"
+                }
+              ],
+              "len": 5018,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1797,
+                  "hit_to": 1777,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 78,
+              "description": [
+                {
+                  "id": "gi|1911125747|ref|XM_036325321.1|",
+                  "accession": "XM_036325321",
+                  "title": "PREDICTED: Myotis myotis DENN domain containing 5A (DENND5A), transcript variant X3, mRNA",
+                  "taxid": 51298,
+                  "sciname": "Myotis myotis"
+                }
+              ],
+              "len": 5223,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1796,
+                  "hit_to": 1776,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 79,
+              "description": [
+                {
+                  "id": "gi|1911125745|ref|XM_036325320.1|",
+                  "accession": "XM_036325320",
+                  "title": "PREDICTED: Myotis myotis DENN domain containing 5A (DENND5A), transcript variant X2, mRNA",
+                  "taxid": 51298,
+                  "sciname": "Myotis myotis"
+                }
+              ],
+              "len": 4455,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1798,
+                  "hit_to": 1778,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 80,
+              "description": [
+                {
+                  "id": "gi|1911125743|ref|XM_036325319.1|",
+                  "accession": "XM_036325319",
+                  "title": "PREDICTED: Myotis myotis DENN domain containing 5A (DENND5A), transcript variant X1, mRNA",
+                  "taxid": 51298,
+                  "sciname": "Myotis myotis"
+                }
+              ],
+              "len": 5224,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1796,
+                  "hit_to": 1776,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 81,
+              "description": [
+                {
+                  "id": "gi|1910856295|ref|XM_036258063.1|",
+                  "accession": "XM_036258063",
+                  "title": "PREDICTED: Molossus molossus DENN domain containing 5A (DENND5A), transcript variant X3, mRNA",
+                  "taxid": 27622,
+                  "sciname": "Molossus molossus"
+                }
+              ],
+              "len": 4004,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1808,
+                  "hit_to": 1788,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 82,
+              "description": [
+                {
+                  "id": "gi|1910856293|ref|XM_036258062.1|",
+                  "accession": "XM_036258062",
+                  "title": "PREDICTED: Molossus molossus DENN domain containing 5A (DENND5A), transcript variant X2, mRNA",
+                  "taxid": 27622,
+                  "sciname": "Molossus molossus"
+                }
+              ],
+              "len": 4676,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1512,
+                  "hit_to": 1492,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 83,
+              "description": [
+                {
+                  "id": "gi|1910856291|ref|XM_036258061.1|",
+                  "accession": "XM_036258061",
+                  "title": "PREDICTED: Molossus molossus DENN domain containing 5A (DENND5A), transcript variant X1, mRNA",
+                  "taxid": 27622,
+                  "sciname": "Molossus molossus"
+                }
+              ],
+              "len": 4972,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1808,
+                  "hit_to": 1788,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 84,
+              "description": [
+                {
+                  "id": "gi|1910407417|ref|XM_016147368.2|",
+                  "accession": "XM_016147368",
+                  "title": "PREDICTED: Rousettus aegyptiacus DENN domain containing 5A (DENND5A), transcript variant X3, mRNA",
+                  "taxid": 9407,
+                  "sciname": "Rousettus aegyptiacus"
+                }
+              ],
+              "len": 4013,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1817,
+                  "hit_to": 1797,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 85,
+              "description": [
+                {
+                  "id": "gi|1910407415|ref|XM_036221862.1|",
+                  "accession": "XM_036221862",
+                  "title": "PREDICTED: Rousettus aegyptiacus DENN domain containing 5A (DENND5A), transcript variant X2, mRNA",
+                  "taxid": 9407,
+                  "sciname": "Rousettus aegyptiacus"
+                }
+              ],
+              "len": 3359,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1560,
+                  "hit_to": 1540,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 86,
+              "description": [
+                {
+                  "id": "gi|1910407413|ref|XM_016147367.2|",
+                  "accession": "XM_016147367",
+                  "title": "PREDICTED: Rousettus aegyptiacus DENN domain containing 5A (DENND5A), transcript variant X1, mRNA",
+                  "taxid": 9407,
+                  "sciname": "Rousettus aegyptiacus"
+                }
+              ],
+              "len": 4995,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1817,
+                  "hit_to": 1797,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 87,
+              "description": [
+                {
+                  "id": "gi|1908017352|ref|XM_036189007.1|",
+                  "accession": "XM_036189007",
+                  "title": "PREDICTED: Onychomys torridus DENN domain containing 5A (Dennd5a), transcript variant X3, mRNA",
+                  "taxid": 38674,
+                  "sciname": "Onychomys torridus"
+                }
+              ],
+              "len": 3918,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1722,
+                  "hit_to": 1702,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 88,
+              "description": [
+                {
+                  "id": "gi|1908017350|ref|XM_036189000.1|",
+                  "accession": "XM_036189000",
+                  "title": "PREDICTED: Onychomys torridus DENN domain containing 5A (Dennd5a), transcript variant X2, mRNA",
+                  "taxid": 38674,
+                  "sciname": "Onychomys torridus"
+                }
+              ],
+              "len": 4939,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1739,
+                  "hit_to": 1719,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 89,
+              "description": [
+                {
+                  "id": "gi|1908017348|ref|XM_036188991.1|",
+                  "accession": "XM_036188991",
+                  "title": "PREDICTED: Onychomys torridus DENN domain containing 5A (Dennd5a), transcript variant X1, mRNA",
+                  "taxid": 38674,
+                  "sciname": "Onychomys torridus"
+                }
+              ],
+              "len": 4965,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1765,
+                  "hit_to": 1745,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 90,
+              "description": [
+                {
+                  "id": "gi|1899672979|ref|XM_028514394.2|",
+                  "accession": "XM_028514394",
+                  "title": "PREDICTED: Phyllostomus discolor DENN domain containing 5A (DENND5A), transcript variant X4, mRNA",
+                  "taxid": 89673,
+                  "sciname": "Phyllostomus discolor"
+                }
+              ],
+              "len": 4047,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1851,
+                  "hit_to": 1831,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 91,
+              "description": [
+                {
+                  "id": "gi|1899672977|ref|XM_036028997.1|",
+                  "accession": "XM_036028997",
+                  "title": "PREDICTED: Phyllostomus discolor DENN domain containing 5A (DENND5A), transcript variant X3, mRNA",
+                  "taxid": 89673,
+                  "sciname": "Phyllostomus discolor"
+                }
+              ],
+              "len": 3322,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1853,
+                  "hit_to": 1833,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 92,
+              "description": [
+                {
+                  "id": "gi|1899672976|ref|XM_028514393.2|",
+                  "accession": "XM_028514393",
+                  "title": "PREDICTED: Phyllostomus discolor DENN domain containing 5A (DENND5A), transcript variant X2, mRNA",
+                  "taxid": 89673,
+                  "sciname": "Phyllostomus discolor"
+                }
+              ],
+              "len": 4960,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1778,
+                  "hit_to": 1758,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 93,
+              "description": [
+                {
+                  "id": "gi|1899672975|ref|XM_028514392.2|",
+                  "accession": "XM_028514392",
+                  "title": "PREDICTED: Phyllostomus discolor DENN domain containing 5A (DENND5A), transcript variant X1, mRNA",
+                  "taxid": 89673,
+                  "sciname": "Phyllostomus discolor"
+                }
+              ],
+              "len": 5032,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1850,
+                  "hit_to": 1830,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 94,
+              "description": [
+                {
+                  "id": "gi|1885978890|emb|LR862365.1|",
+                  "accession": "LR862365",
+                  "title": "Pipistrellus pipistrellus genome assembly, chromosome: 9",
+                  "taxid": 59474,
+                  "sciname": "Pipistrellus pipistrellus"
+                }
+              ],
+              "len": 72542072,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 31666280,
+                  "hit_to": 31666260,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 95,
+              "description": [
+                {
+                  "id": "gi|1868083924|ref|XM_035437289.1|",
+                  "accession": "XM_035437289",
+                  "title": "PREDICTED: Cricetulus griseus DENN domain containing 5A (Dennd5a), transcript variant X3, mRNA",
+                  "taxid": 10029,
+                  "sciname": "Cricetulus griseus"
+                }
+              ],
+              "len": 3773,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1577,
+                  "hit_to": 1557,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 96,
+              "description": [
+                {
+                  "id": "gi|1868083923|ref|XR_004767501.1|",
+                  "accession": "XR_004767501",
+                  "title": "PREDICTED: Cricetulus griseus DENN domain containing 5A (Dennd5a), transcript variant X2, misc_RNA",
+                  "taxid": 10029,
+                  "sciname": "Cricetulus griseus"
+                }
+              ],
+              "len": 3228,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1577,
+                  "hit_to": 1557,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 97,
+              "description": [
+                {
+                  "id": "gi|1868083921|ref|XM_003513382.4|",
+                  "accession": "XM_003513382",
+                  "title": "PREDICTED: Cricetulus griseus DENN domain containing 5A (Dennd5a), transcript variant X1, mRNA",
+                  "taxid": 10029,
+                  "sciname": "Cricetulus griseus"
+                }
+              ],
+              "len": 4787,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1577,
+                  "hit_to": 1557,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 98,
+              "description": [
+                {
+                  "id": "gi|1863941662|ref|XM_017977897.2|",
+                  "accession": "XM_017977897",
+                  "title": "PREDICTED: Callithrix jacchus DENN domain containing 5A (DENND5A), transcript variant X3, mRNA",
+                  "taxid": 9483,
+                  "sciname": "Callithrix jacchus"
+                }
+              ],
+              "len": 4977,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1840,
+                  "hit_to": 1820,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 99,
+              "description": [
+                {
+                  "id": "gi|1863941660|ref|XM_017977895.2|",
+                  "accession": "XM_017977895",
+                  "title": "PREDICTED: Callithrix jacchus DENN domain containing 5A (DENND5A), transcript variant X2, mRNA",
+                  "taxid": 9483,
+                  "sciname": "Callithrix jacchus"
+                }
+              ],
+              "len": 4945,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1768,
+                  "hit_to": 1748,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 100,
+              "description": [
+                {
+                  "id": "gi|1863941658|ref|XM_002755025.4|",
+                  "accession": "XM_002755025",
+                  "title": "PREDICTED: Callithrix jacchus DENN domain containing 5A (DENND5A), transcript variant X1, mRNA",
+                  "taxid": 9483,
+                  "sciname": "Callithrix jacchus"
+                }
+              ],
+              "len": 5017,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1840,
+                  "hit_to": 1820,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "hseq": "GTAAATCCTGAGTTCTTCTTC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            }
+          ],
+          "stat": {
+            "db_num": 70351925,
+            "db_len": 1380435113,
+            "hsp_len": 18,
+            "eff_space": 1314602293965,
+            "kappa": 0.41,
+            "lambda": 0.625,
+            "entropy": 0.78
+          }
+        }
+      }
+    }
+  }
+]
+}
 

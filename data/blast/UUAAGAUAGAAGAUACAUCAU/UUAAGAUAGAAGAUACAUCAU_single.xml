@@ -1,263 +1,3411 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="jig" content="ncbitoggler"/>
-<meta name="ncbitoggler" content="animation:'none'"/>
-<title>NCBI Blast:</title>
-<script type="text/javascript" src="/core/jig/1.14.8/js/jig.min.js             "></script>
-<script type="text/javascript">    jQuery.getScript("/core/alerts/alerts.js", function() {
-        galert(['div#header', 'body > *:nth-child(1)'])
-    });</script>
-<meta http-equiv="Pragma" content="no-cache">
-<link rel="stylesheet" type="text/css" href="css/uswds.min.css" media="screen" />
-<link rel="stylesheet"  type="text/css" href="https://www.ncbi.nlm.nih.gov/style-guide/static/nwds/css/nwds.css"/>
-<link rel="stylesheet" href="css/headerNew.css"/>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous"> <!-- Font Awesome icons -->
-<link rel="stylesheet" type="text/css" href="css/footerNew.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="css/main.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="css/blastRes.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="css/print.css" media="print" />
-<!--[if lte IE 6]>
-<link rel="stylesheet" type="text/css" href="css/ie6_or_less.css" />
-<![endif]-->
-<script type="text/javascript" src="js/utils.js"></script>
-<script type="text/javascript" src="js/results.js"></script>
-</head>
-
-<body id="type-a" class="noToggleCheck" >
-<div id="wrap">
-		    	
-<header class="ncbi-header" role="banner" data-section="Header">
-<ul class="skip_nav">
-    <li><a accesskey="1" title="NCBI Homepage" href="https://www.ncbi.nlm.nih.gov/">NCBI Home</a></li>
-    <li><a accesskey="2" title="MyNCBI" href="https://www.ncbi.nlm.nih.gov/myncbi">Sign in to NCBI</a></li>
-    <li><a accesskey="3" title="Skip to main content" href="#mainCont">Skip to Main Content</a></li>
-    <li><a accesskey="4" title="Skip to navigation" href="#navcontent">Skip to Navigation</a></li>
-    <li><a accesskey="0" title="About NCBI Accesskeys" href="https://www.ncbi.nlm.nih.gov/guide/browsers/#accesskeys">About NCBI Accesskeys</a></li>
-</ul>
-<div class="usa-grid">
-    <div class="usa-width-one-whole">
-        <div class="agencies">
-            <div class="nih"><span class="usa-sr-only">National Institutes of Health</span></div>
-            <div class="nlm">U.S. National Library of Medicine</div>
-            <div class="ncbi">National Center for Biotechnology Information</div>
-            <a href="https://www.ncbi.nlm.nih.gov/" class="homepage"><span class="usa-sr-only" id="header_ncbi">NCBI homepage</span></a>
-        </div>
-
-        <div class="account">
-            <a id="account_login" href="https://www.ncbi.nlm.nih.gov/account/?back_url=https%3A%2F%2Fblast%2Encbi%2Enlm%2Enih%2Egov%2Fblast%2FBlast%2Ecgi%3FCMD%3DGet%26FORMAT%5FOBJECT%3DAlignment%26FORMAT%5FTYPE%3DXML2%5FS%26RESULTS%5FFILE%3Don%26RID%3D8YA0YDSB01N" class="usa-button header-button">Log in</a>
-            <button id="account_info" class="header-button" aria-controls="account_popup">
-                <span class="fa fa-user" aria-hidden="true"></span>
-                <span class="username desktop-only" aria-hidden="true" id="uname_short"></span>
-                <span class="sr-only">Show account info</span>
-            </button>
-        </div>
-
-        <div class="ncbi-popup-anchor">
-            <div class="ncbi-popup account-popup" id="account_popup" aria-hidden="true" role="dialog" aria-labelledby="account-popup-header">
-                <div class="ncbi-popup-head">
-                    <button class="ncbi-close-button"><span class="fa fa-window-close"></span><span class="usa-sr-only">Close</span></button>
-                    <h4>Account</h4>
-                </div>
-                <div class="account-user-info">
-                    Logged in as:<br>
-                    <b><span class="username" id="uname_long">username</span></b>
-                </div>
-                <div class="account-links">
-                    <ul class="usa-unstyled-list">
-                        <li><a id="account_myncbi" href="https://www.ncbi.nlm.nih.gov/myncbi/">Dashboard</a> <span class="ncbi-text-small-light">(My NCBI)</span></li>
-                        <li><a id="account_pubs" href="https://www.ncbi.nlm.nih.gov/myncbi/collections/bibliography/">Publications</a> <span class="ncbi-text-small-light">(My Bibliography)</span></li>
-                        <li><a id="account_settings" href="https://www.ncbi.nlm.nih.gov/account/settings/">Account settings</a></li>
-                        <li><a id="account_logout" href="https://www.ncbi.nlm.nih.gov/account/signout/?back_url=https%3A%2F%2Fblast%2Encbi%2Enlm%2Enih%2Egov%2Fblast%2FBlast%2Ecgi%3FCMD%3DGet%26FORMAT%5FOBJECT%3DAlignment%26FORMAT%5FTYPE%3DXML2%5FS%26RESULTS%5FFILE%3Don%26RID%3D8YA0YDSB01N">Log out</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
-</header>
-<nav class="ncbi-topnav" id="navcontent">
-    <div class="usa-grid">
-        <a class="ncbi-topnav-root" href="Blast.cgi">BLAST <sup>&reg;</sup></a> <span id="brc"><span class="brcrmbsign">&raquo;</span> <a href="Blast.cgi?PAGE=Nucleotides&amp;PROGRAM=blastn&amp;PAGE_TYPE=BlastSearch&amp;BLAST_SPEC=">blastn suite</a> <span class="brcrmbsign">&raquo;</span> RID-8YA0YDSB01N</span>
-        <ul class="rf ncbi-topnav-list" id="topnav-list">
-            <li class="first "><a href="Blast.cgi?CMD=Web&amp;PAGE_TYPE=BlastHome" title="BLAST Home">Home</a></li>
-            <li class="recent "><a href="Blast.cgi?CMD=GetSaved&amp;RECENT_RESULTS=on" title="Unexpired BLAST jobs">Recent Results</a></li>                
-            <li class="saved "><a href="Blast.cgi?CMD=GetSaved" title="Saved sets of BLAST search parameters">Saved Strategies</a></li>
-            <li  class= "last documentation "> <a href="Blast.cgi?CMD=Web&amp;PAGE_TYPE=BlastDocs" title="BLAST documentation">Help</a></li>                            
-        </ul>
-    </div>
-</nav>
-
-
-
-        <div id="content-wrap">
-
-                <div class="pageTitle">                            
-                   Format Request Status                   
-                </div>
-		<div class="inlineDiv resHeader">				   
-				   <a  id="frmPage"  class="UNKNOWN" href="#" submitForm="reformat">[Formatting options] </a>                   
-                </div>
-                <h2 id="jtitle" >Job Title: </h2>
-								
-                <div id="content">                
-                <!--<ul id="msg" class="msg"><li class="error"><p class=""></p><p class=""></p><p class=""></p></ul> -->
-                <ul id="msg" class="msg"><li class="error"><p class="error">Error: Results for RID 8YA0YDSB01N not found</p></li></ul>
-                <p><!--
-                QBlastInfoBegin
-	                Status=UNKNOWN
-                QBlastInfoEnd
-                --></p> 
-                               
-                <SCRIPT LANGUAGE="JavaScript"><!--
-                    var tm = "";
-                    if (tm != "") {                    
-                        setTimeout('document.forms[0].submit();',tm);
-                    }
-                //--></SCRIPT>                                
-                <table id="statInfo" class="UNKNOWN">
-                <tr><td>Request ID</td><td> <b>8YA0YDSB01N</b></td></tr>
-                <tr class="odd"><td>Status</td><td>Searching</td></tr>
-                <tr><td>Submitted at</td><td></td></tr>
-                <tr class="odd"><td>Current time</td><td></td></tr>
-                <tr><td>Time since submission</td><td></td></tr>
-                </table>
-                <p class="UNKNOWN">This page will be automatically updated in <b></b> seconds</p>       
-                <form action="Blast.cgi" enctype="application/x-www-form-urlencoded" method="POST" id="results">
-                <input name="FORMAT_OBJECT" type="hidden" value="Alignment"><input name="FORMAT_TYPE" type="hidden" value="XML2_S"><input name="RESULTS_FILE" type="hidden" value="on"><input name="RID" type="hidden" value="8YA0YDSB01N"><input name="SEARCH_DB_STATUS" type="hidden" value="0"><input name="USER_TYPE" type="hidden" value="2"><input name="_PGR" type="hidden" value="0">                
-                <input name="_PGR" type="hidden" value="0" >
-                <input name="CMD" type="hidden" value="Get">
-               
-                </form>
-                                
-				</div><!-- /#content -->
-				<form action="Blast.cgi" enctype="application/x-www-form-urlencoded"  method="post" name="reformat" id="reformat">				
-				   <input name="QUERY_INFO" type="hidden" value="" />    				
-				   <input name="ENTREZ_QUERY" type="hidden" value="" />
-                   <input name="CDD_RID" type="hidden" value="" />
-                   <input name="CDD_SEARCH_STATE" type="hidden" value="" />
-                   <input name="RID" type="hidden" value="8YA0YDSB01N" />
-				   <input name="STEP_NUMBER" type="hidden" value="" />
-				   <input name="CMD" type="hidden" value="Web"/>				
-				   <input NAME="PAGE_TYPE" type="hidden"  value="BlastFormatting"/>
-				
-				   <!-- TO DO: test all of those changes -->				   	
-				   <!-- Psi blast params  PSI_BLAST_PARAMS - commented- using forms[0] from fromatter> -->
-				   <!-- Current Formatting options FORMATTING_OPTIONS- commented- using forms[0] from fromatter> -->
-				   <!-- Current Search options CURR_SAVED_OPTIONS - commented- using forms[0] from fromatter> -->
-                 </form>				
-        </div><!-- /#content-wrap -->
-
-         <footer id="ncbi-footer" class="usa-footer usa-footer-medium usa-sans ncbi-footer" role="contentinfo" data-section="Footer">
-  <div class="icon-section">
-    <div class="usa-grid">
-		<div class="usa-width-one-whole">
-		<h3 class="usa-sr-only">Connect</h3>
-		<ul class="ncbi-inline-list icon-list">
-			<li><a id="footer_twitter" href="https://twitter.com/ncbi">Twitter</a></li>
-			<li><a id="footer_facebook" href="https://www.facebook.com/ncbi.nlm">Facebook</a></li>
-			<li><a id="footer_youtube" href="https://www.youtube.com/user/NCBINLM">YouTube</a></li>
-			<li><a id="footer_linkedin" href="https://www.linkedin.com/company/national-center-for-biotechnology-information-ncbi-">LinkedIn</a></li>
-			<li><a id="footer_github" href="https://github.com/ncbi">GitHub</a></li>
-		</ul>
-		<ul class="ncbi-inline-list icon-list icon-list-elastic">	
-			<li class="li-blog"><a id="footer_blog" href="https://ncbiinsights.ncbi.nlm.nih.gov/">Blog</a></li>
-			<li class="li-support"><a id="footer_support" href="https://support.ncbi.nlm.nih.gov/">Support Center</a></li>
-		</ul>
-		</div>
-		</div>
-  </div>
-  <div class="usa-footer-secondary_section ncbi-section">
-    <div class="usa-grid">
-      <div class="usa-width-one-half ncbi">
-        <h3 class="ncbi-full-name">National Center for Biotechnology Information</h3>
-		<address>
-        <a id="google_maps" href="https://www.google.com/maps/place/8600+Rockville+Pike,+Bethesda,+MD+20894/@38.9959508,-77.101021,17z/data=!3m1!4b1!4m5!3m4!1s0x89b7c95e25765ddb:0x19156f88b27635b8!8m2!3d38.9959508!4d-77.0988323">
-        <span class="h-adr"> <span class="p-street-address break">8600 Rockville Pike</span>
-        <span class="p-locality">Bethesda</span> <span class="p-region"> MD</span>, <span class="p-postal-code">20894</span> <span class="p-country-name">USA</span> </span>
-		</a>
-		</address>
-        <ul class="ncbi-inline-list">
-			<li><a id="footer_about" href="https://www.ncbi.nlm.nih.gov/home/about/">About us</a></li>
-          <li><a id="footer_contact" href="https://www.ncbi.nlm.nih.gov/home/about/contact.shtml">Contact us</a></li>
-          <li><a id="footer_policies" href="https://www.ncbi.nlm.nih.gov/home/about/policies.shtml">Policies</a></li>
-          <li><a id="footer_foia" href="https://www.nih.gov/institutes-nih/nih-office-director/office-communications-public-liaison/freedom-information-act-office">FOIA</a></li>
-        </ul>
-      </div>
-      <div class="usa-width-one-half">
-      <div class="usa-grid-full">
-		<div class="usa-width-one-third">
-		<h4>Popular</h4>
-
-        <ul class="ncbi-unstyled-list">
-				<li><a id="footer_pubmed" href="https://www.ncbi.nlm.nih.gov/pubmed/">PubMed</a></li>
-				<li><a id="footer_pmc" href="https://www.ncbi.nlm.nih.gov/pmc/">PubMed Central</a></li>
-				<li><a id="footer_bookshelf" href="https://www.ncbi.nlm.nih.gov/books/">Bookshelf</a></li>
-				<li><a id="footer_pubchem" href="https://pubchem.ncbi.nlm.nih.gov">PubChem</a></li>
-				<li><a id="footer_gene" href="https://www.ncbi.nlm.nih.gov/gene/">Gene</a></li>
-				<li><a id="footer_blast" href="https://blast.ncbi.nlm.nih.gov">BLAST</a></li>
-				<li><a id="footer_nucleotide" href="https://www.ncbi.nlm.nih.gov/nucleotide/">Nucleotide</a></li>
-				<li><a id="footer_protein" href="https://www.ncbi.nlm.nih.gov/protein/">Protein</a></li>
-				<li><a id="footer_geo" href="https://www.ncbi.nlm.nih.gov/geo/">GEO</a></li>
-        </ul>
-
-			</div>
-		<div class="usa-width-one-third">
-			<h4>Resources</h4>
-			<ul class="ncbi-unstyled-list ncbi-undecorated-links">
-				  <li><a id="footer_literature" href="https://www.ncbi.nlm.nih.gov/home/literature/">Literature</a></li>
-				  <li><a id="footer_health" href="https://www.ncbi.nlm.nih.gov/home/health/">Health</a></li>
-				  <li><a id="footer_genomes" href="https://www.ncbi.nlm.nih.gov/home/genomes/">Genomes</a></li>
-				  <li><a id="footer_genes" href="https://www.ncbi.nlm.nih.gov/home/genes/">Genes</a></li>
-				  <li><a id="footer_proteins" href="https://www.ncbi.nlm.nih.gov/home/proteins/">Proteins</a></li>
-				  <li><a id="footer_chemicals" href="https://www.ncbi.nlm.nih.gov/home/chemicals/">Chemicals</a></li>
-			</ul>
-		</div>
-		<div class="usa-width-one-third">
-   <h4>Actions</h4>
-   <ul class="ncbi-unstyled-list">
-              <li><a id="footer_submit" href="https://www.ncbi.nlm.nih.gov/home/submit/">Submit</a></li>
-              <li><a id="footer_download" href="https://www.ncbi.nlm.nih.gov/home/download/">Download</a></li>
-              <li><a id="footer_learn" href="https://www.ncbi.nlm.nih.gov/home/learn/">Learn</a></li>
-              <li><a id="footer_develop" href="https://www.ncbi.nlm.nih.gov/home/develop/">Develop</a></li>
-              <li><a id="footer_analyze" href="https://www.ncbi.nlm.nih.gov/home/analyze/">Analyze</a></li>
-              <li><a id="footer_research" href="https://www.ncbi.nlm.nih.gov/research/">Research</a></li>
-   </ul>
-		  </div>
-		  </div>
-		  </div>
-    </div>
-	</div>
-     <div class="usa-footer-secondary_section gov-agencies"> 
-    <div class="usa-grid">
-    <div class="usa-width-one-whole">
-		<p>
-			<a id="footer_nlm" href="https://www.nlm.nih.gov/">NLM</a>
-			&ensp;|&ensp;
-			<a id="footer_nih" href="https://www.nih.gov/">NIH</a>
-			&ensp;|&ensp;
-			<a id="footer_hhs" href="https://www.hhs.gov/">HHS</a>
-			&ensp;|&ensp;
-			<a id="footer_usagov" href="https://www.usa.gov/">USA.gov</a>
-		</p>
-	 </div>
-	 </div>
-	</div>
-
- </footer>
-<script type="text/javascript" src="js/nwds.js"></script>
-<script type="text/javascript" src="js/ncbipopup.js"></script>
-<script type="text/javascript" src="js/headerNew.js"></script>
-<script src="js/uswds.min.js"></script>
-        <script type="text/javascript" src="/portal/portal3rc.fcgi/rlib/js/InstrumentOmnitureBaseJS/InstrumentNCBIBaseJS/InstrumentPageStarterJS.js"></script>
-<!--
-<script type="text/javascript" src="://www.ncbi.nlm.nih.gov/portal/portal3rc.fcgi/supportedbrowsers/js/nonportalbc_min.js"></script>
-<script type="text/javascript">$("#browsers_ajax").browserCheck();</script>
--->
-   </div><!--/#wrap-->
-</body>
-
-</html>
+<?xml version="1.0"?>
+<BlastXML2
+    xmlns="http://www.ncbi.nlm.nih.gov"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"
+    xs:schemaLocation="http://www.ncbi.nlm.nih.gov http://www.ncbi.nlm.nih.gov/data_specs/schema_alt/NCBI_BlastOutput2.xsd"
+>
+<BlastOutput2>
+  <report>
+    <Report>
+      <program>blastn</program>
+      <version>BLASTN 2.11.0+</version>
+      <reference>Stephen F. Altschul, Thomas L. Madden, Alejandro A. Sch&amp;auml;ffer, Jinghui Zhang, Zheng Zhang, Webb Miller, and David J. Lipman (1997), &quot;Gapped BLAST and PSI-BLAST: a new generation of protein database search programs&quot;, Nucleic Acids Res. 25:3389-3402.</reference>
+      <search-target>
+        <Target>
+          <db>nt</db>
+        </Target>
+      </search-target>
+      <params>
+        <Parameters>
+          <expect>10</expect>
+          <sc-match>2</sc-match>
+          <sc-mismatch>-3</sc-mismatch>
+          <gap-open>5</gap-open>
+          <gap-extend>2</gap-extend>
+          <filter>L;m;</filter>
+        </Parameters>
+      </params>
+      <results>
+        <Results>
+          <search>
+            <Search>
+              <query-id>Query_59359</query-id>
+              <query-len>21</query-len>
+              <hits>
+                <Hit>
+                  <num>1</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1849140048|ref|XM_034960512.1|</id>
+                      <accession>XM_034960512</accession>
+                      <title>PREDICTED: Pan paniscus ubiquitin conjugating enzyme E2 B (UBE2B), transcript variant X2, mRNA</title>
+                      <taxid>9597</taxid>
+                      <sciname>Pan paniscus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1645</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>323</hit-from>
+                      <hit-to>303</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>2</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1849140040|ref|XM_003829274.3|</id>
+                      <accession>XM_003829274</accession>
+                      <title>PREDICTED: Pan paniscus ubiquitin conjugating enzyme E2 B (UBE2B), transcript variant X1, mRNA</title>
+                      <taxid>9597</taxid>
+                      <sciname>Pan paniscus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1735</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>413</hit-from>
+                      <hit-to>393</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>3</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1845638986|ref|XM_034656017.1|</id>
+                      <accession>XM_034656017</accession>
+                      <title>PREDICTED: Ailuropoda melanoleuca ubiquitin conjugating enzyme E2 B (UBE2B), transcript variant X2, mRNA</title>
+                      <taxid>9646</taxid>
+                      <sciname>Ailuropoda melanoleuca</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1909</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>378</hit-from>
+                      <hit-to>358</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>4</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1845638985|ref|XM_002912915.4|</id>
+                      <accession>XM_002912915</accession>
+                      <title>PREDICTED: Ailuropoda melanoleuca ubiquitin conjugating enzyme E2 B (UBE2B), transcript variant X1, mRNA</title>
+                      <taxid>9646</taxid>
+                      <sciname>Ailuropoda melanoleuca</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1987</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>456</hit-from>
+                      <hit-to>436</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>5</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1844134808|ref|XM_027949574.2|</id>
+                      <accession>XM_027949574</accession>
+                      <title>PREDICTED: Marmota flaviventris ubiquitin conjugating enzyme E2 B (Ube2b), transcript variant X3, mRNA</title>
+                      <taxid>93162</taxid>
+                      <sciname>Marmota flaviventris</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>731</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>428</hit-from>
+                      <hit-to>408</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>6</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1828350116|gb|CP050600.1|</id>
+                      <accession>CP050600</accession>
+                      <title>Canis lupus familiaris breed Labrador retriever chromosome 11a</title>
+                      <taxid>9615</taxid>
+                      <sciname>Canis lupus familiaris</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>73584800</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>21860368</hit-from>
+                      <hit-to>21860348</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>7</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1828349965|gb|CP050630.1|</id>
+                      <accession>CP050630</accession>
+                      <title>Canis lupus familiaris breed Labrador retriever chromosome 11b</title>
+                      <taxid>9615</taxid>
+                      <sciname>Canis lupus familiaris</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>73564375</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>21853331</hit-from>
+                      <hit-to>21853311</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>8</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1823903612|ref|XM_033095936.1|</id>
+                      <accession>XM_033095936</accession>
+                      <title>PREDICTED: Rhinolophus ferrumequinum ubiquitin conjugating enzyme E2 B (UBE2B), mRNA</title>
+                      <taxid>59479</taxid>
+                      <sciname>Rhinolophus ferrumequinum</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1415</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>445</hit-from>
+                      <hit-to>425</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>9</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1811042692|ref|XM_006179617.3|</id>
+                      <accession>XM_006179617</accession>
+                      <title>PREDICTED: Camelus ferus ubiquitin conjugating enzyme E2 B (UBE2B), mRNA</title>
+                      <taxid>419612</taxid>
+                      <sciname>Camelus ferus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1781</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>445</hit-from>
+                      <hit-to>425</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>10</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1807971503|ref|XM_032425198.1|</id>
+                      <accession>XM_032425198</accession>
+                      <title>PREDICTED: Phoca vitulina ubiquitin conjugating enzyme E2 B (UBE2B), mRNA</title>
+                      <taxid>9720</taxid>
+                      <sciname>Phoca vitulina</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1804</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>451</hit-from>
+                      <hit-to>431</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>11</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1804778168|ref|XM_032336720.1|</id>
+                      <accession>XM_032336720</accession>
+                      <title>PREDICTED: Mustela erminea ubiquitin conjugating enzyme E2 B (UBE2B), transcript variant X3, mRNA</title>
+                      <taxid>36723</taxid>
+                      <sciname>Mustela erminea</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1316</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>456</hit-from>
+                      <hit-to>436</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>12</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1804778166|ref|XM_032336718.1|</id>
+                      <accession>XM_032336718</accession>
+                      <title>PREDICTED: Mustela erminea ubiquitin conjugating enzyme E2 B (UBE2B), transcript variant X2, mRNA</title>
+                      <taxid>36723</taxid>
+                      <sciname>Mustela erminea</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2937</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>456</hit-from>
+                      <hit-to>436</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>13</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1804778164|ref|XM_032336717.1|</id>
+                      <accession>XM_032336717</accession>
+                      <title>PREDICTED: Mustela erminea ubiquitin conjugating enzyme E2 B (UBE2B), transcript variant X1, mRNA</title>
+                      <taxid>36723</taxid>
+                      <sciname>Mustela erminea</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1811</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>456</hit-from>
+                      <hit-to>436</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>14</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1804333749|ref|XM_032251637.1|</id>
+                      <accession>XM_032251637</accession>
+                      <title>PREDICTED: Sapajus apella ubiquitin conjugating enzyme E2 B (UBE2B), transcript variant X2, mRNA</title>
+                      <taxid>9515</taxid>
+                      <sciname>Sapajus apella</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>947</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>672</hit-from>
+                      <hit-to>652</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>15</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1804333747|ref|XM_032251564.1|</id>
+                      <accession>XM_032251564</accession>
+                      <title>PREDICTED: Sapajus apella ubiquitin conjugating enzyme E2 B (UBE2B), transcript variant X1, mRNA</title>
+                      <taxid>9515</taxid>
+                      <sciname>Sapajus apella</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1119</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>762</hit-from>
+                      <hit-to>742</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>16</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1768744701|ref|XM_010981544.2|</id>
+                      <accession>XM_010981544</accession>
+                      <title>PREDICTED: Camelus dromedarius ubiquitin conjugating enzyme E2 B (UBE2B), mRNA</title>
+                      <taxid>9838</taxid>
+                      <sciname>Camelus dromedarius</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1780</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>445</hit-from>
+                      <hit-to>425</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>17</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1753071502|ref|XM_031010702.1|</id>
+                      <accession>XM_031010702</accession>
+                      <title>PREDICTED: Gorilla gorilla gorilla ubiquitin conjugating enzyme E2 B (UBE2B), mRNA</title>
+                      <taxid>9595</taxid>
+                      <sciname>Gorilla gorilla gorilla</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2050</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>735</hit-from>
+                      <hit-to>715</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>18</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1653961337|ref|NM_003337.4|</id>
+                      <accession>NM_003337</accession>
+                      <title>Homo sapiens ubiquitin conjugating enzyme E2 B (UBE2B), mRNA</title>
+                      <taxid>9606</taxid>
+                      <sciname>Homo sapiens</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2241</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>346</hit-from>
+                      <hit-to>326</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>19</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1483780505|ref|XM_026507995.1|</id>
+                      <accession>XM_026507995</accession>
+                      <title>PREDICTED: Ursus arctos horribilis ubiquitin conjugating enzyme E2 B (UBE2B), mRNA</title>
+                      <taxid>116960</taxid>
+                      <sciname>Ursus arctos horribilis</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1741</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>391</hit-from>
+                      <hit-to>371</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>20</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1474873966|ref|XM_026413110.1|</id>
+                      <accession>XM_026413110</accession>
+                      <title>PREDICTED: Urocitellus parryii ubiquitin conjugating enzyme E2 B (Ube2b), mRNA</title>
+                      <taxid>9999</taxid>
+                      <sciname>Urocitellus parryii</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2973</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>429</hit-from>
+                      <hit-to>409</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>21</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1570435238|ref|XM_028103534.1|</id>
+                      <accession>XM_028103534</accession>
+                      <title>PREDICTED: Eumetopias jubatus ubiquitin conjugating enzyme E2 B (UBE2B), mRNA</title>
+                      <taxid>34886</taxid>
+                      <sciname>Eumetopias jubatus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1805</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>451</hit-from>
+                      <hit-to>431</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>22</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1562452086|ref|XM_027949578.1|</id>
+                      <accession>XM_027949578</accession>
+                      <title>PREDICTED: Marmota flaviventris ubiquitin conjugating enzyme E2 B (Ube2b), transcript variant X6, mRNA</title>
+                      <taxid>93162</taxid>
+                      <sciname>Marmota flaviventris</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>571</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>433</hit-from>
+                      <hit-to>413</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>23</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1562452084|ref|XM_027949576.1|</id>
+                      <accession>XM_027949576</accession>
+                      <title>PREDICTED: Marmota flaviventris ubiquitin conjugating enzyme E2 B (Ube2b), transcript variant X5, mRNA</title>
+                      <taxid>93162</taxid>
+                      <sciname>Marmota flaviventris</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2089</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>346</hit-from>
+                      <hit-to>326</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>24</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1562452082|ref|XM_027949575.1|</id>
+                      <accession>XM_027949575</accession>
+                      <title>PREDICTED: Marmota flaviventris ubiquitin conjugating enzyme E2 B (Ube2b), transcript variant X4, mRNA</title>
+                      <taxid>93162</taxid>
+                      <sciname>Marmota flaviventris</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2127</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>384</hit-from>
+                      <hit-to>364</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>25</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1562452079|ref|XR_003584731.1|</id>
+                      <accession>XR_003584731</accession>
+                      <title>PREDICTED: Marmota flaviventris ubiquitin conjugating enzyme E2 B (Ube2b), transcript variant X2, misc_RNA</title>
+                      <taxid>93162</taxid>
+                      <sciname>Marmota flaviventris</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>857</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>428</hit-from>
+                      <hit-to>408</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>26</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1562452077|ref|XM_027949573.1|</id>
+                      <accession>XM_027949573</accession>
+                      <title>PREDICTED: Marmota flaviventris ubiquitin conjugating enzyme E2 B (Ube2b), transcript variant X1, mRNA</title>
+                      <taxid>93162</taxid>
+                      <sciname>Marmota flaviventris</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1477</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>428</hit-from>
+                      <hit-to>408</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>27</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1561691468|ref|XM_014583576.2|</id>
+                      <accession>XM_014583576</accession>
+                      <title>PREDICTED: Tupaia chinensis ubiquitin conjugating enzyme E2 B (UBE2B), transcript variant X2, mRNA</title>
+                      <taxid>246437</taxid>
+                      <sciname>Tupaia chinensis</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>792</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>376</hit-from>
+                      <hit-to>356</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>28</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1561691465|ref|XM_006166855.3|</id>
+                      <accession>XM_006166855</accession>
+                      <title>PREDICTED: Tupaia chinensis ubiquitin conjugating enzyme E2 B (UBE2B), transcript variant X1, mRNA</title>
+                      <taxid>246437</taxid>
+                      <sciname>Tupaia chinensis</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2009</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>376</hit-from>
+                      <hit-to>356</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>29</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1543729860|ref|XM_027606507.1|</id>
+                      <accession>XM_027606507</accession>
+                      <title>PREDICTED: Zalophus californianus ubiquitin conjugating enzyme E2 B (UBE2B), mRNA</title>
+                      <taxid>9704</taxid>
+                      <sciname>Zalophus californianus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1018</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>451</hit-from>
+                      <hit-to>431</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>30</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1435556422|ref|XM_025994900.1|</id>
+                      <accession>XM_025994900</accession>
+                      <title>PREDICTED: Vulpes vulpes ubiquitin conjugating enzyme E2 B (UBE2B), mRNA</title>
+                      <taxid>9627</taxid>
+                      <sciname>Vulpes vulpes</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1861</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>457</hit-from>
+                      <hit-to>437</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>31</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1432349060|ref|XM_025860796.1|</id>
+                      <accession>XM_025860796</accession>
+                      <title>PREDICTED: Callorhinus ursinus ubiquitin conjugating enzyme E2 B (UBE2B), mRNA</title>
+                      <taxid>34884</taxid>
+                      <sciname>Callorhinus ursinus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1803</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>451</hit-from>
+                      <hit-to>431</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>32</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1411162686|ref|XM_025388144.1|</id>
+                      <accession>XM_025388144</accession>
+                      <title>PREDICTED: Theropithecus gelada ubiquitin conjugating enzyme E2 B (UBE2B), transcript variant X2, mRNA</title>
+                      <taxid>9565</taxid>
+                      <sciname>Theropithecus gelada</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1991</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>666</hit-from>
+                      <hit-to>646</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>33</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1411162684|ref|XM_025388143.1|</id>
+                      <accession>XM_025388143</accession>
+                      <title>PREDICTED: Theropithecus gelada ubiquitin conjugating enzyme E2 B (UBE2B), transcript variant X1, mRNA</title>
+                      <taxid>9565</taxid>
+                      <sciname>Theropithecus gelada</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2081</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>756</hit-from>
+                      <hit-to>736</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>34</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1387540513|ref|XM_006923125.3|</id>
+                      <accession>XM_006923125</accession>
+                      <title>PREDICTED: Pteropus alecto ubiquitin conjugating enzyme E2 B (UBE2B), mRNA</title>
+                      <taxid>9402</taxid>
+                      <sciname>Pteropus alecto</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2014</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>711</hit-from>
+                      <hit-to>691</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>35</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1367297575|ref|XM_016953844.2|</id>
+                      <accession>XM_016953844</accession>
+                      <title>PREDICTED: Pan troglodytes ubiquitin conjugating enzyme E2 B (UBE2B), transcript variant X2, mRNA</title>
+                      <taxid>9598</taxid>
+                      <sciname>Pan troglodytes</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1643</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>322</hit-from>
+                      <hit-to>302</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>36</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1367297572|ref|XM_517935.4|</id>
+                      <accession>XM_517935</accession>
+                      <title>PREDICTED: Pan troglodytes ubiquitin conjugating enzyme E2 B (UBE2B), transcript variant X1, mRNA</title>
+                      <taxid>9598</taxid>
+                      <sciname>Pan troglodytes</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2055</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>735</hit-from>
+                      <hit-to>715</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>37</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1334669371|ref|XM_023738986.1|</id>
+                      <accession>XM_023738986</accession>
+                      <title>PREDICTED: Trichechus manatus latirostris ubiquitin conjugating enzyme E2 B (LOC101349656), transcript variant X2, mRNA</title>
+                      <taxid>127582</taxid>
+                      <sciname>Trichechus manatus latirostris</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>994</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>747</hit-from>
+                      <hit-to>727</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>38</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1334669370|ref|XM_004384715.2|</id>
+                      <accession>XM_004384715</accession>
+                      <title>PREDICTED: Trichechus manatus latirostris ubiquitin conjugating enzyme E2 B (LOC101349656), transcript variant X1, mRNA</title>
+                      <taxid>127582</taxid>
+                      <sciname>Trichechus manatus latirostris</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1385</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>420</hit-from>
+                      <hit-to>400</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>39</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1331448823|ref|XM_011362314.2|</id>
+                      <accession>XM_011362314</accession>
+                      <title>PREDICTED: Pteropus vampyrus ubiquitin conjugating enzyme E2 B (UBE2B), mRNA</title>
+                      <taxid>132908</taxid>
+                      <sciname>Pteropus vampyrus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2017</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>711</hit-from>
+                      <hit-to>691</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>40</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1331425211|ref|XM_005001264.3|</id>
+                      <accession>XM_005001264</accession>
+                      <title>PREDICTED: Cavia porcellus ubiquitin conjugating enzyme E2 B (Ube2b), mRNA</title>
+                      <taxid>10141</taxid>
+                      <sciname>Cavia porcellus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2009</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>681</hit-from>
+                      <hit-to>661</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>41</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1330109644|ref|XM_004475904.2|</id>
+                      <accession>XM_004475904</accession>
+                      <title>PREDICTED: Dasypus novemcinctus ubiquitin conjugating enzyme E2 B (UBE2B), mRNA</title>
+                      <taxid>9361</taxid>
+                      <sciname>Dasypus novemcinctus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1762</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>456</hit-from>
+                      <hit-to>436</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>42</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1328712607|ref|XM_003404496.3|</id>
+                      <accession>XM_003404496</accession>
+                      <title>PREDICTED: Loxodonta africana ubiquitin conjugating enzyme E2 B (UBE2B), mRNA</title>
+                      <taxid>9785</taxid>
+                      <sciname>Loxodonta africana</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>4511</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>931</hit-from>
+                      <hit-to>911</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>43</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1327783192|ref|XM_003782185.3|</id>
+                      <accession>XM_003782185</accession>
+                      <title>PREDICTED: Otolemur garnettii ubiquitin conjugating enzyme E2 B (UBE2B), mRNA</title>
+                      <taxid>30611</taxid>
+                      <sciname>Otolemur garnettii</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1771</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>454</hit-from>
+                      <hit-to>434</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>44</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1244078043|ref|XM_022493030.1|</id>
+                      <accession>XM_022493030</accession>
+                      <title>PREDICTED: Enhydra lutris kenyoni ubiquitin conjugating enzyme E2 B (LOC111140830), transcript variant X3, mRNA</title>
+                      <taxid>391180</taxid>
+                      <sciname>Enhydra lutris kenyoni</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2213</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>328</hit-from>
+                      <hit-to>308</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>45</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1244078041|ref|XM_022493029.1|</id>
+                      <accession>XM_022493029</accession>
+                      <title>PREDICTED: Enhydra lutris kenyoni ubiquitin conjugating enzyme E2 B (LOC111140830), transcript variant X2, mRNA</title>
+                      <taxid>391180</taxid>
+                      <sciname>Enhydra lutris kenyoni</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2276</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>391</hit-from>
+                      <hit-to>371</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>46</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1244078039|ref|XM_022493028.1|</id>
+                      <accession>XM_022493028</accession>
+                      <title>PREDICTED: Enhydra lutris kenyoni ubiquitin conjugating enzyme E2 B (LOC111140830), transcript variant X1, mRNA</title>
+                      <taxid>391180</taxid>
+                      <sciname>Enhydra lutris kenyoni</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2341</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>456</hit-from>
+                      <hit-to>436</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>47</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1212215778|ref|XM_021702227.1|</id>
+                      <accession>XM_021702227</accession>
+                      <title>PREDICTED: Neomonachus schauinslandi ubiquitin conjugating enzyme E2 B (UBE2B), mRNA</title>
+                      <taxid>29088</taxid>
+                      <sciname>Neomonachus schauinslandi</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1024</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>456</hit-from>
+                      <hit-to>436</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>48</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1196701073|ref|XM_021241148.1|</id>
+                      <accession>XM_021241148</accession>
+                      <title>PREDICTED: Heterocephalus glaber ubiquitin conjugating enzyme E2 B (Ube2b), transcript variant X3, mRNA</title>
+                      <taxid>10181</taxid>
+                      <sciname>Heterocephalus glaber</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1614</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>301</hit-from>
+                      <hit-to>281</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>49</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1196701072|ref|XM_004836575.3|</id>
+                      <accession>XM_004836575</accession>
+                      <title>PREDICTED: Heterocephalus glaber ubiquitin conjugating enzyme E2 B (Ube2b), transcript variant X2, mRNA</title>
+                      <taxid>10181</taxid>
+                      <sciname>Heterocephalus glaber</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1914</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>601</hit-from>
+                      <hit-to>581</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>50</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1196701070|ref|XM_021241140.1|</id>
+                      <accession>XM_021241140</accession>
+                      <title>PREDICTED: Heterocephalus glaber ubiquitin conjugating enzyme E2 B (Ube2b), transcript variant X1, mRNA</title>
+                      <taxid>10181</taxid>
+                      <sciname>Heterocephalus glaber</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2026</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>713</hit-from>
+                      <hit-to>693</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>51</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1176332744|ref|XM_020813872.1|</id>
+                      <accession>XM_020813872</accession>
+                      <title>PREDICTED: Pogona vitticeps ubiquitin conjugating enzyme E2 A (UBE2A), transcript variant X2, mRNA</title>
+                      <taxid>103695</taxid>
+                      <sciname>Pogona vitticeps</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1863</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>519</hit-from>
+                      <hit-to>499</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>52</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1176332742|ref|XM_020813871.1|</id>
+                      <accession>XM_020813871</accession>
+                      <title>PREDICTED: Pogona vitticeps ubiquitin conjugating enzyme E2 A (UBE2A), transcript variant X1, mRNA</title>
+                      <taxid>103695</taxid>
+                      <sciname>Pogona vitticeps</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1953</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>609</hit-from>
+                      <hit-to>589</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>53</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1147676126|emb|LT734769.1|</id>
+                      <accession>LT734769</accession>
+                      <title>Human ORFeome Gateway entry vector pENTR223-UBE2B, complete sequence</title>
+                      <taxid>1958742</taxid>
+                      <sciname>Human ORFeome Gateway entry vector</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>3246</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>806</hit-from>
+                      <hit-to>786</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>54</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1121781181|ref|XM_019642222.1|</id>
+                      <accession>XM_019642222</accession>
+                      <title>PREDICTED: Hipposideros armiger ubiquitin conjugating enzyme E2 B (UBE2B), mRNA</title>
+                      <taxid>186990</taxid>
+                      <sciname>Hipposideros armiger</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1741</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>438</hit-from>
+                      <hit-to>418</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>55</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1024846773|ref|NG_046936.1|</id>
+                      <accession>NG_046936</accession>
+                      <title>Homo sapiens ubiquitin conjugating enzyme E2 B (UBE2B), RefSeqGene on chromosome 5</title>
+                      <taxid>9606</taxid>
+                      <sciname>Homo sapiens</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>27933</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>22227</hit-from>
+                      <hit-to>22207</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>56</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|984113421|ref|XM_015492768.1|</id>
+                      <accession>XM_015492768</accession>
+                      <title>PREDICTED: Marmota marmota marmota ubiquitin conjugating enzyme E2B (Ube2b), transcript variant X2, mRNA</title>
+                      <taxid>9994</taxid>
+                      <sciname>Marmota marmota marmota</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2903</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>283</hit-from>
+                      <hit-to>263</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>57</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|984113419|ref|XM_015492766.1|</id>
+                      <accession>XM_015492766</accession>
+                      <title>PREDICTED: Marmota marmota marmota ubiquitin conjugating enzyme E2B (Ube2b), transcript variant X1, mRNA</title>
+                      <taxid>9994</taxid>
+                      <sciname>Marmota marmota marmota</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2993</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>373</hit-from>
+                      <hit-to>353</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>58</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|918581467|ref|XM_005376142.2|</id>
+                      <accession>XM_005376142</accession>
+                      <title>PREDICTED: Chinchilla lanigera ubiquitin-conjugating enzyme E2B (Ube2b), transcript variant X5, mRNA</title>
+                      <taxid>34839</taxid>
+                      <sciname>Chinchilla lanigera</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1611</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>297</hit-from>
+                      <hit-to>277</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>59</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|918581466|ref|XM_005376140.2|</id>
+                      <accession>XM_005376140</accession>
+                      <title>PREDICTED: Chinchilla lanigera ubiquitin-conjugating enzyme E2B (Ube2b), transcript variant X4, mRNA</title>
+                      <taxid>34839</taxid>
+                      <sciname>Chinchilla lanigera</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1677</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>363</hit-from>
+                      <hit-to>343</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>60</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|918581465|ref|XM_005376139.2|</id>
+                      <accession>XM_005376139</accession>
+                      <title>PREDICTED: Chinchilla lanigera ubiquitin-conjugating enzyme E2B (Ube2b), transcript variant X3, mRNA</title>
+                      <taxid>34839</taxid>
+                      <sciname>Chinchilla lanigera</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1842</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>528</hit-from>
+                      <hit-to>508</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>61</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|918581463|ref|XM_013508521.1|</id>
+                      <accession>XM_013508521</accession>
+                      <title>PREDICTED: Chinchilla lanigera ubiquitin-conjugating enzyme E2B (Ube2b), transcript variant X2, mRNA</title>
+                      <taxid>34839</taxid>
+                      <sciname>Chinchilla lanigera</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1770</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>456</hit-from>
+                      <hit-to>436</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>62</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|667273857|ref|XM_008573578.1|</id>
+                      <accession>XM_008573578</accession>
+                      <title>PREDICTED: Galeopterus variegatus ubiquitin-conjugating enzyme E2B (UBE2B), transcript variant X2, mRNA</title>
+                      <taxid>482537</taxid>
+                      <sciname>Galeopterus variegatus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>930</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>363</hit-from>
+                      <hit-to>343</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>63</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|667273853|ref|XM_008573577.1|</id>
+                      <accession>XM_008573577</accession>
+                      <title>PREDICTED: Galeopterus variegatus ubiquitin-conjugating enzyme E2B (UBE2B), transcript variant X1, mRNA</title>
+                      <taxid>482537</taxid>
+                      <sciname>Galeopterus variegatus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1019</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>450</hit-from>
+                      <hit-to>430</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>64</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|649103921|gb|KJ892340.1|</id>
+                      <accession>KJ892340</accession>
+                      <title>Synthetic construct Homo sapiens clone ccsbBroadEn_01734 UBE2B gene, encodes complete protein</title>
+                      <taxid>32630</taxid>
+                      <sciname>synthetic construct</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>588</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>384</hit-from>
+                      <hit-to>364</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>65</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|634856270|ref|XM_007943761.1|</id>
+                      <accession>XM_007943761</accession>
+                      <title>PREDICTED: Orycteropus afer afer ubiquitin-conjugating enzyme E2B (UBE2B), mRNA</title>
+                      <taxid>1230840</taxid>
+                      <sciname>Orycteropus afer afer</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1367</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>399</hit-from>
+                      <hit-to>379</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>66</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|2023580674|ref|XM_008691602.2|</id>
+                      <accession>XM_008691602</accession>
+                      <title>PREDICTED: Ursus maritimus ubiquitin conjugating enzyme E2 B (UBE2B), mRNA</title>
+                      <taxid>29073</taxid>
+                      <sciname>Ursus maritimus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>898</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>463</hit-from>
+                      <hit-to>443</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>67</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|2015651066|ref|XM_013363114.3|</id>
+                      <accession>XM_013363114</accession>
+                      <title>PREDICTED: Ictidomys tridecemlineatus ubiquitin conjugating enzyme E2 B (Ube2b), transcript variant X3, mRNA</title>
+                      <taxid>43179</taxid>
+                      <sciname>Ictidomys tridecemlineatus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>3085</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>400</hit-from>
+                      <hit-to>380</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>68</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|2015651064|ref|XM_040271813.1|</id>
+                      <accession>XM_040271813</accession>
+                      <title>PREDICTED: Ictidomys tridecemlineatus ubiquitin conjugating enzyme E2 B (Ube2b), transcript variant X2, mRNA</title>
+                      <taxid>43179</taxid>
+                      <sciname>Ictidomys tridecemlineatus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>3029</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>344</hit-from>
+                      <hit-to>324</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>69</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|2015651063|ref|XM_005335742.4|</id>
+                      <accession>XM_005335742</accession>
+                      <title>PREDICTED: Ictidomys tridecemlineatus ubiquitin conjugating enzyme E2 B (Ube2b), transcript variant X1, mRNA</title>
+                      <taxid>43179</taxid>
+                      <sciname>Ictidomys tridecemlineatus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>3119</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>434</hit-from>
+                      <hit-to>414</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>70</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1997758064|emb|HG994391.1|</id>
+                      <accession>HG994391</accession>
+                      <title>Canis lupus genome assembly, chromosome: 11</title>
+                      <taxid>9612</taxid>
+                      <sciname>Canis lupus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>75747776</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>23521404</hit-from>
+                      <hit-to>23521384</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>71</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1996070901|ref|XM_039836039.1|</id>
+                      <accession>XM_039836039</accession>
+                      <title>PREDICTED: Pteropus giganteus ubiquitin conjugating enzyme E2 B (UBE2B), mRNA</title>
+                      <taxid>143291</taxid>
+                      <sciname>Pteropus giganteus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2015</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>709</hit-from>
+                      <hit-to>689</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>72</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1984014347|ref|XM_010338704.2|</id>
+                      <accession>XM_010338704</accession>
+                      <title>PREDICTED: Saimiri boliviensis boliviensis ubiquitin conjugating enzyme E2 B (UBE2B), transcript variant X2, mRNA</title>
+                      <taxid>39432</taxid>
+                      <sciname>Saimiri boliviensis boliviensis</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>956</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>387</hit-from>
+                      <hit-to>367</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>73</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1984014344|ref|XM_010338699.2|</id>
+                      <accession>XM_010338699</accession>
+                      <title>PREDICTED: Saimiri boliviensis boliviensis ubiquitin conjugating enzyme E2 B (UBE2B), transcript variant X1, mRNA</title>
+                      <taxid>39432</taxid>
+                      <sciname>Saimiri boliviensis boliviensis</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1044</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>476</hit-from>
+                      <hit-to>456</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>74</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1965500598|ref|XM_039242287.1|</id>
+                      <accession>XM_039242287</accession>
+                      <title>PREDICTED: Hyaena hyaena ubiquitin conjugating enzyme E2 B (UBE2B), transcript variant X3, mRNA</title>
+                      <taxid>95912</taxid>
+                      <sciname>Hyaena hyaena</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>601</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>432</hit-from>
+                      <hit-to>412</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>75</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1965500594|ref|XM_039242286.1|</id>
+                      <accession>XM_039242286</accession>
+                      <title>PREDICTED: Hyaena hyaena ubiquitin conjugating enzyme E2 B (UBE2B), transcript variant X2, mRNA</title>
+                      <taxid>95912</taxid>
+                      <sciname>Hyaena hyaena</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1077</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>432</hit-from>
+                      <hit-to>412</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>76</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1965500590|ref|XM_039242285.1|</id>
+                      <accession>XM_039242285</accession>
+                      <title>PREDICTED: Hyaena hyaena ubiquitin conjugating enzyme E2 B (UBE2B), transcript variant X1, mRNA</title>
+                      <taxid>95912</taxid>
+                      <sciname>Hyaena hyaena</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1800</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>431</hit-from>
+                      <hit-to>411</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>77</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1953280743|ref|XM_038681540.1|</id>
+                      <accession>XM_038681540</accession>
+                      <title>PREDICTED: Canis lupus familiaris ubiquitin conjugating enzyme E2 B (UBE2B), mRNA</title>
+                      <taxid>9615</taxid>
+                      <sciname>Canis lupus familiaris</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2380</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>567</hit-from>
+                      <hit-to>547</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>78</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1952675727|ref|XM_022425310.2|</id>
+                      <accession>XM_022425310</accession>
+                      <title>PREDICTED: Canis lupus familiaris ubiquitin conjugating enzyme E2 B (UBE2B), mRNA</title>
+                      <taxid>9615</taxid>
+                      <sciname>Canis lupus familiaris</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2381</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>567</hit-from>
+                      <hit-to>547</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>79</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1934691386|ref|XM_037809629.1|</id>
+                      <accession>XM_037809629</accession>
+                      <title>PREDICTED: Choloepus didactylus ubiquitin-conjugating enzyme E2 B-like (LOC119514073), mRNA</title>
+                      <taxid>27675</taxid>
+                      <sciname>Choloepus didactylus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>488</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>335</hit-from>
+                      <hit-to>315</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>80</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1934666488|ref|XM_037800778.1|</id>
+                      <accession>XM_037800778</accession>
+                      <title>PREDICTED: Choloepus didactylus ubiquitin conjugating enzyme E2 B (UBE2B), transcript variant X2, mRNA</title>
+                      <taxid>27675</taxid>
+                      <sciname>Choloepus didactylus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2034</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>294</hit-from>
+                      <hit-to>274</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>81</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1934666485|ref|XM_037800777.1|</id>
+                      <accession>XM_037800777</accession>
+                      <title>PREDICTED: Choloepus didactylus ubiquitin conjugating enzyme E2 B (UBE2B), transcript variant X1, mRNA</title>
+                      <taxid>27675</taxid>
+                      <sciname>Choloepus didactylus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2168</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>428</hit-from>
+                      <hit-to>408</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>82</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1933932215|ref|XM_017532387.2|</id>
+                      <accession>XM_017532387</accession>
+                      <title>PREDICTED: Cebus imitator ubiquitin conjugating enzyme E2 B (UBE2B), transcript variant X2, mRNA</title>
+                      <taxid>2715852</taxid>
+                      <sciname>Cebus imitator</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>760</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>323</hit-from>
+                      <hit-to>303</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>83</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1933932213|ref|XM_017532386.2|</id>
+                      <accession>XM_017532386</accession>
+                      <title>PREDICTED: Cebus imitator ubiquitin conjugating enzyme E2 B (UBE2B), transcript variant X1, mRNA</title>
+                      <taxid>2715852</taxid>
+                      <sciname>Cebus imitator</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>906</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>469</hit-from>
+                      <hit-to>449</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>84</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1926170669|ref|XM_037016069.1|</id>
+                      <accession>XM_037016069</accession>
+                      <title>PREDICTED: Manis javanica ubiquitin conjugating enzyme E2 B (UBE2B), transcript variant X3, mRNA</title>
+                      <taxid>9974</taxid>
+                      <sciname>Manis javanica</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>860</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>295</hit-from>
+                      <hit-to>275</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>85</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1926170666|ref|XM_037016068.1|</id>
+                      <accession>XM_037016068</accession>
+                      <title>PREDICTED: Manis javanica ubiquitin conjugating enzyme E2 B (UBE2B), transcript variant X2, mRNA</title>
+                      <taxid>9974</taxid>
+                      <sciname>Manis javanica</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>969</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>404</hit-from>
+                      <hit-to>384</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>86</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1926170663|ref|XM_017641948.2|</id>
+                      <accession>XM_017641948</accession>
+                      <title>PREDICTED: Manis javanica ubiquitin conjugating enzyme E2 B (UBE2B), transcript variant X1, mRNA</title>
+                      <taxid>9974</taxid>
+                      <sciname>Manis javanica</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>995</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>430</hit-from>
+                      <hit-to>410</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>87</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1920303588|ref|XM_036898390.1|</id>
+                      <accession>XM_036898390</accession>
+                      <title>PREDICTED: Manis pentadactyla ubiquitin conjugating enzyme E2 B (UBE2B), transcript variant X3, mRNA</title>
+                      <taxid>143292</taxid>
+                      <sciname>Manis pentadactyla</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>859</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>294</hit-from>
+                      <hit-to>274</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>88</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1920303586|ref|XM_036898387.1|</id>
+                      <accession>XM_036898387</accession>
+                      <title>PREDICTED: Manis pentadactyla ubiquitin conjugating enzyme E2 B (UBE2B), transcript variant X2, mRNA</title>
+                      <taxid>143292</taxid>
+                      <sciname>Manis pentadactyla</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>969</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>404</hit-from>
+                      <hit-to>384</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>89</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1920303583|ref|XM_036898386.1|</id>
+                      <accession>XM_036898386</accession>
+                      <title>PREDICTED: Manis pentadactyla ubiquitin conjugating enzyme E2 B (UBE2B), transcript variant X1, mRNA</title>
+                      <taxid>143292</taxid>
+                      <sciname>Manis pentadactyla</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>996</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>431</hit-from>
+                      <hit-to>411</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>90</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1910421511|ref|XM_016137659.2|</id>
+                      <accession>XM_016137659</accession>
+                      <title>PREDICTED: Rousettus aegyptiacus ubiquitin conjugating enzyme E2 B (UBE2B), mRNA</title>
+                      <taxid>9407</taxid>
+                      <sciname>Rousettus aegyptiacus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2022</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>709</hit-from>
+                      <hit-to>689</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>91</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1900032575|ref|XM_036123943.1|</id>
+                      <accession>XM_036123943</accession>
+                      <title>PREDICTED: Halichoerus grypus ubiquitin conjugating enzyme E2 B (UBE2B), transcript variant X2, mRNA</title>
+                      <taxid>9711</taxid>
+                      <sciname>Halichoerus grypus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2187</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>389</hit-from>
+                      <hit-to>369</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>92</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1900032573|ref|XM_036123942.1|</id>
+                      <accession>XM_036123942</accession>
+                      <title>PREDICTED: Halichoerus grypus ubiquitin conjugating enzyme E2 B (UBE2B), transcript variant X1, mRNA</title>
+                      <taxid>9711</taxid>
+                      <sciname>Halichoerus grypus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2277</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>479</hit-from>
+                      <hit-to>459</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>93</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1886225545|ref|XM_025433233.2|</id>
+                      <accession>XM_025433233</accession>
+                      <title>PREDICTED: Canis lupus dingo ubiquitin conjugating enzyme E2 B (UBE2B), transcript variant X2, mRNA</title>
+                      <taxid>286419</taxid>
+                      <sciname>Canis lupus dingo</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2380</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>566</hit-from>
+                      <hit-to>546</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>94</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1886225544|ref|XM_025433232.2|</id>
+                      <accession>XM_025433232</accession>
+                      <title>PREDICTED: Canis lupus dingo ubiquitin conjugating enzyme E2 B (UBE2B), transcript variant X1, mRNA</title>
+                      <taxid>286419</taxid>
+                      <sciname>Canis lupus dingo</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2603</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>784</hit-from>
+                      <hit-to>764</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>95</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1864450041|ref|XM_008984915.4|</id>
+                      <accession>XM_008984915</accession>
+                      <title>PREDICTED: Callithrix jacchus ubiquitin conjugating enzyme E2 B (UBE2B), transcript variant X2, mRNA</title>
+                      <taxid>9483</taxid>
+                      <sciname>Callithrix jacchus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1246</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>674</hit-from>
+                      <hit-to>654</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>96</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1864450040|ref|XM_002744157.6|</id>
+                      <accession>XM_002744157</accession>
+                      <title>PREDICTED: Callithrix jacchus ubiquitin conjugating enzyme E2 B (UBE2B), transcript variant X1, mRNA</title>
+                      <taxid>9483</taxid>
+                      <sciname>Callithrix jacchus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1338</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>764</hit-from>
+                      <hit-to>744</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>97</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|30585020|gb|BT008091.1|</id>
+                      <accession>BT008091</accession>
+                      <title>Synthetic construct Homo sapiens ubiquitin-conjugating enzyme E2B (RAD6 homolog) mRNA, partial cds</title>
+                      <taxid>32630</taxid>
+                      <sciname>synthetic construct</sciname>
+                    </HitDescr>
+                    <HitDescr>
+                      <id>gi|60653710|gb|AY892632.1|</id>
+                      <accession>AY892632</accession>
+                      <title>Synthetic construct Homo sapiens clone FLH025724.01L ubiquitin-conjugating enzyme E2B (UBE2B) mRNA, partial cds</title>
+                      <taxid>32630</taxid>
+                      <sciname>synthetic construct</sciname>
+                    </HitDescr>
+                    <HitDescr>
+                      <id>gi|60653712|gb|AY892633.1|</id>
+                      <accession>AY892633</accession>
+                      <title>Synthetic construct Homo sapiens clone FLH025725.01L ubiquitin-conjugating enzyme E2B (UBE2B) mRNA, partial cds</title>
+                      <taxid>32630</taxid>
+                      <sciname>synthetic construct</sciname>
+                    </HitDescr>
+                    <HitDescr>
+                      <id>gi|60654148|gb|AY892850.1|</id>
+                      <accession>AY892850</accession>
+                      <title>Synthetic construct Homo sapiens clone FLH018605.01L ubiquitin-conjugating enzyme E2B (UBE2B) mRNA, partial cds</title>
+                      <taxid>32630</taxid>
+                      <sciname>synthetic construct</sciname>
+                    </HitDescr>
+                    <HitDescr>
+                      <id>gi|60827297|gb|AY893756.1|</id>
+                      <accession>AY893756</accession>
+                      <title>Synthetic construct Homo sapiens clone FLH056675.01L ubiquitin-conjugating enzyme E2B (UBE2B) mRNA, partial cds</title>
+                      <taxid>32630</taxid>
+                      <sciname>synthetic construct</sciname>
+                    </HitDescr>
+                    <HitDescr>
+                      <id>gi|60830301|gb|AY893885.1|</id>
+                      <accession>AY893885</accession>
+                      <title>Synthetic construct Homo sapiens clone FLH127878.01L ubiquitin-conjugating enzyme E2B (UBE2B) mRNA, partial cds</title>
+                      <taxid>32630</taxid>
+                      <sciname>synthetic construct</sciname>
+                    </HitDescr>
+                    <HitDescr>
+                      <id>gi|61368289|gb|AY891220.1|</id>
+                      <accession>AY891220</accession>
+                      <title>Synthetic construct Homo sapiens clone FLH031094.01L ubiquitin-conjugating enzyme E2B (UBE2B) mRNA, partial cds</title>
+                      <taxid>32630</taxid>
+                      <sciname>synthetic construct</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>459</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>319</hit-from>
+                      <hit-to>299</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>98</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|30582980|gb|BT007071.1|</id>
+                      <accession>BT007071</accession>
+                      <title>Homo sapiens ubiquitin-conjugating enzyme E2B (RAD6 homolog) mRNA, complete cds</title>
+                      <taxid>9606</taxid>
+                      <sciname>Homo sapiens</sciname>
+                    </HitDescr>
+                    <HitDescr>
+                      <id>gi|60815370|gb|AY893305.1|</id>
+                      <accession>AY893305</accession>
+                      <title>Synthetic construct Homo sapiens clone FLH056679.01X ubiquitin-conjugating enzyme E2B (UBE2B) mRNA, complete cds</title>
+                      <taxid>32630</taxid>
+                      <sciname>synthetic construct</sciname>
+                    </HitDescr>
+                    <HitDescr>
+                      <id>gi|61361718|gb|AY890150.1|</id>
+                      <accession>AY890150</accession>
+                      <title>Synthetic construct Homo sapiens clone FLH025728.01X ubiquitin-conjugating enzyme E2B (UBE2B) mRNA, complete cds</title>
+                      <taxid>32630</taxid>
+                      <sciname>synthetic construct</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>459</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>319</hit-from>
+                      <hit-to>299</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>99</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|67515432|gb|DQ090910.1|</id>
+                      <accession>DQ090910</accession>
+                      <title>Homo sapiens ubiquitin-conjugating enzyme E2B (RAD6 homolog) (UBE2B) gene, complete cds</title>
+                      <taxid>9606</taxid>
+                      <sciname>Homo sapiens</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>24929</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>19227</hit-from>
+                      <hit-to>19207</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>100</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|19747165|gb|AC109454.3|</id>
+                      <accession>AC109454</accession>
+                      <title>Homo sapiens chromosome 5 clone RP11-215P8, complete sequence</title>
+                      <taxid>9606</taxid>
+                      <sciname>Homo sapiens</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>142276</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14915</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>83944</hit-from>
+                      <hit-to>83924</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TTAAGATAGAAGATACATCAT</qseq>
+                      <hseq>TTAAGATAGAAGATACATCAT</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+              </hits>
+              <stat>
+                <Statistics>
+                  <db-num>70340467</db-num>
+                  <db-len>439816227152</db-len>
+                  <hsp-len>18</hsp-len>
+                  <eff-space>1317383952159</eff-space>
+                  <kappa>0.41</kappa>
+                  <lambda>0.625</lambda>
+                  <entropy>0.78</entropy>
+                </Statistics>
+              </stat>
+            </Search>
+          </search>
+        </Results>
+      </results>
+    </Report>
+  </report>
+</BlastOutput2>
+</BlastXML2>
 

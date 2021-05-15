@@ -1,263 +1,1822 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="jig" content="ncbitoggler"/>
-<meta name="ncbitoggler" content="animation:'none'"/>
-<title>NCBI Blast:</title>
-<script type="text/javascript" src="/core/jig/1.14.8/js/jig.min.js             "></script>
-<script type="text/javascript">    jQuery.getScript("/core/alerts/alerts.js", function() {
-        galert(['div#header', 'body > *:nth-child(1)'])
-    });</script>
-<meta http-equiv="Pragma" content="no-cache">
-<link rel="stylesheet" type="text/css" href="css/uswds.min.css" media="screen" />
-<link rel="stylesheet"  type="text/css" href="https://www.ncbi.nlm.nih.gov/style-guide/static/nwds/css/nwds.css"/>
-<link rel="stylesheet" href="css/headerNew.css"/>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous"> <!-- Font Awesome icons -->
-<link rel="stylesheet" type="text/css" href="css/footerNew.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="css/main.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="css/blastRes.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="css/print.css" media="print" />
-<!--[if lte IE 6]>
-<link rel="stylesheet" type="text/css" href="css/ie6_or_less.css" />
-<![endif]-->
-<script type="text/javascript" src="js/utils.js"></script>
-<script type="text/javascript" src="js/results.js"></script>
-</head>
-
-<body id="type-a" class="noToggleCheck" >
-<div id="wrap">
-		    	
-<header class="ncbi-header" role="banner" data-section="Header">
-<ul class="skip_nav">
-    <li><a accesskey="1" title="NCBI Homepage" href="https://www.ncbi.nlm.nih.gov/">NCBI Home</a></li>
-    <li><a accesskey="2" title="MyNCBI" href="https://www.ncbi.nlm.nih.gov/myncbi">Sign in to NCBI</a></li>
-    <li><a accesskey="3" title="Skip to main content" href="#mainCont">Skip to Main Content</a></li>
-    <li><a accesskey="4" title="Skip to navigation" href="#navcontent">Skip to Navigation</a></li>
-    <li><a accesskey="0" title="About NCBI Accesskeys" href="https://www.ncbi.nlm.nih.gov/guide/browsers/#accesskeys">About NCBI Accesskeys</a></li>
-</ul>
-<div class="usa-grid">
-    <div class="usa-width-one-whole">
-        <div class="agencies">
-            <div class="nih"><span class="usa-sr-only">National Institutes of Health</span></div>
-            <div class="nlm">U.S. National Library of Medicine</div>
-            <div class="ncbi">National Center for Biotechnology Information</div>
-            <a href="https://www.ncbi.nlm.nih.gov/" class="homepage"><span class="usa-sr-only" id="header_ncbi">NCBI homepage</span></a>
-        </div>
-
-        <div class="account">
-            <a id="account_login" href="https://www.ncbi.nlm.nih.gov/account/?back_url=https%3A%2F%2Fblast%2Encbi%2Enlm%2Enih%2Egov%2Fblast%2FBlast%2Ecgi%3FCMD%3DGet%26FORMAT%5FOBJECT%3DAlignment%26FORMAT%5FTYPE%3DJSON2%5FS%26RESULTS%5FFILE%3Don%26RID%3D6ZWAFXJT016" class="usa-button header-button">Log in</a>
-            <button id="account_info" class="header-button" aria-controls="account_popup">
-                <span class="fa fa-user" aria-hidden="true"></span>
-                <span class="username desktop-only" aria-hidden="true" id="uname_short"></span>
-                <span class="sr-only">Show account info</span>
-            </button>
-        </div>
-
-        <div class="ncbi-popup-anchor">
-            <div class="ncbi-popup account-popup" id="account_popup" aria-hidden="true" role="dialog" aria-labelledby="account-popup-header">
-                <div class="ncbi-popup-head">
-                    <button class="ncbi-close-button"><span class="fa fa-window-close"></span><span class="usa-sr-only">Close</span></button>
-                    <h4>Account</h4>
-                </div>
-                <div class="account-user-info">
-                    Logged in as:<br>
-                    <b><span class="username" id="uname_long">username</span></b>
-                </div>
-                <div class="account-links">
-                    <ul class="usa-unstyled-list">
-                        <li><a id="account_myncbi" href="https://www.ncbi.nlm.nih.gov/myncbi/">Dashboard</a> <span class="ncbi-text-small-light">(My NCBI)</span></li>
-                        <li><a id="account_pubs" href="https://www.ncbi.nlm.nih.gov/myncbi/collections/bibliography/">Publications</a> <span class="ncbi-text-small-light">(My Bibliography)</span></li>
-                        <li><a id="account_settings" href="https://www.ncbi.nlm.nih.gov/account/settings/">Account settings</a></li>
-                        <li><a id="account_logout" href="https://www.ncbi.nlm.nih.gov/account/signout/?back_url=https%3A%2F%2Fblast%2Encbi%2Enlm%2Enih%2Egov%2Fblast%2FBlast%2Ecgi%3FCMD%3DGet%26FORMAT%5FOBJECT%3DAlignment%26FORMAT%5FTYPE%3DJSON2%5FS%26RESULTS%5FFILE%3Don%26RID%3D6ZWAFXJT016">Log out</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
-</header>
-<nav class="ncbi-topnav" id="navcontent">
-    <div class="usa-grid">
-        <a class="ncbi-topnav-root" href="Blast.cgi">BLAST <sup>&reg;</sup></a> <span id="brc"><span class="brcrmbsign">&raquo;</span> <a href="Blast.cgi?PAGE=Nucleotides&amp;PROGRAM=blastn&amp;PAGE_TYPE=BlastSearch&amp;BLAST_SPEC=">blastn suite</a> <span class="brcrmbsign">&raquo;</span> RID-6ZWAFXJT016</span>
-        <ul class="rf ncbi-topnav-list" id="topnav-list">
-            <li class="first "><a href="Blast.cgi?CMD=Web&amp;PAGE_TYPE=BlastHome" title="BLAST Home">Home</a></li>
-            <li class="recent "><a href="Blast.cgi?CMD=GetSaved&amp;RECENT_RESULTS=on" title="Unexpired BLAST jobs">Recent Results</a></li>                
-            <li class="saved "><a href="Blast.cgi?CMD=GetSaved" title="Saved sets of BLAST search parameters">Saved Strategies</a></li>
-            <li  class= "last documentation "> <a href="Blast.cgi?CMD=Web&amp;PAGE_TYPE=BlastDocs" title="BLAST documentation">Help</a></li>                            
-        </ul>
-    </div>
-</nav>
-
-
-
-        <div id="content-wrap">
-
-                <div class="pageTitle">                            
-                   Format Request Status                   
-                </div>
-		<div class="inlineDiv resHeader">				   
-				   <a  id="frmPage"  class="UNKNOWN" href="#" submitForm="reformat">[Formatting options] </a>                   
-                </div>
-                <h2 id="jtitle" >Job Title: </h2>
-								
-                <div id="content">                
-                <!--<ul id="msg" class="msg"><li class="error"><p class=""></p><p class=""></p><p class=""></p></ul> -->
-                <ul id="msg" class="msg"><li class="error"><p class="error">Error: Results for RID 6ZWAFXJT016 not found</p></li></ul>
-                <p><!--
-                QBlastInfoBegin
-	                Status=UNKNOWN
-                QBlastInfoEnd
-                --></p> 
-                               
-                <SCRIPT LANGUAGE="JavaScript"><!--
-                    var tm = "";
-                    if (tm != "") {                    
-                        setTimeout('document.forms[0].submit();',tm);
-                    }
-                //--></SCRIPT>                                
-                <table id="statInfo" class="UNKNOWN">
-                <tr><td>Request ID</td><td> <b>6ZWAFXJT016</b></td></tr>
-                <tr class="odd"><td>Status</td><td>Searching</td></tr>
-                <tr><td>Submitted at</td><td></td></tr>
-                <tr class="odd"><td>Current time</td><td></td></tr>
-                <tr><td>Time since submission</td><td></td></tr>
-                </table>
-                <p class="UNKNOWN">This page will be automatically updated in <b></b> seconds</p>       
-                <form action="Blast.cgi" enctype="application/x-www-form-urlencoded" method="POST" id="results">
-                <input name="FORMAT_OBJECT" type="hidden" value="Alignment"><input name="FORMAT_TYPE" type="hidden" value="JSON2_S"><input name="RESULTS_FILE" type="hidden" value="on"><input name="RID" type="hidden" value="6ZWAFXJT016"><input name="SEARCH_DB_STATUS" type="hidden" value="0"><input name="USER_TYPE" type="hidden" value="2"><input name="_PGR" type="hidden" value="0">                
-                <input name="_PGR" type="hidden" value="0" >
-                <input name="CMD" type="hidden" value="Get">
-               
-                </form>
-                                
-				</div><!-- /#content -->
-				<form action="Blast.cgi" enctype="application/x-www-form-urlencoded"  method="post" name="reformat" id="reformat">				
-				   <input name="QUERY_INFO" type="hidden" value="" />    				
-				   <input name="ENTREZ_QUERY" type="hidden" value="" />
-                   <input name="CDD_RID" type="hidden" value="" />
-                   <input name="CDD_SEARCH_STATE" type="hidden" value="" />
-                   <input name="RID" type="hidden" value="6ZWAFXJT016" />
-				   <input name="STEP_NUMBER" type="hidden" value="" />
-				   <input name="CMD" type="hidden" value="Web"/>				
-				   <input NAME="PAGE_TYPE" type="hidden"  value="BlastFormatting"/>
-				
-				   <!-- TO DO: test all of those changes -->				   	
-				   <!-- Psi blast params  PSI_BLAST_PARAMS - commented- using forms[0] from fromatter> -->
-				   <!-- Current Formatting options FORMATTING_OPTIONS- commented- using forms[0] from fromatter> -->
-				   <!-- Current Search options CURR_SAVED_OPTIONS - commented- using forms[0] from fromatter> -->
-                 </form>				
-        </div><!-- /#content-wrap -->
-
-         <footer id="ncbi-footer" class="usa-footer usa-footer-medium usa-sans ncbi-footer" role="contentinfo" data-section="Footer">
-  <div class="icon-section">
-    <div class="usa-grid">
-		<div class="usa-width-one-whole">
-		<h3 class="usa-sr-only">Connect</h3>
-		<ul class="ncbi-inline-list icon-list">
-			<li><a id="footer_twitter" href="https://twitter.com/ncbi">Twitter</a></li>
-			<li><a id="footer_facebook" href="https://www.facebook.com/ncbi.nlm">Facebook</a></li>
-			<li><a id="footer_youtube" href="https://www.youtube.com/user/NCBINLM">YouTube</a></li>
-			<li><a id="footer_linkedin" href="https://www.linkedin.com/company/national-center-for-biotechnology-information-ncbi-">LinkedIn</a></li>
-			<li><a id="footer_github" href="https://github.com/ncbi">GitHub</a></li>
-		</ul>
-		<ul class="ncbi-inline-list icon-list icon-list-elastic">	
-			<li class="li-blog"><a id="footer_blog" href="https://ncbiinsights.ncbi.nlm.nih.gov/">Blog</a></li>
-			<li class="li-support"><a id="footer_support" href="https://support.ncbi.nlm.nih.gov/">Support Center</a></li>
-		</ul>
-		</div>
-		</div>
-  </div>
-  <div class="usa-footer-secondary_section ncbi-section">
-    <div class="usa-grid">
-      <div class="usa-width-one-half ncbi">
-        <h3 class="ncbi-full-name">National Center for Biotechnology Information</h3>
-		<address>
-        <a id="google_maps" href="https://www.google.com/maps/place/8600+Rockville+Pike,+Bethesda,+MD+20894/@38.9959508,-77.101021,17z/data=!3m1!4b1!4m5!3m4!1s0x89b7c95e25765ddb:0x19156f88b27635b8!8m2!3d38.9959508!4d-77.0988323">
-        <span class="h-adr"> <span class="p-street-address break">8600 Rockville Pike</span>
-        <span class="p-locality">Bethesda</span> <span class="p-region"> MD</span>, <span class="p-postal-code">20894</span> <span class="p-country-name">USA</span> </span>
-		</a>
-		</address>
-        <ul class="ncbi-inline-list">
-			<li><a id="footer_about" href="https://www.ncbi.nlm.nih.gov/home/about/">About us</a></li>
-          <li><a id="footer_contact" href="https://www.ncbi.nlm.nih.gov/home/about/contact.shtml">Contact us</a></li>
-          <li><a id="footer_policies" href="https://www.ncbi.nlm.nih.gov/home/about/policies.shtml">Policies</a></li>
-          <li><a id="footer_foia" href="https://www.nih.gov/institutes-nih/nih-office-director/office-communications-public-liaison/freedom-information-act-office">FOIA</a></li>
-        </ul>
-      </div>
-      <div class="usa-width-one-half">
-      <div class="usa-grid-full">
-		<div class="usa-width-one-third">
-		<h4>Popular</h4>
-
-        <ul class="ncbi-unstyled-list">
-				<li><a id="footer_pubmed" href="https://www.ncbi.nlm.nih.gov/pubmed/">PubMed</a></li>
-				<li><a id="footer_pmc" href="https://www.ncbi.nlm.nih.gov/pmc/">PubMed Central</a></li>
-				<li><a id="footer_bookshelf" href="https://www.ncbi.nlm.nih.gov/books/">Bookshelf</a></li>
-				<li><a id="footer_pubchem" href="https://pubchem.ncbi.nlm.nih.gov">PubChem</a></li>
-				<li><a id="footer_gene" href="https://www.ncbi.nlm.nih.gov/gene/">Gene</a></li>
-				<li><a id="footer_blast" href="https://blast.ncbi.nlm.nih.gov">BLAST</a></li>
-				<li><a id="footer_nucleotide" href="https://www.ncbi.nlm.nih.gov/nucleotide/">Nucleotide</a></li>
-				<li><a id="footer_protein" href="https://www.ncbi.nlm.nih.gov/protein/">Protein</a></li>
-				<li><a id="footer_geo" href="https://www.ncbi.nlm.nih.gov/geo/">GEO</a></li>
-        </ul>
-
-			</div>
-		<div class="usa-width-one-third">
-			<h4>Resources</h4>
-			<ul class="ncbi-unstyled-list ncbi-undecorated-links">
-				  <li><a id="footer_literature" href="https://www.ncbi.nlm.nih.gov/home/literature/">Literature</a></li>
-				  <li><a id="footer_health" href="https://www.ncbi.nlm.nih.gov/home/health/">Health</a></li>
-				  <li><a id="footer_genomes" href="https://www.ncbi.nlm.nih.gov/home/genomes/">Genomes</a></li>
-				  <li><a id="footer_genes" href="https://www.ncbi.nlm.nih.gov/home/genes/">Genes</a></li>
-				  <li><a id="footer_proteins" href="https://www.ncbi.nlm.nih.gov/home/proteins/">Proteins</a></li>
-				  <li><a id="footer_chemicals" href="https://www.ncbi.nlm.nih.gov/home/chemicals/">Chemicals</a></li>
-			</ul>
-		</div>
-		<div class="usa-width-one-third">
-   <h4>Actions</h4>
-   <ul class="ncbi-unstyled-list">
-              <li><a id="footer_submit" href="https://www.ncbi.nlm.nih.gov/home/submit/">Submit</a></li>
-              <li><a id="footer_download" href="https://www.ncbi.nlm.nih.gov/home/download/">Download</a></li>
-              <li><a id="footer_learn" href="https://www.ncbi.nlm.nih.gov/home/learn/">Learn</a></li>
-              <li><a id="footer_develop" href="https://www.ncbi.nlm.nih.gov/home/develop/">Develop</a></li>
-              <li><a id="footer_analyze" href="https://www.ncbi.nlm.nih.gov/home/analyze/">Analyze</a></li>
-              <li><a id="footer_research" href="https://www.ncbi.nlm.nih.gov/research/">Research</a></li>
-   </ul>
-		  </div>
-		  </div>
-		  </div>
-    </div>
-	</div>
-     <div class="usa-footer-secondary_section gov-agencies"> 
-    <div class="usa-grid">
-    <div class="usa-width-one-whole">
-		<p>
-			<a id="footer_nlm" href="https://www.nlm.nih.gov/">NLM</a>
-			&ensp;|&ensp;
-			<a id="footer_nih" href="https://www.nih.gov/">NIH</a>
-			&ensp;|&ensp;
-			<a id="footer_hhs" href="https://www.hhs.gov/">HHS</a>
-			&ensp;|&ensp;
-			<a id="footer_usagov" href="https://www.usa.gov/">USA.gov</a>
-		</p>
-	 </div>
-	 </div>
-	</div>
-
- </footer>
-<script type="text/javascript" src="js/nwds.js"></script>
-<script type="text/javascript" src="js/ncbipopup.js"></script>
-<script type="text/javascript" src="js/headerNew.js"></script>
-<script src="js/uswds.min.js"></script>
-        <script type="text/javascript" src="/portal/portal3rc.fcgi/rlib/js/InstrumentOmnitureBaseJS/InstrumentNCBIBaseJS/InstrumentPageStarterJS.js"></script>
-<!--
-<script type="text/javascript" src="://www.ncbi.nlm.nih.gov/portal/portal3rc.fcgi/supportedbrowsers/js/nonportalbc_min.js"></script>
-<script type="text/javascript">$("#browsers_ajax").browserCheck();</script>
--->
-   </div><!--/#wrap-->
-</body>
-
-</html>
+{
+"BlastOutput2": [
+{
+    "report": {
+      "program": "blastn",
+      "version": "BLASTN 2.11.0+",
+      "reference": "Stephen F. Altschul, Thomas L. Madden, Alejandro A. Sch&auml;ffer, Jinghui Zhang, Zheng Zhang, Webb Miller, and David J. Lipman (1997), \"Gapped BLAST and PSI-BLAST: a new generation of protein database search programs\", Nucleic Acids Res. 25:3389-3402.",
+      "search_target": {
+        "db": "nt"
+      },
+      "params": {
+        "expect": 10,
+        "sc_match": 2,
+        "sc_mismatch": -3,
+        "gap_open": 5,
+        "gap_extend": 2,
+        "filter": "L;m;"
+      },
+      "results": {
+        "search": {
+          "query_id": "Query_4867",
+          "query_len": 21,
+          "hits": [
+            {
+              "num": 1,
+              "description": [
+                {
+                  "id": "gi|1842201850|ref|XM_034505797.1|",
+                  "accession": "XM_034505797",
+                  "title": "PREDICTED: Arvicanthis niloticus calcium voltage-gated channel auxiliary subunit beta 1 (Cacnb1), transcript variant X2, mRNA",
+                  "taxid": 61156,
+                  "sciname": "Arvicanthis niloticus"
+                }
+              ],
+              "len": 3402,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1996,
+                  "hit_to": 1976,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 2,
+              "description": [
+                {
+                  "id": "gi|1842201848|ref|XM_034505796.1|",
+                  "accession": "XM_034505796",
+                  "title": "PREDICTED: Arvicanthis niloticus calcium voltage-gated channel auxiliary subunit beta 1 (Cacnb1), transcript variant X1, mRNA",
+                  "taxid": 61156,
+                  "sciname": "Arvicanthis niloticus"
+                }
+              ],
+              "len": 3508,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 2102,
+                  "hit_to": 2082,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 3,
+              "description": [
+                {
+                  "id": "gi|1821004797|ref|XM_032913110.1|",
+                  "accession": "XM_032913110",
+                  "title": "PREDICTED: Rattus rattus calcium voltage-gated channel auxiliary subunit beta 1 (Cacnb1), transcript variant X2, mRNA",
+                  "taxid": 10117,
+                  "sciname": "Rattus rattus"
+                }
+              ],
+              "len": 3493,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 2088,
+                  "hit_to": 2068,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 4,
+              "description": [
+                {
+                  "id": "gi|1821004795|ref|XM_032913109.1|",
+                  "accession": "XM_032913109",
+                  "title": "PREDICTED: Rattus rattus calcium voltage-gated channel auxiliary subunit beta 1 (Cacnb1), transcript variant X1, mRNA",
+                  "taxid": 10117,
+                  "sciname": "Rattus rattus"
+                }
+              ],
+              "len": 3357,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1951,
+                  "hit_to": 1931,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 5,
+              "description": [
+                {
+                  "id": "gi|1768048194|ref|XM_031351267.1|",
+                  "accession": "XM_031351267",
+                  "title": "PREDICTED: Mastomys coucha calcium voltage-gated channel auxiliary subunit beta 1 (Cacnb1), transcript variant X5, mRNA",
+                  "taxid": 35658,
+                  "sciname": "Mastomys coucha"
+                }
+              ],
+              "len": 3393,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1954,
+                  "hit_to": 1934,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 6,
+              "description": [
+                {
+                  "id": "gi|1768048192|ref|XM_031351266.1|",
+                  "accession": "XM_031351266",
+                  "title": "PREDICTED: Mastomys coucha calcium voltage-gated channel auxiliary subunit beta 1 (Cacnb1), transcript variant X4, mRNA",
+                  "taxid": 35658,
+                  "sciname": "Mastomys coucha"
+                }
+              ],
+              "len": 4519,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 3080,
+                  "hit_to": 3060,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 7,
+              "description": [
+                {
+                  "id": "gi|1768048190|ref|XM_031351265.1|",
+                  "accession": "XM_031351265",
+                  "title": "PREDICTED: Mastomys coucha calcium voltage-gated channel auxiliary subunit beta 1 (Cacnb1), transcript variant X3, mRNA",
+                  "taxid": 35658,
+                  "sciname": "Mastomys coucha"
+                }
+              ],
+              "len": 3430,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1991,
+                  "hit_to": 1971,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 8,
+              "description": [
+                {
+                  "id": "gi|1768048188|ref|XM_031351263.1|",
+                  "accession": "XM_031351263",
+                  "title": "PREDICTED: Mastomys coucha calcium voltage-gated channel auxiliary subunit beta 1 (Cacnb1), transcript variant X2, mRNA",
+                  "taxid": 35658,
+                  "sciname": "Mastomys coucha"
+                }
+              ],
+              "len": 3246,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1807,
+                  "hit_to": 1787,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 9,
+              "description": [
+                {
+                  "id": "gi|1768048186|ref|XM_031351262.1|",
+                  "accession": "XM_031351262",
+                  "title": "PREDICTED: Mastomys coucha calcium voltage-gated channel auxiliary subunit beta 1 (Cacnb1), transcript variant X1, mRNA",
+                  "taxid": 35658,
+                  "sciname": "Mastomys coucha"
+                }
+              ],
+              "len": 3565,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 2126,
+                  "hit_to": 2106,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 10,
+              "description": [
+                {
+                  "id": "gi|1720363930|ref|XM_030245499.1|",
+                  "accession": "XM_030245499",
+                  "title": "PREDICTED: Mus musculus calcium channel, voltage-dependent, beta 1 subunit (Cacnb1), transcript variant X4, mRNA",
+                  "taxid": 10090,
+                  "sciname": "Mus musculus"
+                }
+              ],
+              "len": 3246,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1832,
+                  "hit_to": 1812,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 11,
+              "description": [
+                {
+                  "id": "gi|1679814992|ref|XM_021175437.2|",
+                  "accession": "XM_021175437",
+                  "title": "PREDICTED: Mus caroli calcium voltage-gated channel auxiliary subunit beta 1 (Cacnb1), transcript variant X2, mRNA",
+                  "taxid": 10089,
+                  "sciname": "Mus caroli"
+                }
+              ],
+              "len": 3382,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1962,
+                  "hit_to": 1942,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 12,
+              "description": [
+                {
+                  "id": "gi|1679814991|ref|XM_021175436.2|",
+                  "accession": "XM_021175436",
+                  "title": "PREDICTED: Mus caroli calcium voltage-gated channel auxiliary subunit beta 1 (Cacnb1), transcript variant X1, mRNA",
+                  "taxid": 10089,
+                  "sciname": "Mus caroli"
+                }
+              ],
+              "len": 3517,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 2097,
+                  "hit_to": 2077,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 13,
+              "description": [
+                {
+                  "id": "gi|1621898961|ref|XM_028755045.1|",
+                  "accession": "XM_028755045",
+                  "title": "PREDICTED: Grammomys surdaster calcium voltage-gated channel auxiliary subunit beta 1 (Cacnb1), mRNA",
+                  "taxid": 491861,
+                  "sciname": "Grammomys surdaster"
+                }
+              ],
+              "len": 2012,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1968,
+                  "hit_to": 1948,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 14,
+              "description": [
+                {
+                  "id": "gi|1195513915|ref|XM_021214131.1|",
+                  "accession": "XM_021214131",
+                  "title": "PREDICTED: Mus pahari calcium voltage-gated channel auxiliary subunit beta 1 (Cacnb1), transcript variant X2, mRNA",
+                  "taxid": 10093,
+                  "sciname": "Mus pahari"
+                }
+              ],
+              "len": 3396,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1967,
+                  "hit_to": 1947,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 15,
+              "description": [
+                {
+                  "id": "gi|1195513913|ref|XM_021214130.1|",
+                  "accession": "XM_021214130",
+                  "title": "PREDICTED: Mus pahari calcium voltage-gated channel auxiliary subunit beta 1 (Cacnb1), transcript variant X1, mRNA",
+                  "taxid": 10093,
+                  "sciname": "Mus pahari"
+                }
+              ],
+              "len": 3531,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 2102,
+                  "hit_to": 2082,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 16,
+              "description": [
+                {
+                  "id": "gi|1008707431|ref|XM_016007344.1|",
+                  "accession": "XM_016007344",
+                  "title": "PREDICTED: Peromyscus maniculatus bairdii calcium voltage-gated channel auxiliary subunit beta 1 (Cacnb1), transcript variant X4, mRNA",
+                  "taxid": 230844,
+                  "sciname": "Peromyscus maniculatus bairdii"
+                }
+              ],
+              "len": 3233,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1833,
+                  "hit_to": 1813,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 17,
+              "description": [
+                {
+                  "id": "gi|1008707429|ref|XM_016007343.1|",
+                  "accession": "XM_016007343",
+                  "title": "PREDICTED: Peromyscus maniculatus bairdii calcium voltage-gated channel auxiliary subunit beta 1 (Cacnb1), transcript variant X3, mRNA",
+                  "taxid": 230844,
+                  "sciname": "Peromyscus maniculatus bairdii"
+                }
+              ],
+              "len": 3362,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1962,
+                  "hit_to": 1942,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 18,
+              "description": [
+                {
+                  "id": "gi|1008707427|ref|XM_016007339.1|",
+                  "accession": "XM_016007339",
+                  "title": "PREDICTED: Peromyscus maniculatus bairdii calcium voltage-gated channel auxiliary subunit beta 1 (Cacnb1), transcript variant X2, mRNA",
+                  "taxid": 230844,
+                  "sciname": "Peromyscus maniculatus bairdii"
+                }
+              ],
+              "len": 3252,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1852,
+                  "hit_to": 1832,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 19,
+              "description": [
+                {
+                  "id": "gi|1008707425|ref|XM_006971854.2|",
+                  "accession": "XM_006971854",
+                  "title": "PREDICTED: Peromyscus maniculatus bairdii calcium voltage-gated channel auxiliary subunit beta 1 (Cacnb1), transcript variant X1, mRNA",
+                  "taxid": 230844,
+                  "sciname": "Peromyscus maniculatus bairdii"
+                }
+              ],
+              "len": 3497,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 2097,
+                  "hit_to": 2077,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 20,
+              "description": [
+                {
+                  "id": "gi|955526190|ref|XM_014790749.1|",
+                  "accession": "XM_014790749",
+                  "title": "PREDICTED: Ceratotherium simum simum calcium channel, voltage-dependent, beta 1 subunit (LOC101406818), transcript variant X5, mRNA",
+                  "taxid": 73337,
+                  "sciname": "Ceratotherium simum simum"
+                }
+              ],
+              "len": 3335,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1933,
+                  "hit_to": 1913,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 21,
+              "description": [
+                {
+                  "id": "gi|955526188|ref|XM_014790748.1|",
+                  "accession": "XM_014790748",
+                  "title": "PREDICTED: Ceratotherium simum simum calcium channel, voltage-dependent, beta 1 subunit (LOC101406818), transcript variant X3, mRNA",
+                  "taxid": 73337,
+                  "sciname": "Ceratotherium simum simum"
+                }
+              ],
+              "len": 3215,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1813,
+                  "hit_to": 1793,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 22,
+              "description": [
+                {
+                  "id": "gi|955526187|ref|XM_004434583.2|",
+                  "accession": "XM_004434583",
+                  "title": "PREDICTED: Ceratotherium simum simum calcium channel, voltage-dependent, beta 1 subunit (LOC101406818), transcript variant X2, mRNA",
+                  "taxid": 73337,
+                  "sciname": "Ceratotherium simum simum"
+                }
+              ],
+              "len": 3750,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1985,
+                  "hit_to": 1965,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 23,
+              "description": [
+                {
+                  "id": "gi|955526185|ref|XM_014790747.1|",
+                  "accession": "XM_014790747",
+                  "title": "PREDICTED: Ceratotherium simum simum calcium channel, voltage-dependent, beta 1 subunit (LOC101406818), transcript variant X1, mRNA",
+                  "taxid": 73337,
+                  "sciname": "Ceratotherium simum simum"
+                }
+              ],
+              "len": 3472,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 2070,
+                  "hit_to": 2050,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 24,
+              "description": [
+                {
+                  "id": "gi|545478579|ref|NM_001282977.1|",
+                  "accession": "NM_001282977",
+                  "title": "Mus musculus calcium channel, voltage-dependent, beta 1 subunit (Cacnb1), transcript variant 5, mRNA",
+                  "taxid": 10090,
+                  "sciname": "Mus musculus"
+                }
+              ],
+              "len": 3524,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 2105,
+                  "hit_to": 2085,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 25,
+              "description": [
+                {
+                  "id": "gi|545478177|ref|NM_145121.3|",
+                  "accession": "NM_145121",
+                  "title": "Mus musculus calcium channel, voltage-dependent, beta 1 subunit (Cacnb1), transcript variant 2, mRNA",
+                  "taxid": 10090,
+                  "sciname": "Mus musculus"
+                }
+              ],
+              "len": 3389,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1970,
+                  "hit_to": 1950,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 26,
+              "description": [
+                {
+                  "id": "gi|2025753204|ref|XM_021230568.2|",
+                  "accession": "XM_021230568",
+                  "title": "PREDICTED: Mesocricetus auratus calcium voltage-gated channel auxiliary subunit beta 1 (Cacnb1), transcript variant X3, mRNA",
+                  "taxid": 10036,
+                  "sciname": "Mesocricetus auratus"
+                }
+              ],
+              "len": 3466,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 2093,
+                  "hit_to": 2073,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 27,
+              "description": [
+                {
+                  "id": "gi|2025753203|ref|XM_005075918.3|",
+                  "accession": "XM_005075918",
+                  "title": "PREDICTED: Mesocricetus auratus calcium voltage-gated channel auxiliary subunit beta 1 (Cacnb1), transcript variant X2, mRNA",
+                  "taxid": 10036,
+                  "sciname": "Mesocricetus auratus"
+                }
+              ],
+              "len": 3328,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1955,
+                  "hit_to": 1935,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 28,
+              "description": [
+                {
+                  "id": "gi|2025753202|ref|XM_005075917.4|",
+                  "accession": "XM_005075917",
+                  "title": "PREDICTED: Mesocricetus auratus calcium voltage-gated channel auxiliary subunit beta 1 (Cacnb1), transcript variant X1, mRNA",
+                  "taxid": 10036,
+                  "sciname": "Mesocricetus auratus"
+                }
+              ],
+              "len": 3464,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 2091,
+                  "hit_to": 2071,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 29,
+              "description": [
+                {
+                  "id": "gi|2008369720|ref|NM_017346.2|",
+                  "accession": "NM_017346",
+                  "title": "Rattus norvegicus calcium voltage-gated channel auxiliary subunit beta 1 (Cacnb1), mRNA",
+                  "taxid": 10116,
+                  "sciname": "Rattus norvegicus"
+                }
+              ],
+              "len": 3393,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1960,
+                  "hit_to": 1940,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 30,
+              "description": [
+                {
+                  "id": "gi|1958660483|ref|XM_039086662.1|",
+                  "accession": "XM_039086662",
+                  "title": "PREDICTED: Rattus norvegicus calcium voltage-gated channel auxiliary subunit beta 1 (Cacnb1), transcript variant X4, mRNA",
+                  "taxid": 10116,
+                  "sciname": "Rattus norvegicus"
+                }
+              ],
+              "len": 2612,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1184,
+                  "hit_to": 1164,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 31,
+              "description": [
+                {
+                  "id": "gi|1958660481|ref|XM_006247410.3|",
+                  "accession": "XM_006247410",
+                  "title": "PREDICTED: Rattus norvegicus calcium voltage-gated channel auxiliary subunit beta 1 (Cacnb1), transcript variant X2, mRNA",
+                  "taxid": 10116,
+                  "sciname": "Rattus norvegicus"
+                }
+              ],
+              "len": 3317,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1889,
+                  "hit_to": 1869,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 32,
+              "description": [
+                {
+                  "id": "gi|1958660480|ref|XM_006247409.4|",
+                  "accession": "XM_006247409",
+                  "title": "PREDICTED: Rattus norvegicus calcium voltage-gated channel auxiliary subunit beta 1 (Cacnb1), transcript variant X1, mRNA",
+                  "taxid": 10116,
+                  "sciname": "Rattus norvegicus"
+                }
+              ],
+              "len": 3538,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 2110,
+                  "hit_to": 2090,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 33,
+              "description": [
+                {
+                  "id": "gi|1929259491|ref|XM_037200616.1|",
+                  "accession": "XM_037200616",
+                  "title": "PREDICTED: Peromyscus leucopus calcium voltage-gated channel auxiliary subunit beta 1 (Cacnb1), transcript variant X4, mRNA",
+                  "taxid": 10041,
+                  "sciname": "Peromyscus leucopus"
+                }
+              ],
+              "len": 3683,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 2270,
+                  "hit_to": 2250,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 34,
+              "description": [
+                {
+                  "id": "gi|1929259490|ref|XM_028889454.2|",
+                  "accession": "XM_028889454",
+                  "title": "PREDICTED: Peromyscus leucopus calcium voltage-gated channel auxiliary subunit beta 1 (Cacnb1), transcript variant X3, mRNA",
+                  "taxid": 10041,
+                  "sciname": "Peromyscus leucopus"
+                }
+              ],
+              "len": 3378,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1965,
+                  "hit_to": 1945,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 35,
+              "description": [
+                {
+                  "id": "gi|1929259488|ref|XM_037200615.1|",
+                  "accession": "XM_037200615",
+                  "title": "PREDICTED: Peromyscus leucopus calcium voltage-gated channel auxiliary subunit beta 1 (Cacnb1), transcript variant X2, mRNA",
+                  "taxid": 10041,
+                  "sciname": "Peromyscus leucopus"
+                }
+              ],
+              "len": 3747,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 2334,
+                  "hit_to": 2314,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 36,
+              "description": [
+                {
+                  "id": "gi|1929259487|ref|XM_028889457.2|",
+                  "accession": "XM_028889457",
+                  "title": "PREDICTED: Peromyscus leucopus calcium voltage-gated channel auxiliary subunit beta 1 (Cacnb1), transcript variant X1, mRNA",
+                  "taxid": 10041,
+                  "sciname": "Peromyscus leucopus"
+                }
+              ],
+              "len": 3514,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 2101,
+                  "hit_to": 2081,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 37,
+              "description": [
+                {
+                  "id": "gi|387762396|dbj|AB685743.1|",
+                  "accession": "AB685743",
+                  "title": "Mus musculus Cacnb1 mRNA for voltage dependent calcium channel, beta1 subunit, variant5, complete cds",
+                  "taxid": 10090,
+                  "sciname": "Mus musculus"
+                }
+              ],
+              "len": 2115,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 2089,
+                  "hit_to": 2069,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 38,
+              "description": [
+                {
+                  "id": "gi|354796250|gb|JN960751.1|",
+                  "accession": "JN960751",
+                  "title": "Mus musculus targeted KO-first, conditional ready, lacZ-tagged mutant allele Cacnb1:tm1a(EUCOMM)Wtsi; transgenic",
+                  "taxid": 10090,
+                  "sciname": "Mus musculus"
+                }
+              ],
+              "len": 40761,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 31816,
+                  "hit_to": 31796,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 39,
+              "description": [
+                {
+                  "id": "gi|1908091256|ref|XM_036195897.1|",
+                  "accession": "XM_036195897",
+                  "title": "PREDICTED: Onychomys torridus calcium voltage-gated channel auxiliary subunit beta 1 (Cacnb1), transcript variant X3, mRNA",
+                  "taxid": 38674,
+                  "sciname": "Onychomys torridus"
+                }
+              ],
+              "len": 3493,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 2096,
+                  "hit_to": 2076,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 40,
+              "description": [
+                {
+                  "id": "gi|1908091254|ref|XM_036195896.1|",
+                  "accession": "XM_036195896",
+                  "title": "PREDICTED: Onychomys torridus calcium voltage-gated channel auxiliary subunit beta 1 (Cacnb1), transcript variant X2, mRNA",
+                  "taxid": 38674,
+                  "sciname": "Onychomys torridus"
+                }
+              ],
+              "len": 3625,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 2228,
+                  "hit_to": 2208,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 41,
+              "description": [
+                {
+                  "id": "gi|1908091252|ref|XM_036195895.1|",
+                  "accession": "XM_036195895",
+                  "title": "PREDICTED: Onychomys torridus calcium voltage-gated channel auxiliary subunit beta 1 (Cacnb1), transcript variant X1, mRNA",
+                  "taxid": 38674,
+                  "sciname": "Onychomys torridus"
+                }
+              ],
+              "len": 3358,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1961,
+                  "hit_to": 1941,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 42,
+              "description": [
+                {
+                  "id": "gi|1907079736|ref|XM_030245500.2|",
+                  "accession": "XM_030245500",
+                  "title": "PREDICTED: Mus musculus calcium channel, voltage-dependent, beta 1 subunit (Cacnb1), transcript variant X5, mRNA",
+                  "taxid": 10090,
+                  "sciname": "Mus musculus"
+                }
+              ],
+              "len": 3369,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1956,
+                  "hit_to": 1936,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 43,
+              "description": [
+                {
+                  "id": "gi|1907079734|ref|XM_036156255.1|",
+                  "accession": "XM_036156255",
+                  "title": "PREDICTED: Mus musculus calcium channel, voltage-dependent, beta 1 subunit (Cacnb1), transcript variant X3, mRNA",
+                  "taxid": 10090,
+                  "sciname": "Mus musculus"
+                }
+              ],
+              "len": 4547,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 3133,
+                  "hit_to": 3113,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 44,
+              "description": [
+                {
+                  "id": "gi|1907079733|ref|XM_006532092.4|",
+                  "accession": "XM_006532092",
+                  "title": "PREDICTED: Mus musculus calcium channel, voltage-dependent, beta 1 subunit (Cacnb1), transcript variant X2, mRNA",
+                  "taxid": 10090,
+                  "sciname": "Mus musculus"
+                }
+              ],
+              "len": 3244,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1831,
+                  "hit_to": 1811,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 45,
+              "description": [
+                {
+                  "id": "gi|1907079732|ref|XM_006532091.4|",
+                  "accession": "XM_006532091",
+                  "title": "PREDICTED: Mus musculus calcium channel, voltage-dependent, beta 1 subunit (Cacnb1), transcript variant X1, mRNA",
+                  "taxid": 10090,
+                  "sciname": "Mus musculus"
+                }
+              ],
+              "len": 3379,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1966,
+                  "hit_to": 1946,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 46,
+              "description": [
+                {
+                  "id": "gi|1894914082|emb|LR877227.1|",
+                  "accession": "LR877227",
+                  "title": "Acomys russatus genome assembly, chromosome: 16",
+                  "taxid": 60746,
+                  "sciname": "Acomys russatus"
+                }
+              ],
+              "len": 47487087,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 24401596,
+                  "hit_to": 24401616,
+                  "hit_strand": "Plus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 47,
+              "description": [
+                {
+                  "id": "gi|1868359649|ref|XM_027424056.2|",
+                  "accession": "XM_027424056",
+                  "title": "PREDICTED: Cricetulus griseus calcium voltage-gated channel auxiliary subunit beta 1 (Cacnb1), transcript variant X3, mRNA",
+                  "taxid": 10029,
+                  "sciname": "Cricetulus griseus"
+                }
+              ],
+              "len": 2103,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1768,
+                  "hit_to": 1748,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 48,
+              "description": [
+                {
+                  "id": "gi|1868359648|ref|XM_027424057.2|",
+                  "accession": "XM_027424057",
+                  "title": "PREDICTED: Cricetulus griseus calcium voltage-gated channel auxiliary subunit beta 1 (Cacnb1), transcript variant X2, mRNA",
+                  "taxid": 10029,
+                  "sciname": "Cricetulus griseus"
+                }
+              ],
+              "len": 2238,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1903,
+                  "hit_to": 1883,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 49,
+              "description": [
+                {
+                  "id": "gi|61653300|dbj|AB100389.2|",
+                  "accession": "AB100389",
+                  "title": "Mus musculus gene for voltage-dependent calcium channel beta1 subunit, complete cds",
+                  "taxid": 10090,
+                  "sciname": "Mus musculus"
+                }
+              ],
+              "len": 5338,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 5312,
+                  "hit_to": 5292,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 50,
+              "description": [
+                {
+                  "id": "gi|20152163|gb|AY094173.1|",
+                  "accession": "AY094173",
+                  "title": "Mus musculus L-type calcium channel beta 1B subunit mRNA, complete cds",
+                  "taxid": 10090,
+                  "sciname": "Mus musculus"
+                }
+              ],
+              "len": 1794,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1768,
+                  "hit_to": 1748,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 51,
+              "description": [
+                {
+                  "id": "gi|55893|emb|X61394.1|",
+                  "accession": "X61394",
+                  "title": "R.norvegicus mRNA for brain calcium channel beta subunit",
+                  "taxid": 10116,
+                  "sciname": "Rattus norvegicus"
+                }
+              ],
+              "len": 3293,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1831,
+                  "hit_to": 1811,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 52,
+              "description": [
+                {
+                  "id": "gi|23956418|emb|AL591209.17|",
+                  "accession": "AL591209",
+                  "title": "Mouse DNA sequence from clone RP23-309H19 on chromosome 11, complete sequence",
+                  "taxid": 10090,
+                  "sciname": "Mus musculus"
+                }
+              ],
+              "len": 199634,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 83648,
+                  "hit_to": 83668,
+                  "hit_strand": "Plus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 53,
+              "description": [
+                {
+                  "id": "gi|187014|gb|L06110.1|HUMLCACHA",
+                  "accession": "L06110",
+                  "title": "Human L-type voltage-gated calcium channel B subunit mRNA for isoform a, complete cds",
+                  "taxid": 9606,
+                  "sciname": "Homo sapiens"
+                }
+              ],
+              "len": 1794,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1768,
+                  "hit_to": 1748,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "hseq": "AGCCCTCCAGCTCATTCTTAT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 54,
+              "description": [
+                {
+                  "id": "gi|1610704801|emb|LR584077.1|",
+                  "accession": "LR584077",
+                  "title": "Scleropages formosus genome assembly, chromosome: 12",
+                  "taxid": 113540,
+                  "sciname": "Scleropages formosus"
+                }
+              ],
+              "len": 29733308,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.48542,
+                  "identity": 20,
+                  "query_from": 2,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1355523,
+                  "hit_to": 1355542,
+                  "hit_strand": "Plus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "GCCCTCCAGCTCATTCTTAT",
+                  "hseq": "GCCCTCCAGCTCATTCTTAT",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            }
+          ],
+          "stat": {
+            "db_num": 70351925,
+            "db_len": 1380435113,
+            "hsp_len": 18,
+            "eff_space": 1314602293965,
+            "kappa": 0.41,
+            "lambda": 0.625,
+            "entropy": 0.78
+          }
+        }
+      }
+    }
+  }
+]
+}
 

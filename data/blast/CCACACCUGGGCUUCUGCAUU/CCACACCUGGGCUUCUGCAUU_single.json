@@ -1,263 +1,905 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="jig" content="ncbitoggler"/>
-<meta name="ncbitoggler" content="animation:'none'"/>
-<title>NCBI Blast:</title>
-<script type="text/javascript" src="/core/jig/1.14.8/js/jig.min.js             "></script>
-<script type="text/javascript">    jQuery.getScript("/core/alerts/alerts.js", function() {
-        galert(['div#header', 'body > *:nth-child(1)'])
-    });</script>
-<meta http-equiv="Pragma" content="no-cache">
-<link rel="stylesheet" type="text/css" href="css/uswds.min.css" media="screen" />
-<link rel="stylesheet"  type="text/css" href="https://www.ncbi.nlm.nih.gov/style-guide/static/nwds/css/nwds.css"/>
-<link rel="stylesheet" href="css/headerNew.css"/>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous"> <!-- Font Awesome icons -->
-<link rel="stylesheet" type="text/css" href="css/footerNew.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="css/main.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="css/blastRes.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="css/print.css" media="print" />
-<!--[if lte IE 6]>
-<link rel="stylesheet" type="text/css" href="css/ie6_or_less.css" />
-<![endif]-->
-<script type="text/javascript" src="js/utils.js"></script>
-<script type="text/javascript" src="js/results.js"></script>
-</head>
-
-<body id="type-a" class="noToggleCheck" >
-<div id="wrap">
-		    	
-<header class="ncbi-header" role="banner" data-section="Header">
-<ul class="skip_nav">
-    <li><a accesskey="1" title="NCBI Homepage" href="https://www.ncbi.nlm.nih.gov/">NCBI Home</a></li>
-    <li><a accesskey="2" title="MyNCBI" href="https://www.ncbi.nlm.nih.gov/myncbi">Sign in to NCBI</a></li>
-    <li><a accesskey="3" title="Skip to main content" href="#mainCont">Skip to Main Content</a></li>
-    <li><a accesskey="4" title="Skip to navigation" href="#navcontent">Skip to Navigation</a></li>
-    <li><a accesskey="0" title="About NCBI Accesskeys" href="https://www.ncbi.nlm.nih.gov/guide/browsers/#accesskeys">About NCBI Accesskeys</a></li>
-</ul>
-<div class="usa-grid">
-    <div class="usa-width-one-whole">
-        <div class="agencies">
-            <div class="nih"><span class="usa-sr-only">National Institutes of Health</span></div>
-            <div class="nlm">U.S. National Library of Medicine</div>
-            <div class="ncbi">National Center for Biotechnology Information</div>
-            <a href="https://www.ncbi.nlm.nih.gov/" class="homepage"><span class="usa-sr-only" id="header_ncbi">NCBI homepage</span></a>
-        </div>
-
-        <div class="account">
-            <a id="account_login" href="https://www.ncbi.nlm.nih.gov/account/?back_url=https%3A%2F%2Fblast%2Encbi%2Enlm%2Enih%2Egov%2Fblast%2FBlast%2Ecgi%3FCMD%3DGet%26FORMAT%5FOBJECT%3DAlignment%26FORMAT%5FTYPE%3DJSON2%5FS%26RESULTS%5FFILE%3Don%26RID%3D8Z2V2W9N016" class="usa-button header-button">Log in</a>
-            <button id="account_info" class="header-button" aria-controls="account_popup">
-                <span class="fa fa-user" aria-hidden="true"></span>
-                <span class="username desktop-only" aria-hidden="true" id="uname_short"></span>
-                <span class="sr-only">Show account info</span>
-            </button>
-        </div>
-
-        <div class="ncbi-popup-anchor">
-            <div class="ncbi-popup account-popup" id="account_popup" aria-hidden="true" role="dialog" aria-labelledby="account-popup-header">
-                <div class="ncbi-popup-head">
-                    <button class="ncbi-close-button"><span class="fa fa-window-close"></span><span class="usa-sr-only">Close</span></button>
-                    <h4>Account</h4>
-                </div>
-                <div class="account-user-info">
-                    Logged in as:<br>
-                    <b><span class="username" id="uname_long">username</span></b>
-                </div>
-                <div class="account-links">
-                    <ul class="usa-unstyled-list">
-                        <li><a id="account_myncbi" href="https://www.ncbi.nlm.nih.gov/myncbi/">Dashboard</a> <span class="ncbi-text-small-light">(My NCBI)</span></li>
-                        <li><a id="account_pubs" href="https://www.ncbi.nlm.nih.gov/myncbi/collections/bibliography/">Publications</a> <span class="ncbi-text-small-light">(My Bibliography)</span></li>
-                        <li><a id="account_settings" href="https://www.ncbi.nlm.nih.gov/account/settings/">Account settings</a></li>
-                        <li><a id="account_logout" href="https://www.ncbi.nlm.nih.gov/account/signout/?back_url=https%3A%2F%2Fblast%2Encbi%2Enlm%2Enih%2Egov%2Fblast%2FBlast%2Ecgi%3FCMD%3DGet%26FORMAT%5FOBJECT%3DAlignment%26FORMAT%5FTYPE%3DJSON2%5FS%26RESULTS%5FFILE%3Don%26RID%3D8Z2V2W9N016">Log out</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
-</header>
-<nav class="ncbi-topnav" id="navcontent">
-    <div class="usa-grid">
-        <a class="ncbi-topnav-root" href="Blast.cgi">BLAST <sup>&reg;</sup></a> <span id="brc"><span class="brcrmbsign">&raquo;</span> <a href="Blast.cgi?PAGE=Nucleotides&amp;PROGRAM=blastn&amp;PAGE_TYPE=BlastSearch&amp;BLAST_SPEC=">blastn suite</a> <span class="brcrmbsign">&raquo;</span> RID-8Z2V2W9N016</span>
-        <ul class="rf ncbi-topnav-list" id="topnav-list">
-            <li class="first "><a href="Blast.cgi?CMD=Web&amp;PAGE_TYPE=BlastHome" title="BLAST Home">Home</a></li>
-            <li class="recent "><a href="Blast.cgi?CMD=GetSaved&amp;RECENT_RESULTS=on" title="Unexpired BLAST jobs">Recent Results</a></li>                
-            <li class="saved "><a href="Blast.cgi?CMD=GetSaved" title="Saved sets of BLAST search parameters">Saved Strategies</a></li>
-            <li  class= "last documentation "> <a href="Blast.cgi?CMD=Web&amp;PAGE_TYPE=BlastDocs" title="BLAST documentation">Help</a></li>                            
-        </ul>
-    </div>
-</nav>
-
-
-
-        <div id="content-wrap">
-
-                <div class="pageTitle">                            
-                   Format Request Status                   
-                </div>
-		<div class="inlineDiv resHeader">				   
-				   <a  id="frmPage"  class="UNKNOWN" href="#" submitForm="reformat">[Formatting options] </a>                   
-                </div>
-                <h2 id="jtitle" >Job Title: </h2>
-								
-                <div id="content">                
-                <!--<ul id="msg" class="msg"><li class="error"><p class=""></p><p class=""></p><p class=""></p></ul> -->
-                <ul id="msg" class="msg"><li class="error"><p class="error">Error: Results for RID 8Z2V2W9N016 not found</p></li></ul>
-                <p><!--
-                QBlastInfoBegin
-	                Status=UNKNOWN
-                QBlastInfoEnd
-                --></p> 
-                               
-                <SCRIPT LANGUAGE="JavaScript"><!--
-                    var tm = "";
-                    if (tm != "") {                    
-                        setTimeout('document.forms[0].submit();',tm);
-                    }
-                //--></SCRIPT>                                
-                <table id="statInfo" class="UNKNOWN">
-                <tr><td>Request ID</td><td> <b>8Z2V2W9N016</b></td></tr>
-                <tr class="odd"><td>Status</td><td>Searching</td></tr>
-                <tr><td>Submitted at</td><td></td></tr>
-                <tr class="odd"><td>Current time</td><td></td></tr>
-                <tr><td>Time since submission</td><td></td></tr>
-                </table>
-                <p class="UNKNOWN">This page will be automatically updated in <b></b> seconds</p>       
-                <form action="Blast.cgi" enctype="application/x-www-form-urlencoded" method="POST" id="results">
-                <input name="FORMAT_OBJECT" type="hidden" value="Alignment"><input name="FORMAT_TYPE" type="hidden" value="JSON2_S"><input name="RESULTS_FILE" type="hidden" value="on"><input name="RID" type="hidden" value="8Z2V2W9N016"><input name="SEARCH_DB_STATUS" type="hidden" value="0"><input name="USER_TYPE" type="hidden" value="2"><input name="_PGR" type="hidden" value="0">                
-                <input name="_PGR" type="hidden" value="0" >
-                <input name="CMD" type="hidden" value="Get">
-               
-                </form>
-                                
-				</div><!-- /#content -->
-				<form action="Blast.cgi" enctype="application/x-www-form-urlencoded"  method="post" name="reformat" id="reformat">				
-				   <input name="QUERY_INFO" type="hidden" value="" />    				
-				   <input name="ENTREZ_QUERY" type="hidden" value="" />
-                   <input name="CDD_RID" type="hidden" value="" />
-                   <input name="CDD_SEARCH_STATE" type="hidden" value="" />
-                   <input name="RID" type="hidden" value="8Z2V2W9N016" />
-				   <input name="STEP_NUMBER" type="hidden" value="" />
-				   <input name="CMD" type="hidden" value="Web"/>				
-				   <input NAME="PAGE_TYPE" type="hidden"  value="BlastFormatting"/>
-				
-				   <!-- TO DO: test all of those changes -->				   	
-				   <!-- Psi blast params  PSI_BLAST_PARAMS - commented- using forms[0] from fromatter> -->
-				   <!-- Current Formatting options FORMATTING_OPTIONS- commented- using forms[0] from fromatter> -->
-				   <!-- Current Search options CURR_SAVED_OPTIONS - commented- using forms[0] from fromatter> -->
-                 </form>				
-        </div><!-- /#content-wrap -->
-
-         <footer id="ncbi-footer" class="usa-footer usa-footer-medium usa-sans ncbi-footer" role="contentinfo" data-section="Footer">
-  <div class="icon-section">
-    <div class="usa-grid">
-		<div class="usa-width-one-whole">
-		<h3 class="usa-sr-only">Connect</h3>
-		<ul class="ncbi-inline-list icon-list">
-			<li><a id="footer_twitter" href="https://twitter.com/ncbi">Twitter</a></li>
-			<li><a id="footer_facebook" href="https://www.facebook.com/ncbi.nlm">Facebook</a></li>
-			<li><a id="footer_youtube" href="https://www.youtube.com/user/NCBINLM">YouTube</a></li>
-			<li><a id="footer_linkedin" href="https://www.linkedin.com/company/national-center-for-biotechnology-information-ncbi-">LinkedIn</a></li>
-			<li><a id="footer_github" href="https://github.com/ncbi">GitHub</a></li>
-		</ul>
-		<ul class="ncbi-inline-list icon-list icon-list-elastic">	
-			<li class="li-blog"><a id="footer_blog" href="https://ncbiinsights.ncbi.nlm.nih.gov/">Blog</a></li>
-			<li class="li-support"><a id="footer_support" href="https://support.ncbi.nlm.nih.gov/">Support Center</a></li>
-		</ul>
-		</div>
-		</div>
-  </div>
-  <div class="usa-footer-secondary_section ncbi-section">
-    <div class="usa-grid">
-      <div class="usa-width-one-half ncbi">
-        <h3 class="ncbi-full-name">National Center for Biotechnology Information</h3>
-		<address>
-        <a id="google_maps" href="https://www.google.com/maps/place/8600+Rockville+Pike,+Bethesda,+MD+20894/@38.9959508,-77.101021,17z/data=!3m1!4b1!4m5!3m4!1s0x89b7c95e25765ddb:0x19156f88b27635b8!8m2!3d38.9959508!4d-77.0988323">
-        <span class="h-adr"> <span class="p-street-address break">8600 Rockville Pike</span>
-        <span class="p-locality">Bethesda</span> <span class="p-region"> MD</span>, <span class="p-postal-code">20894</span> <span class="p-country-name">USA</span> </span>
-		</a>
-		</address>
-        <ul class="ncbi-inline-list">
-			<li><a id="footer_about" href="https://www.ncbi.nlm.nih.gov/home/about/">About us</a></li>
-          <li><a id="footer_contact" href="https://www.ncbi.nlm.nih.gov/home/about/contact.shtml">Contact us</a></li>
-          <li><a id="footer_policies" href="https://www.ncbi.nlm.nih.gov/home/about/policies.shtml">Policies</a></li>
-          <li><a id="footer_foia" href="https://www.nih.gov/institutes-nih/nih-office-director/office-communications-public-liaison/freedom-information-act-office">FOIA</a></li>
-        </ul>
-      </div>
-      <div class="usa-width-one-half">
-      <div class="usa-grid-full">
-		<div class="usa-width-one-third">
-		<h4>Popular</h4>
-
-        <ul class="ncbi-unstyled-list">
-				<li><a id="footer_pubmed" href="https://www.ncbi.nlm.nih.gov/pubmed/">PubMed</a></li>
-				<li><a id="footer_pmc" href="https://www.ncbi.nlm.nih.gov/pmc/">PubMed Central</a></li>
-				<li><a id="footer_bookshelf" href="https://www.ncbi.nlm.nih.gov/books/">Bookshelf</a></li>
-				<li><a id="footer_pubchem" href="https://pubchem.ncbi.nlm.nih.gov">PubChem</a></li>
-				<li><a id="footer_gene" href="https://www.ncbi.nlm.nih.gov/gene/">Gene</a></li>
-				<li><a id="footer_blast" href="https://blast.ncbi.nlm.nih.gov">BLAST</a></li>
-				<li><a id="footer_nucleotide" href="https://www.ncbi.nlm.nih.gov/nucleotide/">Nucleotide</a></li>
-				<li><a id="footer_protein" href="https://www.ncbi.nlm.nih.gov/protein/">Protein</a></li>
-				<li><a id="footer_geo" href="https://www.ncbi.nlm.nih.gov/geo/">GEO</a></li>
-        </ul>
-
-			</div>
-		<div class="usa-width-one-third">
-			<h4>Resources</h4>
-			<ul class="ncbi-unstyled-list ncbi-undecorated-links">
-				  <li><a id="footer_literature" href="https://www.ncbi.nlm.nih.gov/home/literature/">Literature</a></li>
-				  <li><a id="footer_health" href="https://www.ncbi.nlm.nih.gov/home/health/">Health</a></li>
-				  <li><a id="footer_genomes" href="https://www.ncbi.nlm.nih.gov/home/genomes/">Genomes</a></li>
-				  <li><a id="footer_genes" href="https://www.ncbi.nlm.nih.gov/home/genes/">Genes</a></li>
-				  <li><a id="footer_proteins" href="https://www.ncbi.nlm.nih.gov/home/proteins/">Proteins</a></li>
-				  <li><a id="footer_chemicals" href="https://www.ncbi.nlm.nih.gov/home/chemicals/">Chemicals</a></li>
-			</ul>
-		</div>
-		<div class="usa-width-one-third">
-   <h4>Actions</h4>
-   <ul class="ncbi-unstyled-list">
-              <li><a id="footer_submit" href="https://www.ncbi.nlm.nih.gov/home/submit/">Submit</a></li>
-              <li><a id="footer_download" href="https://www.ncbi.nlm.nih.gov/home/download/">Download</a></li>
-              <li><a id="footer_learn" href="https://www.ncbi.nlm.nih.gov/home/learn/">Learn</a></li>
-              <li><a id="footer_develop" href="https://www.ncbi.nlm.nih.gov/home/develop/">Develop</a></li>
-              <li><a id="footer_analyze" href="https://www.ncbi.nlm.nih.gov/home/analyze/">Analyze</a></li>
-              <li><a id="footer_research" href="https://www.ncbi.nlm.nih.gov/research/">Research</a></li>
-   </ul>
-		  </div>
-		  </div>
-		  </div>
-    </div>
-	</div>
-     <div class="usa-footer-secondary_section gov-agencies"> 
-    <div class="usa-grid">
-    <div class="usa-width-one-whole">
-		<p>
-			<a id="footer_nlm" href="https://www.nlm.nih.gov/">NLM</a>
-			&ensp;|&ensp;
-			<a id="footer_nih" href="https://www.nih.gov/">NIH</a>
-			&ensp;|&ensp;
-			<a id="footer_hhs" href="https://www.hhs.gov/">HHS</a>
-			&ensp;|&ensp;
-			<a id="footer_usagov" href="https://www.usa.gov/">USA.gov</a>
-		</p>
-	 </div>
-	 </div>
-	</div>
-
- </footer>
-<script type="text/javascript" src="js/nwds.js"></script>
-<script type="text/javascript" src="js/ncbipopup.js"></script>
-<script type="text/javascript" src="js/headerNew.js"></script>
-<script src="js/uswds.min.js"></script>
-        <script type="text/javascript" src="/portal/portal3rc.fcgi/rlib/js/InstrumentOmnitureBaseJS/InstrumentNCBIBaseJS/InstrumentPageStarterJS.js"></script>
-<!--
-<script type="text/javascript" src="://www.ncbi.nlm.nih.gov/portal/portal3rc.fcgi/supportedbrowsers/js/nonportalbc_min.js"></script>
-<script type="text/javascript">$("#browsers_ajax").browserCheck();</script>
--->
-   </div><!--/#wrap-->
-</body>
-
-</html>
+{
+"BlastOutput2": [
+{
+    "report": {
+      "program": "blastn",
+      "version": "BLASTN 2.11.0+",
+      "reference": "Stephen F. Altschul, Thomas L. Madden, Alejandro A. Sch&auml;ffer, Jinghui Zhang, Zheng Zhang, Webb Miller, and David J. Lipman (1997), \"Gapped BLAST and PSI-BLAST: a new generation of protein database search programs\", Nucleic Acids Res. 25:3389-3402.",
+      "search_target": {
+        "db": "nt"
+      },
+      "params": {
+        "expect": 10,
+        "sc_match": 2,
+        "sc_mismatch": -3,
+        "gap_open": 5,
+        "gap_extend": 2,
+        "filter": "L;m;"
+      },
+      "results": {
+        "search": {
+          "query_id": "Query_120585",
+          "query_len": 21,
+          "hits": [
+            {
+              "num": 1,
+              "description": [
+                {
+                  "id": "gi|1820999248|ref|XM_032910158.1|",
+                  "accession": "XM_032910158",
+                  "title": "PREDICTED: Rattus rattus matrix metallopeptidase 7 (Mmp7), mRNA",
+                  "taxid": 10117,
+                  "sciname": "Rattus rattus"
+                }
+              ],
+              "len": 1000,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14632,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 285,
+                  "hit_to": 265,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCACACCTGGGCTTCTGCATT",
+                  "hseq": "CCACACCTGGGCTTCTGCATT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 2,
+              "description": [
+                {
+                  "id": "gi|1820921230|ref|XM_032844079.1|",
+                  "accession": "XM_032844079",
+                  "title": "PREDICTED: Lontra canadensis matrix metallopeptidase 7 (MMP7), mRNA",
+                  "taxid": 76717,
+                  "sciname": "Lontra canadensis"
+                }
+              ],
+              "len": 1136,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14632,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 318,
+                  "hit_to": 298,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCACACCTGGGCTTCTGCATT",
+                  "hseq": "CCACACCTGGGCTTCTGCATT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 3,
+              "description": [
+                {
+                  "id": "gi|1804889977|ref|XM_032359598.1|",
+                  "accession": "XM_032359598",
+                  "title": "PREDICTED: Mustela erminea matrix metallopeptidase 7 (MMP7), mRNA",
+                  "taxid": 36723,
+                  "sciname": "Mustela erminea"
+                }
+              ],
+              "len": 2109,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14632,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 374,
+                  "hit_to": 354,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCACACCTGGGCTTCTGCATT",
+                  "hseq": "CCACACCTGGGCTTCTGCATT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 4,
+              "description": [
+                {
+                  "id": "gi|1691693431|ref|XM_017797301.2|",
+                  "accession": "XM_017797301",
+                  "title": "PREDICTED: Nannospalax galili matrix metallopeptidase 7 (Mmp7), mRNA",
+                  "taxid": 1026970,
+                  "sciname": "Nannospalax galili"
+                }
+              ],
+              "len": 739,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14632,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 335,
+                  "hit_to": 315,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCACACCTGGGCTTCTGCATT",
+                  "hseq": "CCACACCTGGGCTTCTGCATT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 5,
+              "description": [
+                {
+                  "id": "gi|1244114839|ref|XM_022512848.1|",
+                  "accession": "XM_022512848",
+                  "title": "PREDICTED: Enhydra lutris kenyoni matrix metallopeptidase 7 (LOC111153696), mRNA",
+                  "taxid": 391180,
+                  "sciname": "Enhydra lutris kenyoni"
+                }
+              ],
+              "len": 2118,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14632,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 376,
+                  "hit_to": 356,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCACACCTGGGCTTCTGCATT",
+                  "hseq": "CCACACCTGGGCTTCTGCATT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 6,
+              "description": [
+                {
+                  "id": "gi|859842881|ref|XM_004764460.2|",
+                  "accession": "XM_004764460",
+                  "title": "PREDICTED: Mustela putorius furo matrix metallopeptidase 7 (MMP7), mRNA",
+                  "taxid": 9669,
+                  "sciname": "Mustela putorius furo"
+                }
+              ],
+              "len": 2106,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14632,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 369,
+                  "hit_to": 349,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCACACCTGGGCTTCTGCATT",
+                  "hseq": "CCACACCTGGGCTTCTGCATT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 7,
+              "description": [
+                {
+                  "id": "gi|852734802|ref|XM_013009627.1|",
+                  "accession": "XM_013009627",
+                  "title": "PREDICTED: Dipodomys ordii matrix metallopeptidase 7 (Mmp7), mRNA",
+                  "taxid": 10020,
+                  "sciname": "Dipodomys ordii"
+                }
+              ],
+              "len": 1444,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14632,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 278,
+                  "hit_to": 258,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCACACCTGGGCTTCTGCATT",
+                  "hseq": "CCACACCTGGGCTTCTGCATT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 8,
+              "description": [
+                {
+                  "id": "gi|667291383|ref|XM_008579627.1|",
+                  "accession": "XM_008579627",
+                  "title": "PREDICTED: Galeopterus variegatus matrix metallopeptidase 7 (matrilysin, uterine) (MMP7), mRNA",
+                  "taxid": 482537,
+                  "sciname": "Galeopterus variegatus"
+                }
+              ],
+              "len": 1105,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14632,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 305,
+                  "hit_to": 285,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCACACCTGGGCTTCTGCATT",
+                  "hseq": "CCACACCTGGGCTTCTGCATT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 9,
+              "description": [
+                {
+                  "id": "gi|166091437|ref|NM_012864.2|",
+                  "accession": "NM_012864",
+                  "title": "Rattus norvegicus matrix metallopeptidase 7 (Mmp7), mRNA",
+                  "taxid": 10116,
+                  "sciname": "Rattus norvegicus"
+                },
+                {
+                  "id": "gi|40555746|gb|BC064657.1|",
+                  "accession": "BC064657",
+                  "title": "Rattus norvegicus matrix metallopeptidase 7, mRNA (cDNA clone MGC:72527 IMAGE:5623517), complete cds",
+                  "taxid": 10116,
+                  "sciname": "Rattus norvegicus"
+                }
+              ],
+              "len": 1043,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14632,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 291,
+                  "hit_to": 271,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCACACCTGGGCTTCTGCATT",
+                  "hseq": "CCACACCTGGGCTTCTGCATT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 10,
+              "description": [
+                {
+                  "id": "gi|402492|gb|L24374.1|RATMPMM",
+                  "accession": "L24374",
+                  "title": "Rattus norvegicus matrilysin (MMP-7) mRNA, complete cds",
+                  "taxid": 10116,
+                  "sciname": "Rattus norvegicus"
+                }
+              ],
+              "len": 1057,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14632,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 305,
+                  "hit_to": 285,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCACACCTGGGCTTCTGCATT",
+                  "hseq": "CCACACCTGGGCTTCTGCATT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 11,
+              "description": [
+                {
+                  "id": "gi|55545|emb|X07821.1|",
+                  "accession": "X07821",
+                  "title": "Rat transin-3 gene exon 2",
+                  "taxid": 10116,
+                  "sciname": "Rattus norvegicus"
+                }
+              ],
+              "len": 272,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14632,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 180,
+                  "hit_to": 160,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCACACCTGGGCTTCTGCATT",
+                  "hseq": "CCACACCTGGGCTTCTGCATT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 12,
+              "description": [
+                {
+                  "id": "gi|1820719561|ref|XM_032762868.1|",
+                  "accession": "XM_032762868",
+                  "title": "PREDICTED: Chelonoidis abingdonii matrix metalloproteinase-27-like (LOC116814902), mRNA",
+                  "taxid": 106734,
+                  "sciname": "Chelonoidis abingdonii"
+                }
+              ],
+              "len": 1811,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.49139,
+                  "identity": 20,
+                  "query_from": 1,
+                  "query_to": 20,
+                  "query_strand": "Plus",
+                  "hit_from": 405,
+                  "hit_to": 386,
+                  "hit_strand": "Minus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "CCACACCTGGGCTTCTGCAT",
+                  "hseq": "CCACACCTGGGCTTCTGCAT",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 13,
+              "description": [
+                {
+                  "id": "gi|1729077169|ref|XM_030560440.1|",
+                  "accession": "XM_030560440",
+                  "title": "PREDICTED: Gopherus evgoodei matrix metalloproteinase-27-like (LOC115650446), mRNA",
+                  "taxid": 1825980,
+                  "sciname": "Gopherus evgoodei"
+                }
+              ],
+              "len": 1823,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.49139,
+                  "identity": 20,
+                  "query_from": 1,
+                  "query_to": 20,
+                  "query_strand": "Plus",
+                  "hit_from": 407,
+                  "hit_to": 388,
+                  "hit_strand": "Minus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "CCACACCTGGGCTTCTGCAT",
+                  "hseq": "CCACACCTGGGCTTCTGCAT",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 14,
+              "description": [
+                {
+                  "id": "gi|1351574034|ref|XM_024215663.1|",
+                  "accession": "XM_024215663",
+                  "title": "PREDICTED: Terrapene carolina triunguis matrix metalloproteinase-27-like (LOC112117632), mRNA",
+                  "taxid": 2587831,
+                  "sciname": "Terrapene carolina triunguis"
+                }
+              ],
+              "len": 1413,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.49139,
+                  "identity": 20,
+                  "query_from": 1,
+                  "query_to": 20,
+                  "query_strand": "Plus",
+                  "hit_from": 290,
+                  "hit_to": 271,
+                  "hit_strand": "Minus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "CCACACCTGGGCTTCTGCAT",
+                  "hseq": "CCACACCTGGGCTTCTGCAT",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 15,
+              "description": [
+                {
+                  "id": "gi|1147284159|ref|XM_020168079.1|",
+                  "accession": "XM_020168079",
+                  "title": "PREDICTED: Castor canadensis matrix metallopeptidase 10 (Mmp10), mRNA",
+                  "taxid": 51338,
+                  "sciname": "Castor canadensis"
+                }
+              ],
+              "len": 1434,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.49139,
+                  "identity": 20,
+                  "query_from": 1,
+                  "query_to": 20,
+                  "query_strand": "Plus",
+                  "hit_from": 278,
+                  "hit_to": 259,
+                  "hit_strand": "Minus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "CCACACCTGGGCTTCTGCAT",
+                  "hseq": "CCACACCTGGGCTTCTGCAT",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 16,
+              "description": [
+                {
+                  "id": "gi|1147284022|ref|XM_020168004.1|",
+                  "accession": "XM_020168004",
+                  "title": "PREDICTED: Castor canadensis matrix metallopeptidase 7 (Mmp7), mRNA",
+                  "taxid": 51338,
+                  "sciname": "Castor canadensis"
+                }
+              ],
+              "len": 804,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.49139,
+                  "identity": 20,
+                  "query_from": 1,
+                  "query_to": 20,
+                  "query_strand": "Plus",
+                  "hit_from": 263,
+                  "hit_to": 244,
+                  "hit_strand": "Minus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "CCACACCTGGGCTTCTGCAT",
+                  "hseq": "CCACACCTGGGCTTCTGCAT",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 17,
+              "description": [
+                {
+                  "id": "gi|1114444463|gb|KX150940.1|",
+                  "accession": "KX150940",
+                  "title": "Castor fiber matrix metallopeptidase 7 precursor (MMP7) mRNA, complete cds",
+                  "taxid": 10185,
+                  "sciname": "Castor fiber"
+                }
+              ],
+              "len": 2404,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.49139,
+                  "identity": 20,
+                  "query_from": 1,
+                  "query_to": 20,
+                  "query_strand": "Plus",
+                  "hit_from": 369,
+                  "hit_to": 350,
+                  "hit_strand": "Minus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "CCACACCTGGGCTTCTGCAT",
+                  "hseq": "CCACACCTGGGCTTCTGCAT",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 18,
+              "description": [
+                {
+                  "id": "gi|974067156|ref|XM_015375564.1|",
+                  "accession": "XM_015375564",
+                  "title": "PREDICTED: Cyprinodon variegatus amphiregulin (areg), mRNA",
+                  "taxid": 28743,
+                  "sciname": "Cyprinodon variegatus"
+                }
+              ],
+              "len": 1036,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.49139,
+                  "identity": 20,
+                  "query_from": 2,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 467,
+                  "hit_to": 486,
+                  "hit_strand": "Plus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "CACACCTGGGCTTCTGCATT",
+                  "hseq": "CACACCTGGGCTTCTGCATT",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 19,
+              "description": [
+                {
+                  "id": "gi|1985316198|ref|XM_039495988.1|",
+                  "accession": "XM_039495988",
+                  "title": "PREDICTED: Mauremys reevesii matrix metalloproteinase-27-like (LOC120375111), transcript variant X4, mRNA",
+                  "taxid": 260615,
+                  "sciname": "Mauremys reevesii"
+                }
+              ],
+              "len": 1700,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.49139,
+                  "identity": 20,
+                  "query_from": 1,
+                  "query_to": 20,
+                  "query_strand": "Plus",
+                  "hit_from": 284,
+                  "hit_to": 265,
+                  "hit_strand": "Minus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "CCACACCTGGGCTTCTGCAT",
+                  "hseq": "CCACACCTGGGCTTCTGCAT",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 20,
+              "description": [
+                {
+                  "id": "gi|1985316196|ref|XM_039495973.1|",
+                  "accession": "XM_039495973",
+                  "title": "PREDICTED: Mauremys reevesii matrix metalloproteinase-27-like (LOC120375111), transcript variant X3, mRNA",
+                  "taxid": 260615,
+                  "sciname": "Mauremys reevesii"
+                }
+              ],
+              "len": 1645,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.49139,
+                  "identity": 20,
+                  "query_from": 1,
+                  "query_to": 20,
+                  "query_strand": "Plus",
+                  "hit_from": 229,
+                  "hit_to": 210,
+                  "hit_strand": "Minus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "CCACACCTGGGCTTCTGCAT",
+                  "hseq": "CCACACCTGGGCTTCTGCAT",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 21,
+              "description": [
+                {
+                  "id": "gi|1985316194|ref|XM_039495916.1|",
+                  "accession": "XM_039495916",
+                  "title": "PREDICTED: Mauremys reevesii matrix metalloproteinase-27-like (LOC120375111), transcript variant X2, mRNA",
+                  "taxid": 260615,
+                  "sciname": "Mauremys reevesii"
+                }
+              ],
+              "len": 1666,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.49139,
+                  "identity": 20,
+                  "query_from": 1,
+                  "query_to": 20,
+                  "query_strand": "Plus",
+                  "hit_from": 250,
+                  "hit_to": 231,
+                  "hit_strand": "Minus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "CCACACCTGGGCTTCTGCAT",
+                  "hseq": "CCACACCTGGGCTTCTGCAT",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 22,
+              "description": [
+                {
+                  "id": "gi|1985316192|ref|XM_039495844.1|",
+                  "accession": "XM_039495844",
+                  "title": "PREDICTED: Mauremys reevesii matrix metalloproteinase-27-like (LOC120375111), transcript variant X1, mRNA",
+                  "taxid": 260615,
+                  "sciname": "Mauremys reevesii"
+                }
+              ],
+              "len": 1868,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.49139,
+                  "identity": 20,
+                  "query_from": 1,
+                  "query_to": 20,
+                  "query_strand": "Plus",
+                  "hit_from": 452,
+                  "hit_to": 433,
+                  "hit_strand": "Minus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "CCACACCTGGGCTTCTGCAT",
+                  "hseq": "CCACACCTGGGCTTCTGCAT",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 23,
+              "description": [
+                {
+                  "id": "gi|1950367439|ref|XM_038406100.1|",
+                  "accession": "XM_038406100",
+                  "title": "Dermochelys coriacea LOW QUALITY PROTEIN: matrix metalloproteinase-27-like (LOC119857331), mRNA",
+                  "taxid": 27794,
+                  "sciname": "Dermochelys coriacea"
+                }
+              ],
+              "len": 1759,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.49139,
+                  "identity": 20,
+                  "query_from": 1,
+                  "query_to": 20,
+                  "query_strand": "Plus",
+                  "hit_from": 339,
+                  "hit_to": 320,
+                  "hit_strand": "Minus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "CCACACCTGGGCTTCTGCAT",
+                  "hseq": "CCACACCTGGGCTTCTGCAT",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 24,
+              "description": [
+                {
+                  "id": "gi|1949374352|ref|XM_038277351.1|",
+                  "accession": "XM_038277351",
+                  "title": "Cyprinodon tularosa proheparin-binding EGF-like growth factor (areg), mRNA",
+                  "taxid": 77115,
+                  "sciname": "Cyprinodon tularosa"
+                }
+              ],
+              "len": 1168,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.49139,
+                  "identity": 20,
+                  "query_from": 2,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 506,
+                  "hit_to": 525,
+                  "hit_strand": "Plus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "CACACCTGGGCTTCTGCATT",
+                  "hseq": "CACACCTGGGCTTCTGCATT",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 25,
+              "description": [
+                {
+                  "id": "gi|1935022511|ref|XM_007057355.3|",
+                  "accession": "XM_007057355",
+                  "title": "PREDICTED: Chelonia mydas matrix metalloproteinase-27 (LOC102940815), mRNA",
+                  "taxid": 8469,
+                  "sciname": "Chelonia mydas"
+                }
+              ],
+              "len": 1794,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.49139,
+                  "identity": 20,
+                  "query_from": 1,
+                  "query_to": 20,
+                  "query_strand": "Plus",
+                  "hit_from": 366,
+                  "hit_to": 347,
+                  "hit_strand": "Minus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "CCACACCTGGGCTTCTGCAT",
+                  "hseq": "CCACACCTGGGCTTCTGCAT",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 26,
+              "description": [
+                {
+                  "id": "gi|1885978896|emb|LR862371.1|",
+                  "accession": "LR862371",
+                  "title": "Pipistrellus pipistrellus genome assembly, chromosome: 15",
+                  "taxid": 59474,
+                  "sciname": "Pipistrellus pipistrellus"
+                }
+              ],
+              "len": 47276637,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.49139,
+                  "identity": 20,
+                  "query_from": 2,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 19328143,
+                  "hit_to": 19328162,
+                  "hit_strand": "Plus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "CACACCTGGGCTTCTGCATT",
+                  "hseq": "CACACCTGGGCTTCTGCATT",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            }
+          ],
+          "stat": {
+            "db_num": 70340467,
+            "db_len": 1729562960,
+            "hsp_len": 18,
+            "eff_space": 1315650296238,
+            "kappa": 0.41,
+            "lambda": 0.625,
+            "entropy": 0.78
+          }
+        }
+      }
+    }
+  }
+]
+}
 

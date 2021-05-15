@@ -1,263 +1,3340 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="jig" content="ncbitoggler"/>
-<meta name="ncbitoggler" content="animation:'none'"/>
-<title>NCBI Blast:</title>
-<script type="text/javascript" src="/core/jig/1.14.8/js/jig.min.js             "></script>
-<script type="text/javascript">    jQuery.getScript("/core/alerts/alerts.js", function() {
-        galert(['div#header', 'body > *:nth-child(1)'])
-    });</script>
-<meta http-equiv="Pragma" content="no-cache">
-<link rel="stylesheet" type="text/css" href="css/uswds.min.css" media="screen" />
-<link rel="stylesheet"  type="text/css" href="https://www.ncbi.nlm.nih.gov/style-guide/static/nwds/css/nwds.css"/>
-<link rel="stylesheet" href="css/headerNew.css"/>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous"> <!-- Font Awesome icons -->
-<link rel="stylesheet" type="text/css" href="css/footerNew.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="css/main.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="css/blastRes.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="css/print.css" media="print" />
-<!--[if lte IE 6]>
-<link rel="stylesheet" type="text/css" href="css/ie6_or_less.css" />
-<![endif]-->
-<script type="text/javascript" src="js/utils.js"></script>
-<script type="text/javascript" src="js/results.js"></script>
-</head>
-
-<body id="type-a" class="noToggleCheck" >
-<div id="wrap">
-		    	
-<header class="ncbi-header" role="banner" data-section="Header">
-<ul class="skip_nav">
-    <li><a accesskey="1" title="NCBI Homepage" href="https://www.ncbi.nlm.nih.gov/">NCBI Home</a></li>
-    <li><a accesskey="2" title="MyNCBI" href="https://www.ncbi.nlm.nih.gov/myncbi">Sign in to NCBI</a></li>
-    <li><a accesskey="3" title="Skip to main content" href="#mainCont">Skip to Main Content</a></li>
-    <li><a accesskey="4" title="Skip to navigation" href="#navcontent">Skip to Navigation</a></li>
-    <li><a accesskey="0" title="About NCBI Accesskeys" href="https://www.ncbi.nlm.nih.gov/guide/browsers/#accesskeys">About NCBI Accesskeys</a></li>
-</ul>
-<div class="usa-grid">
-    <div class="usa-width-one-whole">
-        <div class="agencies">
-            <div class="nih"><span class="usa-sr-only">National Institutes of Health</span></div>
-            <div class="nlm">U.S. National Library of Medicine</div>
-            <div class="ncbi">National Center for Biotechnology Information</div>
-            <a href="https://www.ncbi.nlm.nih.gov/" class="homepage"><span class="usa-sr-only" id="header_ncbi">NCBI homepage</span></a>
-        </div>
-
-        <div class="account">
-            <a id="account_login" href="https://www.ncbi.nlm.nih.gov/account/?back_url=https%3A%2F%2Fblast%2Encbi%2Enlm%2Enih%2Egov%2Fblast%2FBlast%2Ecgi%3FCMD%3DGet%26FORMAT%5FOBJECT%3DAlignment%26FORMAT%5FTYPE%3DJSON2%5FS%26RESULTS%5FFILE%3Don%26RID%3D8YCSZ27T013" class="usa-button header-button">Log in</a>
-            <button id="account_info" class="header-button" aria-controls="account_popup">
-                <span class="fa fa-user" aria-hidden="true"></span>
-                <span class="username desktop-only" aria-hidden="true" id="uname_short"></span>
-                <span class="sr-only">Show account info</span>
-            </button>
-        </div>
-
-        <div class="ncbi-popup-anchor">
-            <div class="ncbi-popup account-popup" id="account_popup" aria-hidden="true" role="dialog" aria-labelledby="account-popup-header">
-                <div class="ncbi-popup-head">
-                    <button class="ncbi-close-button"><span class="fa fa-window-close"></span><span class="usa-sr-only">Close</span></button>
-                    <h4>Account</h4>
-                </div>
-                <div class="account-user-info">
-                    Logged in as:<br>
-                    <b><span class="username" id="uname_long">username</span></b>
-                </div>
-                <div class="account-links">
-                    <ul class="usa-unstyled-list">
-                        <li><a id="account_myncbi" href="https://www.ncbi.nlm.nih.gov/myncbi/">Dashboard</a> <span class="ncbi-text-small-light">(My NCBI)</span></li>
-                        <li><a id="account_pubs" href="https://www.ncbi.nlm.nih.gov/myncbi/collections/bibliography/">Publications</a> <span class="ncbi-text-small-light">(My Bibliography)</span></li>
-                        <li><a id="account_settings" href="https://www.ncbi.nlm.nih.gov/account/settings/">Account settings</a></li>
-                        <li><a id="account_logout" href="https://www.ncbi.nlm.nih.gov/account/signout/?back_url=https%3A%2F%2Fblast%2Encbi%2Enlm%2Enih%2Egov%2Fblast%2FBlast%2Ecgi%3FCMD%3DGet%26FORMAT%5FOBJECT%3DAlignment%26FORMAT%5FTYPE%3DJSON2%5FS%26RESULTS%5FFILE%3Don%26RID%3D8YCSZ27T013">Log out</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
-</header>
-<nav class="ncbi-topnav" id="navcontent">
-    <div class="usa-grid">
-        <a class="ncbi-topnav-root" href="Blast.cgi">BLAST <sup>&reg;</sup></a> <span id="brc"><span class="brcrmbsign">&raquo;</span> <a href="Blast.cgi?PAGE=Nucleotides&amp;PROGRAM=blastn&amp;PAGE_TYPE=BlastSearch&amp;BLAST_SPEC=">blastn suite</a> <span class="brcrmbsign">&raquo;</span> RID-8YCSZ27T013</span>
-        <ul class="rf ncbi-topnav-list" id="topnav-list">
-            <li class="first "><a href="Blast.cgi?CMD=Web&amp;PAGE_TYPE=BlastHome" title="BLAST Home">Home</a></li>
-            <li class="recent "><a href="Blast.cgi?CMD=GetSaved&amp;RECENT_RESULTS=on" title="Unexpired BLAST jobs">Recent Results</a></li>                
-            <li class="saved "><a href="Blast.cgi?CMD=GetSaved" title="Saved sets of BLAST search parameters">Saved Strategies</a></li>
-            <li  class= "last documentation "> <a href="Blast.cgi?CMD=Web&amp;PAGE_TYPE=BlastDocs" title="BLAST documentation">Help</a></li>                            
-        </ul>
-    </div>
-</nav>
-
-
-
-        <div id="content-wrap">
-
-                <div class="pageTitle">                            
-                   Format Request Status                   
-                </div>
-		<div class="inlineDiv resHeader">				   
-				   <a  id="frmPage"  class="UNKNOWN" href="#" submitForm="reformat">[Formatting options] </a>                   
-                </div>
-                <h2 id="jtitle" >Job Title: </h2>
-								
-                <div id="content">                
-                <!--<ul id="msg" class="msg"><li class="error"><p class=""></p><p class=""></p><p class=""></p></ul> -->
-                <ul id="msg" class="msg"><li class="error"><p class="error">Error: Results for RID 8YCSZ27T013 not found</p></li></ul>
-                <p><!--
-                QBlastInfoBegin
-	                Status=UNKNOWN
-                QBlastInfoEnd
-                --></p> 
-                               
-                <SCRIPT LANGUAGE="JavaScript"><!--
-                    var tm = "";
-                    if (tm != "") {                    
-                        setTimeout('document.forms[0].submit();',tm);
-                    }
-                //--></SCRIPT>                                
-                <table id="statInfo" class="UNKNOWN">
-                <tr><td>Request ID</td><td> <b>8YCSZ27T013</b></td></tr>
-                <tr class="odd"><td>Status</td><td>Searching</td></tr>
-                <tr><td>Submitted at</td><td></td></tr>
-                <tr class="odd"><td>Current time</td><td></td></tr>
-                <tr><td>Time since submission</td><td></td></tr>
-                </table>
-                <p class="UNKNOWN">This page will be automatically updated in <b></b> seconds</p>       
-                <form action="Blast.cgi" enctype="application/x-www-form-urlencoded" method="POST" id="results">
-                <input name="FORMAT_OBJECT" type="hidden" value="Alignment"><input name="FORMAT_TYPE" type="hidden" value="JSON2_S"><input name="RESULTS_FILE" type="hidden" value="on"><input name="RID" type="hidden" value="8YCSZ27T013"><input name="SEARCH_DB_STATUS" type="hidden" value="0"><input name="USER_TYPE" type="hidden" value="2"><input name="_PGR" type="hidden" value="0">                
-                <input name="_PGR" type="hidden" value="0" >
-                <input name="CMD" type="hidden" value="Get">
-               
-                </form>
-                                
-				</div><!-- /#content -->
-				<form action="Blast.cgi" enctype="application/x-www-form-urlencoded"  method="post" name="reformat" id="reformat">				
-				   <input name="QUERY_INFO" type="hidden" value="" />    				
-				   <input name="ENTREZ_QUERY" type="hidden" value="" />
-                   <input name="CDD_RID" type="hidden" value="" />
-                   <input name="CDD_SEARCH_STATE" type="hidden" value="" />
-                   <input name="RID" type="hidden" value="8YCSZ27T013" />
-				   <input name="STEP_NUMBER" type="hidden" value="" />
-				   <input name="CMD" type="hidden" value="Web"/>				
-				   <input NAME="PAGE_TYPE" type="hidden"  value="BlastFormatting"/>
-				
-				   <!-- TO DO: test all of those changes -->				   	
-				   <!-- Psi blast params  PSI_BLAST_PARAMS - commented- using forms[0] from fromatter> -->
-				   <!-- Current Formatting options FORMATTING_OPTIONS- commented- using forms[0] from fromatter> -->
-				   <!-- Current Search options CURR_SAVED_OPTIONS - commented- using forms[0] from fromatter> -->
-                 </form>				
-        </div><!-- /#content-wrap -->
-
-         <footer id="ncbi-footer" class="usa-footer usa-footer-medium usa-sans ncbi-footer" role="contentinfo" data-section="Footer">
-  <div class="icon-section">
-    <div class="usa-grid">
-		<div class="usa-width-one-whole">
-		<h3 class="usa-sr-only">Connect</h3>
-		<ul class="ncbi-inline-list icon-list">
-			<li><a id="footer_twitter" href="https://twitter.com/ncbi">Twitter</a></li>
-			<li><a id="footer_facebook" href="https://www.facebook.com/ncbi.nlm">Facebook</a></li>
-			<li><a id="footer_youtube" href="https://www.youtube.com/user/NCBINLM">YouTube</a></li>
-			<li><a id="footer_linkedin" href="https://www.linkedin.com/company/national-center-for-biotechnology-information-ncbi-">LinkedIn</a></li>
-			<li><a id="footer_github" href="https://github.com/ncbi">GitHub</a></li>
-		</ul>
-		<ul class="ncbi-inline-list icon-list icon-list-elastic">	
-			<li class="li-blog"><a id="footer_blog" href="https://ncbiinsights.ncbi.nlm.nih.gov/">Blog</a></li>
-			<li class="li-support"><a id="footer_support" href="https://support.ncbi.nlm.nih.gov/">Support Center</a></li>
-		</ul>
-		</div>
-		</div>
-  </div>
-  <div class="usa-footer-secondary_section ncbi-section">
-    <div class="usa-grid">
-      <div class="usa-width-one-half ncbi">
-        <h3 class="ncbi-full-name">National Center for Biotechnology Information</h3>
-		<address>
-        <a id="google_maps" href="https://www.google.com/maps/place/8600+Rockville+Pike,+Bethesda,+MD+20894/@38.9959508,-77.101021,17z/data=!3m1!4b1!4m5!3m4!1s0x89b7c95e25765ddb:0x19156f88b27635b8!8m2!3d38.9959508!4d-77.0988323">
-        <span class="h-adr"> <span class="p-street-address break">8600 Rockville Pike</span>
-        <span class="p-locality">Bethesda</span> <span class="p-region"> MD</span>, <span class="p-postal-code">20894</span> <span class="p-country-name">USA</span> </span>
-		</a>
-		</address>
-        <ul class="ncbi-inline-list">
-			<li><a id="footer_about" href="https://www.ncbi.nlm.nih.gov/home/about/">About us</a></li>
-          <li><a id="footer_contact" href="https://www.ncbi.nlm.nih.gov/home/about/contact.shtml">Contact us</a></li>
-          <li><a id="footer_policies" href="https://www.ncbi.nlm.nih.gov/home/about/policies.shtml">Policies</a></li>
-          <li><a id="footer_foia" href="https://www.nih.gov/institutes-nih/nih-office-director/office-communications-public-liaison/freedom-information-act-office">FOIA</a></li>
-        </ul>
-      </div>
-      <div class="usa-width-one-half">
-      <div class="usa-grid-full">
-		<div class="usa-width-one-third">
-		<h4>Popular</h4>
-
-        <ul class="ncbi-unstyled-list">
-				<li><a id="footer_pubmed" href="https://www.ncbi.nlm.nih.gov/pubmed/">PubMed</a></li>
-				<li><a id="footer_pmc" href="https://www.ncbi.nlm.nih.gov/pmc/">PubMed Central</a></li>
-				<li><a id="footer_bookshelf" href="https://www.ncbi.nlm.nih.gov/books/">Bookshelf</a></li>
-				<li><a id="footer_pubchem" href="https://pubchem.ncbi.nlm.nih.gov">PubChem</a></li>
-				<li><a id="footer_gene" href="https://www.ncbi.nlm.nih.gov/gene/">Gene</a></li>
-				<li><a id="footer_blast" href="https://blast.ncbi.nlm.nih.gov">BLAST</a></li>
-				<li><a id="footer_nucleotide" href="https://www.ncbi.nlm.nih.gov/nucleotide/">Nucleotide</a></li>
-				<li><a id="footer_protein" href="https://www.ncbi.nlm.nih.gov/protein/">Protein</a></li>
-				<li><a id="footer_geo" href="https://www.ncbi.nlm.nih.gov/geo/">GEO</a></li>
-        </ul>
-
-			</div>
-		<div class="usa-width-one-third">
-			<h4>Resources</h4>
-			<ul class="ncbi-unstyled-list ncbi-undecorated-links">
-				  <li><a id="footer_literature" href="https://www.ncbi.nlm.nih.gov/home/literature/">Literature</a></li>
-				  <li><a id="footer_health" href="https://www.ncbi.nlm.nih.gov/home/health/">Health</a></li>
-				  <li><a id="footer_genomes" href="https://www.ncbi.nlm.nih.gov/home/genomes/">Genomes</a></li>
-				  <li><a id="footer_genes" href="https://www.ncbi.nlm.nih.gov/home/genes/">Genes</a></li>
-				  <li><a id="footer_proteins" href="https://www.ncbi.nlm.nih.gov/home/proteins/">Proteins</a></li>
-				  <li><a id="footer_chemicals" href="https://www.ncbi.nlm.nih.gov/home/chemicals/">Chemicals</a></li>
-			</ul>
-		</div>
-		<div class="usa-width-one-third">
-   <h4>Actions</h4>
-   <ul class="ncbi-unstyled-list">
-              <li><a id="footer_submit" href="https://www.ncbi.nlm.nih.gov/home/submit/">Submit</a></li>
-              <li><a id="footer_download" href="https://www.ncbi.nlm.nih.gov/home/download/">Download</a></li>
-              <li><a id="footer_learn" href="https://www.ncbi.nlm.nih.gov/home/learn/">Learn</a></li>
-              <li><a id="footer_develop" href="https://www.ncbi.nlm.nih.gov/home/develop/">Develop</a></li>
-              <li><a id="footer_analyze" href="https://www.ncbi.nlm.nih.gov/home/analyze/">Analyze</a></li>
-              <li><a id="footer_research" href="https://www.ncbi.nlm.nih.gov/research/">Research</a></li>
-   </ul>
-		  </div>
-		  </div>
-		  </div>
-    </div>
-	</div>
-     <div class="usa-footer-secondary_section gov-agencies"> 
-    <div class="usa-grid">
-    <div class="usa-width-one-whole">
-		<p>
-			<a id="footer_nlm" href="https://www.nlm.nih.gov/">NLM</a>
-			&ensp;|&ensp;
-			<a id="footer_nih" href="https://www.nih.gov/">NIH</a>
-			&ensp;|&ensp;
-			<a id="footer_hhs" href="https://www.hhs.gov/">HHS</a>
-			&ensp;|&ensp;
-			<a id="footer_usagov" href="https://www.usa.gov/">USA.gov</a>
-		</p>
-	 </div>
-	 </div>
-	</div>
-
- </footer>
-<script type="text/javascript" src="js/nwds.js"></script>
-<script type="text/javascript" src="js/ncbipopup.js"></script>
-<script type="text/javascript" src="js/headerNew.js"></script>
-<script src="js/uswds.min.js"></script>
-        <script type="text/javascript" src="/portal/portal3rc.fcgi/rlib/js/InstrumentOmnitureBaseJS/InstrumentNCBIBaseJS/InstrumentPageStarterJS.js"></script>
-<!--
-<script type="text/javascript" src="://www.ncbi.nlm.nih.gov/portal/portal3rc.fcgi/supportedbrowsers/js/nonportalbc_min.js"></script>
-<script type="text/javascript">$("#browsers_ajax").browserCheck();</script>
--->
-   </div><!--/#wrap-->
-</body>
-
-</html>
+{
+"BlastOutput2": [
+{
+    "report": {
+      "program": "blastn",
+      "version": "BLASTN 2.11.0+",
+      "reference": "Stephen F. Altschul, Thomas L. Madden, Alejandro A. Sch&auml;ffer, Jinghui Zhang, Zheng Zhang, Webb Miller, and David J. Lipman (1997), \"Gapped BLAST and PSI-BLAST: a new generation of protein database search programs\", Nucleic Acids Res. 25:3389-3402.",
+      "search_target": {
+        "db": "nt"
+      },
+      "params": {
+        "expect": 10,
+        "sc_match": 2,
+        "sc_mismatch": -3,
+        "gap_open": 5,
+        "gap_extend": 2,
+        "filter": "L;m;"
+      },
+      "results": {
+        "search": {
+          "query_id": "Query_28223",
+          "query_len": 21,
+          "hits": [
+            {
+              "num": 1,
+              "description": [
+                {
+                  "id": "gi|2031697503|ref|XM_041201063.1|",
+                  "accession": "XM_041201063",
+                  "title": "PREDICTED: Carcharodon carcharias Krueppel-like factor 7 (LOC121284999), transcript variant X3, mRNA",
+                  "taxid": 13397,
+                  "sciname": "Carcharodon carcharias"
+                }
+              ],
+              "len": 1253,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 503,
+                  "hit_to": 483,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 2,
+              "description": [
+                {
+                  "id": "gi|2031697501|ref|XM_041201061.1|",
+                  "accession": "XM_041201061",
+                  "title": "PREDICTED: Carcharodon carcharias Krueppel-like factor 7 (LOC121284999), transcript variant X2, mRNA",
+                  "taxid": 13397,
+                  "sciname": "Carcharodon carcharias"
+                }
+              ],
+              "len": 2006,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 21,
+                  "hit_to": 1,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 3,
+              "description": [
+                {
+                  "id": "gi|2031697499|ref|XM_041201060.1|",
+                  "accession": "XM_041201060",
+                  "title": "PREDICTED: Carcharodon carcharias Krueppel-like factor 7 (LOC121284999), transcript variant X1, mRNA",
+                  "taxid": 13397,
+                  "sciname": "Carcharodon carcharias"
+                }
+              ],
+              "len": 2354,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 503,
+                  "hit_to": 483,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 4,
+              "description": [
+                {
+                  "id": "gi|2027105343|ref|XM_040983458.1|",
+                  "accession": "XM_040983458",
+                  "title": "PREDICTED: Ochotona curzoniae transmembrane protein 63B (TMEM63B), mRNA",
+                  "taxid": 130825,
+                  "sciname": "Ochotona curzoniae"
+                }
+              ],
+              "len": 3251,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1517,
+                  "hit_to": 1497,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 5,
+              "description": [
+                {
+                  "id": "gi|2025785526|ref|XM_040729568.1|",
+                  "accession": "XM_040729568",
+                  "title": "PREDICTED: Mesocricetus auratus transmembrane protein 63B (Tmem63b), transcript variant X4, mRNA",
+                  "taxid": 10036,
+                  "sciname": "Mesocricetus auratus"
+                }
+              ],
+              "len": 3159,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1481,
+                  "hit_to": 1461,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 6,
+              "description": [
+                {
+                  "id": "gi|2025785524|ref|XM_040729567.1|",
+                  "accession": "XM_040729567",
+                  "title": "PREDICTED: Mesocricetus auratus transmembrane protein 63B (Tmem63b), transcript variant X3, mRNA",
+                  "taxid": 10036,
+                  "sciname": "Mesocricetus auratus"
+                }
+              ],
+              "len": 3095,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1417,
+                  "hit_to": 1397,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 7,
+              "description": [
+                {
+                  "id": "gi|2025785522|ref|XM_040729566.1|",
+                  "accession": "XM_040729566",
+                  "title": "PREDICTED: Mesocricetus auratus transmembrane protein 63B (Tmem63b), transcript variant X2, mRNA",
+                  "taxid": 10036,
+                  "sciname": "Mesocricetus auratus"
+                }
+              ],
+              "len": 3207,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1529,
+                  "hit_to": 1509,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 8,
+              "description": [
+                {
+                  "id": "gi|2025785520|ref|XM_040729564.1|",
+                  "accession": "XM_040729564",
+                  "title": "PREDICTED: Mesocricetus auratus transmembrane protein 63B (Tmem63b), transcript variant X1, mRNA",
+                  "taxid": 10036,
+                  "sciname": "Mesocricetus auratus"
+                }
+              ],
+              "len": 3198,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1520,
+                  "hit_to": 1500,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 9,
+              "description": [
+                {
+                  "id": "gi|2020753316|ref|XM_040473640.1|",
+                  "accession": "XM_040473640",
+                  "title": "PREDICTED: Puma yagouaroundi transmembrane protein 63B (TMEM63B), transcript variant X3, mRNA",
+                  "taxid": 1608482,
+                  "sciname": "Puma yagouaroundi"
+                }
+              ],
+              "len": 2677,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1483,
+                  "hit_to": 1463,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 10,
+              "description": [
+                {
+                  "id": "gi|2020753314|ref|XM_040473639.1|",
+                  "accession": "XM_040473639",
+                  "title": "PREDICTED: Puma yagouaroundi transmembrane protein 63B (TMEM63B), transcript variant X2, mRNA",
+                  "taxid": 1608482,
+                  "sciname": "Puma yagouaroundi"
+                }
+              ],
+              "len": 2616,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1422,
+                  "hit_to": 1402,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 11,
+              "description": [
+                {
+                  "id": "gi|2020753312|ref|XM_040473638.1|",
+                  "accession": "XM_040473638",
+                  "title": "PREDICTED: Puma yagouaroundi transmembrane protein 63B (TMEM63B), transcript variant X1, mRNA",
+                  "taxid": 1608482,
+                  "sciname": "Puma yagouaroundi"
+                }
+              ],
+              "len": 2719,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1525,
+                  "hit_to": 1505,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 12,
+              "description": [
+                {
+                  "id": "gi|2019525294|ref|XM_040430823.1|",
+                  "accession": "XM_040430823",
+                  "title": "PREDICTED: Bufo bufo transmembrane protein 63B (TMEM63B), transcript variant X2, mRNA",
+                  "taxid": 8384,
+                  "sciname": "Bufo bufo"
+                }
+              ],
+              "len": 3222,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1528,
+                  "hit_to": 1508,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 13,
+              "description": [
+                {
+                  "id": "gi|2019525292|ref|XM_040430822.1|",
+                  "accession": "XM_040430822",
+                  "title": "PREDICTED: Bufo bufo transmembrane protein 63B (TMEM63B), transcript variant X1, mRNA",
+                  "taxid": 8384,
+                  "sciname": "Bufo bufo"
+                }
+              ],
+              "len": 3260,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1567,
+                  "hit_to": 1547,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 14,
+              "description": [
+                {
+                  "id": "gi|2017930650|ref|XM_040375416.1|",
+                  "accession": "XM_040375416",
+                  "title": "PREDICTED: Anopheles coluzzii zinc transporter ZIP10 (LOC120954997), mRNA",
+                  "taxid": 1518534,
+                  "sciname": "Anopheles coluzzii"
+                }
+              ],
+              "len": 3068,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 2307,
+                  "hit_to": 2287,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 15,
+              "description": [
+                {
+                  "id": "gi|2017719615|ref|XM_040310540.1|",
+                  "accession": "XM_040310540",
+                  "title": "PREDICTED: Anopheles arabiensis zinc transporter ZIP10 (LOC120902063), mRNA",
+                  "taxid": 7173,
+                  "sciname": "Anopheles arabiensis"
+                }
+              ],
+              "len": 3162,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 2402,
+                  "hit_to": 2382,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 16,
+              "description": [
+                {
+                  "id": "gi|2015592700|ref|XM_013355738.3|",
+                  "accession": "XM_013355738",
+                  "title": "PREDICTED: Ictidomys tridecemlineatus transmembrane protein 63B (Tmem63b), transcript variant X2, mRNA",
+                  "taxid": 43179,
+                  "sciname": "Ictidomys tridecemlineatus"
+                }
+              ],
+              "len": 3085,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1611,
+                  "hit_to": 1591,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 17,
+              "description": [
+                {
+                  "id": "gi|2015592699|ref|XM_021721854.2|",
+                  "accession": "XM_021721854",
+                  "title": "PREDICTED: Ictidomys tridecemlineatus transmembrane protein 63B (Tmem63b), transcript variant X1, mRNA",
+                  "taxid": 43179,
+                  "sciname": "Ictidomys tridecemlineatus"
+                }
+              ],
+              "len": 3133,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1659,
+                  "hit_to": 1639,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 18,
+              "description": [
+                {
+                  "id": "gi|2009469978|ref|XR_005722721.1|",
+                  "accession": "XR_005722721",
+                  "title": "PREDICTED: Oryx dammah transmembrane protein 63B (TMEM63B), transcript variant X4, misc_RNA",
+                  "taxid": 59534,
+                  "sciname": "Oryx dammah"
+                }
+              ],
+              "len": 4247,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1519,
+                  "hit_to": 1499,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 19,
+              "description": [
+                {
+                  "id": "gi|2009469974|ref|XM_040249572.1|",
+                  "accession": "XM_040249572",
+                  "title": "PREDICTED: Oryx dammah transmembrane protein 63B (TMEM63B), transcript variant X3, mRNA",
+                  "taxid": 59534,
+                  "sciname": "Oryx dammah"
+                }
+              ],
+              "len": 3236,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1479,
+                  "hit_to": 1459,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 20,
+              "description": [
+                {
+                  "id": "gi|2009469969|ref|XM_040249571.1|",
+                  "accession": "XM_040249571",
+                  "title": "PREDICTED: Oryx dammah transmembrane protein 63B (TMEM63B), transcript variant X2, mRNA",
+                  "taxid": 59534,
+                  "sciname": "Oryx dammah"
+                }
+              ],
+              "len": 3275,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1518,
+                  "hit_to": 1498,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 21,
+              "description": [
+                {
+                  "id": "gi|2009469964|ref|XM_040249570.1|",
+                  "accession": "XM_040249570",
+                  "title": "PREDICTED: Oryx dammah transmembrane protein 63B (TMEM63B), transcript variant X1, mRNA",
+                  "taxid": 59534,
+                  "sciname": "Oryx dammah"
+                }
+              ],
+              "len": 3239,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1482,
+                  "hit_to": 1462,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 22,
+              "description": [
+                {
+                  "id": "gi|1998650554|ref|XM_029047376.2|",
+                  "accession": "XM_029047376",
+                  "title": "PREDICTED: Ornithorhynchus anatinus transmembrane protein 63B (TMEM63B), transcript variant X2, mRNA",
+                  "taxid": 9258,
+                  "sciname": "Ornithorhynchus anatinus"
+                }
+              ],
+              "len": 3158,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1557,
+                  "hit_to": 1537,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 23,
+              "description": [
+                {
+                  "id": "gi|1998650553|ref|XM_029047375.2|",
+                  "accession": "XM_029047375",
+                  "title": "PREDICTED: Ornithorhynchus anatinus transmembrane protein 63B (TMEM63B), transcript variant X1, mRNA",
+                  "taxid": 9258,
+                  "sciname": "Ornithorhynchus anatinus"
+                }
+              ],
+              "len": 2711,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1572,
+                  "hit_to": 1552,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 24,
+              "description": [
+                {
+                  "id": "gi|1997686201|emb|HG994366.1|",
+                  "accession": "HG994366",
+                  "title": "Brassica napus genome assembly, chromosome: C02",
+                  "taxid": 3708,
+                  "sciname": "Brassica napus"
+                }
+              ],
+              "len": 62297340,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 3493077,
+                  "hit_to": 3493097,
+                  "hit_strand": "Plus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 25,
+              "description": [
+                {
+                  "id": "gi|1996001364|ref|XM_039854831.1|",
+                  "accession": "XM_039854831",
+                  "title": "PREDICTED: Pteropus giganteus transmembrane protein 63B (TMEM63B), transcript variant X6, mRNA",
+                  "taxid": 143291,
+                  "sciname": "Pteropus giganteus"
+                }
+              ],
+              "len": 3167,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1439,
+                  "hit_to": 1419,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 26,
+              "description": [
+                {
+                  "id": "gi|1996001362|ref|XM_039854830.1|",
+                  "accession": "XM_039854830",
+                  "title": "PREDICTED: Pteropus giganteus transmembrane protein 63B (TMEM63B), transcript variant X5, mRNA",
+                  "taxid": 143291,
+                  "sciname": "Pteropus giganteus"
+                }
+              ],
+              "len": 3571,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1843,
+                  "hit_to": 1823,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 27,
+              "description": [
+                {
+                  "id": "gi|1996001360|ref|XM_039854829.1|",
+                  "accession": "XM_039854829",
+                  "title": "PREDICTED: Pteropus giganteus transmembrane protein 63B (TMEM63B), transcript variant X4, mRNA",
+                  "taxid": 143291,
+                  "sciname": "Pteropus giganteus"
+                }
+              ],
+              "len": 3465,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1737,
+                  "hit_to": 1717,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 28,
+              "description": [
+                {
+                  "id": "gi|1996001358|ref|XM_039854828.1|",
+                  "accession": "XM_039854828",
+                  "title": "PREDICTED: Pteropus giganteus transmembrane protein 63B (TMEM63B), transcript variant X3, mRNA",
+                  "taxid": 143291,
+                  "sciname": "Pteropus giganteus"
+                }
+              ],
+              "len": 3250,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1522,
+                  "hit_to": 1502,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 29,
+              "description": [
+                {
+                  "id": "gi|1996001356|ref|XM_039854827.1|",
+                  "accession": "XM_039854827",
+                  "title": "PREDICTED: Pteropus giganteus transmembrane protein 63B (TMEM63B), transcript variant X2, mRNA",
+                  "taxid": 143291,
+                  "sciname": "Pteropus giganteus"
+                }
+              ],
+              "len": 3309,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1581,
+                  "hit_to": 1561,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 30,
+              "description": [
+                {
+                  "id": "gi|1996001354|ref|XM_039854826.1|",
+                  "accession": "XM_039854826",
+                  "title": "PREDICTED: Pteropus giganteus transmembrane protein 63B (TMEM63B), transcript variant X1, mRNA",
+                  "taxid": 143291,
+                  "sciname": "Pteropus giganteus"
+                }
+              ],
+              "len": 3610,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1882,
+                  "hit_to": 1862,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 31,
+              "description": [
+                {
+                  "id": "gi|1994513804|ref|XM_039819162.1|",
+                  "accession": "XM_039819162",
+                  "title": "PREDICTED: Perca fluviatilis glycine receptor, alpha 2 (glra2), transcript variant X4, mRNA",
+                  "taxid": 8168,
+                  "sciname": "Perca fluviatilis"
+                }
+              ],
+              "len": 2599,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1257,
+                  "hit_to": 1277,
+                  "hit_strand": "Plus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 32,
+              "description": [
+                {
+                  "id": "gi|1994513802|ref|XM_039819161.1|",
+                  "accession": "XM_039819161",
+                  "title": "PREDICTED: Perca fluviatilis glycine receptor, alpha 2 (glra2), transcript variant X3, mRNA",
+                  "taxid": 8168,
+                  "sciname": "Perca fluviatilis"
+                }
+              ],
+              "len": 3417,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 2075,
+                  "hit_to": 2095,
+                  "hit_strand": "Plus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 33,
+              "description": [
+                {
+                  "id": "gi|1994513800|ref|XM_039819160.1|",
+                  "accession": "XM_039819160",
+                  "title": "PREDICTED: Perca fluviatilis glycine receptor, alpha 2 (glra2), transcript variant X2, mRNA",
+                  "taxid": 8168,
+                  "sciname": "Perca fluviatilis"
+                }
+              ],
+              "len": 3430,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 2088,
+                  "hit_to": 2108,
+                  "hit_strand": "Plus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 34,
+              "description": [
+                {
+                  "id": "gi|1994513798|ref|XM_039819159.1|",
+                  "accession": "XM_039819159",
+                  "title": "PREDICTED: Perca fluviatilis glycine receptor, alpha 2 (glra2), transcript variant X1, mRNA",
+                  "taxid": 8168,
+                  "sciname": "Perca fluviatilis"
+                }
+              ],
+              "len": 3427,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 2085,
+                  "hit_to": 2105,
+                  "hit_strand": "Plus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 35,
+              "description": [
+                {
+                  "id": "gi|1992427671|ref|XR_005622194.1|",
+                  "accession": "XR_005622194",
+                  "title": "PREDICTED: Pimephales promelas transmembrane protein 63A (tmem63a), transcript variant X5, misc_RNA",
+                  "taxid": 90988,
+                  "sciname": "Pimephales promelas"
+                }
+              ],
+              "len": 2962,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1459,
+                  "hit_to": 1439,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 36,
+              "description": [
+                {
+                  "id": "gi|1992427670|ref|XR_005622193.1|",
+                  "accession": "XR_005622193",
+                  "title": "PREDICTED: Pimephales promelas transmembrane protein 63A (tmem63a), transcript variant X4, misc_RNA",
+                  "taxid": 90988,
+                  "sciname": "Pimephales promelas"
+                }
+              ],
+              "len": 3077,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1459,
+                  "hit_to": 1439,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 37,
+              "description": [
+                {
+                  "id": "gi|1992427668|ref|XM_039667700.1|",
+                  "accession": "XM_039667700",
+                  "title": "PREDICTED: Pimephales promelas transmembrane protein 63A (tmem63a), transcript variant X3, mRNA",
+                  "taxid": 90988,
+                  "sciname": "Pimephales promelas"
+                }
+              ],
+              "len": 4279,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1457,
+                  "hit_to": 1437,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 38,
+              "description": [
+                {
+                  "id": "gi|1992427666|ref|XM_039667699.1|",
+                  "accession": "XM_039667699",
+                  "title": "PREDICTED: Pimephales promelas transmembrane protein 63A (tmem63a), transcript variant X2, mRNA",
+                  "taxid": 90988,
+                  "sciname": "Pimephales promelas"
+                }
+              ],
+              "len": 4316,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1494,
+                  "hit_to": 1474,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 39,
+              "description": [
+                {
+                  "id": "gi|1992427664|ref|XM_039667698.1|",
+                  "accession": "XM_039667698",
+                  "title": "PREDICTED: Pimephales promelas transmembrane protein 63A (tmem63a), transcript variant X1, mRNA",
+                  "taxid": 90988,
+                  "sciname": "Pimephales promelas"
+                }
+              ],
+              "len": 4281,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1459,
+                  "hit_to": 1439,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 40,
+              "description": [
+                {
+                  "id": "gi|1985654692|emb|LR999453.1|",
+                  "accession": "LR999453",
+                  "title": "Arabidopsis arenosa genome assembly, chromosome: 3",
+                  "taxid": 38785,
+                  "sciname": "Arabidopsis arenosa"
+                }
+              ],
+              "len": 21694789,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 11024537,
+                  "hit_to": 11024517,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 41,
+              "description": [
+                {
+                  "id": "gi|1985352258|ref|XM_039528952.1|",
+                  "accession": "XM_039528952",
+                  "title": "PREDICTED: Mauremys reevesii transmembrane protein 63B (TMEM63B), transcript variant X5, mRNA",
+                  "taxid": 260615,
+                  "sciname": "Mauremys reevesii"
+                }
+              ],
+              "len": 4912,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1304,
+                  "hit_to": 1284,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 42,
+              "description": [
+                {
+                  "id": "gi|1985352256|ref|XM_039528951.1|",
+                  "accession": "XM_039528951",
+                  "title": "PREDICTED: Mauremys reevesii transmembrane protein 63B (TMEM63B), transcript variant X4, mRNA",
+                  "taxid": 260615,
+                  "sciname": "Mauremys reevesii"
+                }
+              ],
+              "len": 4991,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1383,
+                  "hit_to": 1363,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 43,
+              "description": [
+                {
+                  "id": "gi|1985352254|ref|XM_039528950.1|",
+                  "accession": "XM_039528950",
+                  "title": "PREDICTED: Mauremys reevesii transmembrane protein 63B (TMEM63B), transcript variant X3, mRNA",
+                  "taxid": 260615,
+                  "sciname": "Mauremys reevesii"
+                }
+              ],
+              "len": 5123,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1515,
+                  "hit_to": 1495,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 44,
+              "description": [
+                {
+                  "id": "gi|1985352252|ref|XM_039528949.1|",
+                  "accession": "XM_039528949",
+                  "title": "PREDICTED: Mauremys reevesii transmembrane protein 63B (TMEM63B), transcript variant X2, mRNA",
+                  "taxid": 260615,
+                  "sciname": "Mauremys reevesii"
+                }
+              ],
+              "len": 5132,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1524,
+                  "hit_to": 1504,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 45,
+              "description": [
+                {
+                  "id": "gi|1985352250|ref|XM_039528948.1|",
+                  "accession": "XM_039528948",
+                  "title": "PREDICTED: Mauremys reevesii transmembrane protein 63B (TMEM63B), transcript variant X1, mRNA",
+                  "taxid": 260615,
+                  "sciname": "Mauremys reevesii"
+                }
+              ],
+              "len": 5163,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1555,
+                  "hit_to": 1535,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 46,
+              "description": [
+                {
+                  "id": "gi|1984028790|ref|XM_039466881.1|",
+                  "accession": "XM_039466881",
+                  "title": "PREDICTED: Saimiri boliviensis boliviensis transmembrane protein 63B (TMEM63B), transcript variant X3, mRNA",
+                  "taxid": 39432,
+                  "sciname": "Saimiri boliviensis boliviensis"
+                }
+              ],
+              "len": 3390,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1648,
+                  "hit_to": 1628,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 47,
+              "description": [
+                {
+                  "id": "gi|1984028787|ref|XM_010333936.2|",
+                  "accession": "XM_010333936",
+                  "title": "PREDICTED: Saimiri boliviensis boliviensis transmembrane protein 63B (TMEM63B), transcript variant X2, mRNA",
+                  "taxid": 39432,
+                  "sciname": "Saimiri boliviensis boliviensis"
+                }
+              ],
+              "len": 3440,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1698,
+                  "hit_to": 1678,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 48,
+              "description": [
+                {
+                  "id": "gi|1984028783|ref|XM_039466875.1|",
+                  "accession": "XM_039466875",
+                  "title": "PREDICTED: Saimiri boliviensis boliviensis transmembrane protein 63B (TMEM63B), transcript variant X1, mRNA",
+                  "taxid": 39432,
+                  "sciname": "Saimiri boliviensis boliviensis"
+                }
+              ],
+              "len": 3266,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1524,
+                  "hit_to": 1504,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 49,
+              "description": [
+                {
+                  "id": "gi|1972952126|gb|CP021312.1|",
+                  "accession": "CP021312",
+                  "title": "Trichoderma reesei strain QM6a x CBS999.97 isolate hexadecad_008K chromosome II, complete sequence",
+                  "taxid": 51453,
+                  "sciname": "Trichoderma reesei"
+                }
+              ],
+              "len": 5592178,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1194941,
+                  "hit_to": 1194961,
+                  "hit_strand": "Plus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 50,
+              "description": [
+                {
+                  "id": "gi|1972936384|gb|CP021291.1|",
+                  "accession": "CP021291",
+                  "title": "Trichoderma reesei strain QM6a x CBS999.97 isolate hexadecad_008A chromosome II, complete sequence",
+                  "taxid": 51453,
+                  "sciname": "Trichoderma reesei"
+                }
+              ],
+              "len": 5609314,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1162191,
+                  "hit_to": 1162211,
+                  "hit_strand": "Plus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 51,
+              "description": [
+                {
+                  "id": "gi|1972936357|gb|CP020725.1|",
+                  "accession": "CP020725",
+                  "title": "Trichoderma reesei strain CBS999.97 chromosome II, complete sequence",
+                  "taxid": 51453,
+                  "sciname": "Trichoderma reesei"
+                }
+              ],
+              "len": 6061597,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1162252,
+                  "hit_to": 1162272,
+                  "hit_strand": "Plus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 52,
+              "description": [
+                {
+                  "id": "gi|1964037981|emb|LR991640.1|",
+                  "accession": "LR991640",
+                  "title": "Trachurus trachurus genome assembly, chromosome: 14",
+                  "taxid": 36212,
+                  "sciname": "Trachurus trachurus"
+                }
+              ],
+              "len": 33713437,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 11231470,
+                  "hit_to": 11231450,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 53,
+              "description": [
+                {
+                  "id": "gi|1962371192|emb|LR699027.1|",
+                  "accession": "LR699027",
+                  "title": "Nibea albiflora genome assembly, chromosome: 4",
+                  "taxid": 240163,
+                  "sciname": "Nibea albiflora"
+                }
+              ],
+              "len": 26591590,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 6865344,
+                  "hit_to": 6865324,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 54,
+              "description": [
+                {
+                  "id": "gi|1958805918|ref|XM_039084826.1|",
+                  "accession": "XM_039084826",
+                  "title": "PREDICTED: Rattus norvegicus transmembrane protein 63B (Tmem63b), transcript variant X4, mRNA",
+                  "taxid": 10116,
+                  "sciname": "Rattus norvegicus"
+                }
+              ],
+              "len": 3304,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1568,
+                  "hit_to": 1548,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 55,
+              "description": [
+                {
+                  "id": "gi|1958805917|ref|XM_006244582.4|",
+                  "accession": "XM_006244582",
+                  "title": "PREDICTED: Rattus norvegicus transmembrane protein 63B (Tmem63b), transcript variant X3, mRNA",
+                  "taxid": 10116,
+                  "sciname": "Rattus norvegicus"
+                }
+              ],
+              "len": 3253,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1517,
+                  "hit_to": 1497,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 56,
+              "description": [
+                {
+                  "id": "gi|1958805915|ref|XM_039084824.1|",
+                  "accession": "XM_039084824",
+                  "title": "PREDICTED: Rattus norvegicus transmembrane protein 63B (Tmem63b), transcript variant X2, mRNA",
+                  "taxid": 10116,
+                  "sciname": "Rattus norvegicus"
+                }
+              ],
+              "len": 3285,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1549,
+                  "hit_to": 1529,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 57,
+              "description": [
+                {
+                  "id": "gi|1958805914|ref|XM_003750650.5|",
+                  "accession": "XM_003750650",
+                  "title": "PREDICTED: Rattus norvegicus transmembrane protein 63B (Tmem63b), transcript variant X1, mRNA",
+                  "taxid": 10116,
+                  "sciname": "Rattus norvegicus"
+                }
+              ],
+              "len": 3292,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1556,
+                  "hit_to": 1536,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 58,
+              "description": [
+                {
+                  "id": "gi|1952381674|ref|XM_038761004.1|",
+                  "accession": "XM_038761004",
+                  "title": "PREDICTED: Tachyglossus aculeatus transmembrane protein 63B (TMEM63B), transcript variant X3, mRNA",
+                  "taxid": 9261,
+                  "sciname": "Tachyglossus aculeatus"
+                }
+              ],
+              "len": 2875,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1736,
+                  "hit_to": 1716,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 59,
+              "description": [
+                {
+                  "id": "gi|1952381667|ref|XM_038761003.1|",
+                  "accession": "XM_038761003",
+                  "title": "PREDICTED: Tachyglossus aculeatus transmembrane protein 63B (TMEM63B), transcript variant X2, mRNA",
+                  "taxid": 9261,
+                  "sciname": "Tachyglossus aculeatus"
+                }
+              ],
+              "len": 2632,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1408,
+                  "hit_to": 1388,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 60,
+              "description": [
+                {
+                  "id": "gi|1952381658|ref|XM_038761002.1|",
+                  "accession": "XM_038761002",
+                  "title": "PREDICTED: Tachyglossus aculeatus transmembrane protein 63B (TMEM63B), transcript variant X1, mRNA",
+                  "taxid": 9261,
+                  "sciname": "Tachyglossus aculeatus"
+                }
+              ],
+              "len": 2914,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1775,
+                  "hit_to": 1755,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 61,
+              "description": [
+                {
+                  "id": "gi|1950437247|ref|XM_038395341.1|",
+                  "accession": "XM_038395341",
+                  "title": "Dermochelys coriacea CSC1-like protein 2 transcript variant X2 (TMEM63B), mRNA",
+                  "taxid": 27794,
+                  "sciname": "Dermochelys coriacea"
+                }
+              ],
+              "len": 4750,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1576,
+                  "hit_to": 1556,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 62,
+              "description": [
+                {
+                  "id": "gi|1950437245|ref|XM_038395340.1|",
+                  "accession": "XM_038395340",
+                  "title": "Dermochelys coriacea CSC1-like protein 2 transcript variant X1 (TMEM63B), mRNA",
+                  "taxid": 27794,
+                  "sciname": "Dermochelys coriacea"
+                }
+              ],
+              "len": 5411,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 2237,
+                  "hit_to": 2217,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 63,
+              "description": [
+                {
+                  "id": "gi|1950437243|ref|XM_038395339.1|",
+                  "accession": "XM_038395339",
+                  "title": "Dermochelys coriacea CSC1-like protein 2 transcript variant X1 (TMEM63B), mRNA",
+                  "taxid": 27794,
+                  "sciname": "Dermochelys coriacea"
+                }
+              ],
+              "len": 4779,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1605,
+                  "hit_to": 1585,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 64,
+              "description": [
+                {
+                  "id": "gi|1949702583|ref|XM_038341152.1|",
+                  "accession": "XM_038341152",
+                  "title": "Arvicola amphibius CSC1-like protein 2 (Tmem63b), mRNA",
+                  "taxid": 1047088,
+                  "sciname": "Arvicola amphibius"
+                }
+              ],
+              "len": 2598,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1375,
+                  "hit_to": 1355,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 65,
+              "description": [
+                {
+                  "id": "gi|1949702581|ref|XM_038341151.1|",
+                  "accession": "XM_038341151",
+                  "title": "Arvicola amphibius CSC1-like protein 2 (Tmem63b), mRNA",
+                  "taxid": 1047088,
+                  "sciname": "Arvicola amphibius"
+                }
+              ],
+              "len": 2693,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1575,
+                  "hit_to": 1555,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 66,
+              "description": [
+                {
+                  "id": "gi|1949702579|ref|XM_038341149.1|",
+                  "accession": "XM_038341149",
+                  "title": "Arvicola amphibius CSC1-like protein 2 (Tmem63b), mRNA",
+                  "taxid": 1047088,
+                  "sciname": "Arvicola amphibius"
+                }
+              ],
+              "len": 2744,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1626,
+                  "hit_to": 1606,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 67,
+              "description": [
+                {
+                  "id": "gi|1938868453|ref|XM_007972423.2|",
+                  "accession": "XM_007972423",
+                  "title": "PREDICTED: Chlorocebus sabaeus transmembrane protein 63B (TMEM63B), transcript variant X5, mRNA",
+                  "taxid": 60711,
+                  "sciname": "Chlorocebus sabaeus"
+                }
+              ],
+              "len": 3382,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1596,
+                  "hit_to": 1576,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 68,
+              "description": [
+                {
+                  "id": "gi|1938868451|ref|XM_038006128.1|",
+                  "accession": "XM_038006128",
+                  "title": "PREDICTED: Chlorocebus sabaeus transmembrane protein 63B (TMEM63B), transcript variant X4, mRNA",
+                  "taxid": 60711,
+                  "sciname": "Chlorocebus sabaeus"
+                }
+              ],
+              "len": 3407,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1621,
+                  "hit_to": 1601,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 69,
+              "description": [
+                {
+                  "id": "gi|1938868449|ref|XM_038006127.1|",
+                  "accession": "XM_038006127",
+                  "title": "PREDICTED: Chlorocebus sabaeus transmembrane protein 63B (TMEM63B), transcript variant X3, mRNA",
+                  "taxid": 60711,
+                  "sciname": "Chlorocebus sabaeus"
+                }
+              ],
+              "len": 3303,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1517,
+                  "hit_to": 1497,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 70,
+              "description": [
+                {
+                  "id": "gi|1938868448|ref|XM_007972424.2|",
+                  "accession": "XM_007972424",
+                  "title": "PREDICTED: Chlorocebus sabaeus transmembrane protein 63B (TMEM63B), transcript variant X2, mRNA",
+                  "taxid": 60711,
+                  "sciname": "Chlorocebus sabaeus"
+                }
+              ],
+              "len": 3446,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1660,
+                  "hit_to": 1640,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 71,
+              "description": [
+                {
+                  "id": "gi|1938868447|ref|XM_007972422.2|",
+                  "accession": "XM_007972422",
+                  "title": "PREDICTED: Chlorocebus sabaeus transmembrane protein 63B (TMEM63B), transcript variant X1, mRNA",
+                  "taxid": 60711,
+                  "sciname": "Chlorocebus sabaeus"
+                }
+              ],
+              "len": 3342,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1556,
+                  "hit_to": 1536,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 72,
+              "description": [
+                {
+                  "id": "gi|1938288980|ref|XM_037973740.1|",
+                  "accession": "XM_037973740",
+                  "title": "PREDICTED: Kryptolebias marmoratus transmembrane protein 63Ba (tmem63ba), transcript variant X4, mRNA",
+                  "taxid": 37003,
+                  "sciname": "Kryptolebias marmoratus"
+                }
+              ],
+              "len": 4982,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1754,
+                  "hit_to": 1734,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 73,
+              "description": [
+                {
+                  "id": "gi|1938288978|ref|XM_037973739.1|",
+                  "accession": "XM_037973739",
+                  "title": "PREDICTED: Kryptolebias marmoratus transmembrane protein 63Ba (tmem63ba), transcript variant X3, mRNA",
+                  "taxid": 37003,
+                  "sciname": "Kryptolebias marmoratus"
+                }
+              ],
+              "len": 4782,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1554,
+                  "hit_to": 1534,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 74,
+              "description": [
+                {
+                  "id": "gi|1938288977|ref|XM_017412997.3|",
+                  "accession": "XM_017412997",
+                  "title": "PREDICTED: Kryptolebias marmoratus transmembrane protein 63Ba (tmem63ba), transcript variant X2, mRNA",
+                  "taxid": 37003,
+                  "sciname": "Kryptolebias marmoratus"
+                }
+              ],
+              "len": 4918,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1690,
+                  "hit_to": 1670,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 75,
+              "description": [
+                {
+                  "id": "gi|1938288976|ref|XM_017412996.3|",
+                  "accession": "XM_017412996",
+                  "title": "PREDICTED: Kryptolebias marmoratus transmembrane protein 63Ba (tmem63ba), transcript variant X1, mRNA",
+                  "taxid": 37003,
+                  "sciname": "Kryptolebias marmoratus"
+                }
+              ],
+              "len": 4960,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1732,
+                  "hit_to": 1712,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 76,
+              "description": [
+                {
+                  "id": "gi|1937317056|ref|XM_037969878.1|",
+                  "accession": "XM_037969878",
+                  "title": "PREDICTED: Lucilia sericata collagen alpha-2(IX) chain-like (LOC119613821), mRNA",
+                  "taxid": 13632,
+                  "sciname": "Lucilia sericata"
+                }
+              ],
+              "len": 1237,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 523,
+                  "hit_to": 503,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 77,
+              "description": [
+                {
+                  "id": "gi|1935086603|ref|XM_037895494.1|",
+                  "accession": "XM_037895494",
+                  "title": "PREDICTED: Chelonia mydas transmembrane protein 63B (TMEM63B), transcript variant X2, mRNA",
+                  "taxid": 8469,
+                  "sciname": "Chelonia mydas"
+                }
+              ],
+              "len": 5197,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1581,
+                  "hit_to": 1561,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 78,
+              "description": [
+                {
+                  "id": "gi|1935086601|ref|XM_037895493.1|",
+                  "accession": "XM_037895493",
+                  "title": "PREDICTED: Chelonia mydas transmembrane protein 63B (TMEM63B), transcript variant X1, mRNA",
+                  "taxid": 8469,
+                  "sciname": "Chelonia mydas"
+                }
+              ],
+              "len": 5236,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1620,
+                  "hit_to": 1600,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 79,
+              "description": [
+                {
+                  "id": "gi|1934760792|ref|XM_037843300.1|",
+                  "accession": "XM_037843300",
+                  "title": "PREDICTED: Choloepus didactylus transmembrane protein 63B (TMEM63B), transcript variant X4, mRNA",
+                  "taxid": 27675,
+                  "sciname": "Choloepus didactylus"
+                }
+              ],
+              "len": 3090,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1421,
+                  "hit_to": 1401,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 80,
+              "description": [
+                {
+                  "id": "gi|1934760790|ref|XM_037843299.1|",
+                  "accession": "XM_037843299",
+                  "title": "PREDICTED: Choloepus didactylus transmembrane protein 63B (TMEM63B), transcript variant X3, mRNA",
+                  "taxid": 27675,
+                  "sciname": "Choloepus didactylus"
+                }
+              ],
+              "len": 3141,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1472,
+                  "hit_to": 1452,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 81,
+              "description": [
+                {
+                  "id": "gi|1934760788|ref|XM_037843298.1|",
+                  "accession": "XM_037843298",
+                  "title": "PREDICTED: Choloepus didactylus transmembrane protein 63B (TMEM63B), transcript variant X2, mRNA",
+                  "taxid": 27675,
+                  "sciname": "Choloepus didactylus"
+                }
+              ],
+              "len": 2648,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1524,
+                  "hit_to": 1504,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 82,
+              "description": [
+                {
+                  "id": "gi|1934760786|ref|XM_037843297.1|",
+                  "accession": "XM_037843297",
+                  "title": "PREDICTED: Choloepus didactylus transmembrane protein 63B (TMEM63B), transcript variant X1, mRNA",
+                  "taxid": 27675,
+                  "sciname": "Choloepus didactylus"
+                }
+              ],
+              "len": 2635,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1511,
+                  "hit_to": 1491,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 83,
+              "description": [
+                {
+                  "id": "gi|1933964771|ref|XM_017547408.2|",
+                  "accession": "XM_017547408",
+                  "title": "PREDICTED: Cebus imitator transmembrane protein 63B (TMEM63B), transcript variant X5, mRNA",
+                  "taxid": 2715852,
+                  "sciname": "Cebus imitator"
+                }
+              ],
+              "len": 3229,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1503,
+                  "hit_to": 1483,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 84,
+              "description": [
+                {
+                  "id": "gi|1933964768|ref|XM_037745344.1|",
+                  "accession": "XM_037745344",
+                  "title": "PREDICTED: Cebus imitator transmembrane protein 63B (TMEM63B), transcript variant X4, mRNA",
+                  "taxid": 2715852,
+                  "sciname": "Cebus imitator"
+                }
+              ],
+              "len": 3301,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1575,
+                  "hit_to": 1555,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 85,
+              "description": [
+                {
+                  "id": "gi|1933964765|ref|XM_017547404.2|",
+                  "accession": "XM_017547404",
+                  "title": "PREDICTED: Cebus imitator transmembrane protein 63B (TMEM63B), transcript variant X3, mRNA",
+                  "taxid": 2715852,
+                  "sciname": "Cebus imitator"
+                }
+              ],
+              "len": 3270,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1544,
+                  "hit_to": 1524,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 86,
+              "description": [
+                {
+                  "id": "gi|1933964763|ref|XM_017547403.2|",
+                  "accession": "XM_017547403",
+                  "title": "PREDICTED: Cebus imitator transmembrane protein 63B (TMEM63B), transcript variant X2, mRNA",
+                  "taxid": 2715852,
+                  "sciname": "Cebus imitator"
+                }
+              ],
+              "len": 3327,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1601,
+                  "hit_to": 1581,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 87,
+              "description": [
+                {
+                  "id": "gi|1933964761|ref|XM_017547402.2|",
+                  "accession": "XM_017547402",
+                  "title": "PREDICTED: Cebus imitator transmembrane protein 63B (TMEM63B), transcript variant X1, mRNA",
+                  "taxid": 2715852,
+                  "sciname": "Cebus imitator"
+                }
+              ],
+              "len": 3245,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1519,
+                  "hit_to": 1499,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 88,
+              "description": [
+                {
+                  "id": "gi|1933557850|ref|XM_037692555.1|",
+                  "accession": "XM_037692555",
+                  "title": "PREDICTED: Nematolebias whitei CSC1-like protein 2 (LOC119424998), mRNA",
+                  "taxid": 451745,
+                  "sciname": "Nematolebias whitei"
+                }
+              ],
+              "len": 3293,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1489,
+                  "hit_to": 1469,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 89,
+              "description": [
+                {
+                  "id": "gi|1931293381|ref|XM_037519798.1|",
+                  "accession": "XM_037519798",
+                  "title": "PREDICTED: Talpa occidentalis transmembrane protein 63B (TMEM63B), transcript variant X2, mRNA",
+                  "taxid": 50954,
+                  "sciname": "Talpa occidentalis"
+                }
+              ],
+              "len": 3178,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1514,
+                  "hit_to": 1494,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 90,
+              "description": [
+                {
+                  "id": "gi|1931293379|ref|XM_037519797.1|",
+                  "accession": "XM_037519797",
+                  "title": "PREDICTED: Talpa occidentalis transmembrane protein 63B (TMEM63B), transcript variant X1, mRNA",
+                  "taxid": 50954,
+                  "sciname": "Talpa occidentalis"
+                }
+              ],
+              "len": 3111,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1447,
+                  "hit_to": 1427,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 91,
+              "description": [
+                {
+                  "id": "gi|1929205228|ref|XM_028887108.2|",
+                  "accession": "XM_028887108",
+                  "title": "PREDICTED: Peromyscus leucopus transmembrane protein 63B (Tmem63b), transcript variant X2, mRNA",
+                  "taxid": 10041,
+                  "sciname": "Peromyscus leucopus"
+                }
+              ],
+              "len": 2678,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1467,
+                  "hit_to": 1447,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 92,
+              "description": [
+                {
+                  "id": "gi|1927288624|ref|XM_037142609.1|",
+                  "accession": "XM_037142609",
+                  "title": "PREDICTED: Artibeus jamaicensis transmembrane protein 63B (TMEM63B), transcript variant X3, mRNA",
+                  "taxid": 9417,
+                  "sciname": "Artibeus jamaicensis"
+                }
+              ],
+              "len": 3197,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1480,
+                  "hit_to": 1460,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 93,
+              "description": [
+                {
+                  "id": "gi|1927288622|ref|XM_037142608.1|",
+                  "accession": "XM_037142608",
+                  "title": "PREDICTED: Artibeus jamaicensis transmembrane protein 63B (TMEM63B), transcript variant X2, mRNA",
+                  "taxid": 9417,
+                  "sciname": "Artibeus jamaicensis"
+                }
+              ],
+              "len": 3290,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1573,
+                  "hit_to": 1553,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 94,
+              "description": [
+                {
+                  "id": "gi|1927288620|ref|XM_037142607.1|",
+                  "accession": "XM_037142607",
+                  "title": "PREDICTED: Artibeus jamaicensis transmembrane protein 63B (TMEM63B), transcript variant X1, mRNA",
+                  "taxid": 9417,
+                  "sciname": "Artibeus jamaicensis"
+                }
+              ],
+              "len": 3236,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1519,
+                  "hit_to": 1499,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 95,
+              "description": [
+                {
+                  "id": "gi|1926936765|ref|XM_037053815.1|",
+                  "accession": "XM_037053815",
+                  "title": "PREDICTED: Sturnira hondurensis transmembrane protein 63B (TMEM63B), transcript variant X3, mRNA",
+                  "taxid": 192404,
+                  "sciname": "Sturnira hondurensis"
+                }
+              ],
+              "len": 2829,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1489,
+                  "hit_to": 1469,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 96,
+              "description": [
+                {
+                  "id": "gi|1926936763|ref|XM_037053808.1|",
+                  "accession": "XM_037053808",
+                  "title": "PREDICTED: Sturnira hondurensis transmembrane protein 63B (TMEM63B), transcript variant X2, mRNA",
+                  "taxid": 192404,
+                  "sciname": "Sturnira hondurensis"
+                }
+              ],
+              "len": 2934,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1594,
+                  "hit_to": 1574,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 97,
+              "description": [
+                {
+                  "id": "gi|1926936761|ref|XM_037053800.1|",
+                  "accession": "XM_037053800",
+                  "title": "PREDICTED: Sturnira hondurensis transmembrane protein 63B (TMEM63B), transcript variant X1, mRNA",
+                  "taxid": 192404,
+                  "sciname": "Sturnira hondurensis"
+                }
+              ],
+              "len": 2868,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1528,
+                  "hit_to": 1508,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 98,
+              "description": [
+                {
+                  "id": "gi|1926076903|ref|XM_037013714.1|",
+                  "accession": "XM_037013714",
+                  "title": "PREDICTED: Manis javanica transmembrane protein 63B (TMEM63B), transcript variant X5, mRNA",
+                  "taxid": 9974,
+                  "sciname": "Manis javanica"
+                }
+              ],
+              "len": 3061,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1360,
+                  "hit_to": 1340,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 99,
+              "description": [
+                {
+                  "id": "gi|1926076899|ref|XM_037013669.1|",
+                  "accession": "XM_037013669",
+                  "title": "PREDICTED: Manis javanica transmembrane protein 63B (TMEM63B), transcript variant X4, mRNA",
+                  "taxid": 9974,
+                  "sciname": "Manis javanica"
+                }
+              ],
+              "len": 3121,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1420,
+                  "hit_to": 1400,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 100,
+              "description": [
+                {
+                  "id": "gi|1926076895|ref|XM_017676271.2|",
+                  "accession": "XM_017676271",
+                  "title": "PREDICTED: Manis javanica transmembrane protein 63B (TMEM63B), transcript variant X3, mRNA",
+                  "taxid": 9974,
+                  "sciname": "Manis javanica"
+                }
+              ],
+              "len": 3354,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14915,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1653,
+                  "hit_to": 1633,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "CCATGGTGGTGATGATGATGG",
+                  "hseq": "CCATGGTGGTGATGATGATGG",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            }
+          ],
+          "stat": {
+            "db_num": 70340467,
+            "db_len": 439816227152,
+            "hsp_len": 18,
+            "eff_space": 1317383952159,
+            "kappa": 0.41,
+            "lambda": 0.625,
+            "entropy": 0.78
+          }
+        }
+      }
+    }
+  }
+]
+}
 

@@ -1,263 +1,3340 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="jig" content="ncbitoggler"/>
-<meta name="ncbitoggler" content="animation:'none'"/>
-<title>NCBI Blast:</title>
-<script type="text/javascript" src="/core/jig/1.14.8/js/jig.min.js             "></script>
-<script type="text/javascript">    jQuery.getScript("/core/alerts/alerts.js", function() {
-        galert(['div#header', 'body > *:nth-child(1)'])
-    });</script>
-<meta http-equiv="Pragma" content="no-cache">
-<link rel="stylesheet" type="text/css" href="css/uswds.min.css" media="screen" />
-<link rel="stylesheet"  type="text/css" href="https://www.ncbi.nlm.nih.gov/style-guide/static/nwds/css/nwds.css"/>
-<link rel="stylesheet" href="css/headerNew.css"/>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous"> <!-- Font Awesome icons -->
-<link rel="stylesheet" type="text/css" href="css/footerNew.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="css/main.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="css/blastRes.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="css/print.css" media="print" />
-<!--[if lte IE 6]>
-<link rel="stylesheet" type="text/css" href="css/ie6_or_less.css" />
-<![endif]-->
-<script type="text/javascript" src="js/utils.js"></script>
-<script type="text/javascript" src="js/results.js"></script>
-</head>
-
-<body id="type-a" class="noToggleCheck" >
-<div id="wrap">
-		    	
-<header class="ncbi-header" role="banner" data-section="Header">
-<ul class="skip_nav">
-    <li><a accesskey="1" title="NCBI Homepage" href="https://www.ncbi.nlm.nih.gov/">NCBI Home</a></li>
-    <li><a accesskey="2" title="MyNCBI" href="https://www.ncbi.nlm.nih.gov/myncbi">Sign in to NCBI</a></li>
-    <li><a accesskey="3" title="Skip to main content" href="#mainCont">Skip to Main Content</a></li>
-    <li><a accesskey="4" title="Skip to navigation" href="#navcontent">Skip to Navigation</a></li>
-    <li><a accesskey="0" title="About NCBI Accesskeys" href="https://www.ncbi.nlm.nih.gov/guide/browsers/#accesskeys">About NCBI Accesskeys</a></li>
-</ul>
-<div class="usa-grid">
-    <div class="usa-width-one-whole">
-        <div class="agencies">
-            <div class="nih"><span class="usa-sr-only">National Institutes of Health</span></div>
-            <div class="nlm">U.S. National Library of Medicine</div>
-            <div class="ncbi">National Center for Biotechnology Information</div>
-            <a href="https://www.ncbi.nlm.nih.gov/" class="homepage"><span class="usa-sr-only" id="header_ncbi">NCBI homepage</span></a>
-        </div>
-
-        <div class="account">
-            <a id="account_login" href="https://www.ncbi.nlm.nih.gov/account/?back_url=https%3A%2F%2Fblast%2Encbi%2Enlm%2Enih%2Egov%2Fblast%2FBlast%2Ecgi%3FCMD%3DGet%26FORMAT%5FOBJECT%3DAlignment%26FORMAT%5FTYPE%3DJSON2%5FS%26RESULTS%5FFILE%3Don%26RID%3D6ZM1Y02F013" class="usa-button header-button">Log in</a>
-            <button id="account_info" class="header-button" aria-controls="account_popup">
-                <span class="fa fa-user" aria-hidden="true"></span>
-                <span class="username desktop-only" aria-hidden="true" id="uname_short"></span>
-                <span class="sr-only">Show account info</span>
-            </button>
-        </div>
-
-        <div class="ncbi-popup-anchor">
-            <div class="ncbi-popup account-popup" id="account_popup" aria-hidden="true" role="dialog" aria-labelledby="account-popup-header">
-                <div class="ncbi-popup-head">
-                    <button class="ncbi-close-button"><span class="fa fa-window-close"></span><span class="usa-sr-only">Close</span></button>
-                    <h4>Account</h4>
-                </div>
-                <div class="account-user-info">
-                    Logged in as:<br>
-                    <b><span class="username" id="uname_long">username</span></b>
-                </div>
-                <div class="account-links">
-                    <ul class="usa-unstyled-list">
-                        <li><a id="account_myncbi" href="https://www.ncbi.nlm.nih.gov/myncbi/">Dashboard</a> <span class="ncbi-text-small-light">(My NCBI)</span></li>
-                        <li><a id="account_pubs" href="https://www.ncbi.nlm.nih.gov/myncbi/collections/bibliography/">Publications</a> <span class="ncbi-text-small-light">(My Bibliography)</span></li>
-                        <li><a id="account_settings" href="https://www.ncbi.nlm.nih.gov/account/settings/">Account settings</a></li>
-                        <li><a id="account_logout" href="https://www.ncbi.nlm.nih.gov/account/signout/?back_url=https%3A%2F%2Fblast%2Encbi%2Enlm%2Enih%2Egov%2Fblast%2FBlast%2Ecgi%3FCMD%3DGet%26FORMAT%5FOBJECT%3DAlignment%26FORMAT%5FTYPE%3DJSON2%5FS%26RESULTS%5FFILE%3Don%26RID%3D6ZM1Y02F013">Log out</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
-</header>
-<nav class="ncbi-topnav" id="navcontent">
-    <div class="usa-grid">
-        <a class="ncbi-topnav-root" href="Blast.cgi">BLAST <sup>&reg;</sup></a> <span id="brc"><span class="brcrmbsign">&raquo;</span> <a href="Blast.cgi?PAGE=Nucleotides&amp;PROGRAM=blastn&amp;PAGE_TYPE=BlastSearch&amp;BLAST_SPEC=">blastn suite</a> <span class="brcrmbsign">&raquo;</span> RID-6ZM1Y02F013</span>
-        <ul class="rf ncbi-topnav-list" id="topnav-list">
-            <li class="first "><a href="Blast.cgi?CMD=Web&amp;PAGE_TYPE=BlastHome" title="BLAST Home">Home</a></li>
-            <li class="recent "><a href="Blast.cgi?CMD=GetSaved&amp;RECENT_RESULTS=on" title="Unexpired BLAST jobs">Recent Results</a></li>                
-            <li class="saved "><a href="Blast.cgi?CMD=GetSaved" title="Saved sets of BLAST search parameters">Saved Strategies</a></li>
-            <li  class= "last documentation "> <a href="Blast.cgi?CMD=Web&amp;PAGE_TYPE=BlastDocs" title="BLAST documentation">Help</a></li>                            
-        </ul>
-    </div>
-</nav>
-
-
-
-        <div id="content-wrap">
-
-                <div class="pageTitle">                            
-                   Format Request Status                   
-                </div>
-		<div class="inlineDiv resHeader">				   
-				   <a  id="frmPage"  class="UNKNOWN" href="#" submitForm="reformat">[Formatting options] </a>                   
-                </div>
-                <h2 id="jtitle" >Job Title: </h2>
-								
-                <div id="content">                
-                <!--<ul id="msg" class="msg"><li class="error"><p class=""></p><p class=""></p><p class=""></p></ul> -->
-                <ul id="msg" class="msg"><li class="error"><p class="error">Error: Results for RID 6ZM1Y02F013 not found</p></li></ul>
-                <p><!--
-                QBlastInfoBegin
-	                Status=UNKNOWN
-                QBlastInfoEnd
-                --></p> 
-                               
-                <SCRIPT LANGUAGE="JavaScript"><!--
-                    var tm = "";
-                    if (tm != "") {                    
-                        setTimeout('document.forms[0].submit();',tm);
-                    }
-                //--></SCRIPT>                                
-                <table id="statInfo" class="UNKNOWN">
-                <tr><td>Request ID</td><td> <b>6ZM1Y02F013</b></td></tr>
-                <tr class="odd"><td>Status</td><td>Searching</td></tr>
-                <tr><td>Submitted at</td><td></td></tr>
-                <tr class="odd"><td>Current time</td><td></td></tr>
-                <tr><td>Time since submission</td><td></td></tr>
-                </table>
-                <p class="UNKNOWN">This page will be automatically updated in <b></b> seconds</p>       
-                <form action="Blast.cgi" enctype="application/x-www-form-urlencoded" method="POST" id="results">
-                <input name="FORMAT_OBJECT" type="hidden" value="Alignment"><input name="FORMAT_TYPE" type="hidden" value="JSON2_S"><input name="RESULTS_FILE" type="hidden" value="on"><input name="RID" type="hidden" value="6ZM1Y02F013"><input name="SEARCH_DB_STATUS" type="hidden" value="0"><input name="USER_TYPE" type="hidden" value="2"><input name="_PGR" type="hidden" value="0">                
-                <input name="_PGR" type="hidden" value="0" >
-                <input name="CMD" type="hidden" value="Get">
-               
-                </form>
-                                
-				</div><!-- /#content -->
-				<form action="Blast.cgi" enctype="application/x-www-form-urlencoded"  method="post" name="reformat" id="reformat">				
-				   <input name="QUERY_INFO" type="hidden" value="" />    				
-				   <input name="ENTREZ_QUERY" type="hidden" value="" />
-                   <input name="CDD_RID" type="hidden" value="" />
-                   <input name="CDD_SEARCH_STATE" type="hidden" value="" />
-                   <input name="RID" type="hidden" value="6ZM1Y02F013" />
-				   <input name="STEP_NUMBER" type="hidden" value="" />
-				   <input name="CMD" type="hidden" value="Web"/>				
-				   <input NAME="PAGE_TYPE" type="hidden"  value="BlastFormatting"/>
-				
-				   <!-- TO DO: test all of those changes -->				   	
-				   <!-- Psi blast params  PSI_BLAST_PARAMS - commented- using forms[0] from fromatter> -->
-				   <!-- Current Formatting options FORMATTING_OPTIONS- commented- using forms[0] from fromatter> -->
-				   <!-- Current Search options CURR_SAVED_OPTIONS - commented- using forms[0] from fromatter> -->
-                 </form>				
-        </div><!-- /#content-wrap -->
-
-         <footer id="ncbi-footer" class="usa-footer usa-footer-medium usa-sans ncbi-footer" role="contentinfo" data-section="Footer">
-  <div class="icon-section">
-    <div class="usa-grid">
-		<div class="usa-width-one-whole">
-		<h3 class="usa-sr-only">Connect</h3>
-		<ul class="ncbi-inline-list icon-list">
-			<li><a id="footer_twitter" href="https://twitter.com/ncbi">Twitter</a></li>
-			<li><a id="footer_facebook" href="https://www.facebook.com/ncbi.nlm">Facebook</a></li>
-			<li><a id="footer_youtube" href="https://www.youtube.com/user/NCBINLM">YouTube</a></li>
-			<li><a id="footer_linkedin" href="https://www.linkedin.com/company/national-center-for-biotechnology-information-ncbi-">LinkedIn</a></li>
-			<li><a id="footer_github" href="https://github.com/ncbi">GitHub</a></li>
-		</ul>
-		<ul class="ncbi-inline-list icon-list icon-list-elastic">	
-			<li class="li-blog"><a id="footer_blog" href="https://ncbiinsights.ncbi.nlm.nih.gov/">Blog</a></li>
-			<li class="li-support"><a id="footer_support" href="https://support.ncbi.nlm.nih.gov/">Support Center</a></li>
-		</ul>
-		</div>
-		</div>
-  </div>
-  <div class="usa-footer-secondary_section ncbi-section">
-    <div class="usa-grid">
-      <div class="usa-width-one-half ncbi">
-        <h3 class="ncbi-full-name">National Center for Biotechnology Information</h3>
-		<address>
-        <a id="google_maps" href="https://www.google.com/maps/place/8600+Rockville+Pike,+Bethesda,+MD+20894/@38.9959508,-77.101021,17z/data=!3m1!4b1!4m5!3m4!1s0x89b7c95e25765ddb:0x19156f88b27635b8!8m2!3d38.9959508!4d-77.0988323">
-        <span class="h-adr"> <span class="p-street-address break">8600 Rockville Pike</span>
-        <span class="p-locality">Bethesda</span> <span class="p-region"> MD</span>, <span class="p-postal-code">20894</span> <span class="p-country-name">USA</span> </span>
-		</a>
-		</address>
-        <ul class="ncbi-inline-list">
-			<li><a id="footer_about" href="https://www.ncbi.nlm.nih.gov/home/about/">About us</a></li>
-          <li><a id="footer_contact" href="https://www.ncbi.nlm.nih.gov/home/about/contact.shtml">Contact us</a></li>
-          <li><a id="footer_policies" href="https://www.ncbi.nlm.nih.gov/home/about/policies.shtml">Policies</a></li>
-          <li><a id="footer_foia" href="https://www.nih.gov/institutes-nih/nih-office-director/office-communications-public-liaison/freedom-information-act-office">FOIA</a></li>
-        </ul>
-      </div>
-      <div class="usa-width-one-half">
-      <div class="usa-grid-full">
-		<div class="usa-width-one-third">
-		<h4>Popular</h4>
-
-        <ul class="ncbi-unstyled-list">
-				<li><a id="footer_pubmed" href="https://www.ncbi.nlm.nih.gov/pubmed/">PubMed</a></li>
-				<li><a id="footer_pmc" href="https://www.ncbi.nlm.nih.gov/pmc/">PubMed Central</a></li>
-				<li><a id="footer_bookshelf" href="https://www.ncbi.nlm.nih.gov/books/">Bookshelf</a></li>
-				<li><a id="footer_pubchem" href="https://pubchem.ncbi.nlm.nih.gov">PubChem</a></li>
-				<li><a id="footer_gene" href="https://www.ncbi.nlm.nih.gov/gene/">Gene</a></li>
-				<li><a id="footer_blast" href="https://blast.ncbi.nlm.nih.gov">BLAST</a></li>
-				<li><a id="footer_nucleotide" href="https://www.ncbi.nlm.nih.gov/nucleotide/">Nucleotide</a></li>
-				<li><a id="footer_protein" href="https://www.ncbi.nlm.nih.gov/protein/">Protein</a></li>
-				<li><a id="footer_geo" href="https://www.ncbi.nlm.nih.gov/geo/">GEO</a></li>
-        </ul>
-
-			</div>
-		<div class="usa-width-one-third">
-			<h4>Resources</h4>
-			<ul class="ncbi-unstyled-list ncbi-undecorated-links">
-				  <li><a id="footer_literature" href="https://www.ncbi.nlm.nih.gov/home/literature/">Literature</a></li>
-				  <li><a id="footer_health" href="https://www.ncbi.nlm.nih.gov/home/health/">Health</a></li>
-				  <li><a id="footer_genomes" href="https://www.ncbi.nlm.nih.gov/home/genomes/">Genomes</a></li>
-				  <li><a id="footer_genes" href="https://www.ncbi.nlm.nih.gov/home/genes/">Genes</a></li>
-				  <li><a id="footer_proteins" href="https://www.ncbi.nlm.nih.gov/home/proteins/">Proteins</a></li>
-				  <li><a id="footer_chemicals" href="https://www.ncbi.nlm.nih.gov/home/chemicals/">Chemicals</a></li>
-			</ul>
-		</div>
-		<div class="usa-width-one-third">
-   <h4>Actions</h4>
-   <ul class="ncbi-unstyled-list">
-              <li><a id="footer_submit" href="https://www.ncbi.nlm.nih.gov/home/submit/">Submit</a></li>
-              <li><a id="footer_download" href="https://www.ncbi.nlm.nih.gov/home/download/">Download</a></li>
-              <li><a id="footer_learn" href="https://www.ncbi.nlm.nih.gov/home/learn/">Learn</a></li>
-              <li><a id="footer_develop" href="https://www.ncbi.nlm.nih.gov/home/develop/">Develop</a></li>
-              <li><a id="footer_analyze" href="https://www.ncbi.nlm.nih.gov/home/analyze/">Analyze</a></li>
-              <li><a id="footer_research" href="https://www.ncbi.nlm.nih.gov/research/">Research</a></li>
-   </ul>
-		  </div>
-		  </div>
-		  </div>
-    </div>
-	</div>
-     <div class="usa-footer-secondary_section gov-agencies"> 
-    <div class="usa-grid">
-    <div class="usa-width-one-whole">
-		<p>
-			<a id="footer_nlm" href="https://www.nlm.nih.gov/">NLM</a>
-			&ensp;|&ensp;
-			<a id="footer_nih" href="https://www.nih.gov/">NIH</a>
-			&ensp;|&ensp;
-			<a id="footer_hhs" href="https://www.hhs.gov/">HHS</a>
-			&ensp;|&ensp;
-			<a id="footer_usagov" href="https://www.usa.gov/">USA.gov</a>
-		</p>
-	 </div>
-	 </div>
-	</div>
-
- </footer>
-<script type="text/javascript" src="js/nwds.js"></script>
-<script type="text/javascript" src="js/ncbipopup.js"></script>
-<script type="text/javascript" src="js/headerNew.js"></script>
-<script src="js/uswds.min.js"></script>
-        <script type="text/javascript" src="/portal/portal3rc.fcgi/rlib/js/InstrumentOmnitureBaseJS/InstrumentNCBIBaseJS/InstrumentPageStarterJS.js"></script>
-<!--
-<script type="text/javascript" src="://www.ncbi.nlm.nih.gov/portal/portal3rc.fcgi/supportedbrowsers/js/nonportalbc_min.js"></script>
-<script type="text/javascript">$("#browsers_ajax").browserCheck();</script>
--->
-   </div><!--/#wrap-->
-</body>
-
-</html>
+{
+"BlastOutput2": [
+{
+    "report": {
+      "program": "blastn",
+      "version": "BLASTN 2.11.0+",
+      "reference": "Stephen F. Altschul, Thomas L. Madden, Alejandro A. Sch&auml;ffer, Jinghui Zhang, Zheng Zhang, Webb Miller, and David J. Lipman (1997), \"Gapped BLAST and PSI-BLAST: a new generation of protein database search programs\", Nucleic Acids Res. 25:3389-3402.",
+      "search_target": {
+        "db": "nt"
+      },
+      "params": {
+        "expect": 10,
+        "sc_match": 2,
+        "sc_mismatch": -3,
+        "gap_open": 5,
+        "gap_extend": 2,
+        "filter": "L;m;"
+      },
+      "results": {
+        "search": {
+          "query_id": "Query_8393",
+          "query_len": 21,
+          "hits": [
+            {
+              "num": 1,
+              "description": [
+                {
+                  "id": "gi|1848981194|ref|XM_008969525.2|",
+                  "accession": "XM_008969525",
+                  "title": "PREDICTED: Pan paniscus Morf4 family associated protein 1 (MRFAP1), transcript variant X2, mRNA",
+                  "taxid": 9597,
+                  "sciname": "Pan paniscus"
+                }
+              ],
+              "len": 2049,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1645,
+                  "hit_to": 1625,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 2,
+              "description": [
+                {
+                  "id": "gi|1848981193|ref|XM_003816463.3|",
+                  "accession": "XM_003816463",
+                  "title": "PREDICTED: Pan paniscus Morf4 family associated protein 1 (MRFAP1), transcript variant X1, mRNA",
+                  "taxid": 9597,
+                  "sciname": "Pan paniscus"
+                }
+              ],
+              "len": 2168,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1764,
+                  "hit_to": 1744,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 3,
+              "description": [
+                {
+                  "id": "gi|1842208632|ref|XM_034509418.1|",
+                  "accession": "XM_034509418",
+                  "title": "PREDICTED: Arvicanthis niloticus Morf4 family associated protein 1 (Mrfap1), mRNA",
+                  "taxid": 61156,
+                  "sciname": "Arvicanthis niloticus"
+                }
+              ],
+              "len": 1625,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1243,
+                  "hit_to": 1223,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 4,
+              "description": [
+                {
+                  "id": "gi|1835233533|ref|XM_033856669.1|",
+                  "accession": "XM_033856669",
+                  "title": "PREDICTED: Tursiops truncatus MORF4 family-associated protein 1 (LOC117312367), mRNA",
+                  "taxid": 9739,
+                  "sciname": "Tursiops truncatus"
+                }
+              ],
+              "len": 1570,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1164,
+                  "hit_to": 1144,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 5,
+              "description": [
+                {
+                  "id": "gi|1831614282|ref|XM_012531347.2|",
+                  "accession": "XM_012531347",
+                  "title": "PREDICTED: Orcinus orca MORF4 family-associated protein 1 (LOC101285146), transcript variant X2, mRNA",
+                  "taxid": 9733,
+                  "sciname": "Orcinus orca"
+                }
+              ],
+              "len": 1450,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1043,
+                  "hit_to": 1023,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 6,
+              "description": [
+                {
+                  "id": "gi|1831614280|ref|XM_033419460.1|",
+                  "accession": "XM_033419460",
+                  "title": "PREDICTED: Orcinus orca MORF4 family-associated protein 1 (LOC101285146), transcript variant X1, mRNA",
+                  "taxid": 9733,
+                  "sciname": "Orcinus orca"
+                }
+              ],
+              "len": 1571,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1164,
+                  "hit_to": 1144,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 7,
+              "description": [
+                {
+                  "id": "gi|1825840149|ref|XM_033213693.1|",
+                  "accession": "XM_033213693",
+                  "title": "PREDICTED: Trachypithecus francoisi MORF4 family-associated protein 1 (LOC117085108), transcript variant X2, mRNA",
+                  "taxid": 54180,
+                  "sciname": "Trachypithecus francoisi"
+                }
+              ],
+              "len": 1575,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1171,
+                  "hit_to": 1151,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 8,
+              "description": [
+                {
+                  "id": "gi|1825840147|ref|XM_033213692.1|",
+                  "accession": "XM_033213692",
+                  "title": "PREDICTED: Trachypithecus francoisi MORF4 family-associated protein 1 (LOC117085108), transcript variant X1, mRNA",
+                  "taxid": 54180,
+                  "sciname": "Trachypithecus francoisi"
+                }
+              ],
+              "len": 1681,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1277,
+                  "hit_to": 1257,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 9,
+              "description": [
+                {
+                  "id": "gi|1820946639|ref|XM_032915907.1|",
+                  "accession": "XM_032915907",
+                  "title": "PREDICTED: Rattus rattus MORF4 family-associated protein 1 (LOC116912018), partial mRNA",
+                  "taxid": 10117,
+                  "sciname": "Rattus rattus"
+                }
+              ],
+              "len": 1599,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1212,
+                  "hit_to": 1192,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 10,
+              "description": [
+                {
+                  "id": "gi|1804436054|ref|XM_032254143.1|",
+                  "accession": "XM_032254143",
+                  "title": "PREDICTED: Sapajus apella MORF4 family-associated protein 1 (LOC116534049), transcript variant X2, mRNA",
+                  "taxid": 9515,
+                  "sciname": "Sapajus apella"
+                }
+              ],
+              "len": 1549,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1139,
+                  "hit_to": 1119,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 11,
+              "description": [
+                {
+                  "id": "gi|1804436052|ref|XM_032254142.1|",
+                  "accession": "XM_032254142",
+                  "title": "PREDICTED: Sapajus apella MORF4 family-associated protein 1 (LOC116534049), transcript variant X1, mRNA",
+                  "taxid": 9515,
+                  "sciname": "Sapajus apella"
+                }
+              ],
+              "len": 2164,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1754,
+                  "hit_to": 1734,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 12,
+              "description": [
+                {
+                  "id": "gi|1800034354|ref|XM_032135907.1|",
+                  "accession": "XM_032135907",
+                  "title": "PREDICTED: Hylobates moloch Morf4 family associated protein 1 (MRFAP1), transcript variant X2, mRNA",
+                  "taxid": 81572,
+                  "sciname": "Hylobates moloch"
+                }
+              ],
+              "len": 2047,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1644,
+                  "hit_to": 1624,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 13,
+              "description": [
+                {
+                  "id": "gi|1800034352|ref|XM_032135906.1|",
+                  "accession": "XM_032135906",
+                  "title": "PREDICTED: Hylobates moloch Morf4 family associated protein 1 (MRFAP1), transcript variant X1, mRNA",
+                  "taxid": 81572,
+                  "sciname": "Hylobates moloch"
+                }
+              ],
+              "len": 2166,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1763,
+                  "hit_to": 1743,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 14,
+              "description": [
+                {
+                  "id": "gi|1777315794|ref|XM_009206489.4|",
+                  "accession": "XM_009206489",
+                  "title": "PREDICTED: Papio anubis Morf4 family associated protein 1 (MRFAP1), transcript variant X2, mRNA",
+                  "taxid": 9555,
+                  "sciname": "Papio anubis"
+                }
+              ],
+              "len": 1547,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1139,
+                  "hit_to": 1119,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 15,
+              "description": [
+                {
+                  "id": "gi|1777315793|ref|XM_017958555.2|",
+                  "accession": "XM_017958555",
+                  "title": "PREDICTED: Papio anubis Morf4 family associated protein 1 (MRFAP1), transcript variant X1, mRNA",
+                  "taxid": 9555,
+                  "sciname": "Papio anubis"
+                }
+              ],
+              "len": 1583,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1175,
+                  "hit_to": 1155,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 16,
+              "description": [
+                {
+                  "id": "gi|1753068243|ref|XM_019025423.2|",
+                  "accession": "XM_019025423",
+                  "title": "PREDICTED: Gorilla gorilla gorilla Morf4 family associated protein 1 (MRFAP1), transcript variant X2, mRNA",
+                  "taxid": 9595,
+                  "sciname": "Gorilla gorilla gorilla"
+                }
+              ],
+              "len": 2053,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1650,
+                  "hit_to": 1630,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 17,
+              "description": [
+                {
+                  "id": "gi|1753068241|ref|XM_031009952.1|",
+                  "accession": "XM_031009952",
+                  "title": "PREDICTED: Gorilla gorilla gorilla Morf4 family associated protein 1 (MRFAP1), transcript variant X1, mRNA",
+                  "taxid": 9595,
+                  "sciname": "Gorilla gorilla gorilla"
+                }
+              ],
+              "len": 2172,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1769,
+                  "hit_to": 1749,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 18,
+              "description": [
+                {
+                  "id": "gi|1746215610|ref|XM_030876883.1|",
+                  "accession": "XM_030876883",
+                  "title": "PREDICTED: Globicephala melas Morf4 family associated protein 1 (MRFAP1), transcript variant X2, mRNA",
+                  "taxid": 9731,
+                  "sciname": "Globicephala melas"
+                }
+              ],
+              "len": 1446,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1042,
+                  "hit_to": 1022,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 19,
+              "description": [
+                {
+                  "id": "gi|1746215608|ref|XM_030876882.1|",
+                  "accession": "XM_030876882",
+                  "title": "PREDICTED: Globicephala melas Morf4 family associated protein 1 (MRFAP1), transcript variant X1, mRNA",
+                  "taxid": 9731,
+                  "sciname": "Globicephala melas"
+                }
+              ],
+              "len": 1570,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1164,
+                  "hit_to": 1144,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 20,
+              "description": [
+                {
+                  "id": "gi|1743189585|ref|XM_012499717.2|",
+                  "accession": "XM_012499717",
+                  "title": "PREDICTED: Nomascus leucogenys Morf4 family associated protein 1 (MRFAP1), transcript variant X3, mRNA",
+                  "taxid": 61853,
+                  "sciname": "Nomascus leucogenys"
+                }
+              ],
+              "len": 2100,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1696,
+                  "hit_to": 1676,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 21,
+              "description": [
+                {
+                  "id": "gi|1743189584|ref|XM_012499712.2|",
+                  "accession": "XM_012499712",
+                  "title": "PREDICTED: Nomascus leucogenys Morf4 family associated protein 1 (MRFAP1), transcript variant X2, mRNA",
+                  "taxid": 61853,
+                  "sciname": "Nomascus leucogenys"
+                }
+              ],
+              "len": 2053,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1649,
+                  "hit_to": 1629,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 22,
+              "description": [
+                {
+                  "id": "gi|1743189582|ref|XM_030801281.1|",
+                  "accession": "XM_030801281",
+                  "title": "PREDICTED: Nomascus leucogenys Morf4 family associated protein 1 (MRFAP1), transcript variant X1, mRNA",
+                  "taxid": 61853,
+                  "sciname": "Nomascus leucogenys"
+                }
+              ],
+              "len": 2172,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1768,
+                  "hit_to": 1748,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 23,
+              "description": [
+                {
+                  "id": "gi|1741502986|ref|XM_022554910.2|",
+                  "accession": "XM_022554910",
+                  "title": "PREDICTED: Delphinapterus leucas MORF4 family-associated protein 1 (LOC111164896), mRNA",
+                  "taxid": 9749,
+                  "sciname": "Delphinapterus leucas"
+                }
+              ],
+              "len": 1574,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1164,
+                  "hit_to": 1144,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 24,
+              "description": [
+                {
+                  "id": "gi|1691711983|ref|XM_029556492.1|",
+                  "accession": "XM_029556492",
+                  "title": "PREDICTED: Nannospalax galili Morf4 family associated protein 1 (Mrfap1), transcript variant X2, mRNA",
+                  "taxid": 1026970,
+                  "sciname": "Nannospalax galili"
+                }
+              ],
+              "len": 1507,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1127,
+                  "hit_to": 1107,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 25,
+              "description": [
+                {
+                  "id": "gi|1691711982|ref|XM_008853801.3|",
+                  "accession": "XM_008853801",
+                  "title": "PREDICTED: Nannospalax galili Morf4 family associated protein 1 (Mrfap1), transcript variant X1, mRNA",
+                  "taxid": 1026970,
+                  "sciname": "Nannospalax galili"
+                }
+              ],
+              "len": 1456,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1076,
+                  "hit_to": 1056,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 26,
+              "description": [
+                {
+                  "id": "gi|1686215493|ref|XM_021210658.2|",
+                  "accession": "XM_021210658",
+                  "title": "PREDICTED: Mus pahari Morf4 family associated protein 1 (Mrfap1), mRNA",
+                  "taxid": 10093,
+                  "sciname": "Mus pahari"
+                }
+              ],
+              "len": 1588,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1202,
+                  "hit_to": 1182,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 27,
+              "description": [
+                {
+                  "id": "gi|1679848110|ref|XM_021163845.2|",
+                  "accession": "XM_021163845",
+                  "title": "PREDICTED: Mus caroli MORF4 family-associated protein 1 (LOC110295331), mRNA",
+                  "taxid": 10089,
+                  "sciname": "Mus caroli"
+                }
+              ],
+              "len": 1588,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1206,
+                  "hit_to": 1186,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 28,
+              "description": [
+                {
+                  "id": "gi|1655705673|ref|XM_029235924.1|",
+                  "accession": "XM_029235924",
+                  "title": "PREDICTED: Monodon monoceros MORF4 family-associated protein 1 (LOC114903118), mRNA",
+                  "taxid": 40151,
+                  "sciname": "Monodon monoceros"
+                }
+              ],
+              "len": 1470,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1062,
+                  "hit_to": 1042,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 29,
+              "description": [
+                {
+                  "id": "gi|1622937459|ref|XM_015137938.2|",
+                  "accession": "XM_015137938",
+                  "title": "PREDICTED: Macaca mulatta Morf4 family associated protein 1 (MRFAP1), transcript variant X2, mRNA",
+                  "taxid": 9544,
+                  "sciname": "Macaca mulatta"
+                }
+              ],
+              "len": 1558,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1144,
+                  "hit_to": 1124,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 30,
+              "description": [
+                {
+                  "id": "gi|1622937457|ref|XM_015137937.2|",
+                  "accession": "XM_015137937",
+                  "title": "PREDICTED: Macaca mulatta Morf4 family associated protein 1 (MRFAP1), transcript variant X1, mRNA",
+                  "taxid": 9544,
+                  "sciname": "Macaca mulatta"
+                }
+              ],
+              "len": 1618,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1204,
+                  "hit_to": 1184,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 31,
+              "description": [
+                {
+                  "id": "gi|1621905135|ref|XM_028758232.1|",
+                  "accession": "XM_028758232",
+                  "title": "PREDICTED: Grammomys surdaster MORF4 family-associated protein 1 (LOC114613033), mRNA",
+                  "taxid": 491861,
+                  "sciname": "Grammomys surdaster"
+                }
+              ],
+              "len": 1575,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1188,
+                  "hit_to": 1168,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 32,
+              "description": [
+                {
+                  "id": "gi|1595770164|ref|XM_007103823.3|",
+                  "accession": "XM_007103823",
+                  "title": "PREDICTED: Physeter catodon MORF4 family-associated protein 1 (LOC102987467), transcript variant X2, mRNA",
+                  "taxid": 9755,
+                  "sciname": "Physeter catodon"
+                }
+              ],
+              "len": 1538,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1128,
+                  "hit_to": 1108,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 33,
+              "description": [
+                {
+                  "id": "gi|1595770162|ref|XM_028492326.1|",
+                  "accession": "XM_028492326",
+                  "title": "PREDICTED: Physeter catodon MORF4 family-associated protein 1 (LOC102987467), transcript variant X1, mRNA",
+                  "taxid": 9755,
+                  "sciname": "Physeter catodon"
+                }
+              ],
+              "len": 1574,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1164,
+                  "hit_to": 1144,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 34,
+              "description": [
+                {
+                  "id": "gi|1516090325|ref|XM_027103756.1|",
+                  "accession": "XM_027103756",
+                  "title": "PREDICTED: Lagenorhynchus obliquidens MORF4 family-associated protein 1 (LOC113619128), mRNA",
+                  "taxid": 90247,
+                  "sciname": "Lagenorhynchus obliquidens"
+                }
+              ],
+              "len": 1447,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1041,
+                  "hit_to": 1021,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 35,
+              "description": [
+                {
+                  "id": "gi|1571991146|ref|XM_008150887.2|",
+                  "accession": "XM_008150887",
+                  "title": "PREDICTED: Eptesicus fuscus MORF4 family-associated protein 1 (LOC103294495), mRNA",
+                  "taxid": 29078,
+                  "sciname": "Eptesicus fuscus"
+                }
+              ],
+              "len": 1553,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1162,
+                  "hit_to": 1142,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 36,
+              "description": [
+                {
+                  "id": "gi|1571881441|ref|XM_007172334.2|",
+                  "accession": "XM_007172334",
+                  "title": "PREDICTED: Balaenoptera acutorostrata scammoni Morf4 family associated protein 1 (MRFAP1), mRNA",
+                  "taxid": 310752,
+                  "sciname": "Balaenoptera acutorostrata scammoni"
+                }
+              ],
+              "len": 1533,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1124,
+                  "hit_to": 1104,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 37,
+              "description": [
+                {
+                  "id": "gi|1561593550|ref|XM_006153655.3|",
+                  "accession": "XM_006153655",
+                  "title": "PREDICTED: Tupaia chinensis MORF4 family-associated protein 1 (LOC102499621), transcript variant X1, mRNA",
+                  "taxid": 246437,
+                  "sciname": "Tupaia chinensis"
+                }
+              ],
+              "len": 1386,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1006,
+                  "hit_to": 986,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 38,
+              "description": [
+                {
+                  "id": "gi|1561554738|ref|XR_001370133.2|",
+                  "accession": "XR_001370133",
+                  "title": "PREDICTED: Tupaia chinensis uncharacterized LOC106734569 (LOC106734569), ncRNA",
+                  "taxid": 246437,
+                  "sciname": "Tupaia chinensis"
+                }
+              ],
+              "len": 1521,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1405,
+                  "hit_to": 1385,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 39,
+              "description": [
+                {
+                  "id": "gi|1411156294|ref|XM_025384785.1|",
+                  "accession": "XM_025384785",
+                  "title": "PREDICTED: Theropithecus gelada MORF4 family-associated protein 1 (LOC112624277), transcript variant X4, mRNA",
+                  "taxid": 9565,
+                  "sciname": "Theropithecus gelada"
+                }
+              ],
+              "len": 1609,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1202,
+                  "hit_to": 1182,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 40,
+              "description": [
+                {
+                  "id": "gi|1411156292|ref|XM_025384784.1|",
+                  "accession": "XM_025384784",
+                  "title": "PREDICTED: Theropithecus gelada MORF4 family-associated protein 1 (LOC112624277), transcript variant X3, mRNA",
+                  "taxid": 9565,
+                  "sciname": "Theropithecus gelada"
+                }
+              ],
+              "len": 1648,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1241,
+                  "hit_to": 1221,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 41,
+              "description": [
+                {
+                  "id": "gi|1411156290|ref|XM_025384782.1|",
+                  "accession": "XM_025384782",
+                  "title": "PREDICTED: Theropithecus gelada MORF4 family-associated protein 1 (LOC112624277), transcript variant X2, mRNA",
+                  "taxid": 9565,
+                  "sciname": "Theropithecus gelada"
+                }
+              ],
+              "len": 1508,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1101,
+                  "hit_to": 1081,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 42,
+              "description": [
+                {
+                  "id": "gi|1411156288|ref|XM_025384781.1|",
+                  "accession": "XM_025384781",
+                  "title": "PREDICTED: Theropithecus gelada MORF4 family-associated protein 1 (LOC112624277), transcript variant X1, mRNA",
+                  "taxid": 9565,
+                  "sciname": "Theropithecus gelada"
+                }
+              ],
+              "len": 1499,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1092,
+                  "hit_to": 1072,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 43,
+              "description": [
+                {
+                  "id": "gi|1387530595|ref|XM_006919005.3|",
+                  "accession": "XM_006919005",
+                  "title": "PREDICTED: Pteropus alecto MORF4 family-associated protein 1 (LOC102890100), transcript variant X2, mRNA",
+                  "taxid": 9402,
+                  "sciname": "Pteropus alecto"
+                }
+              ],
+              "len": 1460,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1052,
+                  "hit_to": 1032,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 44,
+              "description": [
+                {
+                  "id": "gi|1387530594|ref|XM_006919007.3|",
+                  "accession": "XM_006919007",
+                  "title": "PREDICTED: Pteropus alecto MORF4 family-associated protein 1 (LOC102890100), transcript variant X1, mRNA",
+                  "taxid": 9402,
+                  "sciname": "Pteropus alecto"
+                }
+              ],
+              "len": 1571,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1163,
+                  "hit_to": 1143,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 45,
+              "description": [
+                {
+                  "id": "gi|1375001441|ref|XM_024573844.1|",
+                  "accession": "XM_024573844",
+                  "title": "PREDICTED: Desmodus rotundus MORF4 family-associated protein 1 (LOC112316883), transcript variant X2, mRNA",
+                  "taxid": 9430,
+                  "sciname": "Desmodus rotundus"
+                }
+              ],
+              "len": 1463,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1066,
+                  "hit_to": 1046,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 46,
+              "description": [
+                {
+                  "id": "gi|1375001439|ref|XM_024573843.1|",
+                  "accession": "XM_024573843",
+                  "title": "PREDICTED: Desmodus rotundus MORF4 family-associated protein 1 (LOC112316883), transcript variant X1, mRNA",
+                  "taxid": 9430,
+                  "sciname": "Desmodus rotundus"
+                }
+              ],
+              "len": 1524,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1127,
+                  "hit_to": 1107,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 47,
+              "description": [
+                {
+                  "id": "gi|1367282559|ref|XM_016951263.2|",
+                  "accession": "XM_016951263",
+                  "title": "PREDICTED: Pan troglodytes Morf4 family associated protein 1 (MRFAP1), transcript variant X2, mRNA",
+                  "taxid": 9598,
+                  "sciname": "Pan troglodytes"
+                }
+              ],
+              "len": 2048,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1645,
+                  "hit_to": 1625,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 48,
+              "description": [
+                {
+                  "id": "gi|1367282557|ref|XM_016951262.2|",
+                  "accession": "XM_016951262",
+                  "title": "PREDICTED: Pan troglodytes Morf4 family associated protein 1 (MRFAP1), transcript variant X1, mRNA",
+                  "taxid": 9598,
+                  "sciname": "Pan troglodytes"
+                }
+              ],
+              "len": 2167,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1764,
+                  "hit_to": 1744,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 49,
+              "description": [
+                {
+                  "id": "gi|1351497719|ref|XM_002814555.4|",
+                  "accession": "XM_002814555",
+                  "title": "PREDICTED: Pongo abelii Morf4 family associated protein 1 (MRFAP1), mRNA",
+                  "taxid": 9601,
+                  "sciname": "Pongo abelii"
+                }
+              ],
+              "len": 2161,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1761,
+                  "hit_to": 1741,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 50,
+              "description": [
+                {
+                  "id": "gi|1335185318|ref|XM_014447537.2|",
+                  "accession": "XM_014447537",
+                  "title": "PREDICTED: Myotis lucifugus Morf4 family associated protein 1 (MRFAP1), transcript variant X2, mRNA",
+                  "taxid": 59463,
+                  "sciname": "Myotis lucifugus"
+                }
+              ],
+              "len": 1203,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1164,
+                  "hit_to": 1144,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 51,
+              "description": [
+                {
+                  "id": "gi|1334666740|ref|XM_004383495.2|",
+                  "accession": "XM_004383495",
+                  "title": "PREDICTED: Trichechus manatus latirostris MORF4 family-associated protein 1 (LOC101343890), mRNA",
+                  "taxid": 127582,
+                  "sciname": "Trichechus manatus latirostris"
+                }
+              ],
+              "len": 1547,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1201,
+                  "hit_to": 1181,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 52,
+              "description": [
+                {
+                  "id": "gi|1331504875|ref|XM_011378552.2|",
+                  "accession": "XM_011378552",
+                  "title": "PREDICTED: Pteropus vampyrus Morf4 family associated protein 1 (MRFAP1), transcript variant X2, mRNA",
+                  "taxid": 132908,
+                  "sciname": "Pteropus vampyrus"
+                }
+              ],
+              "len": 1580,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1170,
+                  "hit_to": 1150,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 53,
+              "description": [
+                {
+                  "id": "gi|1331504874|ref|XM_011378550.2|",
+                  "accession": "XM_011378550",
+                  "title": "PREDICTED: Pteropus vampyrus Morf4 family associated protein 1 (MRFAP1), transcript variant X1, mRNA",
+                  "taxid": 132908,
+                  "sciname": "Pteropus vampyrus"
+                }
+              ],
+              "len": 1581,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1171,
+                  "hit_to": 1151,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 54,
+              "description": [
+                {
+                  "id": "gi|1327818314|ref|XM_023519303.1|",
+                  "accession": "XM_023519303",
+                  "title": "PREDICTED: Otolemur garnettii Morf4 family associated protein 1 (MRFAP1), mRNA",
+                  "taxid": 30611,
+                  "sciname": "Otolemur garnettii"
+                }
+              ],
+              "len": 1460,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1054,
+                  "hit_to": 1034,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 55,
+              "description": [
+                {
+                  "id": "gi|1297625969|ref|XM_023206875.1|",
+                  "accession": "XM_023206875",
+                  "title": "PREDICTED: Piliocolobus tephrosceles Morf4 family associated protein 1 (MRFAP1), transcript variant X2, mRNA",
+                  "taxid": 591936,
+                  "sciname": "Piliocolobus tephrosceles"
+                }
+              ],
+              "len": 1574,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1172,
+                  "hit_to": 1152,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 56,
+              "description": [
+                {
+                  "id": "gi|1297625965|ref|XM_023206874.1|",
+                  "accession": "XM_023206874",
+                  "title": "PREDICTED: Piliocolobus tephrosceles Morf4 family associated protein 1 (MRFAP1), transcript variant X1, mRNA",
+                  "taxid": 591936,
+                  "sciname": "Piliocolobus tephrosceles"
+                }
+              ],
+              "len": 1573,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1171,
+                  "hit_to": 1151,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 57,
+              "description": [
+                {
+                  "id": "gi|1212439670|ref|XM_012434985.2|",
+                  "accession": "XM_012434985",
+                  "title": "PREDICTED: Aotus nancymaae MORF4 family-associated protein 1 (LOC105705201), transcript variant X2, mRNA",
+                  "taxid": 37293,
+                  "sciname": "Aotus nancymaae"
+                }
+              ],
+              "len": 2042,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1629,
+                  "hit_to": 1609,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 58,
+              "description": [
+                {
+                  "id": "gi|1212439669|ref|XM_012434983.2|",
+                  "accession": "XM_012434983",
+                  "title": "PREDICTED: Aotus nancymaae MORF4 family-associated protein 1 (LOC105705201), transcript variant X1, mRNA",
+                  "taxid": 37293,
+                  "sciname": "Aotus nancymaae"
+                }
+              ],
+              "len": 1548,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1135,
+                  "hit_to": 1115,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 59,
+              "description": [
+                {
+                  "id": "gi|1211386605|ref|XM_021630388.1|",
+                  "accession": "XM_021630388",
+                  "title": "PREDICTED: Meriones unguiculatus Morf4 family associated protein 1 (Mrfap1), mRNA",
+                  "taxid": 10047,
+                  "sciname": "Meriones unguiculatus"
+                }
+              ],
+              "len": 1600,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1207,
+                  "hit_to": 1187,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 60,
+              "description": [
+                {
+                  "id": "gi|1191902928|ref|XM_003356844.3|",
+                  "accession": "XM_003356844",
+                  "title": "PREDICTED: Sus scrofa MORF4 family-associated protein 1 (LOC100621287), transcript variant X2, mRNA",
+                  "taxid": 9823,
+                  "sciname": "Sus scrofa"
+                }
+              ],
+              "len": 1669,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1254,
+                  "hit_to": 1234,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 61,
+              "description": [
+                {
+                  "id": "gi|1191902927|ref|XM_005656487.3|",
+                  "accession": "XM_005656487",
+                  "title": "PREDICTED: Sus scrofa MORF4 family-associated protein 1 (LOC100621287), transcript variant X1, mRNA",
+                  "taxid": 9823,
+                  "sciname": "Sus scrofa"
+                }
+              ],
+              "len": 1653,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1238,
+                  "hit_to": 1218,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 62,
+              "description": [
+                {
+                  "id": "gi|1149822164|ref|XM_012747697.2|",
+                  "accession": "XM_012747697",
+                  "title": "PREDICTED: Microcebus murinus Morf4 family associated protein 1 (MRFAP1), mRNA",
+                  "taxid": 30608,
+                  "sciname": "Microcebus murinus"
+                }
+              ],
+              "len": 1555,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1136,
+                  "hit_to": 1116,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 63,
+              "description": [
+                {
+                  "id": "gi|1147250234|ref|XM_020165124.1|",
+                  "accession": "XM_020165124",
+                  "title": "PREDICTED: Castor canadensis Morf4 family associated protein 1 (Mrfap1), mRNA",
+                  "taxid": 51338,
+                  "sciname": "Castor canadensis"
+                }
+              ],
+              "len": 1530,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1132,
+                  "hit_to": 1112,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 64,
+              "description": [
+                {
+                  "id": "gi|1040143257|ref|XM_002724318.3|",
+                  "accession": "XM_002724318",
+                  "title": "PREDICTED: Oryctolagus cuniculus Morf4 family associated protein 1 (MRFAP1), mRNA",
+                  "taxid": 9986,
+                  "sciname": "Oryctolagus cuniculus"
+                }
+              ],
+              "len": 964,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 698,
+                  "hit_to": 678,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 65,
+              "description": [
+                {
+                  "id": "gi|1008773607|ref|XM_006985601.2|",
+                  "accession": "XM_006985601",
+                  "title": "PREDICTED: Peromyscus maniculatus bairdii Morf4 family associated protein 1 (Mrfap1), mRNA",
+                  "taxid": 230844,
+                  "sciname": "Peromyscus maniculatus bairdii"
+                }
+              ],
+              "len": 1625,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1211,
+                  "hit_to": 1191,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 66,
+              "description": [
+                {
+                  "id": "gi|982247980|ref|XM_015450070.1|",
+                  "accession": "XM_015450070",
+                  "title": "PREDICTED: Macaca fascicularis Morf4 family associated protein 1 (MRFAP1), transcript variant X1, mRNA",
+                  "taxid": 9541,
+                  "sciname": "Macaca fascicularis"
+                }
+              ],
+              "len": 1540,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1126,
+                  "hit_to": 1106,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 67,
+              "description": [
+                {
+                  "id": "gi|955521228|ref|XM_004432255.2|",
+                  "accession": "XM_004432255",
+                  "title": "PREDICTED: Ceratotherium simum simum MORF4 family-associated protein 1 (LOC101403846), transcript variant X1, mRNA",
+                  "taxid": 73337,
+                  "sciname": "Ceratotherium simum simum"
+                }
+              ],
+              "len": 1535,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1131,
+                  "hit_to": 1111,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 68,
+              "description": [
+                {
+                  "id": "gi|947273230|ref|XR_001370758.1|",
+                  "accession": "XR_001370758",
+                  "title": "PREDICTED: Tupaia chinensis MORF4 family-associated protein 1 (LOC102499621), transcript variant X3, misc_RNA",
+                  "taxid": 246437,
+                  "sciname": "Tupaia chinensis"
+                }
+              ],
+              "len": 1429,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1044,
+                  "hit_to": 1024,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 69,
+              "description": [
+                {
+                  "id": "gi|947273226|ref|XM_006153656.2|",
+                  "accession": "XM_006153656",
+                  "title": "PREDICTED: Tupaia chinensis MORF4 family-associated protein 1 (LOC102499621), transcript variant X2, mRNA",
+                  "taxid": 246437,
+                  "sciname": "Tupaia chinensis"
+                }
+              ],
+              "len": 1396,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1011,
+                  "hit_to": 991,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 70,
+              "description": [
+                {
+                  "id": "gi|940774181|ref|XM_006105357.2|",
+                  "accession": "XM_006105357",
+                  "title": "PREDICTED: Myotis lucifugus Morf4 family associated protein 1 (MRFAP1), transcript variant X1, mRNA",
+                  "taxid": 59463,
+                  "sciname": "Myotis lucifugus"
+                }
+              ],
+              "len": 1174,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1135,
+                  "hit_to": 1115,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 71,
+              "description": [
+                {
+                  "id": "gi|831242830|ref|XR_154599.2|",
+                  "accession": "XR_154599",
+                  "title": "PREDICTED: Otolemur garnettii MORF4 family-associated protein 1-like (LOC100961787), misc_RNA",
+                  "taxid": 30611,
+                  "sciname": "Otolemur garnettii"
+                }
+              ],
+              "len": 1072,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1035,
+                  "hit_to": 1015,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 72,
+              "description": [
+                {
+                  "id": "gi|826352556|ref|XM_012665111.1|",
+                  "accession": "XM_012665111",
+                  "title": "PREDICTED: Propithecus coquereli Morf4 family associated protein 1 (MRFAP1), transcript variant X2, mRNA",
+                  "taxid": 379532,
+                  "sciname": "Propithecus coquereli"
+                }
+              ],
+              "len": 1499,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1090,
+                  "hit_to": 1070,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 73,
+              "description": [
+                {
+                  "id": "gi|826352553|ref|XM_012665109.1|",
+                  "accession": "XM_012665109",
+                  "title": "PREDICTED: Propithecus coquereli Morf4 family associated protein 1 (MRFAP1), transcript variant X1, mRNA",
+                  "taxid": 379532,
+                  "sciname": "Propithecus coquereli"
+                }
+              ],
+              "len": 1875,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1466,
+                  "hit_to": 1446,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 74,
+              "description": [
+                {
+                  "id": "gi|2025745766|ref|XM_005068842.4|",
+                  "accession": "XM_005068842",
+                  "title": "PREDICTED: Mesocricetus auratus Morf4 family associated protein 1 (Mrfap1), mRNA",
+                  "taxid": 10036,
+                  "sciname": "Mesocricetus auratus"
+                }
+              ],
+              "len": 1652,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1216,
+                  "hit_to": 1196,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 75,
+              "description": [
+                {
+                  "id": "gi|1996075387|ref|XM_039838225.1|",
+                  "accession": "XM_039838225",
+                  "title": "PREDICTED: Pteropus giganteus Morf4 family associated protein 1 (MRFAP1), transcript variant X2, mRNA",
+                  "taxid": 143291,
+                  "sciname": "Pteropus giganteus"
+                }
+              ],
+              "len": 1573,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1165,
+                  "hit_to": 1145,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 76,
+              "description": [
+                {
+                  "id": "gi|1996075385|ref|XM_039838224.1|",
+                  "accession": "XM_039838224",
+                  "title": "PREDICTED: Pteropus giganteus Morf4 family associated protein 1 (MRFAP1), transcript variant X1, mRNA",
+                  "taxid": 143291,
+                  "sciname": "Pteropus giganteus"
+                }
+              ],
+              "len": 1579,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1171,
+                  "hit_to": 1151,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 77,
+              "description": [
+                {
+                  "id": "gi|1984037742|ref|XM_039468391.1|",
+                  "accession": "XM_039468391",
+                  "title": "PREDICTED: Saimiri boliviensis boliviensis Morf4 family associated protein 1 (MRFAP1), transcript variant X2, mRNA",
+                  "taxid": 39432,
+                  "sciname": "Saimiri boliviensis boliviensis"
+                }
+              ],
+              "len": 1539,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1119,
+                  "hit_to": 1099,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 78,
+              "description": [
+                {
+                  "id": "gi|1984037738|ref|XM_039468390.1|",
+                  "accession": "XM_039468390",
+                  "title": "PREDICTED: Saimiri boliviensis boliviensis Morf4 family associated protein 1 (MRFAP1), transcript variant X1, mRNA",
+                  "taxid": 39432,
+                  "sciname": "Saimiri boliviensis boliviensis"
+                }
+              ],
+              "len": 1697,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1277,
+                  "hit_to": 1257,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 79,
+              "description": [
+                {
+                  "id": "gi|1949631110|ref|XM_038339243.1|",
+                  "accession": "XM_038339243",
+                  "title": "Arvicola amphibius MORF4 family-associated protein 1 (LOC119820704), mRNA",
+                  "taxid": 1047088,
+                  "sciname": "Arvicola amphibius"
+                }
+              ],
+              "len": 1604,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1207,
+                  "hit_to": 1187,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 80,
+              "description": [
+                {
+                  "id": "gi|1933946125|ref|XM_037742216.1|",
+                  "accession": "XM_037742216",
+                  "title": "PREDICTED: Cebus imitator MORF4 family-associated protein 1 (LOC108311622), transcript variant X3, mRNA",
+                  "taxid": 2715852,
+                  "sciname": "Cebus imitator"
+                }
+              ],
+              "len": 2044,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1638,
+                  "hit_to": 1618,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 81,
+              "description": [
+                {
+                  "id": "gi|1933946124|ref|XM_017539121.2|",
+                  "accession": "XM_017539121",
+                  "title": "PREDICTED: Cebus imitator MORF4 family-associated protein 1 (LOC108311622), transcript variant X2, mRNA",
+                  "taxid": 2715852,
+                  "sciname": "Cebus imitator"
+                }
+              ],
+              "len": 1546,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1140,
+                  "hit_to": 1120,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 82,
+              "description": [
+                {
+                  "id": "gi|1933946123|ref|XM_017539120.2|",
+                  "accession": "XM_017539120",
+                  "title": "PREDICTED: Cebus imitator MORF4 family-associated protein 1 (LOC108311622), transcript variant X1, mRNA",
+                  "taxid": 2715852,
+                  "sciname": "Cebus imitator"
+                }
+              ],
+              "len": 1684,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1278,
+                  "hit_to": 1258,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 83,
+              "description": [
+                {
+                  "id": "gi|1929234332|ref|XM_028882342.2|",
+                  "accession": "XM_028882342",
+                  "title": "PREDICTED: Peromyscus leucopus Morf4 family associated protein 1 (Mrfap1), mRNA",
+                  "taxid": 10041,
+                  "sciname": "Peromyscus leucopus"
+                }
+              ],
+              "len": 1640,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1218,
+                  "hit_to": 1198,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 84,
+              "description": [
+                {
+                  "id": "gi|1927347709|ref|XM_037126982.1|",
+                  "accession": "XM_037126982",
+                  "title": "PREDICTED: Artibeus jamaicensis Morf4 family associated protein 1 (MRFAP1), transcript variant X2, mRNA",
+                  "taxid": 9417,
+                  "sciname": "Artibeus jamaicensis"
+                }
+              ],
+              "len": 1098,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1054,
+                  "hit_to": 1034,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 85,
+              "description": [
+                {
+                  "id": "gi|1927347707|ref|XM_037126981.1|",
+                  "accession": "XM_037126981",
+                  "title": "PREDICTED: Artibeus jamaicensis Morf4 family associated protein 1 (MRFAP1), transcript variant X1, mRNA",
+                  "taxid": 9417,
+                  "sciname": "Artibeus jamaicensis"
+                }
+              ],
+              "len": 1155,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1111,
+                  "hit_to": 1091,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 86,
+              "description": [
+                {
+                  "id": "gi|1920281800|ref|XM_036853643.1|",
+                  "accession": "XM_036853643",
+                  "title": "PREDICTED: Balaenoptera musculus MORF4 family-associated protein 1 (LOC118896003), mRNA",
+                  "taxid": 9771,
+                  "sciname": "Balaenoptera musculus"
+                }
+              ],
+              "len": 1575,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1166,
+                  "hit_to": 1146,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 87,
+              "description": [
+                {
+                  "id": "gi|1912633549|ref|XM_036420877.1|",
+                  "accession": "XM_036420877",
+                  "title": "PREDICTED: Pipistrellus kuhlii Morf4 family associated protein 1 (MRFAP1), mRNA",
+                  "taxid": 59472,
+                  "sciname": "Pipistrellus kuhlii"
+                }
+              ],
+              "len": 1482,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1112,
+                  "hit_to": 1092,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 88,
+              "description": [
+                {
+                  "id": "gi|1911110027|ref|XM_036328448.1|",
+                  "accession": "XM_036328448",
+                  "title": "PREDICTED: Myotis myotis MORF4 family-associated protein 1 (LOC118666298), transcript variant X2, mRNA",
+                  "taxid": 51298,
+                  "sciname": "Myotis myotis"
+                }
+              ],
+              "len": 1550,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1160,
+                  "hit_to": 1140,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 89,
+              "description": [
+                {
+                  "id": "gi|1911110025|ref|XM_036328439.1|",
+                  "accession": "XM_036328439",
+                  "title": "PREDICTED: Myotis myotis MORF4 family-associated protein 1 (LOC118666298), transcript variant X1, mRNA",
+                  "taxid": 51298,
+                  "sciname": "Myotis myotis"
+                }
+              ],
+              "len": 1531,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1141,
+                  "hit_to": 1121,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 90,
+              "description": [
+                {
+                  "id": "gi|1910837302|ref|XM_036267799.1|",
+                  "accession": "XM_036267799",
+                  "title": "PREDICTED: Molossus molossus MORF4 family-associated protein 1 (LOC118633790), mRNA",
+                  "taxid": 27622,
+                  "sciname": "Molossus molossus"
+                }
+              ],
+              "len": 1563,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1164,
+                  "hit_to": 1144,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 91,
+              "description": [
+                {
+                  "id": "gi|1910338277|ref|XM_016161248.2|",
+                  "accession": "XM_016161248",
+                  "title": "PREDICTED: Rousettus aegyptiacus MORF4 family-associated protein 1 (LOC107519033), transcript variant X2, mRNA",
+                  "taxid": 9407,
+                  "sciname": "Rousettus aegyptiacus"
+                }
+              ],
+              "len": 1552,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1148,
+                  "hit_to": 1128,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 92,
+              "description": [
+                {
+                  "id": "gi|1910338276|ref|XM_016161247.2|",
+                  "accession": "XM_016161247",
+                  "title": "PREDICTED: Rousettus aegyptiacus MORF4 family-associated protein 1 (LOC107519033), transcript variant X1, mRNA",
+                  "taxid": 9407,
+                  "sciname": "Rousettus aegyptiacus"
+                }
+              ],
+              "len": 1561,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1157,
+                  "hit_to": 1137,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 93,
+              "description": [
+                {
+                  "id": "gi|1899648641|ref|XM_028506300.2|",
+                  "accession": "XM_028506300",
+                  "title": "PREDICTED: Phyllostomus discolor Morf4 family associated protein 1 (MRFAP1), mRNA",
+                  "taxid": 89673,
+                  "sciname": "Phyllostomus discolor"
+                }
+              ],
+              "len": 1507,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1114,
+                  "hit_to": 1094,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 94,
+              "description": [
+                {
+                  "id": "gi|1894914088|emb|LR877233.1|",
+                  "accession": "LR877233",
+                  "title": "Acomys russatus genome assembly, chromosome: 22",
+                  "taxid": 60746,
+                  "sciname": "Acomys russatus"
+                }
+              ],
+              "len": 59984821,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 28301923,
+                  "hit_to": 28301943,
+                  "hit_strand": "Plus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 95,
+              "description": [
+                {
+                  "id": "gi|1894914052|emb|LR877197.1|",
+                  "accession": "LR877197",
+                  "title": "Onychomys torridus genome assembly, chromosome: 10",
+                  "taxid": 38674,
+                  "sciname": "Onychomys torridus"
+                }
+              ],
+              "len": 98623089,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 31003129,
+                  "hit_to": 31003149,
+                  "hit_strand": "Plus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 96,
+              "description": [
+                {
+                  "id": "gi|1868100582|ref|XM_027387082.2|",
+                  "accession": "XM_027387082",
+                  "title": "PREDICTED: Cricetulus griseus Morf4 family associated protein 1 (Mrfap1), mRNA",
+                  "taxid": 10029,
+                  "sciname": "Cricetulus griseus"
+                }
+              ],
+              "len": 1661,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1228,
+                  "hit_to": 1208,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 97,
+              "description": [
+                {
+                  "id": "gi|1868037926|ref|XM_003496616.5|",
+                  "accession": "XM_003496616",
+                  "title": "PREDICTED: Cricetulus griseus Morf4 family associated protein 1 (Mrfap1), mRNA",
+                  "taxid": 10029,
+                  "sciname": "Cricetulus griseus"
+                }
+              ],
+              "len": 1659,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1226,
+                  "hit_to": 1206,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 98,
+              "description": [
+                {
+                  "id": "gi|1864471995|ref|XM_035294127.1|",
+                  "accession": "XM_035294127",
+                  "title": "PREDICTED: Callithrix jacchus Morf4 family associated protein 1 (MRFAP1), transcript variant X3, mRNA",
+                  "taxid": 9483,
+                  "sciname": "Callithrix jacchus"
+                }
+              ],
+              "len": 1513,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1124,
+                  "hit_to": 1104,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 99,
+              "description": [
+                {
+                  "id": "gi|1864031930|ref|XM_008993623.3|",
+                  "accession": "XM_008993623",
+                  "title": "PREDICTED: Callithrix jacchus Morf4 family associated protein 1 (MRFAP1), transcript variant X2, mRNA",
+                  "taxid": 9483,
+                  "sciname": "Callithrix jacchus"
+                }
+              ],
+              "len": 1548,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1159,
+                  "hit_to": 1139,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 100,
+              "description": [
+                {
+                  "id": "gi|1864031929|ref|XM_008993622.3|",
+                  "accession": "XM_008993622",
+                  "title": "PREDICTED: Callithrix jacchus Morf4 family associated protein 1 (MRFAP1), transcript variant X1, mRNA",
+                  "taxid": 9483,
+                  "sciname": "Callithrix jacchus"
+                }
+              ],
+              "len": 1639,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1250,
+                  "hit_to": 1230,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "ATACATCTCTCCTCCTTTGGT",
+                  "hseq": "ATACATCTCTCCTCCTTTGGT",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            }
+          ],
+          "stat": {
+            "db_num": 70351925,
+            "db_len": 1380435113,
+            "hsp_len": 18,
+            "eff_space": 1314602293965,
+            "kappa": 0.41,
+            "lambda": 0.625,
+            "entropy": 0.78
+          }
+        }
+      }
+    }
+  }
+]
+}
 

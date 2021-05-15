@@ -1,263 +1,3063 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="jig" content="ncbitoggler"/>
-<meta name="ncbitoggler" content="animation:'none'"/>
-<title>NCBI Blast:</title>
-<script type="text/javascript" src="/core/jig/1.14.8/js/jig.min.js             "></script>
-<script type="text/javascript">    jQuery.getScript("/core/alerts/alerts.js", function() {
-        galert(['div#header', 'body > *:nth-child(1)'])
-    });</script>
-<meta http-equiv="Pragma" content="no-cache">
-<link rel="stylesheet" type="text/css" href="css/uswds.min.css" media="screen" />
-<link rel="stylesheet"  type="text/css" href="https://www.ncbi.nlm.nih.gov/style-guide/static/nwds/css/nwds.css"/>
-<link rel="stylesheet" href="css/headerNew.css"/>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous"> <!-- Font Awesome icons -->
-<link rel="stylesheet" type="text/css" href="css/footerNew.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="css/main.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="css/blastRes.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="css/print.css" media="print" />
-<!--[if lte IE 6]>
-<link rel="stylesheet" type="text/css" href="css/ie6_or_less.css" />
-<![endif]-->
-<script type="text/javascript" src="js/utils.js"></script>
-<script type="text/javascript" src="js/results.js"></script>
-</head>
-
-<body id="type-a" class="noToggleCheck" >
-<div id="wrap">
-		    	
-<header class="ncbi-header" role="banner" data-section="Header">
-<ul class="skip_nav">
-    <li><a accesskey="1" title="NCBI Homepage" href="https://www.ncbi.nlm.nih.gov/">NCBI Home</a></li>
-    <li><a accesskey="2" title="MyNCBI" href="https://www.ncbi.nlm.nih.gov/myncbi">Sign in to NCBI</a></li>
-    <li><a accesskey="3" title="Skip to main content" href="#mainCont">Skip to Main Content</a></li>
-    <li><a accesskey="4" title="Skip to navigation" href="#navcontent">Skip to Navigation</a></li>
-    <li><a accesskey="0" title="About NCBI Accesskeys" href="https://www.ncbi.nlm.nih.gov/guide/browsers/#accesskeys">About NCBI Accesskeys</a></li>
-</ul>
-<div class="usa-grid">
-    <div class="usa-width-one-whole">
-        <div class="agencies">
-            <div class="nih"><span class="usa-sr-only">National Institutes of Health</span></div>
-            <div class="nlm">U.S. National Library of Medicine</div>
-            <div class="ncbi">National Center for Biotechnology Information</div>
-            <a href="https://www.ncbi.nlm.nih.gov/" class="homepage"><span class="usa-sr-only" id="header_ncbi">NCBI homepage</span></a>
-        </div>
-
-        <div class="account">
-            <a id="account_login" href="https://www.ncbi.nlm.nih.gov/account/?back_url=https%3A%2F%2Fblast%2Encbi%2Enlm%2Enih%2Egov%2Fblast%2FBlast%2Ecgi%3FCMD%3DGet%26FORMAT%5FOBJECT%3DAlignment%26FORMAT%5FTYPE%3DJSON2%5FS%26RESULTS%5FFILE%3Don%26RID%3D8Y8RB090016" class="usa-button header-button">Log in</a>
-            <button id="account_info" class="header-button" aria-controls="account_popup">
-                <span class="fa fa-user" aria-hidden="true"></span>
-                <span class="username desktop-only" aria-hidden="true" id="uname_short"></span>
-                <span class="sr-only">Show account info</span>
-            </button>
-        </div>
-
-        <div class="ncbi-popup-anchor">
-            <div class="ncbi-popup account-popup" id="account_popup" aria-hidden="true" role="dialog" aria-labelledby="account-popup-header">
-                <div class="ncbi-popup-head">
-                    <button class="ncbi-close-button"><span class="fa fa-window-close"></span><span class="usa-sr-only">Close</span></button>
-                    <h4>Account</h4>
-                </div>
-                <div class="account-user-info">
-                    Logged in as:<br>
-                    <b><span class="username" id="uname_long">username</span></b>
-                </div>
-                <div class="account-links">
-                    <ul class="usa-unstyled-list">
-                        <li><a id="account_myncbi" href="https://www.ncbi.nlm.nih.gov/myncbi/">Dashboard</a> <span class="ncbi-text-small-light">(My NCBI)</span></li>
-                        <li><a id="account_pubs" href="https://www.ncbi.nlm.nih.gov/myncbi/collections/bibliography/">Publications</a> <span class="ncbi-text-small-light">(My Bibliography)</span></li>
-                        <li><a id="account_settings" href="https://www.ncbi.nlm.nih.gov/account/settings/">Account settings</a></li>
-                        <li><a id="account_logout" href="https://www.ncbi.nlm.nih.gov/account/signout/?back_url=https%3A%2F%2Fblast%2Encbi%2Enlm%2Enih%2Egov%2Fblast%2FBlast%2Ecgi%3FCMD%3DGet%26FORMAT%5FOBJECT%3DAlignment%26FORMAT%5FTYPE%3DJSON2%5FS%26RESULTS%5FFILE%3Don%26RID%3D8Y8RB090016">Log out</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
-</header>
-<nav class="ncbi-topnav" id="navcontent">
-    <div class="usa-grid">
-        <a class="ncbi-topnav-root" href="Blast.cgi">BLAST <sup>&reg;</sup></a> <span id="brc"><span class="brcrmbsign">&raquo;</span> <a href="Blast.cgi?PAGE=Nucleotides&amp;PROGRAM=blastn&amp;PAGE_TYPE=BlastSearch&amp;BLAST_SPEC=">blastn suite</a> <span class="brcrmbsign">&raquo;</span> RID-8Y8RB090016</span>
-        <ul class="rf ncbi-topnav-list" id="topnav-list">
-            <li class="first "><a href="Blast.cgi?CMD=Web&amp;PAGE_TYPE=BlastHome" title="BLAST Home">Home</a></li>
-            <li class="recent "><a href="Blast.cgi?CMD=GetSaved&amp;RECENT_RESULTS=on" title="Unexpired BLAST jobs">Recent Results</a></li>                
-            <li class="saved "><a href="Blast.cgi?CMD=GetSaved" title="Saved sets of BLAST search parameters">Saved Strategies</a></li>
-            <li  class= "last documentation "> <a href="Blast.cgi?CMD=Web&amp;PAGE_TYPE=BlastDocs" title="BLAST documentation">Help</a></li>                            
-        </ul>
-    </div>
-</nav>
-
-
-
-        <div id="content-wrap">
-
-                <div class="pageTitle">                            
-                   Format Request Status                   
-                </div>
-		<div class="inlineDiv resHeader">				   
-				   <a  id="frmPage"  class="UNKNOWN" href="#" submitForm="reformat">[Formatting options] </a>                   
-                </div>
-                <h2 id="jtitle" >Job Title: </h2>
-								
-                <div id="content">                
-                <!--<ul id="msg" class="msg"><li class="error"><p class=""></p><p class=""></p><p class=""></p></ul> -->
-                <ul id="msg" class="msg"><li class="error"><p class="error">Error: Results for RID 8Y8RB090016 not found</p></li></ul>
-                <p><!--
-                QBlastInfoBegin
-	                Status=UNKNOWN
-                QBlastInfoEnd
-                --></p> 
-                               
-                <SCRIPT LANGUAGE="JavaScript"><!--
-                    var tm = "";
-                    if (tm != "") {                    
-                        setTimeout('document.forms[0].submit();',tm);
-                    }
-                //--></SCRIPT>                                
-                <table id="statInfo" class="UNKNOWN">
-                <tr><td>Request ID</td><td> <b>8Y8RB090016</b></td></tr>
-                <tr class="odd"><td>Status</td><td>Searching</td></tr>
-                <tr><td>Submitted at</td><td></td></tr>
-                <tr class="odd"><td>Current time</td><td></td></tr>
-                <tr><td>Time since submission</td><td></td></tr>
-                </table>
-                <p class="UNKNOWN">This page will be automatically updated in <b></b> seconds</p>       
-                <form action="Blast.cgi" enctype="application/x-www-form-urlencoded" method="POST" id="results">
-                <input name="FORMAT_OBJECT" type="hidden" value="Alignment"><input name="FORMAT_TYPE" type="hidden" value="JSON2_S"><input name="RESULTS_FILE" type="hidden" value="on"><input name="RID" type="hidden" value="8Y8RB090016"><input name="SEARCH_DB_STATUS" type="hidden" value="0"><input name="USER_TYPE" type="hidden" value="2"><input name="_PGR" type="hidden" value="0">                
-                <input name="_PGR" type="hidden" value="0" >
-                <input name="CMD" type="hidden" value="Get">
-               
-                </form>
-                                
-				</div><!-- /#content -->
-				<form action="Blast.cgi" enctype="application/x-www-form-urlencoded"  method="post" name="reformat" id="reformat">				
-				   <input name="QUERY_INFO" type="hidden" value="" />    				
-				   <input name="ENTREZ_QUERY" type="hidden" value="" />
-                   <input name="CDD_RID" type="hidden" value="" />
-                   <input name="CDD_SEARCH_STATE" type="hidden" value="" />
-                   <input name="RID" type="hidden" value="8Y8RB090016" />
-				   <input name="STEP_NUMBER" type="hidden" value="" />
-				   <input name="CMD" type="hidden" value="Web"/>				
-				   <input NAME="PAGE_TYPE" type="hidden"  value="BlastFormatting"/>
-				
-				   <!-- TO DO: test all of those changes -->				   	
-				   <!-- Psi blast params  PSI_BLAST_PARAMS - commented- using forms[0] from fromatter> -->
-				   <!-- Current Formatting options FORMATTING_OPTIONS- commented- using forms[0] from fromatter> -->
-				   <!-- Current Search options CURR_SAVED_OPTIONS - commented- using forms[0] from fromatter> -->
-                 </form>				
-        </div><!-- /#content-wrap -->
-
-         <footer id="ncbi-footer" class="usa-footer usa-footer-medium usa-sans ncbi-footer" role="contentinfo" data-section="Footer">
-  <div class="icon-section">
-    <div class="usa-grid">
-		<div class="usa-width-one-whole">
-		<h3 class="usa-sr-only">Connect</h3>
-		<ul class="ncbi-inline-list icon-list">
-			<li><a id="footer_twitter" href="https://twitter.com/ncbi">Twitter</a></li>
-			<li><a id="footer_facebook" href="https://www.facebook.com/ncbi.nlm">Facebook</a></li>
-			<li><a id="footer_youtube" href="https://www.youtube.com/user/NCBINLM">YouTube</a></li>
-			<li><a id="footer_linkedin" href="https://www.linkedin.com/company/national-center-for-biotechnology-information-ncbi-">LinkedIn</a></li>
-			<li><a id="footer_github" href="https://github.com/ncbi">GitHub</a></li>
-		</ul>
-		<ul class="ncbi-inline-list icon-list icon-list-elastic">	
-			<li class="li-blog"><a id="footer_blog" href="https://ncbiinsights.ncbi.nlm.nih.gov/">Blog</a></li>
-			<li class="li-support"><a id="footer_support" href="https://support.ncbi.nlm.nih.gov/">Support Center</a></li>
-		</ul>
-		</div>
-		</div>
-  </div>
-  <div class="usa-footer-secondary_section ncbi-section">
-    <div class="usa-grid">
-      <div class="usa-width-one-half ncbi">
-        <h3 class="ncbi-full-name">National Center for Biotechnology Information</h3>
-		<address>
-        <a id="google_maps" href="https://www.google.com/maps/place/8600+Rockville+Pike,+Bethesda,+MD+20894/@38.9959508,-77.101021,17z/data=!3m1!4b1!4m5!3m4!1s0x89b7c95e25765ddb:0x19156f88b27635b8!8m2!3d38.9959508!4d-77.0988323">
-        <span class="h-adr"> <span class="p-street-address break">8600 Rockville Pike</span>
-        <span class="p-locality">Bethesda</span> <span class="p-region"> MD</span>, <span class="p-postal-code">20894</span> <span class="p-country-name">USA</span> </span>
-		</a>
-		</address>
-        <ul class="ncbi-inline-list">
-			<li><a id="footer_about" href="https://www.ncbi.nlm.nih.gov/home/about/">About us</a></li>
-          <li><a id="footer_contact" href="https://www.ncbi.nlm.nih.gov/home/about/contact.shtml">Contact us</a></li>
-          <li><a id="footer_policies" href="https://www.ncbi.nlm.nih.gov/home/about/policies.shtml">Policies</a></li>
-          <li><a id="footer_foia" href="https://www.nih.gov/institutes-nih/nih-office-director/office-communications-public-liaison/freedom-information-act-office">FOIA</a></li>
-        </ul>
-      </div>
-      <div class="usa-width-one-half">
-      <div class="usa-grid-full">
-		<div class="usa-width-one-third">
-		<h4>Popular</h4>
-
-        <ul class="ncbi-unstyled-list">
-				<li><a id="footer_pubmed" href="https://www.ncbi.nlm.nih.gov/pubmed/">PubMed</a></li>
-				<li><a id="footer_pmc" href="https://www.ncbi.nlm.nih.gov/pmc/">PubMed Central</a></li>
-				<li><a id="footer_bookshelf" href="https://www.ncbi.nlm.nih.gov/books/">Bookshelf</a></li>
-				<li><a id="footer_pubchem" href="https://pubchem.ncbi.nlm.nih.gov">PubChem</a></li>
-				<li><a id="footer_gene" href="https://www.ncbi.nlm.nih.gov/gene/">Gene</a></li>
-				<li><a id="footer_blast" href="https://blast.ncbi.nlm.nih.gov">BLAST</a></li>
-				<li><a id="footer_nucleotide" href="https://www.ncbi.nlm.nih.gov/nucleotide/">Nucleotide</a></li>
-				<li><a id="footer_protein" href="https://www.ncbi.nlm.nih.gov/protein/">Protein</a></li>
-				<li><a id="footer_geo" href="https://www.ncbi.nlm.nih.gov/geo/">GEO</a></li>
-        </ul>
-
-			</div>
-		<div class="usa-width-one-third">
-			<h4>Resources</h4>
-			<ul class="ncbi-unstyled-list ncbi-undecorated-links">
-				  <li><a id="footer_literature" href="https://www.ncbi.nlm.nih.gov/home/literature/">Literature</a></li>
-				  <li><a id="footer_health" href="https://www.ncbi.nlm.nih.gov/home/health/">Health</a></li>
-				  <li><a id="footer_genomes" href="https://www.ncbi.nlm.nih.gov/home/genomes/">Genomes</a></li>
-				  <li><a id="footer_genes" href="https://www.ncbi.nlm.nih.gov/home/genes/">Genes</a></li>
-				  <li><a id="footer_proteins" href="https://www.ncbi.nlm.nih.gov/home/proteins/">Proteins</a></li>
-				  <li><a id="footer_chemicals" href="https://www.ncbi.nlm.nih.gov/home/chemicals/">Chemicals</a></li>
-			</ul>
-		</div>
-		<div class="usa-width-one-third">
-   <h4>Actions</h4>
-   <ul class="ncbi-unstyled-list">
-              <li><a id="footer_submit" href="https://www.ncbi.nlm.nih.gov/home/submit/">Submit</a></li>
-              <li><a id="footer_download" href="https://www.ncbi.nlm.nih.gov/home/download/">Download</a></li>
-              <li><a id="footer_learn" href="https://www.ncbi.nlm.nih.gov/home/learn/">Learn</a></li>
-              <li><a id="footer_develop" href="https://www.ncbi.nlm.nih.gov/home/develop/">Develop</a></li>
-              <li><a id="footer_analyze" href="https://www.ncbi.nlm.nih.gov/home/analyze/">Analyze</a></li>
-              <li><a id="footer_research" href="https://www.ncbi.nlm.nih.gov/research/">Research</a></li>
-   </ul>
-		  </div>
-		  </div>
-		  </div>
-    </div>
-	</div>
-     <div class="usa-footer-secondary_section gov-agencies"> 
-    <div class="usa-grid">
-    <div class="usa-width-one-whole">
-		<p>
-			<a id="footer_nlm" href="https://www.nlm.nih.gov/">NLM</a>
-			&ensp;|&ensp;
-			<a id="footer_nih" href="https://www.nih.gov/">NIH</a>
-			&ensp;|&ensp;
-			<a id="footer_hhs" href="https://www.hhs.gov/">HHS</a>
-			&ensp;|&ensp;
-			<a id="footer_usagov" href="https://www.usa.gov/">USA.gov</a>
-		</p>
-	 </div>
-	 </div>
-	</div>
-
- </footer>
-<script type="text/javascript" src="js/nwds.js"></script>
-<script type="text/javascript" src="js/ncbipopup.js"></script>
-<script type="text/javascript" src="js/headerNew.js"></script>
-<script src="js/uswds.min.js"></script>
-        <script type="text/javascript" src="/portal/portal3rc.fcgi/rlib/js/InstrumentOmnitureBaseJS/InstrumentNCBIBaseJS/InstrumentPageStarterJS.js"></script>
-<!--
-<script type="text/javascript" src="://www.ncbi.nlm.nih.gov/portal/portal3rc.fcgi/supportedbrowsers/js/nonportalbc_min.js"></script>
-<script type="text/javascript">$("#browsers_ajax").browserCheck();</script>
--->
-   </div><!--/#wrap-->
-</body>
-
-</html>
+{
+"BlastOutput2": [
+{
+    "report": {
+      "program": "blastn",
+      "version": "BLASTN 2.11.0+",
+      "reference": "Stephen F. Altschul, Thomas L. Madden, Alejandro A. Sch&auml;ffer, Jinghui Zhang, Zheng Zhang, Webb Miller, and David J. Lipman (1997), \"Gapped BLAST and PSI-BLAST: a new generation of protein database search programs\", Nucleic Acids Res. 25:3389-3402.",
+      "search_target": {
+        "db": "nt"
+      },
+      "params": {
+        "expect": 10,
+        "sc_match": 2,
+        "sc_mismatch": -3,
+        "gap_open": 5,
+        "gap_extend": 2,
+        "filter": "L;m;"
+      },
+      "results": {
+        "search": {
+          "query_id": "Query_65427",
+          "query_len": 21,
+          "hits": [
+            {
+              "num": 1,
+              "description": [
+                {
+                  "id": "gi|1849052757|ref|XM_034944208.1|",
+                  "accession": "XM_034944208",
+                  "title": "PREDICTED: Pan paniscus cell division cycle 34, ubiqiutin conjugating enzyme (CDC34), transcript variant X3, mRNA",
+                  "taxid": 9597,
+                  "sciname": "Pan paniscus"
+                }
+              ],
+              "len": 1453,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 833,
+                  "hit_to": 813,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 2,
+              "description": [
+                {
+                  "id": "gi|1842131275|ref|XM_034487733.1|",
+                  "accession": "XM_034487733",
+                  "title": "PREDICTED: Arvicanthis niloticus cell division cycle 34, ubiqiutin conjugating enzyme (Cdc34), transcript variant X2, mRNA",
+                  "taxid": 61156,
+                  "sciname": "Arvicanthis niloticus"
+                }
+              ],
+              "len": 1259,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 830,
+                  "hit_to": 810,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 3,
+              "description": [
+                {
+                  "id": "gi|1842131272|ref|XM_034487732.1|",
+                  "accession": "XM_034487732",
+                  "title": "PREDICTED: Arvicanthis niloticus cell division cycle 34, ubiqiutin conjugating enzyme (Cdc34), transcript variant X1, mRNA",
+                  "taxid": 61156,
+                  "sciname": "Arvicanthis niloticus"
+                }
+              ],
+              "len": 1263,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 834,
+                  "hit_to": 814,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 4,
+              "description": [
+                {
+                  "id": "gi|1820939603|ref|XM_032908698.1|",
+                  "accession": "XM_032908698",
+                  "title": "PREDICTED: Rattus rattus cell division cycle 34, ubiqiutin conjugating enzyme (Cdc34), mRNA",
+                  "taxid": 10117,
+                  "sciname": "Rattus rattus"
+                }
+              ],
+              "len": 1280,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 858,
+                  "hit_to": 838,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 5,
+              "description": [
+                {
+                  "id": "gi|1812948083|ref|XM_030297511.2|",
+                  "accession": "XM_030297511",
+                  "title": "PREDICTED: Lynx canadensis cell division cycle 34, ubiqiutin conjugating enzyme (CDC34), transcript variant X2, mRNA",
+                  "taxid": 61383,
+                  "sciname": "Lynx canadensis"
+                }
+              ],
+              "len": 1568,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 639,
+                  "hit_to": 619,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 6,
+              "description": [
+                {
+                  "id": "gi|1812948079|ref|XM_030297502.2|",
+                  "accession": "XM_030297502",
+                  "title": "PREDICTED: Lynx canadensis cell division cycle 34, ubiqiutin conjugating enzyme (CDC34), transcript variant X1, mRNA",
+                  "taxid": 61383,
+                  "sciname": "Lynx canadensis"
+                }
+              ],
+              "len": 1618,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 689,
+                  "hit_to": 669,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 7,
+              "description": [
+                {
+                  "id": "gi|1753018421|ref|XM_019016478.2|",
+                  "accession": "XM_019016478",
+                  "title": "PREDICTED: Gorilla gorilla gorilla cell division cycle 34 (CDC34), mRNA",
+                  "taxid": 9595,
+                  "sciname": "Gorilla gorilla gorilla"
+                }
+              ],
+              "len": 1460,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 833,
+                  "hit_to": 813,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 8,
+              "description": [
+                {
+                  "id": "gi|1720894926|ref|XM_030297531.1|",
+                  "accession": "XM_030297531",
+                  "title": "PREDICTED: Lynx canadensis cell division cycle 34, ubiqiutin conjugating enzyme (CDC34), transcript variant X4, mRNA",
+                  "taxid": 61383,
+                  "sciname": "Lynx canadensis"
+                }
+              ],
+              "len": 1538,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 609,
+                  "hit_to": 589,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 9,
+              "description": [
+                {
+                  "id": "gi|1621858268|ref|XM_028771633.1|",
+                  "accession": "XM_028771633",
+                  "title": "PREDICTED: Grammomys surdaster cell division cycle 34 (Cdc34), transcript variant X2, mRNA",
+                  "taxid": 491861,
+                  "sciname": "Grammomys surdaster"
+                }
+              ],
+              "len": 1251,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 824,
+                  "hit_to": 804,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 10,
+              "description": [
+                {
+                  "id": "gi|1621858266|ref|XM_028771631.1|",
+                  "accession": "XM_028771631",
+                  "title": "PREDICTED: Grammomys surdaster cell division cycle 34 (Cdc34), transcript variant X1, mRNA",
+                  "taxid": 491861,
+                  "sciname": "Grammomys surdaster"
+                }
+              ],
+              "len": 1255,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 828,
+                  "hit_to": 808,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 11,
+              "description": [
+                {
+                  "id": "gi|1519499550|ref|NM_004359.2|",
+                  "accession": "NM_004359",
+                  "title": "Homo sapiens cell division cycle 34, ubiqiutin conjugating enzyme (CDC34), mRNA",
+                  "taxid": 9606,
+                  "sciname": "Homo sapiens"
+                }
+              ],
+              "len": 1418,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 796,
+                  "hit_to": 776,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 12,
+              "description": [
+                {
+                  "id": "gi|1512075021|ref|XM_027049160.1|",
+                  "accession": "XM_027049160",
+                  "title": "PREDICTED: Acinonyx jubatus cell division cycle 34 (CDC34), transcript variant X2, mRNA",
+                  "taxid": 32536,
+                  "sciname": "Acinonyx jubatus"
+                }
+              ],
+              "len": 1602,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 665,
+                  "hit_to": 645,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 13,
+              "description": [
+                {
+                  "id": "gi|1512075019|ref|XM_027049159.1|",
+                  "accession": "XM_027049159",
+                  "title": "PREDICTED: Acinonyx jubatus cell division cycle 34 (CDC34), transcript variant X1, mRNA",
+                  "taxid": 32536,
+                  "sciname": "Acinonyx jubatus"
+                }
+              ],
+              "len": 1653,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 716,
+                  "hit_to": 696,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 14,
+              "description": [
+                {
+                  "id": "gi|1549097453|gb|CP034522.1|",
+                  "accession": "CP034522",
+                  "title": "Eukaryotic synthetic construct chromosome 19",
+                  "taxid": 111789,
+                  "sciname": "eukaryotic synthetic construct"
+                }
+              ],
+              "len": 64242768,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 481465,
+                  "hit_to": 481445,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 15,
+              "description": [
+                {
+                  "id": "gi|1548994293|gb|CP034497.1|",
+                  "accession": "CP034497",
+                  "title": "Eukaryotic synthetic construct chromosome 19",
+                  "taxid": 111789,
+                  "sciname": "eukaryotic synthetic construct"
+                }
+              ],
+              "len": 64242768,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 481465,
+                  "hit_to": 481445,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 16,
+              "description": [
+                {
+                  "id": "gi|1435654700|ref|XM_026019245.1|",
+                  "accession": "XM_026019245",
+                  "title": "PREDICTED: Vulpes vulpes cell division cycle 34 (CDC34), mRNA",
+                  "taxid": 9627,
+                  "sciname": "Vulpes vulpes"
+                }
+              ],
+              "len": 1106,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 650,
+                  "hit_to": 630,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 17,
+              "description": [
+                {
+                  "id": "gi|1394729950|ref|XM_006126998.3|",
+                  "accession": "XM_006126998",
+                  "title": "PREDICTED: Pelodiscus sinensis cell division cycle 34 (CDC34), mRNA",
+                  "taxid": 13735,
+                  "sciname": "Pelodiscus sinensis"
+                }
+              ],
+              "len": 1400,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 511,
+                  "hit_to": 491,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 18,
+              "description": [
+                {
+                  "id": "gi|1367216217|ref|XM_009434229.3|",
+                  "accession": "XM_009434229",
+                  "title": "PREDICTED: Pan troglodytes cell division cycle 34 (CDC34), mRNA",
+                  "taxid": 9598,
+                  "sciname": "Pan troglodytes"
+                }
+              ],
+              "len": 1458,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 837,
+                  "hit_to": 817,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 19,
+              "description": [
+                {
+                  "id": "gi|1333690141|ref|XM_023644244.1|",
+                  "accession": "XM_023644244",
+                  "title": "PREDICTED: Equus caballus cell division cycle 34 (CDC34), transcript variant X5, mRNA",
+                  "taxid": 9796,
+                  "sciname": "Equus caballus"
+                }
+              ],
+              "len": 1308,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 830,
+                  "hit_to": 810,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 20,
+              "description": [
+                {
+                  "id": "gi|1333690136|ref|XR_002808973.1|",
+                  "accession": "XR_002808973",
+                  "title": "PREDICTED: Equus caballus cell division cycle 34 (CDC34), transcript variant X4, misc_RNA",
+                  "taxid": 9796,
+                  "sciname": "Equus caballus"
+                }
+              ],
+              "len": 2700,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 2700,
+                  "hit_to": 2680,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 21,
+              "description": [
+                {
+                  "id": "gi|1333690132|ref|XR_002808972.1|",
+                  "accession": "XR_002808972",
+                  "title": "PREDICTED: Equus caballus cell division cycle 34 (CDC34), transcript variant X3, misc_RNA",
+                  "taxid": 9796,
+                  "sciname": "Equus caballus"
+                }
+              ],
+              "len": 2855,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 2855,
+                  "hit_to": 2835,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 22,
+              "description": [
+                {
+                  "id": "gi|1333690128|ref|XM_023644243.1|",
+                  "accession": "XM_023644243",
+                  "title": "PREDICTED: Equus caballus cell division cycle 34 (CDC34), transcript variant X2, mRNA",
+                  "taxid": 9796,
+                  "sciname": "Equus caballus"
+                }
+              ],
+              "len": 1362,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 884,
+                  "hit_to": 864,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 23,
+              "description": [
+                {
+                  "id": "gi|1333690123|ref|XM_023644242.1|",
+                  "accession": "XM_023644242",
+                  "title": "PREDICTED: Equus caballus cell division cycle 34 (CDC34), transcript variant X1, mRNA",
+                  "taxid": 9796,
+                  "sciname": "Equus caballus"
+                }
+              ],
+              "len": 1381,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 903,
+                  "hit_to": 883,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 24,
+              "description": [
+                {
+                  "id": "gi|1304881241|ref|XM_023242436.1|",
+                  "accession": "XM_023242436",
+                  "title": "PREDICTED: Felis catus cell division cycle 34 (CDC34), transcript variant X2, mRNA",
+                  "taxid": 9685,
+                  "sciname": "Felis catus"
+                }
+              ],
+              "len": 1595,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 664,
+                  "hit_to": 644,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 25,
+              "description": [
+                {
+                  "id": "gi|1304881239|ref|XM_023242434.1|",
+                  "accession": "XM_023242434",
+                  "title": "PREDICTED: Felis catus cell division cycle 34 (CDC34), transcript variant X1, mRNA",
+                  "taxid": 9685,
+                  "sciname": "Felis catus"
+                }
+              ],
+              "len": 1648,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 717,
+                  "hit_to": 697,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 26,
+              "description": [
+                {
+                  "id": "gi|1149859157|ref|XM_012745890.2|",
+                  "accession": "XM_012745890",
+                  "title": "PREDICTED: Microcebus murinus cell division cycle 34 (CDC34), mRNA",
+                  "taxid": 30608,
+                  "sciname": "Microcebus murinus"
+                }
+              ],
+              "len": 1435,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 842,
+                  "hit_to": 822,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 27,
+              "description": [
+                {
+                  "id": "gi|1147705710|emb|LT744874.1|",
+                  "accession": "LT744874",
+                  "title": "Human ORFeome Gateway entry vector pENTR223-CDC34, complete sequence",
+                  "taxid": 1958742,
+                  "sciname": "Human ORFeome Gateway entry vector"
+                }
+              ],
+              "len": 3498,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1111,
+                  "hit_to": 1091,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 28,
+              "description": [
+                {
+                  "id": "gi|1113745200|ref|XM_014599655.2|",
+                  "accession": "XM_014599655",
+                  "title": "PREDICTED: Alligator mississippiensis cell division cycle 34 (CDC34), mRNA",
+                  "taxid": 8496,
+                  "sciname": "Alligator mississippiensis"
+                }
+              ],
+              "len": 1489,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 773,
+                  "hit_to": 753,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 29,
+              "description": [
+                {
+                  "id": "gi|1111227721|ref|XM_019434099.1|",
+                  "accession": "XM_019434099",
+                  "title": "PREDICTED: Panthera pardus cell division cycle 34 (CDC34), transcript variant X2, mRNA",
+                  "taxid": 9691,
+                  "sciname": "Panthera pardus"
+                }
+              ],
+              "len": 1628,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 687,
+                  "hit_to": 667,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 30,
+              "description": [
+                {
+                  "id": "gi|1111227719|ref|XM_019434098.1|",
+                  "accession": "XM_019434098",
+                  "title": "PREDICTED: Panthera pardus cell division cycle 34 (CDC34), transcript variant X1, mRNA",
+                  "taxid": 9691,
+                  "sciname": "Panthera pardus"
+                }
+              ],
+              "len": 1676,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 735,
+                  "hit_to": 715,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 31,
+              "description": [
+                {
+                  "id": "gi|1016695758|ref|XM_016214878.1|",
+                  "accession": "XM_016214878",
+                  "title": "PREDICTED: Miniopterus natalensis cell division cycle 34 (CDC34), mRNA",
+                  "taxid": 291302,
+                  "sciname": "Miniopterus natalensis"
+                }
+              ],
+              "len": 1680,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 633,
+                  "hit_to": 613,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 32,
+              "description": [
+                {
+                  "id": "gi|768004864|ref|XM_006722952.2|",
+                  "accession": "XM_006722952",
+                  "title": "PREDICTED: Homo sapiens cell division cycle 34, ubiqiutin conjugating enzyme (CDC34), transcript variant X2, mRNA",
+                  "taxid": 9606,
+                  "sciname": "Homo sapiens"
+                }
+              ],
+              "len": 1455,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 832,
+                  "hit_to": 812,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 33,
+              "description": [
+                {
+                  "id": "gi|649099080|gb|KJ890880.1|",
+                  "accession": "KJ890880",
+                  "title": "Synthetic construct Homo sapiens clone ccsbBroadEn_00274 CDC34 gene, encodes complete protein",
+                  "taxid": 32630,
+                  "sciname": "synthetic construct"
+                }
+              ],
+              "len": 840,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 689,
+                  "hit_to": 669,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 34,
+              "description": [
+                {
+                  "id": "gi|594656693|ref|XM_007176654.1|",
+                  "accession": "XM_007176654",
+                  "title": "PREDICTED: Balaenoptera acutorostrata scammoni cell division cycle 34 (CDC34), mRNA",
+                  "taxid": 310752,
+                  "sciname": "Balaenoptera acutorostrata scammoni"
+                }
+              ],
+              "len": 1094,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 652,
+                  "hit_to": 632,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 35,
+              "description": [
+                {
+                  "id": "gi|591297388|ref|XM_007075745.1|",
+                  "accession": "XM_007075745",
+                  "title": "PREDICTED: Panthera tigris altaica cell division cycle 34 (CDC34), partial mRNA",
+                  "taxid": 74533,
+                  "sciname": "Panthera tigris altaica"
+                }
+              ],
+              "len": 685,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 564,
+                  "hit_to": 544,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 36,
+              "description": [
+                {
+                  "id": "gi|2033715243|gb|CP068259.2|",
+                  "accession": "CP068259",
+                  "title": "Homo sapiens isolate CHM13 chromosome 19",
+                  "taxid": 9606,
+                  "sciname": "Homo sapiens"
+                }
+              ],
+              "len": 61707364,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 495236,
+                  "hit_to": 495216,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 37,
+              "description": [
+                {
+                  "id": "gi|2025811036|ref|XM_040737960.1|",
+                  "accession": "XM_040737960",
+                  "title": "PREDICTED: Mesocricetus auratus cell division cycle 34, ubiqiutin conjugating enzyme (Cdc34), transcript variant X2, mRNA",
+                  "taxid": 10036,
+                  "sciname": "Mesocricetus auratus"
+                }
+              ],
+              "len": 1356,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1235,
+                  "hit_to": 1215,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 38,
+              "description": [
+                {
+                  "id": "gi|2025811034|ref|XM_040737959.1|",
+                  "accession": "XM_040737959",
+                  "title": "PREDICTED: Mesocricetus auratus cell division cycle 34, ubiqiutin conjugating enzyme (Cdc34), transcript variant X1, mRNA",
+                  "taxid": 10036,
+                  "sciname": "Mesocricetus auratus"
+                }
+              ],
+              "len": 1619,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1238,
+                  "hit_to": 1218,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 39,
+              "description": [
+                {
+                  "id": "gi|2025731670|ref|XM_005074241.4|",
+                  "accession": "XM_005074241",
+                  "title": "PREDICTED: Mesocricetus auratus ubiquitin-conjugating enzyme E2 R1 (LOC101831582), mRNA",
+                  "taxid": 10036,
+                  "sciname": "Mesocricetus auratus"
+                }
+              ],
+              "len": 2233,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 931,
+                  "hit_to": 911,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 40,
+              "description": [
+                {
+                  "id": "gi|2020846893|ref|XM_040462573.1|",
+                  "accession": "XM_040462573",
+                  "title": "PREDICTED: Puma yagouaroundi cell division cycle 34, ubiqiutin conjugating enzyme (CDC34), partial mRNA",
+                  "taxid": 1608482,
+                  "sciname": "Puma yagouaroundi"
+                }
+              ],
+              "len": 1567,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 630,
+                  "hit_to": 610,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 41,
+              "description": [
+                {
+                  "id": "gi|1958788220|ref|XM_039078634.1|",
+                  "accession": "XM_039078634",
+                  "title": "PREDICTED: Rattus norvegicus cell division cycle 34, ubiqiutin conjugating enzyme (Cdc34), transcript variant X1, mRNA",
+                  "taxid": 10116,
+                  "sciname": "Rattus norvegicus"
+                }
+              ],
+              "len": 1659,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1237,
+                  "hit_to": 1217,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 42,
+              "description": [
+                {
+                  "id": "gi|1909942460|dbj|AP023479.1|",
+                  "accession": "AP023479",
+                  "title": "Homo sapiens DNA, chromosome 19, nearly complete genome",
+                  "taxid": 9606,
+                  "sciname": "Homo sapiens"
+                }
+              ],
+              "len": 59105444,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 302692,
+                  "hit_to": 302672,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                },
+                {
+                  "num": 2,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 379604,
+                  "hit_to": 379584,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 43,
+              "description": [
+                {
+                  "id": "gi|307684775|dbj|AB590273.1|",
+                  "accession": "AB590273",
+                  "title": "Synthetic construct DNA, clone: pFN21AE1471, Homo sapiens CDC34 gene for cell division cycle 34 homolog, without stop codon, in Flexi system",
+                  "taxid": 32630,
+                  "sciname": "synthetic construct"
+                }
+              ],
+              "len": 725,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 633,
+                  "hit_to": 613,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 44,
+              "description": [
+                {
+                  "id": "gi|168149036|emb|CU676209.1|",
+                  "accession": "CU676209",
+                  "title": "Synthetic construct Homo sapiens gateway clone IMAGE:100016843 3' read CDC34 mRNA",
+                  "taxid": 32630,
+                  "sciname": "synthetic construct"
+                }
+              ],
+              "len": 1309,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 103,
+                  "hit_to": 123,
+                  "hit_strand": "Plus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 45,
+              "description": [
+                {
+                  "id": "gi|162329551|ref|NM_001013103.2|",
+                  "accession": "NM_001013103",
+                  "title": "Rattus norvegicus cell division cycle 34, ubiqiutin conjugating enzyme (Cdc34), mRNA",
+                  "taxid": 10116,
+                  "sciname": "Rattus norvegicus"
+                }
+              ],
+              "len": 1081,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 642,
+                  "hit_to": 622,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 46,
+              "description": [
+                {
+                  "id": "gi|158256539|dbj|AK291554.1|",
+                  "accession": "AK291554",
+                  "title": "Homo sapiens cDNA FLJ75711 complete cds, highly similar to Homo sapiens cell division cycle 34 (CDC34), mRNA",
+                  "taxid": 9606,
+                  "sciname": "Homo sapiens"
+                }
+              ],
+              "len": 1020,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 825,
+                  "hit_to": 805,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 47,
+              "description": [
+                {
+                  "id": "gi|123994468|gb|DQ893910.2|",
+                  "accession": "DQ893910",
+                  "title": "Synthetic construct Homo sapiens clone IMAGE:100008370; FLH165576.01L; RZPDo839E02159D cell division cycle 34 (CDC34) gene, encodes complete protein",
+                  "taxid": 32630,
+                  "sciname": "synthetic construct"
+                },
+                {
+                  "id": "gi|123995952|gb|DQ894652.2|",
+                  "accession": "DQ894652",
+                  "title": "Synthetic construct Homo sapiens clone IMAGE:100009112; FLH177239.01L; RZPDo839E12123D cell division cycle 34 (CDC34) gene, encodes complete protein",
+                  "taxid": 32630,
+                  "sciname": "synthetic construct"
+                }
+              ],
+              "len": 751,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 646,
+                  "hit_to": 626,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 48,
+              "description": [
+                {
+                  "id": "gi|123979669|gb|DQ890738.2|",
+                  "accession": "DQ890738",
+                  "title": "Synthetic construct clone IMAGE:100003368; FLH165580.01X; RZPDo839E02160D cell division cycle 34 (CDC34) gene, encodes complete protein",
+                  "taxid": 32630,
+                  "sciname": "synthetic construct"
+                }
+              ],
+              "len": 751,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 646,
+                  "hit_to": 626,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 49,
+              "description": [
+                {
+                  "id": "gi|48773091|gb|AY650399.1|",
+                  "accession": "AY650399",
+                  "title": "Homo sapiens cell division cycle 34 (CDC34) gene, complete cds",
+                  "taxid": 9606,
+                  "sciname": "Homo sapiens"
+                }
+              ],
+              "len": 14358,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 11739,
+                  "hit_to": 11719,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 50,
+              "description": [
+                {
+                  "id": "gi|38197191|gb|BC002332.2|",
+                  "accession": "BC002332",
+                  "title": "Homo sapiens cell division cycle 34 homolog (S. cerevisiae), mRNA (cDNA clone IMAGE:3536880), with apparent retained intron",
+                  "taxid": 9606,
+                  "sciname": "Homo sapiens"
+                }
+              ],
+              "len": 777,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 135,
+                  "hit_to": 115,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 51,
+              "description": [
+                {
+                  "id": "gi|18645179|gb|BC023979.1|",
+                  "accession": "BC023979",
+                  "title": "Homo sapiens cell division cycle 34 homolog (S. cerevisiae), mRNA (cDNA clone MGC:22659 IMAGE:4103120), complete cds",
+                  "taxid": 9606,
+                  "sciname": "Homo sapiens"
+                }
+              ],
+              "len": 1439,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 800,
+                  "hit_to": 780,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 52,
+              "description": [
+                {
+                  "id": "gi|30584916|gb|BT008039.1|",
+                  "accession": "BT008039",
+                  "title": "Synthetic construct Homo sapiens cell division cycle 34 mRNA, partial cds",
+                  "taxid": 32630,
+                  "sciname": "synthetic construct"
+                },
+                {
+                  "id": "gi|61370051|gb|AY891504.1|",
+                  "accession": "AY891504",
+                  "title": "Synthetic construct Homo sapiens clone FLH110250.01L cell division cycle 34 (CDC34) mRNA, partial cds",
+                  "taxid": 32630,
+                  "sciname": "synthetic construct"
+                },
+                {
+                  "id": "gi|61370061|gb|AY891505.1|",
+                  "accession": "AY891505",
+                  "title": "Synthetic construct Homo sapiens clone FLH110251.01L cell division cycle 34 (CDC34) mRNA, partial cds",
+                  "taxid": 32630,
+                  "sciname": "synthetic construct"
+                }
+              ],
+              "len": 711,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 624,
+                  "hit_to": 604,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 53,
+              "description": [
+                {
+                  "id": "gi|30582156|gb|BT006659.1|",
+                  "accession": "BT006659",
+                  "title": "Homo sapiens cell division cycle 34 mRNA, complete cds",
+                  "taxid": 9606,
+                  "sciname": "Homo sapiens"
+                },
+                {
+                  "id": "gi|61360250|gb|AY888891.1|",
+                  "accession": "AY888891",
+                  "title": "Synthetic construct Homo sapiens clone FLH110254.01X cell division cycle 34 (CDC34) mRNA, complete cds",
+                  "taxid": 32630,
+                  "sciname": "synthetic construct"
+                },
+                {
+                  "id": "gi|61360257|gb|AY888892.1|",
+                  "accession": "AY888892",
+                  "title": "Synthetic construct Homo sapiens clone FLH110255.01X cell division cycle 34 (CDC34) mRNA, complete cds",
+                  "taxid": 32630,
+                  "sciname": "synthetic construct"
+                }
+              ],
+              "len": 711,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 624,
+                  "hit_to": 604,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 54,
+              "description": [
+                {
+                  "id": "gi|21956537|gb|AC011556.9|",
+                  "accession": "AC011556",
+                  "title": "Homo sapiens chromosome 19 clone LLNLR-281B11, complete sequence",
+                  "taxid": 9606,
+                  "sciname": "Homo sapiens"
+                }
+              ],
+              "len": 32074,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 9947,
+                  "hit_to": 9927,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 55,
+              "description": [
+                {
+                  "id": "gi|66912117|gb|BC098064.1|",
+                  "accession": "BC098064",
+                  "title": "Rattus norvegicus cell division cycle 34 homolog (S. cerevisiae), mRNA (cDNA clone IMAGE:7458604), with apparent retained intron",
+                  "taxid": 10116,
+                  "sciname": "Rattus norvegicus"
+                }
+              ],
+              "len": 1280,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 840,
+                  "hit_to": 820,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 56,
+              "description": [
+                {
+                  "id": "gi|9558581|gb|AC011531.7|AC011531",
+                  "accession": "AC011531",
+                  "title": "Homo sapiens chromosome 19 clone LLNLR-231G5, complete sequence",
+                  "taxid": 9606,
+                  "sciname": "Homo sapiens"
+                }
+              ],
+              "len": 36377,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 30917,
+                  "hit_to": 30897,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 57,
+              "description": [
+                {
+                  "id": "gi|34194117|gb|BC018143.2|",
+                  "accession": "BC018143",
+                  "title": "Homo sapiens cell division cycle 34 homolog (S. cerevisiae), mRNA (cDNA clone MGC:9581 IMAGE:3884179), complete cds",
+                  "taxid": 9606,
+                  "sciname": "Homo sapiens"
+                }
+              ],
+              "len": 1004,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 826,
+                  "hit_to": 806,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 58,
+              "description": [
+                {
+                  "id": "gi|33874774|gb|BC009850.2|",
+                  "accession": "BC009850",
+                  "title": "Homo sapiens cell division cycle 34 homolog (S. cerevisiae), mRNA (cDNA clone MGC:15417 IMAGE:3942735), complete cds",
+                  "taxid": 9606,
+                  "sciname": "Homo sapiens"
+                }
+              ],
+              "len": 1462,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 823,
+                  "hit_to": 803,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 59,
+              "description": [
+                {
+                  "id": "gi|1020080|gb|L38482.1|RATSERINE",
+                  "accession": "L38482",
+                  "title": "Rattus norvegicus serine protease gene, complete cds",
+                  "taxid": 10116,
+                  "sciname": "Rattus norvegicus"
+                }
+              ],
+              "len": 3974,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 2562,
+                  "hit_to": 2542,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 60,
+              "description": [
+                {
+                  "id": "gi|388308|gb|L22005.1|HUMCDC34H",
+                  "accession": "L22005",
+                  "title": "Human ubiquitin conjugating enzyme mRNA, partial cds",
+                  "taxid": 9606,
+                  "sciname": "Homo sapiens"
+                }
+              ],
+              "len": 1374,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 39.157,
+                  "score": 42,
+                  "evalue": 2.14461,
+                  "identity": 21,
+                  "query_from": 1,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 810,
+                  "hit_to": 790,
+                  "hit_strand": "Minus",
+                  "align_len": 21,
+                  "gaps": 0,
+                  "qseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "GTCGTAGAAGAGGTCTGAGCC",
+                  "midline": "|||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 61,
+              "description": [
+                {
+                  "id": "gi|1845659108|ref|XM_002923503.4|",
+                  "accession": "XM_002923503",
+                  "title": "PREDICTED: Ailuropoda melanoleuca cell division cycle 34, ubiqiutin conjugating enzyme (CDC34), transcript variant X2, mRNA",
+                  "taxid": 9646,
+                  "sciname": "Ailuropoda melanoleuca"
+                }
+              ],
+              "len": 1136,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.48542,
+                  "identity": 20,
+                  "query_from": 2,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 664,
+                  "hit_to": 645,
+                  "hit_strand": "Minus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 62,
+              "description": [
+                {
+                  "id": "gi|1845659106|ref|XM_034657331.1|",
+                  "accession": "XM_034657331",
+                  "title": "PREDICTED: Ailuropoda melanoleuca cell division cycle 34, ubiqiutin conjugating enzyme (CDC34), transcript variant X1, mRNA",
+                  "taxid": 9646,
+                  "sciname": "Ailuropoda melanoleuca"
+                }
+              ],
+              "len": 1251,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.48542,
+                  "identity": 20,
+                  "query_from": 2,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 779,
+                  "hit_to": 760,
+                  "hit_strand": "Minus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 63,
+              "description": [
+                {
+                  "id": "gi|1808013076|ref|XM_032394842.1|",
+                  "accession": "XM_032394842",
+                  "title": "PREDICTED: Phoca vitulina cell division cycle 34 (CDC34), mRNA",
+                  "taxid": 9720,
+                  "sciname": "Phoca vitulina"
+                }
+              ],
+              "len": 1106,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.48542,
+                  "identity": 20,
+                  "query_from": 2,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 654,
+                  "hit_to": 635,
+                  "hit_strand": "Minus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 64,
+              "description": [
+                {
+                  "id": "gi|1483813471|ref|XM_026480828.1|",
+                  "accession": "XM_026480828",
+                  "title": "PREDICTED: Ursus arctos horribilis cell division cycle 34 (CDC34), mRNA",
+                  "taxid": 116960,
+                  "sciname": "Ursus arctos horribilis"
+                }
+              ],
+              "len": 1142,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.48542,
+                  "identity": 20,
+                  "query_from": 2,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 644,
+                  "hit_to": 625,
+                  "hit_strand": "Minus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 65,
+              "description": [
+                {
+                  "id": "gi|1571990298|ref|XM_028159318.1|",
+                  "accession": "XM_028159318",
+                  "title": "PREDICTED: Eptesicus fuscus cell division cycle 34 (CDC34), mRNA",
+                  "taxid": 29078,
+                  "sciname": "Eptesicus fuscus"
+                }
+              ],
+              "len": 1948,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.48542,
+                  "identity": 20,
+                  "query_from": 2,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 1482,
+                  "hit_to": 1463,
+                  "hit_strand": "Minus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 66,
+              "description": [
+                {
+                  "id": "gi|1443656326|ref|XM_026038830.1|",
+                  "accession": "XM_026038830",
+                  "title": "PREDICTED: Nothoprocta perdicaria cell division cycle 34 (CDC34), mRNA",
+                  "taxid": 30464,
+                  "sciname": "Nothoprocta perdicaria"
+                }
+              ],
+              "len": 865,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.48542,
+                  "identity": 20,
+                  "query_from": 2,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 623,
+                  "hit_to": 604,
+                  "hit_strand": "Minus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 67,
+              "description": [
+                {
+                  "id": "gi|1211422872|ref|XM_021641921.1|",
+                  "accession": "XM_021641921",
+                  "title": "PREDICTED: Meriones unguiculatus cell division cycle 34 (Cdc34), mRNA",
+                  "taxid": 10047,
+                  "sciname": "Meriones unguiculatus"
+                }
+              ],
+              "len": 1251,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.48542,
+                  "identity": 20,
+                  "query_from": 2,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 848,
+                  "hit_to": 829,
+                  "hit_strand": "Minus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 68,
+              "description": [
+                {
+                  "id": "gi|1197658613|ref|XM_005509260.2|",
+                  "accession": "XM_005509260",
+                  "title": "PREDICTED: Columba livia cell division cycle 34 (CDC34), mRNA",
+                  "taxid": 8932,
+                  "sciname": "Columba livia"
+                }
+              ],
+              "len": 760,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.48542,
+                  "identity": 20,
+                  "query_from": 2,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 624,
+                  "hit_to": 605,
+                  "hit_strand": "Minus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 69,
+              "description": [
+                {
+                  "id": "gi|837829922|ref|XM_004595961.2|",
+                  "accession": "XM_004595961",
+                  "title": "PREDICTED: Ochotona princeps cell division cycle 34, ubiqiutin conjugating enzyme (CDC34), mRNA",
+                  "taxid": 9978,
+                  "sciname": "Ochotona princeps"
+                }
+              ],
+              "len": 702,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.48542,
+                  "identity": 20,
+                  "query_from": 2,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 569,
+                  "hit_to": 550,
+                  "hit_strand": "Minus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 70,
+              "description": [
+                {
+                  "id": "gi|826296686|ref|XM_012645352.1|",
+                  "accession": "XM_012645352",
+                  "title": "PREDICTED: Propithecus coquereli cell division cycle 34 (CDC34), partial mRNA",
+                  "taxid": 379532,
+                  "sciname": "Propithecus coquereli"
+                }
+              ],
+              "len": 943,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.48542,
+                  "identity": 20,
+                  "query_from": 2,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 815,
+                  "hit_to": 796,
+                  "hit_strand": "Minus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 71,
+              "description": [
+                {
+                  "id": "gi|719780824|ref|XM_010223845.1|",
+                  "accession": "XM_010223845",
+                  "title": "PREDICTED: Tinamus guttatus cell division cycle 34 (CDC34), mRNA",
+                  "taxid": 94827,
+                  "sciname": "Tinamus guttatus"
+                }
+              ],
+              "len": 803,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.48542,
+                  "identity": 20,
+                  "query_from": 2,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 542,
+                  "hit_to": 523,
+                  "hit_strand": "Minus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 72,
+              "description": [
+                {
+                  "id": "gi|2033866073|emb|LR594574.2|",
+                  "accession": "LR594574",
+                  "title": "Streptopelia turtur genome assembly, chromosome: 28",
+                  "taxid": 177155,
+                  "sciname": "Streptopelia turtur"
+                }
+              ],
+              "len": 5368108,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.48542,
+                  "identity": 20,
+                  "query_from": 2,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 3658624,
+                  "hit_to": 3658643,
+                  "hit_strand": "Plus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 73,
+              "description": [
+                {
+                  "id": "gi|2027118589|ref|XM_040990445.1|",
+                  "accession": "XM_040990445",
+                  "title": "PREDICTED: Ochotona curzoniae cell division cycle 34, ubiqiutin conjugating enzyme (CDC34), transcript variant X3, mRNA",
+                  "taxid": 130825,
+                  "sciname": "Ochotona curzoniae"
+                }
+              ],
+              "len": 790,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.48542,
+                  "identity": 20,
+                  "query_from": 2,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 657,
+                  "hit_to": 638,
+                  "hit_strand": "Minus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 74,
+              "description": [
+                {
+                  "id": "gi|2027118587|ref|XM_040990444.1|",
+                  "accession": "XM_040990444",
+                  "title": "PREDICTED: Ochotona curzoniae cell division cycle 34, ubiqiutin conjugating enzyme (CDC34), transcript variant X2, mRNA",
+                  "taxid": 130825,
+                  "sciname": "Ochotona curzoniae"
+                }
+              ],
+              "len": 1039,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.48542,
+                  "identity": 20,
+                  "query_from": 2,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 547,
+                  "hit_to": 528,
+                  "hit_strand": "Minus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 75,
+              "description": [
+                {
+                  "id": "gi|2027118585|ref|XM_040990442.1|",
+                  "accession": "XM_040990442",
+                  "title": "PREDICTED: Ochotona curzoniae cell division cycle 34, ubiqiutin conjugating enzyme (CDC34), transcript variant X1, mRNA",
+                  "taxid": 130825,
+                  "sciname": "Ochotona curzoniae"
+                }
+              ],
+              "len": 1148,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.48542,
+                  "identity": 20,
+                  "query_from": 2,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 656,
+                  "hit_to": 637,
+                  "hit_strand": "Minus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 76,
+              "description": [
+                {
+                  "id": "gi|2023518486|ref|XM_040629815.1|",
+                  "accession": "XM_040629815",
+                  "title": "PREDICTED: Ursus maritimus cell division cycle 34, ubiqiutin conjugating enzyme (CDC34), mRNA",
+                  "taxid": 29073,
+                  "sciname": "Ursus maritimus"
+                }
+              ],
+              "len": 1140,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.48542,
+                  "identity": 20,
+                  "query_from": 2,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 672,
+                  "hit_to": 653,
+                  "hit_strand": "Minus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 77,
+              "description": [
+                {
+                  "id": "gi|1965354299|emb|OE842546.1|",
+                  "accession": "OE842546",
+                  "title": "5_Tge_b3v08",
+                  "taxid": 629358,
+                  "sciname": "Timema genevievae"
+                }
+              ],
+              "len": 87221,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.48542,
+                  "identity": 20,
+                  "query_from": 2,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 82507,
+                  "hit_to": 82526,
+                  "hit_strand": "Plus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 78,
+              "description": [
+                {
+                  "id": "gi|1948211912|emb|OE005510.1|",
+                  "accession": "OE005510",
+                  "title": "4_Tte_b3v08",
+                  "taxid": 61484,
+                  "sciname": "Timema tahoe"
+                }
+              ],
+              "len": 52802,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.48542,
+                  "identity": 20,
+                  "query_from": 2,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 21625,
+                  "hit_to": 21606,
+                  "hit_strand": "Minus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 79,
+              "description": [
+                {
+                  "id": "gi|1947844095|emb|OD568294.1|",
+                  "accession": "OD568294",
+                  "title": "4_Tbi_b3v08",
+                  "taxid": 61472,
+                  "sciname": "Timema bartmani"
+                }
+              ],
+              "len": 66770,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.48542,
+                  "identity": 20,
+                  "query_from": 2,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 29073,
+                  "hit_to": 29092,
+                  "hit_strand": "Plus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 80,
+              "description": [
+                {
+                  "id": "gi|1899681692|ref|XM_028521023.2|",
+                  "accession": "XM_028521023",
+                  "title": "PREDICTED: Phyllostomus discolor cell division cycle 34, ubiqiutin conjugating enzyme (CDC34), transcript variant X3, mRNA",
+                  "taxid": 89673,
+                  "sciname": "Phyllostomus discolor"
+                }
+              ],
+              "len": 1690,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.48542,
+                  "identity": 20,
+                  "query_from": 2,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 632,
+                  "hit_to": 613,
+                  "hit_strand": "Minus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 81,
+              "description": [
+                {
+                  "id": "gi|1899681691|ref|XM_028521022.2|",
+                  "accession": "XM_028521022",
+                  "title": "PREDICTED: Phyllostomus discolor cell division cycle 34, ubiqiutin conjugating enzyme (CDC34), transcript variant X2, mRNA",
+                  "taxid": 89673,
+                  "sciname": "Phyllostomus discolor"
+                }
+              ],
+              "len": 1850,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.48542,
+                  "identity": 20,
+                  "query_from": 2,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 792,
+                  "hit_to": 773,
+                  "hit_strand": "Minus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 82,
+              "description": [
+                {
+                  "id": "gi|1899681690|ref|XM_028521021.2|",
+                  "accession": "XM_028521021",
+                  "title": "PREDICTED: Phyllostomus discolor cell division cycle 34, ubiqiutin conjugating enzyme (CDC34), transcript variant X1, mRNA",
+                  "taxid": 89673,
+                  "sciname": "Phyllostomus discolor"
+                }
+              ],
+              "len": 1927,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.48542,
+                  "identity": 20,
+                  "query_from": 2,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 869,
+                  "hit_to": 850,
+                  "hit_strand": "Minus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 83,
+              "description": [
+                {
+                  "id": "gi|1894914097|emb|LR877242.1|",
+                  "accession": "LR877242",
+                  "title": "Acomys russatus genome assembly, chromosome: 31",
+                  "taxid": 60746,
+                  "sciname": "Acomys russatus"
+                }
+              ],
+              "len": 43509854,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.48542,
+                  "identity": 20,
+                  "query_from": 2,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 789010,
+                  "hit_to": 788991,
+                  "hit_strand": "Minus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 84,
+              "description": [
+                {
+                  "id": "gi|1868348589|ref|XM_027419463.2|",
+                  "accession": "XM_027419463",
+                  "title": "PREDICTED: Cricetulus griseus cell division cycle 34, ubiqiutin conjugating enzyme (Cdc34), transcript variant X4, mRNA",
+                  "taxid": 10029,
+                  "sciname": "Cricetulus griseus"
+                }
+              ],
+              "len": 885,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.48542,
+                  "identity": 20,
+                  "query_from": 2,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 821,
+                  "hit_to": 802,
+                  "hit_strand": "Minus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 85,
+              "description": [
+                {
+                  "id": "gi|1868348588|ref|XM_027419462.2|",
+                  "accession": "XM_027419462",
+                  "title": "PREDICTED: Cricetulus griseus cell division cycle 34, ubiqiutin conjugating enzyme (Cdc34), transcript variant X2, mRNA",
+                  "taxid": 10029,
+                  "sciname": "Cricetulus griseus"
+                }
+              ],
+              "len": 1206,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.48542,
+                  "identity": 20,
+                  "query_from": 2,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 822,
+                  "hit_to": 803,
+                  "hit_strand": "Minus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 86,
+              "description": [
+                {
+                  "id": "gi|1868348586|ref|XM_035445451.1|",
+                  "accession": "XM_035445451",
+                  "title": "PREDICTED: Cricetulus griseus cell division cycle 34, ubiqiutin conjugating enzyme (Cdc34), transcript variant X1, mRNA",
+                  "taxid": 10029,
+                  "sciname": "Cricetulus griseus"
+                }
+              ],
+              "len": 1255,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.48542,
+                  "identity": 20,
+                  "query_from": 2,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 871,
+                  "hit_to": 852,
+                  "hit_strand": "Minus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 87,
+              "description": [
+                {
+                  "id": "gi|1868054671|ref|XM_035455968.1|",
+                  "accession": "XM_035455968",
+                  "title": "PREDICTED: Cricetulus griseus cell division cycle 34, ubiqiutin conjugating enzyme (Cdc34), transcript variant X4, mRNA",
+                  "taxid": 10029,
+                  "sciname": "Cricetulus griseus"
+                }
+              ],
+              "len": 783,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.48542,
+                  "identity": 20,
+                  "query_from": 2,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 719,
+                  "hit_to": 700,
+                  "hit_strand": "Minus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 88,
+              "description": [
+                {
+                  "id": "gi|1868054669|ref|XM_035455967.1|",
+                  "accession": "XM_035455967",
+                  "title": "PREDICTED: Cricetulus griseus cell division cycle 34, ubiqiutin conjugating enzyme (Cdc34), transcript variant X3, mRNA",
+                  "taxid": 10029,
+                  "sciname": "Cricetulus griseus"
+                }
+              ],
+              "len": 822,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.48542,
+                  "identity": 20,
+                  "query_from": 2,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 758,
+                  "hit_to": 739,
+                  "hit_strand": "Minus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 89,
+              "description": [
+                {
+                  "id": "gi|1868054667|ref|XM_035455966.1|",
+                  "accession": "XM_035455966",
+                  "title": "PREDICTED: Cricetulus griseus cell division cycle 34, ubiqiutin conjugating enzyme (Cdc34), transcript variant X2, mRNA",
+                  "taxid": 10029,
+                  "sciname": "Cricetulus griseus"
+                }
+              ],
+              "len": 1107,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.48542,
+                  "identity": 20,
+                  "query_from": 2,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 723,
+                  "hit_to": 704,
+                  "hit_strand": "Minus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            },
+            {
+              "num": 90,
+              "description": [
+                {
+                  "id": "gi|1868054665|ref|XM_035455965.1|",
+                  "accession": "XM_035455965",
+                  "title": "PREDICTED: Cricetulus griseus cell division cycle 34, ubiqiutin conjugating enzyme (Cdc34), transcript variant X1, mRNA",
+                  "taxid": 10029,
+                  "sciname": "Cricetulus griseus"
+                }
+              ],
+              "len": 1146,
+              "hsps": [
+                {
+                  "num": 1,
+                  "bit_score": 37.3537,
+                  "score": 40,
+                  "evalue": 7.48542,
+                  "identity": 20,
+                  "query_from": 2,
+                  "query_to": 21,
+                  "query_strand": "Plus",
+                  "hit_from": 762,
+                  "hit_to": 743,
+                  "hit_strand": "Minus",
+                  "align_len": 20,
+                  "gaps": 0,
+                  "qseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "hseq": "TCGTAGAAGAGGTCTGAGCC",
+                  "midline": "||||||||||||||||||||"
+                }
+              ]
+            }
+          ],
+          "stat": {
+            "db_num": 70351925,
+            "db_len": 1380435113,
+            "hsp_len": 18,
+            "eff_space": 1314602293965,
+            "kappa": 0.41,
+            "lambda": 0.625,
+            "entropy": 0.78
+          }
+        }
+      }
+    }
+  }
+]
+}
 

@@ -1,263 +1,3373 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="jig" content="ncbitoggler"/>
-<meta name="ncbitoggler" content="animation:'none'"/>
-<title>NCBI Blast:</title>
-<script type="text/javascript" src="/core/jig/1.14.8/js/jig.min.js             "></script>
-<script type="text/javascript">    jQuery.getScript("/core/alerts/alerts.js", function() {
-        galert(['div#header', 'body > *:nth-child(1)'])
-    });</script>
-<meta http-equiv="Pragma" content="no-cache">
-<link rel="stylesheet" type="text/css" href="css/uswds.min.css" media="screen" />
-<link rel="stylesheet"  type="text/css" href="https://www.ncbi.nlm.nih.gov/style-guide/static/nwds/css/nwds.css"/>
-<link rel="stylesheet" href="css/headerNew.css"/>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous"> <!-- Font Awesome icons -->
-<link rel="stylesheet" type="text/css" href="css/footerNew.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="css/main.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="css/blastRes.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="css/print.css" media="print" />
-<!--[if lte IE 6]>
-<link rel="stylesheet" type="text/css" href="css/ie6_or_less.css" />
-<![endif]-->
-<script type="text/javascript" src="js/utils.js"></script>
-<script type="text/javascript" src="js/results.js"></script>
-</head>
-
-<body id="type-a" class="noToggleCheck" >
-<div id="wrap">
-		    	
-<header class="ncbi-header" role="banner" data-section="Header">
-<ul class="skip_nav">
-    <li><a accesskey="1" title="NCBI Homepage" href="https://www.ncbi.nlm.nih.gov/">NCBI Home</a></li>
-    <li><a accesskey="2" title="MyNCBI" href="https://www.ncbi.nlm.nih.gov/myncbi">Sign in to NCBI</a></li>
-    <li><a accesskey="3" title="Skip to main content" href="#mainCont">Skip to Main Content</a></li>
-    <li><a accesskey="4" title="Skip to navigation" href="#navcontent">Skip to Navigation</a></li>
-    <li><a accesskey="0" title="About NCBI Accesskeys" href="https://www.ncbi.nlm.nih.gov/guide/browsers/#accesskeys">About NCBI Accesskeys</a></li>
-</ul>
-<div class="usa-grid">
-    <div class="usa-width-one-whole">
-        <div class="agencies">
-            <div class="nih"><span class="usa-sr-only">National Institutes of Health</span></div>
-            <div class="nlm">U.S. National Library of Medicine</div>
-            <div class="ncbi">National Center for Biotechnology Information</div>
-            <a href="https://www.ncbi.nlm.nih.gov/" class="homepage"><span class="usa-sr-only" id="header_ncbi">NCBI homepage</span></a>
-        </div>
-
-        <div class="account">
-            <a id="account_login" href="https://www.ncbi.nlm.nih.gov/account/?back_url=https%3A%2F%2Fblast%2Encbi%2Enlm%2Enih%2Egov%2Fblast%2FBlast%2Ecgi%3FCMD%3DGet%26FORMAT%5FOBJECT%3DAlignment%26FORMAT%5FTYPE%3DXML2%5FS%26RESULTS%5FFILE%3Don%26RID%3D8YWMVRUX013" class="usa-button header-button">Log in</a>
-            <button id="account_info" class="header-button" aria-controls="account_popup">
-                <span class="fa fa-user" aria-hidden="true"></span>
-                <span class="username desktop-only" aria-hidden="true" id="uname_short"></span>
-                <span class="sr-only">Show account info</span>
-            </button>
-        </div>
-
-        <div class="ncbi-popup-anchor">
-            <div class="ncbi-popup account-popup" id="account_popup" aria-hidden="true" role="dialog" aria-labelledby="account-popup-header">
-                <div class="ncbi-popup-head">
-                    <button class="ncbi-close-button"><span class="fa fa-window-close"></span><span class="usa-sr-only">Close</span></button>
-                    <h4>Account</h4>
-                </div>
-                <div class="account-user-info">
-                    Logged in as:<br>
-                    <b><span class="username" id="uname_long">username</span></b>
-                </div>
-                <div class="account-links">
-                    <ul class="usa-unstyled-list">
-                        <li><a id="account_myncbi" href="https://www.ncbi.nlm.nih.gov/myncbi/">Dashboard</a> <span class="ncbi-text-small-light">(My NCBI)</span></li>
-                        <li><a id="account_pubs" href="https://www.ncbi.nlm.nih.gov/myncbi/collections/bibliography/">Publications</a> <span class="ncbi-text-small-light">(My Bibliography)</span></li>
-                        <li><a id="account_settings" href="https://www.ncbi.nlm.nih.gov/account/settings/">Account settings</a></li>
-                        <li><a id="account_logout" href="https://www.ncbi.nlm.nih.gov/account/signout/?back_url=https%3A%2F%2Fblast%2Encbi%2Enlm%2Enih%2Egov%2Fblast%2FBlast%2Ecgi%3FCMD%3DGet%26FORMAT%5FOBJECT%3DAlignment%26FORMAT%5FTYPE%3DXML2%5FS%26RESULTS%5FFILE%3Don%26RID%3D8YWMVRUX013">Log out</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
-</header>
-<nav class="ncbi-topnav" id="navcontent">
-    <div class="usa-grid">
-        <a class="ncbi-topnav-root" href="Blast.cgi">BLAST <sup>&reg;</sup></a> <span id="brc"><span class="brcrmbsign">&raquo;</span> <a href="Blast.cgi?PAGE=Nucleotides&amp;PROGRAM=blastn&amp;PAGE_TYPE=BlastSearch&amp;BLAST_SPEC=">blastn suite</a> <span class="brcrmbsign">&raquo;</span> RID-8YWMVRUX013</span>
-        <ul class="rf ncbi-topnav-list" id="topnav-list">
-            <li class="first "><a href="Blast.cgi?CMD=Web&amp;PAGE_TYPE=BlastHome" title="BLAST Home">Home</a></li>
-            <li class="recent "><a href="Blast.cgi?CMD=GetSaved&amp;RECENT_RESULTS=on" title="Unexpired BLAST jobs">Recent Results</a></li>                
-            <li class="saved "><a href="Blast.cgi?CMD=GetSaved" title="Saved sets of BLAST search parameters">Saved Strategies</a></li>
-            <li  class= "last documentation "> <a href="Blast.cgi?CMD=Web&amp;PAGE_TYPE=BlastDocs" title="BLAST documentation">Help</a></li>                            
-        </ul>
-    </div>
-</nav>
-
-
-
-        <div id="content-wrap">
-
-                <div class="pageTitle">                            
-                   Format Request Status                   
-                </div>
-		<div class="inlineDiv resHeader">				   
-				   <a  id="frmPage"  class="UNKNOWN" href="#" submitForm="reformat">[Formatting options] </a>                   
-                </div>
-                <h2 id="jtitle" >Job Title: </h2>
-								
-                <div id="content">                
-                <!--<ul id="msg" class="msg"><li class="error"><p class=""></p><p class=""></p><p class=""></p></ul> -->
-                <ul id="msg" class="msg"><li class="error"><p class="error">Error: Results for RID 8YWMVRUX013 not found</p></li></ul>
-                <p><!--
-                QBlastInfoBegin
-	                Status=UNKNOWN
-                QBlastInfoEnd
-                --></p> 
-                               
-                <SCRIPT LANGUAGE="JavaScript"><!--
-                    var tm = "";
-                    if (tm != "") {                    
-                        setTimeout('document.forms[0].submit();',tm);
-                    }
-                //--></SCRIPT>                                
-                <table id="statInfo" class="UNKNOWN">
-                <tr><td>Request ID</td><td> <b>8YWMVRUX013</b></td></tr>
-                <tr class="odd"><td>Status</td><td>Searching</td></tr>
-                <tr><td>Submitted at</td><td></td></tr>
-                <tr class="odd"><td>Current time</td><td></td></tr>
-                <tr><td>Time since submission</td><td></td></tr>
-                </table>
-                <p class="UNKNOWN">This page will be automatically updated in <b></b> seconds</p>       
-                <form action="Blast.cgi" enctype="application/x-www-form-urlencoded" method="POST" id="results">
-                <input name="FORMAT_OBJECT" type="hidden" value="Alignment"><input name="FORMAT_TYPE" type="hidden" value="XML2_S"><input name="RESULTS_FILE" type="hidden" value="on"><input name="RID" type="hidden" value="8YWMVRUX013"><input name="SEARCH_DB_STATUS" type="hidden" value="0"><input name="USER_TYPE" type="hidden" value="2"><input name="_PGR" type="hidden" value="0">                
-                <input name="_PGR" type="hidden" value="0" >
-                <input name="CMD" type="hidden" value="Get">
-               
-                </form>
-                                
-				</div><!-- /#content -->
-				<form action="Blast.cgi" enctype="application/x-www-form-urlencoded"  method="post" name="reformat" id="reformat">				
-				   <input name="QUERY_INFO" type="hidden" value="" />    				
-				   <input name="ENTREZ_QUERY" type="hidden" value="" />
-                   <input name="CDD_RID" type="hidden" value="" />
-                   <input name="CDD_SEARCH_STATE" type="hidden" value="" />
-                   <input name="RID" type="hidden" value="8YWMVRUX013" />
-				   <input name="STEP_NUMBER" type="hidden" value="" />
-				   <input name="CMD" type="hidden" value="Web"/>				
-				   <input NAME="PAGE_TYPE" type="hidden"  value="BlastFormatting"/>
-				
-				   <!-- TO DO: test all of those changes -->				   	
-				   <!-- Psi blast params  PSI_BLAST_PARAMS - commented- using forms[0] from fromatter> -->
-				   <!-- Current Formatting options FORMATTING_OPTIONS- commented- using forms[0] from fromatter> -->
-				   <!-- Current Search options CURR_SAVED_OPTIONS - commented- using forms[0] from fromatter> -->
-                 </form>				
-        </div><!-- /#content-wrap -->
-
-         <footer id="ncbi-footer" class="usa-footer usa-footer-medium usa-sans ncbi-footer" role="contentinfo" data-section="Footer">
-  <div class="icon-section">
-    <div class="usa-grid">
-		<div class="usa-width-one-whole">
-		<h3 class="usa-sr-only">Connect</h3>
-		<ul class="ncbi-inline-list icon-list">
-			<li><a id="footer_twitter" href="https://twitter.com/ncbi">Twitter</a></li>
-			<li><a id="footer_facebook" href="https://www.facebook.com/ncbi.nlm">Facebook</a></li>
-			<li><a id="footer_youtube" href="https://www.youtube.com/user/NCBINLM">YouTube</a></li>
-			<li><a id="footer_linkedin" href="https://www.linkedin.com/company/national-center-for-biotechnology-information-ncbi-">LinkedIn</a></li>
-			<li><a id="footer_github" href="https://github.com/ncbi">GitHub</a></li>
-		</ul>
-		<ul class="ncbi-inline-list icon-list icon-list-elastic">	
-			<li class="li-blog"><a id="footer_blog" href="https://ncbiinsights.ncbi.nlm.nih.gov/">Blog</a></li>
-			<li class="li-support"><a id="footer_support" href="https://support.ncbi.nlm.nih.gov/">Support Center</a></li>
-		</ul>
-		</div>
-		</div>
-  </div>
-  <div class="usa-footer-secondary_section ncbi-section">
-    <div class="usa-grid">
-      <div class="usa-width-one-half ncbi">
-        <h3 class="ncbi-full-name">National Center for Biotechnology Information</h3>
-		<address>
-        <a id="google_maps" href="https://www.google.com/maps/place/8600+Rockville+Pike,+Bethesda,+MD+20894/@38.9959508,-77.101021,17z/data=!3m1!4b1!4m5!3m4!1s0x89b7c95e25765ddb:0x19156f88b27635b8!8m2!3d38.9959508!4d-77.0988323">
-        <span class="h-adr"> <span class="p-street-address break">8600 Rockville Pike</span>
-        <span class="p-locality">Bethesda</span> <span class="p-region"> MD</span>, <span class="p-postal-code">20894</span> <span class="p-country-name">USA</span> </span>
-		</a>
-		</address>
-        <ul class="ncbi-inline-list">
-			<li><a id="footer_about" href="https://www.ncbi.nlm.nih.gov/home/about/">About us</a></li>
-          <li><a id="footer_contact" href="https://www.ncbi.nlm.nih.gov/home/about/contact.shtml">Contact us</a></li>
-          <li><a id="footer_policies" href="https://www.ncbi.nlm.nih.gov/home/about/policies.shtml">Policies</a></li>
-          <li><a id="footer_foia" href="https://www.nih.gov/institutes-nih/nih-office-director/office-communications-public-liaison/freedom-information-act-office">FOIA</a></li>
-        </ul>
-      </div>
-      <div class="usa-width-one-half">
-      <div class="usa-grid-full">
-		<div class="usa-width-one-third">
-		<h4>Popular</h4>
-
-        <ul class="ncbi-unstyled-list">
-				<li><a id="footer_pubmed" href="https://www.ncbi.nlm.nih.gov/pubmed/">PubMed</a></li>
-				<li><a id="footer_pmc" href="https://www.ncbi.nlm.nih.gov/pmc/">PubMed Central</a></li>
-				<li><a id="footer_bookshelf" href="https://www.ncbi.nlm.nih.gov/books/">Bookshelf</a></li>
-				<li><a id="footer_pubchem" href="https://pubchem.ncbi.nlm.nih.gov">PubChem</a></li>
-				<li><a id="footer_gene" href="https://www.ncbi.nlm.nih.gov/gene/">Gene</a></li>
-				<li><a id="footer_blast" href="https://blast.ncbi.nlm.nih.gov">BLAST</a></li>
-				<li><a id="footer_nucleotide" href="https://www.ncbi.nlm.nih.gov/nucleotide/">Nucleotide</a></li>
-				<li><a id="footer_protein" href="https://www.ncbi.nlm.nih.gov/protein/">Protein</a></li>
-				<li><a id="footer_geo" href="https://www.ncbi.nlm.nih.gov/geo/">GEO</a></li>
-        </ul>
-
-			</div>
-		<div class="usa-width-one-third">
-			<h4>Resources</h4>
-			<ul class="ncbi-unstyled-list ncbi-undecorated-links">
-				  <li><a id="footer_literature" href="https://www.ncbi.nlm.nih.gov/home/literature/">Literature</a></li>
-				  <li><a id="footer_health" href="https://www.ncbi.nlm.nih.gov/home/health/">Health</a></li>
-				  <li><a id="footer_genomes" href="https://www.ncbi.nlm.nih.gov/home/genomes/">Genomes</a></li>
-				  <li><a id="footer_genes" href="https://www.ncbi.nlm.nih.gov/home/genes/">Genes</a></li>
-				  <li><a id="footer_proteins" href="https://www.ncbi.nlm.nih.gov/home/proteins/">Proteins</a></li>
-				  <li><a id="footer_chemicals" href="https://www.ncbi.nlm.nih.gov/home/chemicals/">Chemicals</a></li>
-			</ul>
-		</div>
-		<div class="usa-width-one-third">
-   <h4>Actions</h4>
-   <ul class="ncbi-unstyled-list">
-              <li><a id="footer_submit" href="https://www.ncbi.nlm.nih.gov/home/submit/">Submit</a></li>
-              <li><a id="footer_download" href="https://www.ncbi.nlm.nih.gov/home/download/">Download</a></li>
-              <li><a id="footer_learn" href="https://www.ncbi.nlm.nih.gov/home/learn/">Learn</a></li>
-              <li><a id="footer_develop" href="https://www.ncbi.nlm.nih.gov/home/develop/">Develop</a></li>
-              <li><a id="footer_analyze" href="https://www.ncbi.nlm.nih.gov/home/analyze/">Analyze</a></li>
-              <li><a id="footer_research" href="https://www.ncbi.nlm.nih.gov/research/">Research</a></li>
-   </ul>
-		  </div>
-		  </div>
-		  </div>
-    </div>
-	</div>
-     <div class="usa-footer-secondary_section gov-agencies"> 
-    <div class="usa-grid">
-    <div class="usa-width-one-whole">
-		<p>
-			<a id="footer_nlm" href="https://www.nlm.nih.gov/">NLM</a>
-			&ensp;|&ensp;
-			<a id="footer_nih" href="https://www.nih.gov/">NIH</a>
-			&ensp;|&ensp;
-			<a id="footer_hhs" href="https://www.hhs.gov/">HHS</a>
-			&ensp;|&ensp;
-			<a id="footer_usagov" href="https://www.usa.gov/">USA.gov</a>
-		</p>
-	 </div>
-	 </div>
-	</div>
-
- </footer>
-<script type="text/javascript" src="js/nwds.js"></script>
-<script type="text/javascript" src="js/ncbipopup.js"></script>
-<script type="text/javascript" src="js/headerNew.js"></script>
-<script src="js/uswds.min.js"></script>
-        <script type="text/javascript" src="/portal/portal3rc.fcgi/rlib/js/InstrumentOmnitureBaseJS/InstrumentNCBIBaseJS/InstrumentPageStarterJS.js"></script>
-<!--
-<script type="text/javascript" src="://www.ncbi.nlm.nih.gov/portal/portal3rc.fcgi/supportedbrowsers/js/nonportalbc_min.js"></script>
-<script type="text/javascript">$("#browsers_ajax").browserCheck();</script>
--->
-   </div><!--/#wrap-->
-</body>
-
-</html>
+<?xml version="1.0"?>
+<BlastXML2
+    xmlns="http://www.ncbi.nlm.nih.gov"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"
+    xs:schemaLocation="http://www.ncbi.nlm.nih.gov http://www.ncbi.nlm.nih.gov/data_specs/schema_alt/NCBI_BlastOutput2.xsd"
+>
+<BlastOutput2>
+  <report>
+    <Report>
+      <program>blastn</program>
+      <version>BLASTN 2.11.0+</version>
+      <reference>Stephen F. Altschul, Thomas L. Madden, Alejandro A. Sch&amp;auml;ffer, Jinghui Zhang, Zheng Zhang, Webb Miller, and David J. Lipman (1997), &quot;Gapped BLAST and PSI-BLAST: a new generation of protein database search programs&quot;, Nucleic Acids Res. 25:3389-3402.</reference>
+      <search-target>
+        <Target>
+          <db>nt</db>
+        </Target>
+      </search-target>
+      <params>
+        <Parameters>
+          <expect>10</expect>
+          <sc-match>2</sc-match>
+          <sc-mismatch>-3</sc-mismatch>
+          <gap-open>5</gap-open>
+          <gap-extend>2</gap-extend>
+          <filter>L;m;</filter>
+        </Parameters>
+      </params>
+      <results>
+        <Results>
+          <search>
+            <Search>
+              <query-id>Query_217507</query-id>
+              <query-len>21</query-len>
+              <hits>
+                <Hit>
+                  <num>1</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|2027152827|ref|XM_040966395.1|</id>
+                      <accession>XM_040966395</accession>
+                      <title>PREDICTED: Ochotona curzoniae ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X7, mRNA</title>
+                      <taxid>130825</taxid>
+                      <sciname>Ochotona curzoniae</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1238</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>690</hit-from>
+                      <hit-to>670</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>2</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|2027152825|ref|XM_040966394.1|</id>
+                      <accession>XM_040966394</accession>
+                      <title>PREDICTED: Ochotona curzoniae ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X6, mRNA</title>
+                      <taxid>130825</taxid>
+                      <sciname>Ochotona curzoniae</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>944</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>396</hit-from>
+                      <hit-to>376</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>3</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|2027152823|ref|XM_040966393.1|</id>
+                      <accession>XM_040966393</accession>
+                      <title>PREDICTED: Ochotona curzoniae ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X5, mRNA</title>
+                      <taxid>130825</taxid>
+                      <sciname>Ochotona curzoniae</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>859</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>311</hit-from>
+                      <hit-to>291</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>4</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|2027152819|ref|XM_040966391.1|</id>
+                      <accession>XM_040966391</accession>
+                      <title>PREDICTED: Ochotona curzoniae ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X3, mRNA</title>
+                      <taxid>130825</taxid>
+                      <sciname>Ochotona curzoniae</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>826</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>278</hit-from>
+                      <hit-to>258</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>5</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|2027152817|ref|XM_040966390.1|</id>
+                      <accession>XM_040966390</accession>
+                      <title>PREDICTED: Ochotona curzoniae ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X2, mRNA</title>
+                      <taxid>130825</taxid>
+                      <sciname>Ochotona curzoniae</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>859</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>440</hit-from>
+                      <hit-to>420</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>6</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|2027152815|ref|XM_040966389.1|</id>
+                      <accession>XM_040966389</accession>
+                      <title>PREDICTED: Ochotona curzoniae ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X1, mRNA</title>
+                      <taxid>130825</taxid>
+                      <sciname>Ochotona curzoniae</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1030</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>482</hit-from>
+                      <hit-to>462</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>7</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|2023588077|ref|XM_040625099.1|</id>
+                      <accession>XM_040625099</accession>
+                      <title>PREDICTED: Ursus maritimus ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X2, mRNA</title>
+                      <taxid>29073</taxid>
+                      <sciname>Ursus maritimus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2869</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>248</hit-from>
+                      <hit-to>228</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>8</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|2023588075|ref|XM_008701503.2|</id>
+                      <accession>XM_008701503</accession>
+                      <title>PREDICTED: Ursus maritimus ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X1, mRNA</title>
+                      <taxid>29073</taxid>
+                      <sciname>Ursus maritimus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>3022</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>401</hit-from>
+                      <hit-to>381</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>9</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|2020736939|ref|XM_040485326.1|</id>
+                      <accession>XM_040485326</accession>
+                      <title>PREDICTED: Puma yagouaroundi ubiquitin conjugating enzyme E2 K (UBE2K), mRNA</title>
+                      <taxid>1608482</taxid>
+                      <sciname>Puma yagouaroundi</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>4704</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>374</hit-from>
+                      <hit-to>354</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>10</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|2015629396|ref|XM_021722734.2|</id>
+                      <accession>XM_021722734</accession>
+                      <title>PREDICTED: Ictidomys tridecemlineatus ubiquitin conjugating enzyme E2 K (Ube2k), transcript variant X2, mRNA</title>
+                      <taxid>43179</taxid>
+                      <sciname>Ictidomys tridecemlineatus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>4587</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>371</hit-from>
+                      <hit-to>351</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>11</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|2015629395|ref|XM_005319928.3|</id>
+                      <accession>XM_005319928</accession>
+                      <title>PREDICTED: Ictidomys tridecemlineatus ubiquitin conjugating enzyme E2 K (Ube2k), transcript variant X1, mRNA</title>
+                      <taxid>43179</taxid>
+                      <sciname>Ictidomys tridecemlineatus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>4691</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>475</hit-from>
+                      <hit-to>455</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>12</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|2009439993|ref|XM_040238047.1|</id>
+                      <accession>XM_040238047</accession>
+                      <title>PREDICTED: Oryx dammah ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X4, mRNA</title>
+                      <taxid>59534</taxid>
+                      <sciname>Oryx dammah</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>4967</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>307</hit-from>
+                      <hit-to>287</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>13</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|2009439991|ref|XM_040238046.1|</id>
+                      <accession>XM_040238046</accession>
+                      <title>PREDICTED: Oryx dammah ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X3, mRNA</title>
+                      <taxid>59534</taxid>
+                      <sciname>Oryx dammah</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>4992</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>332</hit-from>
+                      <hit-to>312</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>14</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|2009439989|ref|XM_040238045.1|</id>
+                      <accession>XM_040238045</accession>
+                      <title>PREDICTED: Oryx dammah ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X2, mRNA</title>
+                      <taxid>59534</taxid>
+                      <sciname>Oryx dammah</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>5029</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>369</hit-from>
+                      <hit-to>349</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>15</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|2009439987|ref|XM_040238044.1|</id>
+                      <accession>XM_040238044</accession>
+                      <title>PREDICTED: Oryx dammah ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X1, mRNA</title>
+                      <taxid>59534</taxid>
+                      <sciname>Oryx dammah</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>5226</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>566</hit-from>
+                      <hit-to>546</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>16</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1997757776|emb|HG994384.1|</id>
+                      <accession>HG994384</accession>
+                      <title>Canis lupus genome assembly, chromosome: 3</title>
+                      <taxid>9612</taxid>
+                      <sciname>Canis lupus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>93479712</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>74320137</hit-from>
+                      <hit-to>74320157</hit-to>
+                      <hit-strand>Plus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                    <Hsp>
+                      <num>2</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>74320264</hit-from>
+                      <hit-to>74320284</hit-to>
+                      <hit-strand>Plus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>17</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1995981319|ref|XM_039844998.1|</id>
+                      <accession>XM_039844998</accession>
+                      <title>PREDICTED: Pteropus giganteus ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X4, mRNA</title>
+                      <taxid>143291</taxid>
+                      <sciname>Pteropus giganteus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2425</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>510</hit-from>
+                      <hit-to>490</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>18</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1995981317|ref|XM_039844997.1|</id>
+                      <accession>XM_039844997</accession>
+                      <title>PREDICTED: Pteropus giganteus ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X3, mRNA</title>
+                      <taxid>143291</taxid>
+                      <sciname>Pteropus giganteus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2263</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>348</hit-from>
+                      <hit-to>328</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>19</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1995981315|ref|XM_039844996.1|</id>
+                      <accession>XM_039844996</accession>
+                      <title>PREDICTED: Pteropus giganteus ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X2, mRNA</title>
+                      <taxid>143291</taxid>
+                      <sciname>Pteropus giganteus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2198</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>283</hit-from>
+                      <hit-to>263</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>20</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1995981313|ref|XM_039844995.1|</id>
+                      <accession>XM_039844995</accession>
+                      <title>PREDICTED: Pteropus giganteus ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X1, mRNA</title>
+                      <taxid>143291</taxid>
+                      <sciname>Pteropus giganteus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2370</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>455</hit-from>
+                      <hit-to>435</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>21</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1984036428|ref|XM_003940989.2|</id>
+                      <accession>XM_003940989</accession>
+                      <title>PREDICTED: Saimiri boliviensis boliviensis ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X2, mRNA</title>
+                      <taxid>39432</taxid>
+                      <sciname>Saimiri boliviensis boliviensis</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>5032</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>326</hit-from>
+                      <hit-to>306</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>22</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1984036425|ref|XM_039468204.1|</id>
+                      <accession>XM_039468204</accession>
+                      <title>PREDICTED: Saimiri boliviensis boliviensis ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X1, mRNA</title>
+                      <taxid>39432</taxid>
+                      <sciname>Saimiri boliviensis boliviensis</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>5051</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>345</hit-from>
+                      <hit-to>325</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>23</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1965438968|ref|XM_039226965.1|</id>
+                      <accession>XM_039226965</accession>
+                      <title>PREDICTED: Hyaena hyaena ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X5, mRNA</title>
+                      <taxid>95912</taxid>
+                      <sciname>Hyaena hyaena</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>4473</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>226</hit-from>
+                      <hit-to>206</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>24</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1965438965|ref|XM_039226963.1|</id>
+                      <accession>XM_039226963</accession>
+                      <title>PREDICTED: Hyaena hyaena ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X4, mRNA</title>
+                      <taxid>95912</taxid>
+                      <sciname>Hyaena hyaena</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>4716</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>469</hit-from>
+                      <hit-to>449</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>25</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1953360930|ref|XM_038661952.1|</id>
+                      <accession>XM_038661952</accession>
+                      <title>PREDICTED: Canis lupus familiaris ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X3, mRNA</title>
+                      <taxid>9615</taxid>
+                      <sciname>Canis lupus familiaris</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>5064</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>368</hit-from>
+                      <hit-to>348</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>26</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1953360928|ref|XM_038661951.1|</id>
+                      <accession>XM_038661951</accession>
+                      <title>PREDICTED: Canis lupus familiaris ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X2, mRNA</title>
+                      <taxid>9615</taxid>
+                      <sciname>Canis lupus familiaris</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>5027</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>331</hit-from>
+                      <hit-to>311</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>27</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1953360926|ref|XM_038661950.1|</id>
+                      <accession>XM_038661950</accession>
+                      <title>PREDICTED: Canis lupus familiaris ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X1, mRNA</title>
+                      <taxid>9615</taxid>
+                      <sciname>Canis lupus familiaris</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>5176</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>480</hit-from>
+                      <hit-to>460</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>28</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1952742190|ref|XM_022417228.2|</id>
+                      <accession>XM_022417228</accession>
+                      <title>PREDICTED: Canis lupus familiaris ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X3, mRNA</title>
+                      <taxid>9615</taxid>
+                      <sciname>Canis lupus familiaris</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>5063</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>368</hit-from>
+                      <hit-to>348</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>29</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1952742189|ref|XM_846094.6|</id>
+                      <accession>XM_846094</accession>
+                      <title>PREDICTED: Canis lupus familiaris ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X2, mRNA</title>
+                      <taxid>9615</taxid>
+                      <sciname>Canis lupus familiaris</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>5026</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>331</hit-from>
+                      <hit-to>311</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>30</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1952742188|ref|XM_003434394.5|</id>
+                      <accession>XM_003434394</accession>
+                      <title>PREDICTED: Canis lupus familiaris ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X1, mRNA</title>
+                      <taxid>9615</taxid>
+                      <sciname>Canis lupus familiaris</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>5175</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>480</hit-from>
+                      <hit-to>460</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>31</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1949671341|ref|XM_038324635.1|</id>
+                      <accession>XM_038324635</accession>
+                      <title>Arvicola amphibius ubiquitin-conjugating enzyme E2 K-like (LOC119811070), mRNA</title>
+                      <taxid>1047088</taxid>
+                      <sciname>Arvicola amphibius</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>519</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>178</hit-from>
+                      <hit-to>158</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>32</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1949627872|ref|XM_038323543.1|</id>
+                      <accession>XM_038323543</accession>
+                      <title>Arvicola amphibius ubiquitin-conjugating enzyme E2 K (Ube2k), mRNA</title>
+                      <taxid>1047088</taxid>
+                      <sciname>Arvicola amphibius</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1745</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>584</hit-from>
+                      <hit-to>564</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>33</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1946336048|emb|OE000679.1|</id>
+                      <accession>OE000679</accession>
+                      <title>4_Tte_b3v08</title>
+                      <taxid>61484</taxid>
+                      <sciname>Timema tahoe</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>256052</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>102361</hit-from>
+                      <hit-to>102381</hit-to>
+                      <hit-strand>Plus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>34</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1938877618|ref|XM_038008617.1|</id>
+                      <accession>XM_038008617</accession>
+                      <title>PREDICTED: Chlorocebus sabaeus ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X2, mRNA</title>
+                      <taxid>60711</taxid>
+                      <sciname>Chlorocebus sabaeus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>5016</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>357</hit-from>
+                      <hit-to>337</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>35</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1938877617|ref|XM_008017600.2|</id>
+                      <accession>XM_008017600</accession>
+                      <title>PREDICTED: Chlorocebus sabaeus ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X1, mRNA</title>
+                      <taxid>60711</taxid>
+                      <sciname>Chlorocebus sabaeus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>5188</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>529</hit-from>
+                      <hit-to>509</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>36</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1934733125|ref|XM_037829624.1|</id>
+                      <accession>XM_037829624</accession>
+                      <title>PREDICTED: Choloepus didactylus ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X2, mRNA</title>
+                      <taxid>27675</taxid>
+                      <sciname>Choloepus didactylus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>4763</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>122</hit-from>
+                      <hit-to>102</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>37</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1934733123|ref|XM_037829623.1|</id>
+                      <accession>XM_037829623</accession>
+                      <title>PREDICTED: Choloepus didactylus ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X1, mRNA</title>
+                      <taxid>27675</taxid>
+                      <sciname>Choloepus didactylus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>5048</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>407</hit-from>
+                      <hit-to>387</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>38</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1934642930|ref|XM_037823026.1|</id>
+                      <accession>XM_037823026</accession>
+                      <title>PREDICTED: Choloepus didactylus ubiquitin-conjugating enzyme E2 K-like (LOC119524400), mRNA</title>
+                      <taxid>27675</taxid>
+                      <sciname>Choloepus didactylus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1871</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>229</hit-from>
+                      <hit-to>209</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>39</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1933933123|ref|XR_001826530.2|</id>
+                      <accession>XR_001826530</accession>
+                      <title>PREDICTED: Cebus imitator ubiquitin-conjugating enzyme E2 K-like (LOC108307367), misc_RNA</title>
+                      <taxid>2715852</taxid>
+                      <sciname>Cebus imitator</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1947</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>398</hit-from>
+                      <hit-to>378</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>40</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1933918735|ref|XM_017527248.2|</id>
+                      <accession>XM_017527248</accession>
+                      <title>PREDICTED: Cebus imitator ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X3, mRNA</title>
+                      <taxid>2715852</taxid>
+                      <sciname>Cebus imitator</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>5029</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>342</hit-from>
+                      <hit-to>322</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>41</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1933918734|ref|XM_017527247.2|</id>
+                      <accession>XM_017527247</accession>
+                      <title>PREDICTED: Cebus imitator ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X2, mRNA</title>
+                      <taxid>2715852</taxid>
+                      <sciname>Cebus imitator</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>5087</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>529</hit-from>
+                      <hit-to>509</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>42</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1933918733|ref|XM_017527245.2|</id>
+                      <accession>XM_017527245</accession>
+                      <title>PREDICTED: Cebus imitator ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X1, mRNA</title>
+                      <taxid>2715852</taxid>
+                      <sciname>Cebus imitator</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>5216</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>529</hit-from>
+                      <hit-to>509</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>43</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1931314474|ref|XM_037530494.1|</id>
+                      <accession>XM_037530494</accession>
+                      <title>PREDICTED: Talpa occidentalis ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X2, mRNA</title>
+                      <taxid>50954</taxid>
+                      <sciname>Talpa occidentalis</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1853</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>160</hit-from>
+                      <hit-to>140</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>44</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1931314472|ref|XM_037530493.1|</id>
+                      <accession>XM_037530493</accession>
+                      <title>PREDICTED: Talpa occidentalis ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X1, mRNA</title>
+                      <taxid>50954</taxid>
+                      <sciname>Talpa occidentalis</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2149</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>456</hit-from>
+                      <hit-to>436</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>45</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1929235018|ref|XM_028882241.2|</id>
+                      <accession>XM_028882241</accession>
+                      <title>PREDICTED: Peromyscus leucopus ubiquitin conjugating enzyme E2 K (Ube2k), transcript variant X2, mRNA</title>
+                      <taxid>10041</taxid>
+                      <sciname>Peromyscus leucopus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>3511</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>109</hit-from>
+                      <hit-to>89</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>46</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1929235017|ref|XM_028882240.2|</id>
+                      <accession>XM_028882240</accession>
+                      <title>PREDICTED: Peromyscus leucopus ubiquitin conjugating enzyme E2 K (Ube2k), transcript variant X1, mRNA</title>
+                      <taxid>10041</taxid>
+                      <sciname>Peromyscus leucopus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>3712</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>310</hit-from>
+                      <hit-to>290</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>47</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1927370954|ref|XM_037138034.1|</id>
+                      <accession>XM_037138034</accession>
+                      <title>PREDICTED: Artibeus jamaicensis ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X2, mRNA</title>
+                      <taxid>9417</taxid>
+                      <sciname>Artibeus jamaicensis</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>739</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>169</hit-from>
+                      <hit-to>149</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>48</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1927370952|ref|XM_037138033.1|</id>
+                      <accession>XM_037138033</accession>
+                      <title>PREDICTED: Artibeus jamaicensis ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X1, mRNA</title>
+                      <taxid>9417</taxid>
+                      <sciname>Artibeus jamaicensis</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1041</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>471</hit-from>
+                      <hit-to>451</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>49</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1926960809|ref|XM_037064307.1|</id>
+                      <accession>XM_037064307</accession>
+                      <title>PREDICTED: Sturnira hondurensis ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X2, mRNA</title>
+                      <taxid>192404</taxid>
+                      <sciname>Sturnira hondurensis</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>4786</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>169</hit-from>
+                      <hit-to>149</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>50</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1926960805|ref|XM_037064306.1|</id>
+                      <accession>XM_037064306</accession>
+                      <title>PREDICTED: Sturnira hondurensis ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X1, mRNA</title>
+                      <taxid>192404</taxid>
+                      <sciname>Sturnira hondurensis</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>5072</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>455</hit-from>
+                      <hit-to>435</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>51</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1926327920|ref|XM_017662459.2|</id>
+                      <accession>XM_017662459</accession>
+                      <title>PREDICTED: Manis javanica ubiquitin conjugating enzyme E2 K (UBE2K), mRNA</title>
+                      <taxid>9974</taxid>
+                      <sciname>Manis javanica</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2174</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>397</hit-from>
+                      <hit-to>377</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>52</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1920324668|ref|XM_036908505.1|</id>
+                      <accession>XM_036908505</accession>
+                      <title>PREDICTED: Manis pentadactyla ubiquitin conjugating enzyme E2 K (UBE2K), mRNA</title>
+                      <taxid>143292</taxid>
+                      <sciname>Manis pentadactyla</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2158</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>399</hit-from>
+                      <hit-to>379</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>53</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1920281346|ref|XM_036853403.1|</id>
+                      <accession>XM_036853403</accession>
+                      <title>PREDICTED: Balaenoptera musculus ubiquitin-conjugating enzyme E2 K-like (LOC118895839), mRNA</title>
+                      <taxid>9771</taxid>
+                      <sciname>Balaenoptera musculus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>747</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>376</hit-from>
+                      <hit-to>356</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>54</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1920279335|ref|XM_036852348.1|</id>
+                      <accession>XM_036852348</accession>
+                      <title>PREDICTED: Balaenoptera musculus ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X2, mRNA</title>
+                      <taxid>9771</taxid>
+                      <sciname>Balaenoptera musculus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>3764</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>449</hit-from>
+                      <hit-to>429</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>55</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1920279333|ref|XM_036852347.1|</id>
+                      <accession>XM_036852347</accession>
+                      <title>PREDICTED: Balaenoptera musculus ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X1, mRNA</title>
+                      <taxid>9771</taxid>
+                      <sciname>Balaenoptera musculus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>3807</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>492</hit-from>
+                      <hit-to>472</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>56</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1915449083|ref|XM_036496828.1|</id>
+                      <accession>XM_036496828</accession>
+                      <title>PREDICTED: Ochotona princeps ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X6, mRNA</title>
+                      <taxid>9978</taxid>
+                      <sciname>Ochotona princeps</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>728</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>190</hit-from>
+                      <hit-to>170</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>57</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1915449081|ref|XM_036496827.1|</id>
+                      <accession>XM_036496827</accession>
+                      <title>PREDICTED: Ochotona princeps ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X5, mRNA</title>
+                      <taxid>9978</taxid>
+                      <sciname>Ochotona princeps</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>900</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>362</hit-from>
+                      <hit-to>342</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>58</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1915449078|ref|XM_004579145.3|</id>
+                      <accession>XM_004579145</accession>
+                      <title>PREDICTED: Ochotona princeps ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X2, mRNA</title>
+                      <taxid>9978</taxid>
+                      <sciname>Ochotona princeps</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1770</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>421</hit-from>
+                      <hit-to>401</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>59</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1912632977|ref|XM_036418288.1|</id>
+                      <accession>XM_036418288</accession>
+                      <title>PREDICTED: Pipistrellus kuhlii ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X2, mRNA</title>
+                      <taxid>59472</taxid>
+                      <sciname>Pipistrellus kuhlii</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>4961</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>379</hit-from>
+                      <hit-to>359</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>60</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1912632975|ref|XM_036418282.1|</id>
+                      <accession>XM_036418282</accession>
+                      <title>PREDICTED: Pipistrellus kuhlii ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X1, mRNA</title>
+                      <taxid>59472</taxid>
+                      <sciname>Pipistrellus kuhlii</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>5059</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>477</hit-from>
+                      <hit-to>457</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>61</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1911110711|ref|XM_036331597.1|</id>
+                      <accession>XM_036331597</accession>
+                      <title>PREDICTED: Myotis myotis ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X7, mRNA</title>
+                      <taxid>51298</taxid>
+                      <sciname>Myotis myotis</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2181</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>119</hit-from>
+                      <hit-to>99</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>62</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1911110709|ref|XM_036331588.1|</id>
+                      <accession>XM_036331588</accession>
+                      <title>PREDICTED: Myotis myotis ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X6, mRNA</title>
+                      <taxid>51298</taxid>
+                      <sciname>Myotis myotis</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2342</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>280</hit-from>
+                      <hit-to>260</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>63</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1911110707|ref|XM_036331578.1|</id>
+                      <accession>XM_036331578</accession>
+                      <title>PREDICTED: Myotis myotis ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X5, mRNA</title>
+                      <taxid>51298</taxid>
+                      <sciname>Myotis myotis</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2128</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>221</hit-from>
+                      <hit-to>201</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>64</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1911110705|ref|XM_036331571.1|</id>
+                      <accession>XM_036331571</accession>
+                      <title>PREDICTED: Myotis myotis ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X4, mRNA</title>
+                      <taxid>51298</taxid>
+                      <sciname>Myotis myotis</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2688</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>626</hit-from>
+                      <hit-to>606</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>65</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1911110703|ref|XM_036331560.1|</id>
+                      <accession>XM_036331560</accession>
+                      <title>PREDICTED: Myotis myotis ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X3, mRNA</title>
+                      <taxid>51298</taxid>
+                      <sciname>Myotis myotis</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2306</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>244</hit-from>
+                      <hit-to>224</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>66</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1911110701|ref|XM_036331552.1|</id>
+                      <accession>XM_036331552</accession>
+                      <title>PREDICTED: Myotis myotis ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X2, mRNA</title>
+                      <taxid>51298</taxid>
+                      <sciname>Myotis myotis</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2309</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>247</hit-from>
+                      <hit-to>227</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>67</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1911110699|ref|XM_036331544.1|</id>
+                      <accession>XM_036331544</accession>
+                      <title>PREDICTED: Myotis myotis ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X1, mRNA</title>
+                      <taxid>51298</taxid>
+                      <sciname>Myotis myotis</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2215</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>308</hit-from>
+                      <hit-to>288</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>68</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1910835151|ref|XM_036258045.1|</id>
+                      <accession>XM_036258045</accession>
+                      <title>PREDICTED: Molossus molossus ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X6, mRNA</title>
+                      <taxid>27622</taxid>
+                      <sciname>Molossus molossus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>755</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>233</hit-from>
+                      <hit-to>213</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>69</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1910835149|ref|XM_036258037.1|</id>
+                      <accession>XM_036258037</accession>
+                      <title>PREDICTED: Molossus molossus ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X5, mRNA</title>
+                      <taxid>27622</taxid>
+                      <sciname>Molossus molossus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>821</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>299</hit-from>
+                      <hit-to>279</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>70</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1910835147|ref|XM_036258027.1|</id>
+                      <accession>XM_036258027</accession>
+                      <title>PREDICTED: Molossus molossus ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X4, mRNA</title>
+                      <taxid>27622</taxid>
+                      <sciname>Molossus molossus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>891</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>369</hit-from>
+                      <hit-to>349</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>71</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1910835145|ref|XM_036258018.1|</id>
+                      <accession>XM_036258018</accession>
+                      <title>PREDICTED: Molossus molossus ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X3, mRNA</title>
+                      <taxid>27622</taxid>
+                      <sciname>Molossus molossus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>926</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>404</hit-from>
+                      <hit-to>384</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>72</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1910835143|ref|XM_036258009.1|</id>
+                      <accession>XM_036258009</accession>
+                      <title>PREDICTED: Molossus molossus ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X2, mRNA</title>
+                      <taxid>27622</taxid>
+                      <sciname>Molossus molossus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>979</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>457</hit-from>
+                      <hit-to>437</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>73</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1910835141|ref|XM_036258001.1|</id>
+                      <accession>XM_036258001</accession>
+                      <title>PREDICTED: Molossus molossus ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X1, mRNA</title>
+                      <taxid>27622</taxid>
+                      <sciname>Molossus molossus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1017</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>456</hit-from>
+                      <hit-to>436</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>74</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1910340482|ref|XM_036228034.1|</id>
+                      <accession>XM_036228034</accession>
+                      <title>PREDICTED: Rousettus aegyptiacus ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X7, mRNA</title>
+                      <taxid>9407</taxid>
+                      <sciname>Rousettus aegyptiacus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>4030</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>509</hit-from>
+                      <hit-to>489</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>75</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1910340480|ref|XM_036228033.1|</id>
+                      <accession>XM_036228033</accession>
+                      <title>PREDICTED: Rousettus aegyptiacus ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X6, mRNA</title>
+                      <taxid>9407</taxid>
+                      <sciname>Rousettus aegyptiacus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>3823</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>302</hit-from>
+                      <hit-to>282</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>76</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1910340478|ref|XM_036228032.1|</id>
+                      <accession>XM_036228032</accession>
+                      <title>PREDICTED: Rousettus aegyptiacus ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X5, mRNA</title>
+                      <taxid>9407</taxid>
+                      <sciname>Rousettus aegyptiacus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>3724</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>203</hit-from>
+                      <hit-to>183</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>77</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1910340476|ref|XM_036228031.1|</id>
+                      <accession>XM_036228031</accession>
+                      <title>PREDICTED: Rousettus aegyptiacus ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X4, mRNA</title>
+                      <taxid>9407</taxid>
+                      <sciname>Rousettus aegyptiacus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>3871</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>350</hit-from>
+                      <hit-to>330</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>78</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1910340475|ref|XM_016119954.2|</id>
+                      <accession>XM_016119954</accession>
+                      <title>PREDICTED: Rousettus aegyptiacus ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X3, mRNA</title>
+                      <taxid>9407</taxid>
+                      <sciname>Rousettus aegyptiacus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>3806</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>285</hit-from>
+                      <hit-to>265</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>79</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1910340474|ref|XM_016119953.2|</id>
+                      <accession>XM_016119953</accession>
+                      <title>PREDICTED: Rousettus aegyptiacus ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X2, mRNA</title>
+                      <taxid>9407</taxid>
+                      <sciname>Rousettus aegyptiacus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>3978</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>457</hit-from>
+                      <hit-to>437</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>80</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1910340472|ref|XM_036228030.1|</id>
+                      <accession>XM_036228030</accession>
+                      <title>PREDICTED: Rousettus aegyptiacus ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X1, mRNA</title>
+                      <taxid>9407</taxid>
+                      <sciname>Rousettus aegyptiacus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>3991</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>470</hit-from>
+                      <hit-to>450</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>81</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1908024664|ref|XM_036200412.1|</id>
+                      <accession>XM_036200412</accession>
+                      <title>PREDICTED: Onychomys torridus ubiquitin conjugating enzyme E2 K (Ube2k), mRNA</title>
+                      <taxid>38674</taxid>
+                      <sciname>Onychomys torridus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1702</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>523</hit-from>
+                      <hit-to>503</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>82</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1899965198|ref|XM_036112050.1|</id>
+                      <accession>XM_036112050</accession>
+                      <title>PREDICTED: Halichoerus grypus ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X5, mRNA</title>
+                      <taxid>9711</taxid>
+                      <sciname>Halichoerus grypus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>4583</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>322</hit-from>
+                      <hit-to>302</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>83</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1899965196|ref|XM_036112045.1|</id>
+                      <accession>XM_036112045</accession>
+                      <title>PREDICTED: Halichoerus grypus ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X4, mRNA</title>
+                      <taxid>9711</taxid>
+                      <sciname>Halichoerus grypus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>4715</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>454</hit-from>
+                      <hit-to>434</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>84</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1899965194|ref|XM_036112039.1|</id>
+                      <accession>XM_036112039</accession>
+                      <title>PREDICTED: Halichoerus grypus ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X3, mRNA</title>
+                      <taxid>9711</taxid>
+                      <sciname>Halichoerus grypus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>4541</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>280</hit-from>
+                      <hit-to>260</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>85</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1899965192|ref|XM_036112035.1|</id>
+                      <accession>XM_036112035</accession>
+                      <title>PREDICTED: Halichoerus grypus ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X2, mRNA</title>
+                      <taxid>9711</taxid>
+                      <sciname>Halichoerus grypus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>4574</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>313</hit-from>
+                      <hit-to>293</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>86</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1899965190|ref|XM_036112026.1|</id>
+                      <accession>XM_036112026</accession>
+                      <title>PREDICTED: Halichoerus grypus ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X1, mRNA</title>
+                      <taxid>9711</taxid>
+                      <sciname>Halichoerus grypus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>4657</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>396</hit-from>
+                      <hit-to>376</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>87</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1899927913|ref|XM_030314001.3|</id>
+                      <accession>XM_030314001</accession>
+                      <title>PREDICTED: Lynx canadensis ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X1, mRNA</title>
+                      <taxid>61383</taxid>
+                      <sciname>Lynx canadensis</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2348</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>435</hit-from>
+                      <hit-to>415</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>88</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1899649052|ref|XM_028507672.2|</id>
+                      <accession>XM_028507672</accession>
+                      <title>PREDICTED: Phyllostomus discolor ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X2, mRNA</title>
+                      <taxid>89673</taxid>
+                      <sciname>Phyllostomus discolor</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>4959</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>340</hit-from>
+                      <hit-to>320</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>89</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1899649051|ref|XM_028507668.2|</id>
+                      <accession>XM_028507668</accession>
+                      <title>PREDICTED: Phyllostomus discolor ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X1, mRNA</title>
+                      <taxid>89673</taxid>
+                      <sciname>Phyllostomus discolor</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>5083</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>464</hit-from>
+                      <hit-to>444</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>90</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1894914052|emb|LR877197.1|</id>
+                      <accession>LR877197</accession>
+                      <title>Onychomys torridus genome assembly, chromosome: 10</title>
+                      <taxid>38674</taxid>
+                      <sciname>Onychomys torridus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>98623089</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>44490532</hit-from>
+                      <hit-to>44490552</hit-to>
+                      <hit-strand>Plus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>91</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1886184219|ref|XM_035714481.1|</id>
+                      <accession>XM_035714481</accession>
+                      <title>PREDICTED: Canis lupus dingo ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X5, mRNA</title>
+                      <taxid>286419</taxid>
+                      <sciname>Canis lupus dingo</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>4838</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>141</hit-from>
+                      <hit-to>121</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>92</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1886184218|ref|XM_025437023.2|</id>
+                      <accession>XM_025437023</accession>
+                      <title>PREDICTED: Canis lupus dingo ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X4, mRNA</title>
+                      <taxid>286419</taxid>
+                      <sciname>Canis lupus dingo</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>5027</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>330</hit-from>
+                      <hit-to>310</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>93</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1886184216|ref|XM_035714480.1|</id>
+                      <accession>XM_035714480</accession>
+                      <title>PREDICTED: Canis lupus dingo ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X3, mRNA</title>
+                      <taxid>286419</taxid>
+                      <sciname>Canis lupus dingo</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>4901</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>204</hit-from>
+                      <hit-to>184</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>94</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1886184214|ref|XM_035714479.1|</id>
+                      <accession>XM_035714479</accession>
+                      <title>PREDICTED: Canis lupus dingo ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X2, mRNA</title>
+                      <taxid>286419</taxid>
+                      <sciname>Canis lupus dingo</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>4904</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>207</hit-from>
+                      <hit-to>187</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>95</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1886184213|ref|XM_025437022.2|</id>
+                      <accession>XM_025437022</accession>
+                      <title>PREDICTED: Canis lupus dingo ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X1, mRNA</title>
+                      <taxid>286419</taxid>
+                      <sciname>Canis lupus dingo</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>5176</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>479</hit-from>
+                      <hit-to>459</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>96</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1886058562|ref|XM_027599485.2|</id>
+                      <accession>XM_027599485</accession>
+                      <title>PREDICTED: Zalophus californianus ubiquitin conjugating enzyme E2 K (UBE2K), transcript variant X2, mRNA</title>
+                      <taxid>9704</taxid>
+                      <sciname>Zalophus californianus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>5209</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>479</hit-from>
+                      <hit-to>459</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>97</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1868097784|ref|XM_027390759.2|</id>
+                      <accession>XM_027390759</accession>
+                      <title>PREDICTED: Cricetulus griseus ubiquitin conjugating enzyme E2 K (Ube2k), transcript variant X3, mRNA</title>
+                      <taxid>10029</taxid>
+                      <sciname>Cricetulus griseus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2039</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>350</hit-from>
+                      <hit-to>330</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>98</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1868097783|ref|XM_027390758.2|</id>
+                      <accession>XM_027390758</accession>
+                      <title>PREDICTED: Cricetulus griseus ubiquitin conjugating enzyme E2 K (Ube2k), transcript variant X2, mRNA</title>
+                      <taxid>10029</taxid>
+                      <sciname>Cricetulus griseus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1987</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>298</hit-from>
+                      <hit-to>278</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>99</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1868097782|ref|XM_027390757.2|</id>
+                      <accession>XM_027390757</accession>
+                      <title>PREDICTED: Cricetulus griseus ubiquitin conjugating enzyme E2 K (Ube2k), transcript variant X1, mRNA</title>
+                      <taxid>10029</taxid>
+                      <sciname>Cricetulus griseus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>2138</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>449</hit-from>
+                      <hit-to>429</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+                <Hit>
+                  <num>100</num>
+                  <description>
+                    <HitDescr>
+                      <id>gi|1868081112|ref|XM_003512233.3|</id>
+                      <accession>XM_003512233</accession>
+                      <title>PREDICTED: Cricetulus griseus ubiquitin conjugating enzyme E2 K (Ube2k), transcript variant X1, mRNA</title>
+                      <taxid>10029</taxid>
+                      <sciname>Cricetulus griseus</sciname>
+                    </HitDescr>
+                  </description>
+                  <len>1785</len>
+                  <hsps>
+                    <Hsp>
+                      <num>1</num>
+                      <bit-score>39.157</bit-score>
+                      <score>42</score>
+                      <evalue>2.14632</evalue>
+                      <identity>21</identity>
+                      <query-from>1</query-from>
+                      <query-to>21</query-to>
+                      <query-strand>Plus</query-strand>
+                      <hit-from>593</hit-from>
+                      <hit-to>573</hit-to>
+                      <hit-strand>Minus</hit-strand>
+                      <align-len>21</align-len>
+                      <gaps>0</gaps>
+                      <qseq>TAGGATGCCATATTTTAGTGA</qseq>
+                      <hseq>TAGGATGCCATATTTTAGTGA</hseq>
+                      <midline>|||||||||||||||||||||</midline>
+                    </Hsp>
+                  </hsps>
+                </Hit>
+              </hits>
+              <stat>
+                <Statistics>
+                  <db-num>70340467</db-num>
+                  <db-len>1729562960</db-len>
+                  <hsp-len>18</hsp-len>
+                  <eff-space>1315650296238</eff-space>
+                  <kappa>0.41</kappa>
+                  <lambda>0.625</lambda>
+                  <entropy>0.78</entropy>
+                </Statistics>
+              </stat>
+            </Search>
+          </search>
+        </Results>
+      </results>
+    </Report>
+  </report>
+</BlastOutput2>
+</BlastXML2>
 

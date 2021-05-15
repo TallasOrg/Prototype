@@ -187,4 +187,4 @@ if __name__ == '__main__':
     if args.retry:
         retry()
     else:
-        blast('GUUCCAUUACCCAAUCUGUGC')
+        blast('AGAAUACACCGCCUUGAUAUG')

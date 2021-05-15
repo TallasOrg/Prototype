@@ -36,10 +36,10 @@ class HueskenDataset(Dataset):
         xy = np.genfromtxt(datafile, delimiter=',', dtype=None, names=True, encoding='utf-8')
         y = np.zeros((xy.size, 1), dtype=float)
         y[:,0] = np.rint(xy['norm_inhibitory_activity'])
-        guide_strand = xy['guide_strand']
+        guide_strands = xy['guide_strand']
         free_energy = xy['free_energy']
-        x = np.zeros((len(free_energy), len(guide_strand[0]) + 1))
-        for i, guide_strand in enumerate(guide_strand):
+        x = np.zeros((len(free_energy), len(guide_strands[0]) + 1))
+        for i, guide_strand in enumerate(guide_strands):
             feature = self._to_feature(guide_strand, free_energy[i])
             x[i, :] = feature
         return x, y
