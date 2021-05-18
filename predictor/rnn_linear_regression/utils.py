@@ -16,7 +16,6 @@ class HueskenDataset(Dataset):
     
     def __getitem__(self, index):
         sample = self._to_feature(self.guide_strands[index], self.free_energy[index]), self.y[index]
-        # sample = self.x[index], self.y[index]
         if self.transform:
             sample = self.transform(sample)
         inputs, labels = sample
