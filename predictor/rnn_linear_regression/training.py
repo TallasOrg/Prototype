@@ -26,7 +26,7 @@ for hidden_dim in [10, 20, 30]:
         examples = iter(loader)
         example_features, example_labels = examples.next()
 
-        model = rnnLinearRegression(input_size, hidden_dim)
+        model = rnnLinearRegression(input_size, hidden_dim, n_layers)
         criterion = nn.MSELoss()
         if optimizer_type == 'adam':
             optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
