@@ -1,17 +1,18 @@
 import torch
 import torch.nn as nn
 
-class rnnLinearRegression(nn.Module):
+class lstmLinearRegression(nn.Module):
     def __init__(self, input_size, hidden_dim, n_layers=1, output_size=1):
-        super(rnnLinearRegression, self).__init__()
+        super(lstmLinearRegression, self).__init__()
         self.hidden_dim = hidden_dim
         self.n_layers = n_layers
-        self.rnn = nn.RNN(input_size, hidden_dim, n_layers, batch_first=True)
+        self.lstm = nn.LSTM(input_size, hidden_dim, n_layers, batch_first=True)
         self.fc = nn.Linear(hidden_dim, output_size)
     
     def forward(self, x):
         h0 = self.init_hidden(x.size(0))
-        out, _ = self.rnn(x, h0)
+        c0 = self.init_hidden(x.size(0))
+        out, _ = self.lstm(x, (h0, c0))
         out = out[:, -1, :]
         out = self.fc(out)
         return out

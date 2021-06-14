@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from torch.utils.tensorboard import SummaryWriter
 from utils import HueskenDataset, ToTensor, smiles_alphabet, collate_fn
-from model import rnnLinearRegression
+from model import lstmLinearRegression
 from tqdm import tqdm
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -24,7 +24,7 @@ for hidden_dim in [10]:
                     num_epochs = 3
                     batch_size = 50
 
-                    model = rnnLinearRegression(input_size, hidden_dim, n_layers)
+                    model = lstmLinearRegression(input_size, hidden_dim, n_layers)
                     if criterion_type == 'mse':
                         criterion = nn.MSELoss()
                     else:
@@ -56,7 +56,7 @@ for hidden_dim in [10]:
                         with tqdm(training_loader, unit='batch') as tepoch:
                             for i, (features, labels) in enumerate(tepoch):
                                 tepoch.set_description(f'Training')
-                                features = features.to(device)
+                                features.to(device)
                                 labels = labels.to(device)
                                 outputs = model(features)
                                 loss = criterion(outputs, labels)
