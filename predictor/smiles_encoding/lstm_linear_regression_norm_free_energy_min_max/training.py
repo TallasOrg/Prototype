@@ -24,7 +24,8 @@ for hidden_dim in [10]:
                     num_epochs = 3
                     batch_size = 50
 
-                    model = lstmLinearRegression(input_size, hidden_dim, n_layers)
+                    model = lstmLinearRegression(input_size, hidden_dim, n_layers, device=device)
+                    model.to(device)
                     if criterion_type == 'mse':
                         criterion = nn.MSELoss()
                     else:
@@ -43,6 +44,7 @@ for hidden_dim in [10]:
                     validation_writer = SummaryWriter(f'logs/{DIR_NAME}/validation')
                     examples = iter(training_loader)
                     example_features, example_labels = examples.next()
+                    example_features, example_labels = example_features.to(device), example_labels.to(device)
                     training_writer.add_graph(model, example_features, 0)
                     validation_writer.add_graph(model, example_features, 0)
 
@@ -56,8 +58,7 @@ for hidden_dim in [10]:
                         with tqdm(training_loader, unit='batch') as tepoch:
                             for i, (features, labels) in enumerate(tepoch):
                                 tepoch.set_description(f'Training')
-                                features.to(device)
-                                labels = labels.to(device)
+                                features, labels = features.to(device), labels.to(device)
                                 outputs = model(features)
                                 loss = criterion(outputs, labels)
                                 loss.backward()
@@ -76,8 +77,7 @@ for hidden_dim in [10]:
                                 running_val_loss = 0.0
                                 for i, (features, labels) in enumerate(tepoch):
                                     tepoch.set_description(f'Validation')
-                                    features = features.to(device)
-                                    labels = labels.to(device)
+                                    features, labels = features.to(device), labels.to(device)
                                     outputs = model(features)
                                     loss = criterion(outputs, labels)
 
